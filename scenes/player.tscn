@@ -500,7 +500,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(13, 24)
+
 [node name="Player" type="CharacterBody2D" unique_id=1471923057]
+scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=377981558]
@@ -508,3 +512,7 @@ sprite_frames = SubResource("SpriteFrames_770dr")
 animation = &"walk_up"
 frame = 4
 frame_progress = 0.9330865
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=270371656]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_qhqgy")
