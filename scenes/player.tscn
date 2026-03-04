@@ -503,6 +503,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(13, 24)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(13, 9)
+
 [node name="Player" type="CharacterBody2D" unique_id=1471923057]
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
@@ -519,3 +522,14 @@ shape = SubResource("RectangleShape2D_qhqgy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=857107356]
 position_smoothing_enabled = true
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=226958741]
+collision_layer = 2
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1728416816]
+position = Vector2(0.5, -9.5)
+shape = SubResource("RectangleShape2D_dqkch")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
