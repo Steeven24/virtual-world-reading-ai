@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bks82f8qwe6v8"
-path="res://.godot/imported/Unarmed_Idle_with_shadow.png-26383074a722c664ba019e294b4c1bff.ctex"
+path="res://.godot/imported/Unarmed_Idle_with_shadow.png-7131b0949e44bfac5a6e6173cedabdae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Unarmed_Idle_with_shadow.png"
-dest_files=["res://.godot/imported/Unarmed_Idle_with_shadow.png-26383074a722c664ba019e294b4c1bff.ctex"]
+source_file="res://assets/characters/Player/Unarmed_Idle_with_shadow.png"
+dest_files=["res://.godot/imported/Unarmed_Idle_with_shadow.png-7131b0949e44bfac5a6e6173cedabdae.ctex"]
 
 [params]
 
