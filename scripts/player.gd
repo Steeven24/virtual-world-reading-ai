@@ -16,6 +16,7 @@ func _physics_process(delta):
 		direction.x -= 1
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
+
 	
 	direction = direction.normalized()
 	velocity = direction * speed
@@ -40,3 +41,8 @@ func update_animation(direction):
 			last_direction = "up"
 	
 	anim.play("walk_" + last_direction)
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.position = body.position - Vector2(10, 0) # lo empuja hacia atrás
