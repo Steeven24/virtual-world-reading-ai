@@ -44,29 +44,3 @@ func update_animation(direction):
 			last_direction = "up"
 	
 	anim.play("walk_" + last_direction)
-
-	update_interaction_position()
-
-func update_interaction_position():
-	match last_direction:
-		"up":
-			interaction_area.position = Vector2(0, -20)
-		"down":
-			interaction_area.position = Vector2(0, 20)
-		"left":
-			interaction_area.position = Vector2(-20, 0)
-		"right":
-			interaction_area.position = Vector2(20, 0)
-
-
-func _on_interaction_area_area_entered(area: Area2D) -> void:
-	if area.has_method("interact"):
-		current_interactable = area
-
-func _on_interaction_area_area_exited(area):
-	if area == current_interactable:
-		current_interactable = null
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		body.position = body.position - Vector2(10, 0) # lo empuja hacia atrás
