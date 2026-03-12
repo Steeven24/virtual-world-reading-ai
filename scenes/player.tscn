@@ -370,11 +370,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(24, 39)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(13, 9)
-
-[node name="Player" type="CharacterBody2D" unique_id=1471923057]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
 radius = 118.09216
 height = 298.542
@@ -428,7 +423,6 @@ shape = SubResource("RectangleShape2D_3v2ag")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1471923057]
 position = Vector2(1400, 1240)
-
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 

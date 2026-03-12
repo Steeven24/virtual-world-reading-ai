@@ -2,10 +2,8 @@ extends CharacterBody2D
 
 @export var speed: float = 200.0
 @onready var anim = $AnimatedSprite2D
-@onready var interaction_area = $InteractionArea
 
 var last_direction = "down"
-var current_interactable = null
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
@@ -18,8 +16,7 @@ func _physics_process(delta):
 		direction.x -= 1
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
-	if Input.is_action_just_pressed("interact") and current_interactable:
-		current_interactable.interact()
+
 	
 	direction = direction.normalized()
 	velocity = direction * speed
