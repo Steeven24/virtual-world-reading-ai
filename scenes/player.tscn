@@ -357,6 +357,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(24, 39)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(13, 9)
+
+[node name="Player" type="CharacterBody2D" unique_id=1471923057]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
 radius = 118.09216
 height = 298.542
@@ -378,6 +383,7 @@ centered = false
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1471923057]
 position = Vector2(1400, 1240)
+
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
@@ -391,6 +397,18 @@ shape = SubResource("RectangleShape2D_qhqgy")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=857107356]
 position_smoothing_enabled = true
+
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=226958741]
+collision_layer = 2
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1728416816]
+position = Vector2(0.5, -9.5)
+shape = SubResource("RectangleShape2D_dqkch")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 
 [node name="Mesa" type="StaticBody2D" parent="." unique_id=1696918594]
 
@@ -433,3 +451,4 @@ shape = SubResource("RectangleShape2D_qlg0r")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1718416863]
 position = Vector2(2797, 785)
 shape = SubResource("RectangleShape2D_tuyoq")
+
