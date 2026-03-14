@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pet6wb4ol05d"
-path="res://.godot/imported/pressE.png-e9ce8dd513f974bf7f2ef3526d15b478.ctex"
+uid="uid://bks82f8qwe6v8"
+path="res://.godot/imported/Unarmed_Idle_with_shadow.png-19225f4146ca0ba169a3c414bf859948.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/pressE.png"
-dest_files=["res://.godot/imported/pressE.png-e9ce8dd513f974bf7f2ef3526d15b478.ctex"]
+source_file="res://assets/Characters/Player/Old sprites/Unarmed_Idle_with_shadow.png"
+dest_files=["res://.godot/imported/Unarmed_Idle_with_shadow.png-19225f4146ca0ba169a3c414bf859948.ctex"]
 
 [params]
 

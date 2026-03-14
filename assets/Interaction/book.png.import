@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://urwfq4tbn8xj"
-path="res://.godot/imported/expositivo.png-06bf6d53b95e74cb8dd342ca45139beb.ctex"
+uid="uid://b0xq80oyo0m3d"
+path="res://.godot/imported/book.png-f1702f9e08ccc1ddbdc05d306c6dc846.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/expositivo.png"
-dest_files=["res://.godot/imported/expositivo.png-06bf6d53b95e74cb8dd342ca45139beb.ctex"]
+source_file="res://assets/Interaction/book.png"
+dest_files=["res://.godot/imported/book.png-f1702f9e08ccc1ddbdc05d306c6dc846.ctex"]
 
 [params]
 

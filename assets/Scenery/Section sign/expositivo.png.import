@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7joimxur5meb"
-path="res://.godot/imported/instructivo.png-dfc7b4cc20e7236270c055474f4cf9d8.ctex"
+uid="uid://urwfq4tbn8xj"
+path="res://.godot/imported/expositivo.png-d26422eb740689c940385919c953b812.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/instructivo.png"
-dest_files=["res://.godot/imported/instructivo.png-dfc7b4cc20e7236270c055474f4cf9d8.ctex"]
+source_file="res://assets/Scenery/Section sign/expositivo.png"
+dest_files=["res://.godot/imported/expositivo.png-d26422eb740689c940385919c953b812.ctex"]
 
 [params]
 

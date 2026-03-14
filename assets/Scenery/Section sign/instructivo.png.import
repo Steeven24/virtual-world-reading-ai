@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0xq80oyo0m3d"
-path="res://.godot/imported/libro.png-1b67d1591b50a2d64271f955f012b131.ctex"
+uid="uid://7joimxur5meb"
+path="res://.godot/imported/instructivo.png-7bbb3561b7d14c91909c04b844a94090.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/libro.png"
-dest_files=["res://.godot/imported/libro.png-1b67d1591b50a2d64271f955f012b131.ctex"]
+source_file="res://assets/Scenery/Section sign/instructivo.png"
+dest_files=["res://.godot/imported/instructivo.png-7bbb3561b7d14c91909c04b844a94090.ctex"]
 
 [params]
 

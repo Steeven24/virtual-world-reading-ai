@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhrjrifb4ob25"
-path="res://.godot/imported/narrativo.png-199bb91e5aff3f31bcd4a050296d77c5.ctex"
+uid="uid://bnyxij0snu3u6"
+path="res://.godot/imported/argumentativo.png-b1f6a16516e2b1ac7eae46b1c9f7ce67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/narrativo.png"
-dest_files=["res://.godot/imported/narrativo.png-199bb91e5aff3f31bcd4a050296d77c5.ctex"]
+source_file="res://assets/Scenery/Section sign/argumentativo.png"
+dest_files=["res://.godot/imported/argumentativo.png-b1f6a16516e2b1ac7eae46b1c9f7ce67.ctex"]
 
 [params]
 

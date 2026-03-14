@@ -1,22 +1,8 @@
 [gd_scene format=3 uid="uid://2jcqrt4rs32n"]
 
 [ext_resource type="Script" uid="uid://bpq11kv1tsmhb" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://behgfuc585dfy" path="res://assets/characters/Player/New sprites/idle.png" id="3_dqkch"]
-[ext_resource type="Texture2D" uid="uid://dd6b6c8angvbn" path="res://assets/characters/Player/New sprites/walk.png" id="4_dqkch"]
-[ext_resource type="Texture2D" uid="uid://cnyomogr1s14y" path="res://assets/characters/Background/Gemini_Generated_Image_b5b06jb5b06jb5b0.png" id="5_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://pwpdo336k11f" path="res://assets/Scenery/descriptivo.png" id="5_ur7pv"]
-[ext_resource type="Texture2D" uid="uid://dhrjrifb4ob25" path="res://assets/Scenery/narrativo.png" id="6_y4r1p"]
-[ext_resource type="Texture2D" uid="uid://7joimxur5meb" path="res://assets/Scenery/instructivo.png" id="7_d2wvv"]
-[ext_resource type="Texture2D" uid="uid://urwfq4tbn8xj" path="res://assets/Scenery/expositivo.png" id="8_3v2ag"]
-[ext_resource type="Texture2D" uid="uid://bnyxij0snu3u6" path="res://assets/Scenery/argumentativo.png" id="9_jej6c"]
-[ext_resource type="Texture2D" uid="uid://b0xq80oyo0m3d" path="res://assets/Scenery/libro.png" id="10_y4r1p"]
-[ext_resource type="Script" uid="uid://sa8a8ey78ykc" path="res://scenes/dialogo.gd" id="11_3v2ag"]
-[ext_resource type="Texture2D" uid="uid://pet6wb4ol05d" path="res://assets/Scenery/pressE.png" id="12_3v2ag"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_y4r1p"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v2ag"]
-size = Vector2(44.87207, 23.380325)
+[ext_resource type="Texture2D" uid="uid://behgfuc585dfy" path="res://assets/Characters/Player/New sprites/idle.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dd6b6c8angvbn" path="res://assets/Characters/Player/New sprites/walk.png" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("3_dqkch")
@@ -370,56 +356,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(24, 39)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
-radius = 118.09216
-height = 298.542
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(63.6418, 68.8154)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
-size = Vector2(2833, 386)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
-size = Vector2(45, 1556)
-
 [node name="Main" type="Node2D" unique_id=2101976399]
-
-[node name="Background" type="Sprite2D" parent="." unique_id=1785673561]
-texture = ExtResource("5_qlg0r")
-centered = false
-
-[node name="Libro" type="Sprite2D" parent="." unique_id=1142258219]
-position = Vector2(445, 495)
-scale = Vector2(0.17578125, 0.17578125)
-texture = ExtResource("10_y4r1p")
-
-[node name="Area2D" type="Area2D" parent="Libro" unique_id=2104742112]
-script = ExtResource("11_3v2ag")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Libro/Area2D" unique_id=1185670644]
-scale = Vector2(45.373333, 45.373333)
-shape = SubResource("CircleShape2D_y4r1p")
-
-[node name="mensaje" type="Label" parent="Libro/Area2D" unique_id=2058193170]
-offset_right = 81.0
-offset_bottom = 23.0
-text = "Presione E"
-
-[node name="confirmar" type="ConfirmationDialog" parent="Libro/Area2D" unique_id=1726013243]
-title = "Confirmar"
-position = Vector2i(400, 450)
-ok_button_text = "Si"
-dialog_text = "¿Estás seguro de que deseas 
-empezar el desafío?"
-cancel_button_text = "No"
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Libro/Area2D" unique_id=325558450]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Libro/Area2D/StaticBody2D" unique_id=398112097]
-position = Vector2(0.119628906, -93.86597)
-scale = Vector2(11.9226675, 11.9226675)
-shape = SubResource("RectangleShape2D_3v2ag")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1471923057]
 position = Vector2(1400, 1240)
@@ -436,79 +373,3 @@ shape = SubResource("RectangleShape2D_qhqgy")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=857107356]
 position_smoothing_enabled = true
-
-[node name="burbuja" type="Sprite2D" parent="." unique_id=621384909]
-visible = false
-position = Vector2(484, 425.00006)
-scale = Vector2(0.48000243, 0.48000243)
-texture = ExtResource("12_3v2ag")
-
-[node name="Mesa" type="StaticBody2D" parent="." unique_id=1696918594]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa" unique_id=1370527619]
-position = Vector2(1409, 725)
-rotation = 1.6283922
-scale = Vector2(0.9, 0.9)
-shape = SubResource("CapsuleShape2D_dqkch")
-
-[node name="Silla1" type="StaticBody2D" parent="." unique_id=380109883]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Silla1" unique_id=178380313]
-position = Vector2(1553.6388, 825.0331)
-scale = Vector2(0.9, 0.9)
-shape = SubResource("RectangleShape2D_dqkch")
-
-[node name="Silla2" type="StaticBody2D" parent="." unique_id=1453277049]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Silla2" unique_id=1447917412]
-position = Vector2(1408, 594)
-scale = Vector2(0.9, 0.9)
-shape = SubResource("RectangleShape2D_dqkch")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1239406351]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1140691654]
-position = Vector2(1411, -162)
-shape = SubResource("RectangleShape2D_qlg0r")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1850466510]
-position = Vector2(12.5, 768)
-shape = SubResource("RectangleShape2D_tuyoq")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1107537313]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=239872458]
-position = Vector2(1409, 1677)
-shape = SubResource("RectangleShape2D_qlg0r")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1718416863]
-position = Vector2(2797, 785)
-shape = SubResource("RectangleShape2D_tuyoq")
-
-[node name="Descriptivo" type="Sprite2D" parent="." unique_id=641365443]
-position = Vector2(446.99997, 1126)
-scale = Vector2(0.5943627, 0.5943627)
-texture = ExtResource("5_ur7pv")
-
-[node name="Narrativo" type="Sprite2D" parent="." unique_id=155391605]
-position = Vector2(448.43744, 365.37503)
-scale = Vector2(0.5226716, 0.5226716)
-texture = ExtResource("6_y4r1p")
-
-[node name="Instructivo" type="Sprite2D" parent="." unique_id=391886912]
-position = Vector2(2368.0002, 358)
-scale = Vector2(0.54044116, 0.54044116)
-texture = ExtResource("7_d2wvv")
-
-[node name="Expositivo" type="Sprite2D" parent="." unique_id=136021660]
-position = Vector2(1409, 371)
-scale = Vector2(0.48529413, 0.48529413)
-texture = ExtResource("8_3v2ag")
-
-[node name="Argumentativo" type="Sprite2D" parent="." unique_id=584554407]
-position = Vector2(2372, 1133)
-scale = Vector2(0.49509808, 0.49509808)
-texture = ExtResource("9_jej6c")
-
-[connection signal="body_entered" from="Libro/Area2D" to="Player" method="_on_area_2d_body_entered"]
-[connection signal="hidden" from="Libro/Area2D/CollisionShape2D" to="Player" method="_on_collision_shape_2d_hidden"]

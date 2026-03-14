@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pwpdo336k11f"
-path="res://.godot/imported/descriptivo.png-ce74e98f88c0afb61458200a667ab582.ctex"
+uid="uid://b5ahwdjjtv0u5"
+path="res://.godot/imported/Unarmed_Hurt_with_shadow.png-5d3fcef08d4e719751b2d9628e2e2068.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/descriptivo.png"
-dest_files=["res://.godot/imported/descriptivo.png-ce74e98f88c0afb61458200a667ab582.ctex"]
+source_file="res://assets/Characters/Player/Old sprites/Unarmed_Hurt_with_shadow.png"
+dest_files=["res://.godot/imported/Unarmed_Hurt_with_shadow.png-5d3fcef08d4e719751b2d9628e2e2068.ctex"]
 
 [params]
 

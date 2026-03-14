@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dnu525gld5vcf"]
+
+[ext_resource type="Texture2D" uid="uid://cnyomogr1s14y" path="res://assets/Scenery/Background/lobby.png" id="1_km1v3"]
+[ext_resource type="Texture2D" uid="uid://pwpdo336k11f" path="res://assets/Scenery/Section sign/descriptivo.png" id="2_yph88"]
+[ext_resource type="Texture2D" uid="uid://dhrjrifb4ob25" path="res://assets/Scenery/Section sign/narrativo.png" id="3_rm6ok"]
+[ext_resource type="Texture2D" uid="uid://7joimxur5meb" path="res://assets/Scenery/Section sign/instructivo.png" id="4_ixbeh"]
+[ext_resource type="Texture2D" uid="uid://urwfq4tbn8xj" path="res://assets/Scenery/Section sign/expositivo.png" id="5_cb0b8"]
+[ext_resource type="Texture2D" uid="uid://bnyxij0snu3u6" path="res://assets/Scenery/Section sign/argumentativo.png" id="6_1u6js"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dpyb5"]
+radius = 118.09216
+height = 298.542
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngs1x"]
+size = Vector2(63.6418, 68.8154)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0adax"]
+size = Vector2(2833, 386)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npuw6"]
+size = Vector2(45, 1556)
+
+[node name="Main" type="Node2D" unique_id=1579165362]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=54718365]
+texture = ExtResource("1_km1v3")
+centered = false
+
+[node name="Table" type="StaticBody2D" parent="." unique_id=1175508442]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=172303436]
+position = Vector2(1409, 725)
+rotation = 1.6283922
+scale = Vector2(0.9, 0.9)
+shape = SubResource("CapsuleShape2D_dpyb5")
+
+[node name="Chair1" type="StaticBody2D" parent="." unique_id=1524304823]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chair1" unique_id=403914690]
+position = Vector2(1553.6388, 825.0331)
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_ngs1x")
+
+[node name="Chair2" type="StaticBody2D" parent="." unique_id=442726378]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chair2" unique_id=1497029536]
+position = Vector2(1408, 594)
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_ngs1x")
+
+[node name="Stage border" type="StaticBody2D" parent="." unique_id=203899883]
+
+[node name="top border" type="CollisionShape2D" parent="Stage border" unique_id=2114646411]
+position = Vector2(1411, -162)
+shape = SubResource("RectangleShape2D_0adax")
+
+[node name="left border" type="CollisionShape2D" parent="Stage border" unique_id=1306404581]
+position = Vector2(12.5, 768)
+shape = SubResource("RectangleShape2D_npuw6")
+
+[node name="down border" type="CollisionShape2D" parent="Stage border" unique_id=1558774729]
+position = Vector2(1409, 1677)
+shape = SubResource("RectangleShape2D_0adax")
+
+[node name="right border" type="CollisionShape2D" parent="Stage border" unique_id=1155559219]
+position = Vector2(2797, 785)
+shape = SubResource("RectangleShape2D_npuw6")
+
+[node name="Descriptivo" type="Sprite2D" parent="." unique_id=590942569]
+position = Vector2(446.99997, 1126)
+scale = Vector2(0.5943627, 0.5943627)
+texture = ExtResource("2_yph88")
+
+[node name="Narrativo" type="Sprite2D" parent="." unique_id=1114324815]
+position = Vector2(448.43744, 365.37503)
+scale = Vector2(0.5226716, 0.5226716)
+texture = ExtResource("3_rm6ok")
+
+[node name="Instructivo" type="Sprite2D" parent="." unique_id=1156464230]
+position = Vector2(2368.0002, 358)
+scale = Vector2(0.54044116, 0.54044116)
+texture = ExtResource("4_ixbeh")
+
+[node name="Expositivo" type="Sprite2D" parent="." unique_id=1714801759]
+position = Vector2(1409, 371)
+scale = Vector2(0.48529413, 0.48529413)
+texture = ExtResource("5_cb0b8")
+
+[node name="Argumentativo" type="Sprite2D" parent="." unique_id=2114510312]
+position = Vector2(2372, 1133)
+scale = Vector2(0.49509808, 0.49509808)
+texture = ExtResource("6_1u6js")
