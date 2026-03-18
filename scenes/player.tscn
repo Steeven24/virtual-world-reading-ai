@@ -359,7 +359,7 @@ size = Vector2(24, 39)
 [node name="Main" type="Node2D" unique_id=2101976399]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1471923057]
-position = Vector2(1400, 1240)
+position = Vector2(96, 54)
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
