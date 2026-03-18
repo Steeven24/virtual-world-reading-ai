@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://boybacuusj2om"]
 
 [ext_resource type="Texture2D" uid="uid://b0xq80oyo0m3d" path="res://assets/Interaction/book.png" id="1_67ucf"]
-[ext_resource type="Script" uid="uid://sa8a8ey78ykc" path="res://scenes/dialogo.gd" id="2_0661r"]
+[ext_resource type="Script" uid="uid://sa8a8ey78ykc" path="res://scripts/pressE_teleport_dialogue.gd" id="2_0661r"]
 [ext_resource type="Texture2D" uid="uid://pet6wb4ol05d" path="res://assets/Interaction/pressE.png" id="3_0rspi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
@@ -18,6 +18,7 @@ texture = ExtResource("1_67ucf")
 
 [node name="Area2D" type="Area2D" parent="Book" unique_id=127112387]
 script = ExtResource("2_0661r")
+next_scene_path = "res://scenes/Section/Narrativos/level 1.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D" unique_id=577816882]
 scale = Vector2(45.373333, 45.373333)

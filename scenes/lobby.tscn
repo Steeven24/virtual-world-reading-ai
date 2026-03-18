@@ -8,6 +8,6 @@
 
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("2_nqcc7")]
 
-[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_q60fs")]
-
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_pc087")]
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_q60fs")]
