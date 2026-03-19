@@ -12,6 +12,7 @@ size = Vector2(45, 642)
 [node name="Level1" type="Node2D" unique_id=700575724]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1333429592]
+texture_filter = 1
 position = Vector2(768, 512)
 texture = ExtResource("1_5v64h")
 
