@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bu0dbhg1ki0ng"]
+
+[ext_resource type="Script" uid="uid://bu2c3oh1fe4u" path="res://scenes/Testing/dragDrop.gd" id="1_o5og2"]
+[ext_resource type="Texture2D" uid="uid://3dedhkstihpi" path="res://scenes/Testing/sprites testing/fuente-termal.png" id="2_cnd67"]
+[ext_resource type="Texture2D" uid="uid://odbrkl157gth" path="res://scenes/Testing/sprites testing/baston-de-caramelo.png" id="3_4lht7"]
+[ext_resource type="Texture2D" uid="uid://eiupit4m15eb" path="res://scenes/Testing/sprites testing/columpio.png" id="4_sencm"]
+[ext_resource type="Texture2D" uid="uid://dclk0rjvl4rea" path="res://scenes/Testing/sprites testing/volcan.png" id="5_23ibu"]
+[ext_resource type="Texture2D" uid="uid://dfiap3keigh4f" path="res://scenes/Testing/sprites testing/demostracion-en-la-tienda.png" id="6_0oe54"]
+[ext_resource type="Texture2D" uid="uid://dcve6l60t3k2q" path="res://scenes/Testing/sprites testing/alto.png" id="7_th7n6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fadts"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wxl3x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_giq77"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_743qq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kynkt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q2itw"]
+
+[node name="Challenge1" type="Node2D" unique_id=2035677237]
+
+[node name="Obj1" type="Area2D" parent="." unique_id=1896054570 node_paths=PackedStringArray("slot_correcto")]
+position = Vector2(117, 131)
+script = ExtResource("1_o5og2")
+slot_correcto = NodePath("../Slot1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obj1" unique_id=2089816000]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_cnd67")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obj1" unique_id=1833880854]
+scale = Vector2(7.0799994, 7.0799994)
+shape = SubResource("CircleShape2D_fadts")
+
+[node name="Obj2" type="Area2D" parent="." unique_id=435302340 node_paths=PackedStringArray("slot_correcto")]
+position = Vector2(469, 130)
+script = ExtResource("1_o5og2")
+slot_correcto = NodePath("../Slot2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obj2" unique_id=1655182539]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_4lht7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obj2" unique_id=321926918]
+scale = Vector2(6.4702177, 6.4702177)
+shape = SubResource("CircleShape2D_wxl3x")
+
+[node name="Obj3" type="Area2D" parent="." unique_id=979555650 node_paths=PackedStringArray("slot_correcto")]
+position = Vector2(881, 142)
+script = ExtResource("1_o5og2")
+slot_correcto = NodePath("../Slot3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obj3" unique_id=1690816265]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_sencm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obj3" unique_id=468209305]
+scale = Vector2(4.9200025, 4.9200025)
+shape = SubResource("CircleShape2D_giq77")
+
+[node name="Slot1" type="Area2D" parent="." unique_id=2035749141]
+position = Vector2(125, 487)
+
+[node name="Sprite2D" type="Sprite2D" parent="Slot1" unique_id=1456428982]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_23ibu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot1" unique_id=1802327294]
+scale = Vector2(4.9200025, 4.9200025)
+shape = SubResource("CircleShape2D_743qq")
+
+[node name="Slot2" type="Area2D" parent="." unique_id=1090253972]
+position = Vector2(464, 488)
+
+[node name="Sprite2D" type="Sprite2D" parent="Slot2" unique_id=342059245]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_0oe54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot2" unique_id=1932103708]
+scale = Vector2(4.9200025, 4.9200025)
+shape = SubResource("CircleShape2D_kynkt")
+
+[node name="Slot3" type="Area2D" parent="." unique_id=901411105]
+position = Vector2(890, 487)
+
+[node name="Sprite2D" type="Sprite2D" parent="Slot3" unique_id=1042353860]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_th7n6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot3" unique_id=1910217194]
+scale = Vector2(4.9200025, 4.9200025)
+shape = SubResource("CircleShape2D_q2itw")
