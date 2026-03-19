@@ -23,6 +23,7 @@ size = Vector2(45, 1556)
 [node name="Main" type="Node2D" unique_id=1579165362]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=54718365]
+texture_filter = 1
 texture = ExtResource("1_km1v3")
 centered = false
 

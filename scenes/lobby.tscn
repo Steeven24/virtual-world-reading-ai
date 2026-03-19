@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/player.tscn" id="1_q60fs"]
 [ext_resource type="PackedScene" uid="uid://dnu525gld5vcf" path="res://scenes/scenery.tscn" id="2_nqcc7"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/book_Interaction.tscn" id="3_pc087"]
+[ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/descriptivo_Interaction.tscn" id="4_nqcc7"]
 
 [node name="Lobby" type="Node2D" unique_id=770369048]
 
@@ -10,4 +11,8 @@
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_pc087")]
 
+[node name="Telescope" parent="." unique_id=1337560202 instance=ExtResource("4_nqcc7")]
+position = Vector2(-2, 761)
+
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_q60fs")]
+position = Vector2(1306, 1187)
