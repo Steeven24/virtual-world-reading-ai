@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwlksekbvnn8n"
-path="res://.godot/imported/Subrayar.png-098fc928034b951d70ba54b543e5a26e.ctex"
+uid="uid://xersecqtrsx8"
+path="res://.godot/imported/Borrar.PNG-f35fb2b5d8d2f5dd15609103e8d87a37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Subrayar.png"
-dest_files=["res://.godot/imported/Subrayar.png-098fc928034b951d70ba54b543e5a26e.ctex"]
+source_file="res://assets/Buttons/Tools/Hover/Borrar.PNG"
+dest_files=["res://.godot/imported/Borrar.PNG-f35fb2b5d8d2f5dd15609103e8d87a37.ctex"]
 
 [params]
 

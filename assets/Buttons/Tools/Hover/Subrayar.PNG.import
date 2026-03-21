@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://smye0xn3j6ic"
-path="res://.godot/imported/Hecho.PNG-cbf8606ed2179cae88fd565beaa5022f.ctex"
+uid="uid://1j4r3p2jmpe6"
+path="res://.godot/imported/Subrayar.PNG-a715a14d34717b70e6b804d974434f67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Pressed/Hecho.PNG"
-dest_files=["res://.godot/imported/Hecho.PNG-cbf8606ed2179cae88fd565beaa5022f.ctex"]
+source_file="res://assets/Buttons/Tools/Hover/Subrayar.PNG"
+dest_files=["res://.godot/imported/Subrayar.PNG-a715a14d34717b70e6b804d974434f67.ctex"]
 
 [params]
 

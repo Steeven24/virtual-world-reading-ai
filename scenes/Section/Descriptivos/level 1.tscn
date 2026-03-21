@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_5v64h"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/player.tscn" id="1_mlacg"]
+[ext_resource type="PackedScene" uid="uid://b2qbktuxaj6qw" path="res://scenes/book_Interaction2.tscn" id="3_kf8kc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -15,6 +16,9 @@ size = Vector2(45, 642)
 texture_filter = 1
 position = Vector2(768, 512)
 texture = ExtResource("1_5v64h")
+
+[node name="Main" parent="." unique_id=278619741 instance=ExtResource("3_kf8kc")]
+position = Vector2(290, 124)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_mlacg")]
 position = Vector2(688, 862)

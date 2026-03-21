@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd0h7c4tf5fri"
-path="res://.godot/imported/Borrar.PNG-4bc327077ac4dcbabeda88394131c43c.ctex"
+uid="uid://d0n660l2d37jt"
+path="res://.godot/imported/Borrar.png-002387aa968cc6b1bb9674b7dec54637.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Pressed/Borrar.PNG"
-dest_files=["res://.godot/imported/Borrar.PNG-4bc327077ac4dcbabeda88394131c43c.ctex"]
+source_file="res://assets/Buttons/Tools/BaseButton/Borrar.png"
+dest_files=["res://.godot/imported/Borrar.png-002387aa968cc6b1bb9674b7dec54637.ctex"]
 
 [params]
 

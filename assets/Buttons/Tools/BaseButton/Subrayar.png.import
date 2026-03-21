@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcnjoabpaqltd"
-path="res://.godot/imported/Resaltar.png-8aa6771c0309d83fbe7876e7fdbdbb5d.ctex"
+uid="uid://bwlksekbvnn8n"
+path="res://.godot/imported/Subrayar.png-6e89fd3c9919294d9c205f56e33ca7a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Resaltar.png"
-dest_files=["res://.godot/imported/Resaltar.png-8aa6771c0309d83fbe7876e7fdbdbb5d.ctex"]
+source_file="res://assets/Buttons/Tools/BaseButton/Subrayar.png"
+dest_files=["res://.godot/imported/Subrayar.png-6e89fd3c9919294d9c205f56e33ca7a9.ctex"]
 
 [params]
 

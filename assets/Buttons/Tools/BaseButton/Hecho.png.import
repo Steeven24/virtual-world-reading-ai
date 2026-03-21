@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xersecqtrsx8"
-path="res://.godot/imported/Borrar.PNG-b916a2b6fcaa99c71fb83f52db38c624.ctex"
+uid="uid://dosj6l24jpd6n"
+path="res://.godot/imported/Hecho.png-9e4e4f8e7107303407f01d4a011785b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Hover/Borrar.PNG"
-dest_files=["res://.godot/imported/Borrar.PNG-b916a2b6fcaa99c71fb83f52db38c624.ctex"]
+source_file="res://assets/Buttons/Tools/BaseButton/Hecho.png"
+dest_files=["res://.godot/imported/Hecho.png-9e4e4f8e7107303407f01d4a011785b3.ctex"]
 
 [params]
 

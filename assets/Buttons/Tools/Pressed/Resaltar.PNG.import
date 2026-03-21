@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpfjknqh7icak"
-path="res://.godot/imported/Resaltar.PNG-39ccc85d6bf90ea705f7e79f524b2a8d.ctex"
+uid="uid://dvgeq7eubrcsp"
+path="res://.godot/imported/Resaltar.PNG-2190d50bf230b8acc2f632b218deaf29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Hover/Resaltar.PNG"
-dest_files=["res://.godot/imported/Resaltar.PNG-39ccc85d6bf90ea705f7e79f524b2a8d.ctex"]
+source_file="res://assets/Buttons/Tools/Pressed/Resaltar.PNG"
+dest_files=["res://.godot/imported/Resaltar.PNG-2190d50bf230b8acc2f632b218deaf29.ctex"]
 
 [params]
 
