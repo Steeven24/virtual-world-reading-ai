@@ -92,8 +92,7 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_x4e7g")
 theme_override_font_sizes/font_size = 21
-text = "
-Pag 3 de 6"
+text = "Pag 3 de 6"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
@@ -154,6 +153,7 @@ texture_focused = ExtResource("13_jb4w5")
 
 [connection signal="pressed" from="Control/ButtonRight" to="Control" method="_on_button_right_pressed"]
 [connection signal="pressed" from="Control/ButtonLeft" to="Control" method="_on_button_left_pressed"]
+[connection signal="gui_input" from="Control/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel" to="Control" method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="Control" method="_on_resaltar_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="Control" method="_on_subrayar_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="Control" method="_on_borrar_button_pressed"]

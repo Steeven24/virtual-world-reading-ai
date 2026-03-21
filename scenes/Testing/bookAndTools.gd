@@ -1,7 +1,10 @@
 extends Control
 
-@onready var rtl = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel
-@onready var label_pagina = $PanelContainer/HBoxContainer/Libro/PanelContainer/Label
+@onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel
+@onready var label_pagina: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/Label
+@onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
+@onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
+@onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
 
 enum Herramienta {
 	NINGUNA,
@@ -10,45 +13,106 @@ enum Herramienta {
 	BORRAR
 }
 
+const CARACTERES_POR_PAGINA := 800
+
 var herramienta_actual: Herramienta = Herramienta.NINGUNA
 
-var paginas = [
-	"Texto de la página 1 - Lorem ipsum dolor sit amet  facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+var texto_completo := "Texto de la página 1 - Lorem ipsum dolor sit amet facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
 
-Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.",
-	"Texto de la página 2 - adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
 
-Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.",
-    "Texto de la página 3 - ipsum dolor sit amet consectetur adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
 
-Lobortis litora pulvinar non dapibus netus duis congue, conubiconubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi."
-]
+Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
 
-var pagina_actual = 0
-var estilos_por_pagina: Array = []
+ipsum dolor sit amet consectetur adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
 
-func _ready():
+Lobortis litora pulvinar non dapibus netus duis congue, conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi."
+
+var paginas: Array[String] = []
+
+var pagina_actual: int = 0
+var estilos_por_pagina: Array[Array] = []
+
+func _ready() -> void:
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
 	#rtl.theme_override_colors.default_color = Color.BLACK
+	_configurar_botones_herramientas()
+	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
+	_actualizar_estado_botones()
 	mostrar_pagina()
 
+
 func _on_resaltar_button_pressed() -> void:
-	herramienta_actual = Herramienta.RESALTAR
+	_toggle_herramienta(Herramienta.RESALTAR)
 
 
 func _on_subrayar_button_pressed() -> void:
-	herramienta_actual = Herramienta.SUBRAYAR
+	_toggle_herramienta(Herramienta.SUBRAYAR)
 
 
 func _on_borrar_button_pressed() -> void:
-	herramienta_actual = Herramienta.BORRAR
-	aplicar_formato()
+	_toggle_herramienta(Herramienta.BORRAR)
 	
 	
 func _on_hecho_button_pressed() -> void:
 	aplicar_formato()
+
+func _on_rich_text_label_gui_input(event: InputEvent) -> void:
+	if herramienta_actual == Herramienta.NINGUNA:
+		return
+
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT and not mouse_event.pressed:
+			aplicar_formato()
+
+func _configurar_botones_herramientas() -> void:
+	resaltar_button.toggle_mode = true
+	subrayar_button.toggle_mode = true
+	borrar_button.toggle_mode = true
+
+func _toggle_herramienta(herramienta: Herramienta) -> void:
+	if herramienta_actual == herramienta:
+		herramienta_actual = Herramienta.NINGUNA
+	else:
+		herramienta_actual = herramienta
+
+	_actualizar_estado_botones()
+
+func _actualizar_estado_botones() -> void:
+	resaltar_button.button_pressed = herramienta_actual == Herramienta.RESALTAR
+	subrayar_button.button_pressed = herramienta_actual == Herramienta.SUBRAYAR
+	borrar_button.button_pressed = herramienta_actual == Herramienta.BORRAR
+
+func _fragmentar_texto(texto: String, tamano_objetivo: int) -> Array[String]:
+	var resultado: Array[String] = []
+	var inicio := 0
+	var largo := texto.length()
+
+	while inicio < largo:
+		var fin: int = int(min(inicio + tamano_objetivo, largo))
+
+		if fin < largo:
+			var corte: int = fin
+			while corte > inicio and texto[corte - 1] != " " and texto[corte - 1] != "\n":
+				corte -= 1
+
+			if corte > inicio + int(tamano_objetivo * 0.6):
+				fin = corte
+
+		var pagina := texto.substr(inicio, fin - inicio).strip_edges()
+		if not pagina.is_empty():
+			resultado.append(pagina)
+
+		inicio = fin
+
+	while resultado.is_empty():
+		resultado.append("")
+
+	return resultado
 
 func _inicializar_estilos() -> void:
 	estilos_por_pagina.clear()
@@ -59,6 +123,7 @@ func _inicializar_estilos() -> void:
 		estilos_por_pagina.append(estilos)
 
 func aplicar_formato() -> void:
+	# Forzamos el tipo int explícitamente
 	var desde: int = rtl.get_selection_from()
 	var hasta: int = rtl.get_selection_to()
 
@@ -70,18 +135,21 @@ func aplicar_formato() -> void:
 		desde = hasta
 		hasta = temp
 
+	# Aquí estaba el problema: especificamos que es un Array de Diccionarios
 	var estilos_actuales: Array = estilos_por_pagina[pagina_actual]
 	hasta = min(hasta, estilos_actuales.size())
 
-	for i in range(desde, hasta):
+	# Especificamos que 'i' es un int
+	for i: int in range(desde, hasta):
+		var estado: Dictionary = estilos_actuales[i]
 		match herramienta_actual:
 			Herramienta.RESALTAR:
-				estilos_actuales[i]["resaltar"] = true
+				estado["resaltar"] = true
 			Herramienta.SUBRAYAR:
-				estilos_actuales[i]["subrayar"] = true
+				estado["subrayar"] = true
 			Herramienta.BORRAR:
-				estilos_actuales[i]["resaltar"] = false
-				estilos_actuales[i]["subrayar"] = false
+				estado["resaltar"] = false
+				estado["subrayar"] = false
 			_:
 				return
 
@@ -94,12 +162,13 @@ func _escapar_bbcode(texto: String) -> String:
 func _refrescar_texto_actual() -> void:
 	var texto_base: String = paginas[pagina_actual]
 	var estilos_actuales: Array = estilos_por_pagina[pagina_actual]
-	var bbcode := "[color=black]"
-	var resaltar_activo := false
-	var subrayar_activo := false
+	var bbcode: String = "[color=black]"
+	var resaltar_activo: bool = false
+	var subrayar_activo: bool = false
 
-	for i in texto_base.length():
-		var estado: Dictionary = estilos_actuales[i]
+	for i: int in texto_base.length():
+		# Casteamos el elemento del array a Dictionary explícitamente
+		var estado: Dictionary = estilos_actuales[i] as Dictionary
 		var debe_resaltar: bool = estado["resaltar"]
 		var debe_subrayar: bool = estado["subrayar"]
 
@@ -121,10 +190,8 @@ func _refrescar_texto_actual() -> void:
 
 		bbcode += _escapar_bbcode(texto_base[i])
 
-	if subrayar_activo:
-		bbcode += "[/u]"
-	if resaltar_activo:
-		bbcode += "[/bgcolor]"
+	if subrayar_activo: bbcode += "[/u]"
+	if resaltar_activo: bbcode += "[/bgcolor]"
 
 	bbcode += "[/color]"
 	rtl.text = bbcode
