@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cfud6iiy3s4l4" path="res://scenes/Testing/nivel3.gd" id="1_g7f7x"]
 [ext_resource type="Texture2D" uid="uid://b4p6apss1qktc" path="res://scenes/Testing/sprites testing/balancear.png" id="2_u3qlf"]
+[ext_resource type="Texture2D" uid="uid://cstvn314fdehf" path="res://scenes/Testing/sprites testing/fondo.jpg" id="2_ulkjg"]
+[ext_resource type="Texture2D" uid="uid://bvkcvuogdjnpc" path="res://scenes/Testing/sprites testing/marco.png" id="3_atp0k"]
 [ext_resource type="Script" uid="uid://8hy5ajonsiyt" path="res://scenes/Testing/nivel3Opcion.gd" id="3_ulkjg"]
 [ext_resource type="Texture2D" uid="uid://b5kgh3ct3uebn" path="res://scenes/Testing/sprites testing/advertencia.png" id="4_atp0k"]
 [ext_resource type="Texture2D" uid="uid://dspioslx2vgcs" path="res://scenes/Testing/sprites testing/estrella.png" id="5_rn5nh"]
@@ -15,14 +17,30 @@ size = Vector2(76.53227, 62.72728)
 [node name="Challenge3" type="Node2D" unique_id=2035677237]
 script = ExtResource("1_g7f7x")
 
+[node name="Back" type="Sprite2D" parent="." unique_id=1111780985]
+position = Vector2(552, 334)
+scale = Vector2(1.7177296, 1.8555557)
+texture = ExtResource("2_ulkjg")
+
+[node name="Marco" type="Sprite2D" parent="." unique_id=779214419]
+position = Vector2(531.21497, 158.21495)
+scale = Vector2(0.58677715, 0.58677715)
+texture = ExtResource("3_atp0k")
+
 [node name="Imagen" type="Sprite2D" parent="." unique_id=129153552]
-position = Vector2(514, 133)
+position = Vector2(530.876, 156.5201)
 scale = Vector2(0.33897194, 0.33897194)
 texture = ExtResource("2_u3qlf")
 
 [node name="CartaRiesgo" type="Area2D" parent="." unique_id=1050922187]
+position = Vector2(13, 59)
 script = ExtResource("3_ulkjg")
 tipo = "riesgo"
+
+[node name="Marco" type="Sprite2D" parent="CartaRiesgo" unique_id=1566436018]
+position = Vector2(197.27538, 380.43503)
+scale = Vector2(0.4766913, 0.49682066)
+texture = ExtResource("3_atp0k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CartaRiesgo" unique_id=1736162999]
 position = Vector2(196, 380)
@@ -35,9 +53,14 @@ scale = Vector2(0.2753771, 0.2870055)
 texture = ExtResource("4_atp0k")
 
 [node name="CartaEmocion" type="Area2D" parent="." unique_id=1792941932]
-position = Vector2(204, 0)
+position = Vector2(256, 51)
 script = ExtResource("3_ulkjg")
 tipo = "emocion"
+
+[node name="Marco" type="Sprite2D" parent="CartaEmocion" unique_id=1244878020]
+position = Vector2(586.2853, 388.42676)
+scale = Vector2(0.46984687, 0.46984687)
+texture = ExtResource("3_atp0k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CartaEmocion" unique_id=200860640]
 position = Vector2(585.1, 385)

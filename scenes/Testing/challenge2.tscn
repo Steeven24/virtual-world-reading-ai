@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://unrr75n3ny2j"]
 
 [ext_resource type="Script" uid="uid://c58ijen572ou2" path="res://scenes/Testing/nivel2.gd" id="1_5ufa6"]
+[ext_resource type="Texture2D" uid="uid://cstvn314fdehf" path="res://scenes/Testing/sprites testing/fondo.jpg" id="2_a7j1q"]
 [ext_resource type="Texture2D" uid="uid://3dedhkstihpi" path="res://scenes/Testing/sprites testing/fuente-termal.png" id="3_1fc5j"]
 [ext_resource type="Script" uid="uid://cwhdymu6o6rwj" path="res://scenes/Testing/nivel2Opcion.gd" id="3_8627w"]
+[ext_resource type="Texture2D" uid="uid://bvkcvuogdjnpc" path="res://scenes/Testing/sprites testing/marco.png" id="3_hs7wn"]
 [ext_resource type="Texture2D" uid="uid://mbmg5aoj6a5e" path="res://scenes/Testing/sprites testing/lluvia.png" id="5_a7j1q"]
 [ext_resource type="Texture2D" uid="uid://dclk0rjvl4rea" path="res://scenes/Testing/sprites testing/volcan.png" id="6_1iur6"]
 [ext_resource type="Texture2D" uid="uid://2og5as23yflm" path="res://scenes/Testing/sprites testing/rio.png" id="6_hs7wn"]
@@ -18,50 +20,76 @@ size = Vector2(52, 46)
 [node name="Challenge2" type="Node2D" unique_id=2035677237]
 script = ExtResource("1_5ufa6")
 
+[node name="Back" type="Sprite2D" parent="." unique_id=1481760045]
+position = Vector2(552, 334)
+scale = Vector2(1.7177296, 1.8555557)
+texture = ExtResource("2_a7j1q")
+
+[node name="Marco" type="Sprite2D" parent="." unique_id=597532624]
+position = Vector2(542, 168.00002)
+scale = Vector2(0.6485052, 0.5357494)
+texture = ExtResource("3_hs7wn")
+
 [node name="ImagenPregunta" type="Sprite2D" parent="." unique_id=129153552]
-position = Vector2(514, 133)
+position = Vector2(539, 156.00002)
 scale = Vector2(0.33897194, 0.33897194)
 texture = ExtResource("3_1fc5j")
 
 [node name="Opcion1" type="Area2D" parent="." unique_id=1050922187]
+position = Vector2(25, 117)
 script = ExtResource("3_8627w")
 nombre_opcion = "volcan"
 
+[node name="Marco" type="Sprite2D" parent="Opcion1" unique_id=1290237604]
+position = Vector2(151, 348)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_hs7wn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion1" unique_id=1736162999]
-position = Vector2(140, 337)
-scale = Vector2(2.2799997, 3.92)
+position = Vector2(151.61066, 346.62112)
+scale = Vector2(4.7189507, 8.113285)
 shape = SubResource("RectangleShape2D_8fphb")
 
 [node name="Sprite2D" type="Sprite2D" parent="Opcion1" unique_id=752436931]
-position = Vector2(140, 337)
-scale = Vector2(0.08985735, 0.09365178)
+position = Vector2(151.61066, 346.62112)
+scale = Vector2(0.18597914, 0.19383253)
 texture = ExtResource("6_1iur6")
 
 [node name="Opcion2" type="Area2D" parent="." unique_id=1792941932]
 script = ExtResource("3_8627w")
 nombre_opcion = "lluvia"
 
+[node name="Marco" type="Sprite2D" parent="Opcion2" unique_id=2133757289]
+position = Vector2(514, 465)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_hs7wn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion2" unique_id=200860640]
-position = Vector2(514.99994, 338)
-scale = Vector2(2.4800003, 2.1999993)
+position = Vector2(515.8756, 466.87567)
+scale = Vector2(5.1679144, 4.5844383)
 shape = SubResource("RectangleShape2D_icmoh")
 
 [node name="Sprite2D" type="Sprite2D" parent="Opcion2" unique_id=203690917]
-position = Vector2(515, 337)
-scale = Vector2(0.09717059, 0.09717059)
+position = Vector2(515.8757, 465.87567)
+scale = Vector2(0.2024876, 0.2024876)
 texture = ExtResource("5_a7j1q")
 
 [node name="Opcion3" type="Area2D" parent="." unique_id=185908875]
 script = ExtResource("3_8627w")
 nombre_opcion = "rio"
 
+[node name="Marco" type="Sprite2D" parent="Opcion3" unique_id=2574837]
+position = Vector2(878, 465)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_hs7wn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion3" unique_id=1423003809]
-position = Vector2(910, 332)
+position = Vector2(876.32385, 468.32385)
 shape = SubResource("RectangleShape2D_c3ttj")
 
 [node name="Sprite2D" type="Sprite2D" parent="Opcion3" unique_id=127221988]
-position = Vector2(912, 330)
-scale = Vector2(0.10282757, 0.10282757)
+position = Vector2(878.32385, 466.32385)
+scale = Vector2(0.18249406, 0.18249406)
 texture = ExtResource("6_hs7wn")
 
 [node name="LabelMensaje" type="Label" parent="." unique_id=857861290]
