@@ -6,6 +6,8 @@ extends Control
 @onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
 
+@export var next_scene_path: String
+
 enum Herramienta {
 	NINGUNA,
 	RESALTAR,
@@ -59,6 +61,11 @@ func _on_borrar_button_pressed() -> void:
 	
 func _on_hecho_button_pressed() -> void:
 	aplicar_formato()
+	if next_scene_path != "":
+		get_tree().change_scene_to_file(next_scene_path)
+	else:
+		print("Error: No has asignado una ruta de escena en el inspector.")
+	
 
 func _on_rich_text_label_gui_input(event: InputEvent) -> void:
 	if herramienta_actual == Herramienta.NINGUNA:

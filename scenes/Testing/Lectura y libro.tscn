@@ -27,35 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q0t4q")
-
-[node name="ButtonRight" type="TextureButton" parent="Control" unique_id=1361551400]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 0
-offset_left = 863.0
-offset_top = 338.0
-offset_right = 908.0
-offset_bottom = 383.0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("4_imnac")
-texture_pressed = ExtResource("4_imnac")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="ButtonLeft" type="TextureButton" parent="Control" unique_id=1190728367]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 0
-offset_left = 861.0
-offset_top = 404.0
-offset_right = 906.0
-offset_bottom = 449.0
-size_flags_horizontal = 0
-size_flags_vertical = 8
-texture_normal = ExtResource("4_imnac")
-texture_pressed = ExtResource("4_imnac")
-ignore_texture_size = true
-stretch_mode = 4
-flip_h = true
+next_scene_path = "res://scenes/Testing/challenge1.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1745195057]
 layout_mode = 0
@@ -151,10 +123,39 @@ texture_pressed = ExtResource("13_jb4w5")
 texture_hover = ExtResource("14_bm4mi")
 texture_focused = ExtResource("13_jb4w5")
 
-[connection signal="pressed" from="Control/ButtonRight" to="Control" method="_on_button_right_pressed"]
-[connection signal="pressed" from="Control/ButtonLeft" to="Control" method="_on_button_left_pressed"]
+[node name="ButtonLeft" type="TextureButton" parent="Control" unique_id=1190728367]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 21.0
+offset_top = 474.0
+offset_right = 66.0
+offset_bottom = 519.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("4_imnac")
+texture_pressed = ExtResource("4_imnac")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
+[node name="ButtonRight" type="TextureButton" parent="Control" unique_id=1361551400]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 475.0
+offset_top = 474.0
+offset_right = 520.0
+offset_bottom = 519.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("4_imnac")
+texture_pressed = ExtResource("4_imnac")
+ignore_texture_size = true
+stretch_mode = 4
+
 [connection signal="gui_input" from="Control/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel" to="Control" method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="Control" method="_on_resaltar_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="Control" method="_on_subrayar_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="Control" method="_on_borrar_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="Control" method="_on_hecho_button_pressed"]
+[connection signal="pressed" from="Control/ButtonLeft" to="Control" method="_on_button_left_pressed"]
+[connection signal="pressed" from="Control/ButtonRight" to="Control" method="_on_button_right_pressed"]

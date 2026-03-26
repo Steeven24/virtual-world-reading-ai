@@ -6,6 +6,7 @@ var dragging = false
 var offset = Vector2.ZERO
 var posicion_inicial
 @export var slot_correcto: Area2D
+var ya_correcto = false
 
 
 func _ready():
@@ -31,9 +32,14 @@ func verificar_colision():
 	for area in areas:
 		if area == slot_correcto:
 			position = area.position
+			
+			if not ya_correcto:
+				ya_correcto = true
+				get_parent().objeto_correcto()
+			
 			print("Correcto!")
 			return
 	
-	# Si no es correcto, regresa
+	# Si falla
 	position = posicion_inicial
 	print("Incorrecto")

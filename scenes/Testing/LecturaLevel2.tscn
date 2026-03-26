@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://brg1gavy47tap"]
+
+[ext_resource type="PackedScene" uid="uid://yaxwyqy4sp3k" path="res://scenes/Section/Descriptivos/level 2.tscn" id="1_h02a7"]
+
+[node name="Lectura" type="Node2D" unique_id=1901708297]
+
+[node name="Level2" parent="." unique_id=700575724 instance=ExtResource("1_h02a7")]
