@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://unrr75n3ny2j"]
 
-[ext_resource type="Script" uid="uid://c58ijen572ou2" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/nivel2.gd" id="1_4km41"]
+[ext_resource type="Script" uid="uid://c58ijen572ou2" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/optionValidator.gd" id="1_4km41"]
 [ext_resource type="Texture2D" uid="uid://cstvn314fdehf" path="res://assets/Temporal sprites/fondo.jpg" id="2_0qe6a"]
 [ext_resource type="Texture2D" uid="uid://bvkcvuogdjnpc" path="res://assets/Temporal sprites/marco.png" id="3_jx2tb"]
 [ext_resource type="Texture2D" uid="uid://3dedhkstihpi" path="res://assets/Temporal sprites/fuente-termal.png" id="4_xmfu7"]
-[ext_resource type="Script" uid="uid://cwhdymu6o6rwj" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/nivel2Opcion.gd" id="5_b3yii"]
+[ext_resource type="Script" uid="uid://cwhdymu6o6rwj" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/option.gd" id="5_b3yii"]
 [ext_resource type="Texture2D" uid="uid://dclk0rjvl4rea" path="res://assets/Temporal sprites/volcan.png" id="6_q032k"]
 [ext_resource type="Texture2D" uid="uid://mbmg5aoj6a5e" path="res://assets/Temporal sprites/lluvia.png" id="7_2n2l4"]
 [ext_resource type="Texture2D" uid="uid://2og5as23yflm" path="res://assets/Temporal sprites/rio.png" id="8_1uunk"]
@@ -19,6 +19,7 @@ size = Vector2(52, 46)
 
 [node name="Challenge2" type="Node2D" unique_id=2035677237]
 script = ExtResource("1_4km41")
+respuesta_correcta = "volcan"
 
 [node name="Back" type="Sprite2D" parent="." unique_id=1481760045]
 position = Vector2(552, 334)

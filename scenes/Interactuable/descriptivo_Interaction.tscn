@@ -25,7 +25,7 @@ texture = ExtResource("1_isii0")
 
 [node name="Area2D" type="Area2D" parent="Book" unique_id=127112387]
 script = ExtResource("2_cls42")
-next_scene_path = "res://scenes/Section/Descriptivos/level 1.tscn"
+next_scene_path = "res://scenes/Scenery/Section/Descriptivos/Bannos reading/level 1.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D" unique_id=577816882]
 scale = Vector2(45.373333, 45.373333)

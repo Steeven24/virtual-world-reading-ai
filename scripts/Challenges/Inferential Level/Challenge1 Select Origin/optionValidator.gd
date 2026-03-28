@@ -1,6 +1,6 @@
 extends Node2D
 
-var respuesta_correcta = "volcan"
+@export var respuesta_correcta: String
 
 func verificar_respuesta(opcion):
 	if opcion == respuesta_correcta:
