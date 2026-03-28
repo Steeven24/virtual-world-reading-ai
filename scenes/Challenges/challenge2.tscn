@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://unrr75n3ny2j"]
+
+[ext_resource type="Script" uid="uid://c58ijen572ou2" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/nivel2.gd" id="1_4km41"]
+[ext_resource type="Texture2D" uid="uid://cstvn314fdehf" path="res://assets/Temporal sprites/fondo.jpg" id="2_0qe6a"]
+[ext_resource type="Texture2D" uid="uid://bvkcvuogdjnpc" path="res://assets/Temporal sprites/marco.png" id="3_jx2tb"]
+[ext_resource type="Texture2D" uid="uid://3dedhkstihpi" path="res://assets/Temporal sprites/fuente-termal.png" id="4_xmfu7"]
+[ext_resource type="Script" uid="uid://cwhdymu6o6rwj" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/nivel2Opcion.gd" id="5_b3yii"]
+[ext_resource type="Texture2D" uid="uid://dclk0rjvl4rea" path="res://assets/Temporal sprites/volcan.png" id="6_q032k"]
+[ext_resource type="Texture2D" uid="uid://mbmg5aoj6a5e" path="res://assets/Temporal sprites/lluvia.png" id="7_2n2l4"]
+[ext_resource type="Texture2D" uid="uid://2og5as23yflm" path="res://assets/Temporal sprites/rio.png" id="8_1uunk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fphb"]
+size = Vector2(21.929827, 11.734694)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icmoh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3ttj"]
+size = Vector2(52, 46)
+
+[node name="Challenge2" type="Node2D" unique_id=2035677237]
+script = ExtResource("1_4km41")
+
+[node name="Back" type="Sprite2D" parent="." unique_id=1481760045]
+position = Vector2(552, 334)
+scale = Vector2(1.7177296, 1.8555557)
+texture = ExtResource("2_0qe6a")
+
+[node name="Marco" type="Sprite2D" parent="." unique_id=597532624]
+position = Vector2(542, 168.00002)
+scale = Vector2(0.6485052, 0.5357494)
+texture = ExtResource("3_jx2tb")
+
+[node name="ImagenPregunta" type="Sprite2D" parent="." unique_id=129153552]
+position = Vector2(539, 156.00002)
+scale = Vector2(0.33897194, 0.33897194)
+texture = ExtResource("4_xmfu7")
+
+[node name="Opcion1" type="Area2D" parent="." unique_id=1050922187]
+position = Vector2(25, 117)
+script = ExtResource("5_b3yii")
+nombre_opcion = "volcan"
+
+[node name="Marco" type="Sprite2D" parent="Opcion1" unique_id=1290237604]
+position = Vector2(151, 348)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_jx2tb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion1" unique_id=1736162999]
+position = Vector2(151.61066, 346.62112)
+scale = Vector2(4.7189507, 8.113285)
+shape = SubResource("RectangleShape2D_8fphb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Opcion1" unique_id=752436931]
+position = Vector2(151.61066, 346.62112)
+scale = Vector2(0.18597914, 0.19383253)
+texture = ExtResource("6_q032k")
+
+[node name="Opcion2" type="Area2D" parent="." unique_id=1792941932]
+script = ExtResource("5_b3yii")
+nombre_opcion = "lluvia"
+
+[node name="Marco" type="Sprite2D" parent="Opcion2" unique_id=2133757289]
+position = Vector2(514, 465)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_jx2tb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion2" unique_id=200860640]
+position = Vector2(515.8756, 466.87567)
+scale = Vector2(5.1679144, 4.5844383)
+shape = SubResource("RectangleShape2D_icmoh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Opcion2" unique_id=203690917]
+position = Vector2(515.8757, 465.87567)
+scale = Vector2(0.2024876, 0.2024876)
+texture = ExtResource("7_2n2l4")
+
+[node name="Opcion3" type="Area2D" parent="." unique_id=185908875]
+script = ExtResource("5_b3yii")
+nombre_opcion = "rio"
+
+[node name="Marco" type="Sprite2D" parent="Opcion3" unique_id=2574837]
+position = Vector2(878, 465)
+scale = Vector2(0.37116116, 0.37116116)
+texture = ExtResource("3_jx2tb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion3" unique_id=1423003809]
+position = Vector2(876.32385, 468.32385)
+shape = SubResource("RectangleShape2D_c3ttj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Opcion3" unique_id=127221988]
+position = Vector2(878.32385, 466.32385)
+scale = Vector2(0.18249406, 0.18249406)
+texture = ExtResource("8_1uunk")
+
+[node name="LabelMensaje" type="Label" parent="." unique_id=857861290]
+offset_top = 47.0
+offset_right = 40.0
+offset_bottom = 70.0
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=107291464]
+offset_right = 68.5
+offset_bottom = 31.0
+text = "Selecciona el origen correcto"
+editable = false
+expand_to_text_length = true
+selecting_enabled = false

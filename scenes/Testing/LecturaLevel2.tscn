@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brg1gavy47tap"]
 
-[ext_resource type="PackedScene" uid="uid://yaxwyqy4sp3k" path="res://scenes/Section/Descriptivos/level 2.tscn" id="1_h02a7"]
+[ext_resource type="PackedScene" uid="uid://yaxwyqy4sp3k" path="res://scenes/Scenery/Section/Descriptivos/level 2.tscn" id="1_h02a7"]
 
 [node name="Lectura" type="Node2D" unique_id=1901708297]
 
