@@ -5,8 +5,8 @@ extends Control
 @onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
 @onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
-
-@export var next_scene_path: String
+@export var target_scene: PackedScene
+#@export var next_scene_path: String
 
 enum Herramienta {
 	NINGUNA,
@@ -58,11 +58,11 @@ func _on_subrayar_button_pressed() -> void:
 func _on_borrar_button_pressed() -> void:
 	_toggle_herramienta(Herramienta.BORRAR)
 	
-	
+
 func _on_hecho_button_pressed() -> void:
 	aplicar_formato()
-	if next_scene_path != "":
-		get_tree().change_scene_to_file(next_scene_path)
+	if target_scene != null:
+		get_tree().change_scene_to_packed(target_scene)
 	else:
 		print("Error: No has asignado una ruta de escena en el inspector.")
 	
