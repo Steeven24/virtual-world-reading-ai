@@ -18,47 +18,42 @@
 [ext_resource type="Texture2D" uid="uid://smye0xn3j6ic" path="res://assets/Buttons/Book Tools/Pressed/Hecho.PNG" id="13_jb4w5"]
 [ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
 
-[node name="LecturaYLibro" type="Node2D" unique_id=2043230944]
-
-[node name="Control" type="Control" parent="." unique_id=1254314825]
+[node name="LecturaYLibro" type="Control" unique_id=2040741173]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_q0t4q")
 target_scene = ExtResource("2_8gxii")
+ruta_texto = "res://readings/Test/loren ipsun.txt"
 
-[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1745195057]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1745195057]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 851.0
-offset_bottom = 484.0
+offset_right = 883.0
+offset_bottom = 522.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer" unique_id=528127396]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=528127396]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 16
 
-[node name="Libro" type="VBoxContainer" parent="Control/PanelContainer/HBoxContainer" unique_id=1999561932]
+[node name="Libro" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1999561932]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/HBoxContainer/Libro" unique_id=618658811]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro" unique_id=618658811]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=506245756]
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=506245756]
 layout_mode = 2
 texture = ExtResource("1_2ergs")
 region_rect = Rect2(0, 0, 1059, 918)
 
-[node name="Label" type="Label" parent="Control/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -68,14 +63,14 @@ theme_override_font_sizes/font_size = 21
 text = "Pag 3 de 6"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
 layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 70
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=429815083]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=429815083]
 layout_mode = 2
 focus_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
@@ -87,14 +82,14 @@ fit_content = true
 tab_size = 5
 selection_enabled = true
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/HBoxContainer" unique_id=1409438583]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
 layout_mode = 2
 
-[node name="Herramientas" type="VBoxContainer" parent="Control/PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
+[node name="Herramientas" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ResaltarButton" type="TextureButton" parent="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
+[node name="ResaltarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
 layout_mode = 2
 action_mode = 0
 keep_pressed_outside = true
@@ -103,28 +98,28 @@ texture_pressed = ExtResource("4_488jl")
 texture_hover = ExtResource("5_to0nk")
 texture_focused = ExtResource("4_488jl")
 
-[node name="SubrayarButton" type="TextureButton" parent="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
+[node name="SubrayarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
 layout_mode = 2
 texture_normal = ExtResource("2_2ergs")
 texture_pressed = ExtResource("7_q0t4q")
 texture_hover = ExtResource("8_imnac")
 texture_focused = ExtResource("7_q0t4q")
 
-[node name="BorrarButton" type="TextureButton" parent="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
+[node name="BorrarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
 layout_mode = 2
 texture_normal = ExtResource("3_x4e7g")
 texture_pressed = ExtResource("10_joms6")
 texture_hover = ExtResource("11_xlxhx")
 texture_focused = ExtResource("10_joms6")
 
-[node name="HechoButton" type="TextureButton" parent="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
+[node name="HechoButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
 layout_mode = 2
 texture_normal = ExtResource("4_m617q")
 texture_pressed = ExtResource("13_jb4w5")
 texture_hover = ExtResource("14_bm4mi")
 texture_focused = ExtResource("13_jb4w5")
 
-[node name="ButtonLeft" type="TextureButton" parent="Control" unique_id=1190728367]
+[node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
 offset_left = 21.0
@@ -139,7 +134,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="ButtonRight" type="TextureButton" parent="Control" unique_id=1361551400]
+[node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
 offset_left = 475.0
@@ -153,10 +148,10 @@ texture_pressed = ExtResource("4_imnac")
 ignore_texture_size = true
 stretch_mode = 4
 
-[connection signal="gui_input" from="Control/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel" to="Control" method="_on_rich_text_label_gui_input"]
-[connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="Control" method="_on_resaltar_button_pressed"]
-[connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="Control" method="_on_subrayar_button_pressed"]
-[connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="Control" method="_on_borrar_button_pressed"]
-[connection signal="pressed" from="Control/PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="Control" method="_on_hecho_button_pressed"]
-[connection signal="pressed" from="Control/ButtonLeft" to="Control" method="_on_button_left_pressed"]
-[connection signal="pressed" from="Control/ButtonRight" to="Control" method="_on_button_right_pressed"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
+[connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="pressed" from="ButtonRight" to="." method="_on_button_right_pressed"]

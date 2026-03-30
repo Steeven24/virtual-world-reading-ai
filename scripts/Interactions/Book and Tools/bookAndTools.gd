@@ -6,8 +6,11 @@ extends Control
 @onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
 @export var target_scene: PackedScene
+#@export var texto_completo: 
+@export_global_file("*.txt", "*.md") var ruta_texto: String
+		
 #@export var next_scene_path: String
-@export var target_scene: PackedScene
+
 
 enum Herramienta {
 	NINGUNA,
@@ -20,17 +23,17 @@ const CARACTERES_POR_PAGINA := 800
 
 var herramienta_actual: Herramienta = Herramienta.NINGUNA
 
-var texto_completo := "Texto de la página 1 - Lorem ipsum dolor sit amet facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
-
-Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
-
-adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
-
-Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
-
-ipsum dolor sit amet consectetur adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
-
-Lobortis litora pulvinar non dapibus netus duis congue, conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi."
+#var texto_completo := "Texto de la página 1 - Lorem ipsum dolor sit amet facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+#
+#Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
+#
+#adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+#
+#Lobortis litora pulvinar non dapibus netus duis congue, conubia neque donec praesent tellus sed etiam, eleifend primis ut morbi cum potenti. At vivamus cum conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi.
+#
+#ipsum dolor sit amet consectetur adipiscing elit maecenas suspendisse, ornare ante scelerisque interdum libero dis malesuada morbi penatibus, nunc eu nullam rutrum semper id dignissim placerat. Duis dis condimentum nascetur euismod libero fusce dignissim placerat facilisis egestas nam, sem vivamus porttitor proin ad integer et litora lobortis imperdiet, turpis a pretium sed ac ultricies mus primis quam viverra. Duis condimentum vitae sollicitudin vestibulum per sagittis, posuere luctus purus quis facilisis.
+#
+#Lobortis litora pulvinar non dapibus netus duis congue, conubia fames lacinia scelerisque sodales fermentum aliquam cursus blandit, mi cubilia morbi tempus parturient volutpat hac magna eros. Congue eros venenatis pellentesque auctor potenti euismod platea ligula, vulputate id integer duis urna facilisi magnis dictum, lacinia mi ridiculus laoreet etiam ultrices morbi."
 
 var paginas: Array[String] = []
 
@@ -38,6 +41,11 @@ var pagina_actual: int = 0
 var estilos_por_pagina: Array[Array] = []
 
 func _ready() -> void:
+	var file = FileAccess.open(ruta_texto, FileAccess.READ)
+	var texto_completo = file.get_as_text()
+	#$RichTextLabel.text = texto_completo # O el nodo donde muestres el texto
+	
+	
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
 	#rtl.theme_override_colors.default_color = Color.BLACK

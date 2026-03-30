@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_bgo5h"]
 [ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="3_p22wr"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_lfj74"]
+[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="5_6278w"]
+[ext_resource type="PackedScene" uid="uid://7835fgmtxiay" path="res://scenes/Interactuable/book_appear_confirmation.tscn" id="5_dj6io"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -21,6 +23,10 @@ texture = ExtResource("1_rm1yk")
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_bgo5h")]
 position = Vector2(752, 591)
 target_scene = ExtResource("3_p22wr")
+
+[node name="Book2" parent="." unique_id=1027730642 node_paths=PackedStringArray("libro") instance=ExtResource("5_dj6io")]
+position = Vector2(1018, 590)
+libro = NodePath("../CanvasLayer")
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_lfj74")]
 position = Vector2(688, 862)
@@ -43,3 +49,10 @@ shape = SubResource("RectangleShape2D_5v64h")
 [node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=563187696]
 position = Vector2(1147, 328)
 shape = SubResource("RectangleShape2D_kf8kc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=56987683]
+visible = false
+
+[node name="LecturaYLibro" parent="CanvasLayer" unique_id=2043230944 instance=ExtResource("5_6278w")]
+target_scene = ExtResource("3_p22wr")
+ruta_texto = "res://readings/Descriptivo/temporal reading 1.txt"

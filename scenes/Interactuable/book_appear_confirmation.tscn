@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://7835fgmtxiay"]
+
+[ext_resource type="Script" uid="uid://cq0eyndonmcni" path="res://scripts/Interactions/Appear Book/appear book.gd" id="1_pn3r8"]
+[ext_resource type="Texture2D" uid="uid://b0xq80oyo0m3d" path="res://assets/Interaction/book.png" id="2_bq3dc"]
+[ext_resource type="Texture2D" uid="uid://pet6wb4ol05d" path="res://assets/Interaction/pressE.png" id="3_23grv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqvbj"]
+size = Vector2(44.87207, 23.380325)
+
+[node name="Book" type="Node2D" unique_id=278619741]
+script = ExtResource("1_pn3r8")
+
+[node name="Book" type="Sprite2D" parent="." unique_id=891650979]
+scale = Vector2(0.17578125, 0.17578125)
+texture = ExtResource("2_bq3dc")
+
+[node name="Area2D" type="Area2D" parent="Book" unique_id=127112387]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D" unique_id=577816882]
+scale = Vector2(45.373333, 45.373333)
+shape = SubResource("CircleShape2D_32c1v")
+
+[node name="message" type="Label" parent="Book/Area2D" unique_id=1805099042]
+offset_right = 81.0
+offset_bottom = 23.0
+text = "Presione E"
+metadata/_edit_use_anchors_ = true
+
+[node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
+oversampling_override = 1.0
+title = "Confirmar"
+position = Vector2i(400, 450)
+size = Vector2i(239, 106)
+ok_button_text = "Si"
+dialog_text = "¿Estás seguro de que deseas 
+empezar el desafío?"
+cancel_button_text = "No"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Book/Area2D" unique_id=2002675207]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D/StaticBody2D" unique_id=528848039]
+position = Vector2(0.119628906, -93.86597)
+scale = Vector2(11.9226675, 11.9226675)
+shape = SubResource("RectangleShape2D_qqvbj")
+
+[node name="Speech bubble" type="Sprite2D" parent="." unique_id=1883862549]
+visible = false
+position = Vector2(30, -55)
+scale = Vector2(0.48000243, 0.48000243)
+texture = ExtResource("3_23grv")
+
+[connection signal="body_entered" from="Book/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Book/Area2D" to="." method="_on_area_2d_body_exited"]
