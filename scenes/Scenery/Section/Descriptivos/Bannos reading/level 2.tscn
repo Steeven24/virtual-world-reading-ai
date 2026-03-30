@@ -22,24 +22,24 @@ texture = ExtResource("1_m72cy")
 position = Vector2(752, 591)
 target_scene = ExtResource("3_snpqo")
 
-[node name="Player" parent="Book" unique_id=2101976399 instance=ExtResource("3_omm14")]
-position = Vector2(-64, 271)
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("3_omm14")]
+position = Vector2(688, 862)
 
-[node name="Stage border" type="StaticBody2D" parent="Book/Player" unique_id=795797537]
+[node name="Stage border" type="StaticBody2D" parent="Player" unique_id=795797537]
 position = Vector2(-496, -486)
 
-[node name="top border" type="CollisionShape2D" parent="Book/Player/Stage border" unique_id=2085020761]
+[node name="top border" type="CollisionShape2D" parent="Player/Stage border" unique_id=2085020761]
 position = Vector2(583, -43)
 shape = SubResource("RectangleShape2D_5v64h")
 
-[node name="left border" type="CollisionShape2D" parent="Book/Player/Stage border" unique_id=924992708]
+[node name="left border" type="CollisionShape2D" parent="Player/Stage border" unique_id=924992708]
 position = Vector2(12.5, 331)
 shape = SubResource("RectangleShape2D_kf8kc")
 
-[node name="down border" type="CollisionShape2D" parent="Book/Player/Stage border" unique_id=1522391970]
+[node name="down border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1522391970]
 position = Vector2(576, 711)
 shape = SubResource("RectangleShape2D_5v64h")
 
-[node name="right border" type="CollisionShape2D" parent="Book/Player/Stage border" unique_id=563187696]
+[node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=563187696]
 position = Vector2(1147, 328)
 shape = SubResource("RectangleShape2D_kf8kc")

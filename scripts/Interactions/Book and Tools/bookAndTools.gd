@@ -7,6 +7,7 @@ extends Control
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
 @export var target_scene: PackedScene
 #@export var next_scene_path: String
+@export var target_scene: PackedScene
 
 enum Herramienta {
 	NINGUNA,

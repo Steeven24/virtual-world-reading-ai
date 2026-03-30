@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://c4qs2adq7f8bt"]
+[gd_scene format=3 uid="uid://b6nb0ck7hvws5"]
 
-[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_5v64h"]
-[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_mlacg"]
-[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="4_c6ahh"]
-[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_gecer"]
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_rm1yk"]
+[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_bgo5h"]
+[ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="3_p22wr"]
+[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_lfj74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -11,18 +11,18 @@ size = Vector2(1176.5, 118)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf8kc"]
 size = Vector2(45, 642)
 
-[node name="Level1" type="Node2D" unique_id=700575724]
+[node name="Level2" type="Node2D" unique_id=700575724]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1333429592]
 texture_filter = 1
 position = Vector2(768, 512)
-texture = ExtResource("1_5v64h")
+texture = ExtResource("1_rm1yk")
 
-[node name="Book" parent="." unique_id=1070625844 instance=ExtResource("4_c6ahh")]
-position = Vector2(974, 620)
-target_scene = ExtResource("4_gecer")
+[node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_bgo5h")]
+position = Vector2(752, 591)
+target_scene = ExtResource("3_p22wr")
 
-[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_mlacg")]
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_lfj74")]
 position = Vector2(688, 862)
 
 [node name="Stage border" type="StaticBody2D" parent="Player" unique_id=795797537]
