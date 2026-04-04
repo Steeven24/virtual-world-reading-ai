@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_5v64h"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_mlacg"]
+[ext_resource type="PackedScene" uid="uid://c6jbtga6g3t55" path="res://scenes/Book and Tools/book and tools2.tscn" id="3_gecer"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="4_c6ahh"]
-[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_gecer"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -20,7 +20,7 @@ texture = ExtResource("1_5v64h")
 
 [node name="Book" parent="." unique_id=1070625844 instance=ExtResource("4_c6ahh")]
 position = Vector2(974, 620)
-target_scene = ExtResource("4_gecer")
+target_scene = ExtResource("3_gecer")
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_mlacg")]
 position = Vector2(688, 862)

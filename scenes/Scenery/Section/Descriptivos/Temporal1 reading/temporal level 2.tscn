@@ -3,11 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://c83o4nqiunfp5" path="res://assets/Temporal sprites/temporal level 2.png" id="1_fkrat"]
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_rm1yk"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_bgo5h"]
-[ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="3_p22wr"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_lfj74"]
-[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="5_6278w"]
 [ext_resource type="PackedScene" uid="uid://7835fgmtxiay" path="res://scenes/Interactuable/book_appear_confirmation.tscn" id="5_dj6io"]
-[ext_resource type="PackedScene" uid="uid://xvcsqs1ebaoq" path="res://scenes/Challenges/Temporal Challenge/temporal challenge2.tscn" id="8_oqdcn"]
+[ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="7_fkrat"]
+[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="7_oqdcn"]
+[ext_resource type="PackedScene" uid="uid://xvcsqs1ebaoq" path="res://scenes/Challenges/Temporal Challenge/temporal challenge2.tscn" id="8_b8uhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1247.25, 118)
@@ -30,7 +30,7 @@ texture = ExtResource("1_rm1yk")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_bgo5h")]
 position = Vector2(575, 520)
-target_scene = ExtResource("3_p22wr")
+target_scene = ExtResource("7_fkrat")
 
 [node name="Book2" parent="." unique_id=1027730642 node_paths=PackedStringArray("libro") instance=ExtResource("5_dj6io")]
 position = Vector2(1334, 524)
@@ -61,6 +61,8 @@ shape = SubResource("RectangleShape2D_kf8kc")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=56987683]
 visible = false
 
-[node name="LecturaYLibro" parent="CanvasLayer" unique_id=2043230944 instance=ExtResource("5_6278w")]
-target_scene = ExtResource("8_oqdcn")
-ruta_texto = "res://readings/Descriptivo/temporal reading 1.txt"
+[node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("7_oqdcn")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+target_scene = ExtResource("8_b8uhp")
+ruta_texto = "C:/Users/Kevin/Desktop/Proyecto Godot Prácticas/PROYECTO/virtual-world-reading-ai/readings/Descriptivo/temporal reading 1.txt"

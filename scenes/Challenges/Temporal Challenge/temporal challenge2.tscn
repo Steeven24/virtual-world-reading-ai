@@ -4,24 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://de64m4xh7lw4x" path="res://scenes/Scenery/Section/Descriptivos/Bannos reading/level 3.tscn" id="2_w7uia"]
 [ext_resource type="Texture2D" uid="uid://cstvn314fdehf" path="res://assets/Temporal sprites/fondo.jpg" id="3_sk380"]
 [ext_resource type="Texture2D" uid="uid://bvkcvuogdjnpc" path="res://assets/Temporal sprites/marco.png" id="4_ok3oe"]
-[ext_resource type="Texture2D" uid="uid://3dedhkstihpi" path="res://assets/Temporal sprites/fuente-termal.png" id="5_ldqct"]
+[ext_resource type="Texture2D" uid="uid://cp6xwdhcon1cu" path="res://assets/Temporal sprites/botas.png" id="5_klwux"]
 [ext_resource type="Script" uid="uid://cwhdymu6o6rwj" path="res://scripts/Challenges/Inferential Level/Challenge1 Select Origin/option.gd" id="6_gqkpj"]
-[ext_resource type="Texture2D" uid="uid://dclk0rjvl4rea" path="res://assets/Temporal sprites/volcan.png" id="7_65rh3"]
-[ext_resource type="Texture2D" uid="uid://mbmg5aoj6a5e" path="res://assets/Temporal sprites/lluvia.png" id="8_2bt11"]
-[ext_resource type="Texture2D" uid="uid://2og5as23yflm" path="res://assets/Temporal sprites/rio.png" id="9_urva3"]
+[ext_resource type="Texture2D" uid="uid://b8hsuwdxr2hvl" path="res://assets/Temporal sprites/adoquin.png" id="7_k0igo"]
+[ext_resource type="Texture2D" uid="uid://h2lmu57hq7it" path="res://assets/Temporal sprites/barro.png" id="8_fywav"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fphb"]
 size = Vector2(21.929827, 11.734694)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icmoh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3ttj"]
-size = Vector2(52, 46)
-
 [node name="Challenge2" type="Node2D" unique_id=2035677237]
 script = ExtResource("1_wpa5j")
 target_scene = ExtResource("2_w7uia")
-respuesta_correcta = "volcan"
+respuesta_correcta = "adoquin"
 
 [node name="Back" type="Sprite2D" parent="." unique_id=1481760045]
 position = Vector2(552, 334)
@@ -36,12 +32,28 @@ texture = ExtResource("4_ok3oe")
 [node name="ImagenPregunta" type="Sprite2D" parent="." unique_id=129153552]
 position = Vector2(539, 156.00002)
 scale = Vector2(0.33897194, 0.33897194)
-texture = ExtResource("5_ldqct")
+texture = ExtResource("5_klwux")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=408578156]
+offset_left = 500.0
+offset_top = 302.0
+offset_right = 593.0
+offset_bottom = 323.0
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=10761577]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -3.0
+offset_right = 79.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Botas"
+horizontal_alignment = 1
 
 [node name="Opcion1" type="Area2D" parent="." unique_id=1050922187]
-position = Vector2(25, 117)
+position = Vector2(132, 117)
 script = ExtResource("6_gqkpj")
-nombre_opcion = "volcan"
+nombre_opcion = "adoquin"
 
 [node name="Marco" type="Sprite2D" parent="Opcion1" unique_id=1290237604]
 position = Vector2(151, 348)
@@ -56,11 +68,27 @@ shape = SubResource("RectangleShape2D_8fphb")
 [node name="Sprite2D" type="Sprite2D" parent="Opcion1" unique_id=752436931]
 position = Vector2(151.61066, 346.62112)
 scale = Vector2(0.18597914, 0.19383253)
-texture = ExtResource("7_65rh3")
+texture = ExtResource("7_k0igo")
+
+[node name="ColorRect" type="ColorRect" parent="Opcion1" unique_id=518833195]
+offset_left = 105.0
+offset_top = 441.0
+offset_right = 198.0
+offset_bottom = 462.0
+
+[node name="Label" type="Label" parent="Opcion1/ColorRect" unique_id=8240209]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -3.0
+offset_right = 79.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Adoquin"
 
 [node name="Opcion2" type="Area2D" parent="." unique_id=1792941932]
+position = Vector2(298, 0)
 script = ExtResource("6_gqkpj")
-nombre_opcion = "lluvia"
+nombre_opcion = "barro"
 
 [node name="Marco" type="Sprite2D" parent="Opcion2" unique_id=2133757289]
 position = Vector2(514, 465)
@@ -73,27 +101,26 @@ scale = Vector2(5.1679144, 4.5844383)
 shape = SubResource("RectangleShape2D_icmoh")
 
 [node name="Sprite2D" type="Sprite2D" parent="Opcion2" unique_id=203690917]
-position = Vector2(515.8757, 465.87567)
+position = Vector2(516, 466)
 scale = Vector2(0.2024876, 0.2024876)
-texture = ExtResource("8_2bt11")
+texture = ExtResource("8_fywav")
 
-[node name="Opcion3" type="Area2D" parent="." unique_id=185908875]
-script = ExtResource("6_gqkpj")
-nombre_opcion = "rio"
+[node name="ColorRect" type="ColorRect" parent="Opcion2" unique_id=1871951253]
+offset_left = 466.0
+offset_top = 557.0
+offset_right = 559.0
+offset_bottom = 578.0
 
-[node name="Marco" type="Sprite2D" parent="Opcion3" unique_id=2574837]
-position = Vector2(878, 465)
-scale = Vector2(0.37116116, 0.37116116)
-texture = ExtResource("4_ok3oe")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Opcion3" unique_id=1423003809]
-position = Vector2(876.32385, 468.32385)
-shape = SubResource("RectangleShape2D_c3ttj")
-
-[node name="Sprite2D" type="Sprite2D" parent="Opcion3" unique_id=127221988]
-position = Vector2(878.32385, 466.32385)
-scale = Vector2(0.18249406, 0.18249406)
-texture = ExtResource("9_urva3")
+[node name="Label" type="Label" parent="Opcion2/ColorRect" unique_id=1497006498]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -3.0
+offset_right = 79.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Barro"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LabelMensaje" type="Label" parent="." unique_id=857861290]
 offset_top = 47.0
@@ -103,7 +130,7 @@ offset_bottom = 70.0
 [node name="LineEdit" type="LineEdit" parent="." unique_id=107291464]
 offset_right = 68.5
 offset_bottom = 31.0
-text = "Selecciona el origen correcto"
+text = "¿Cuál fue la solución que Elian implementó para satisfacer su necesidad?"
 editable = false
 expand_to_text_length = true
 selecting_enabled = false

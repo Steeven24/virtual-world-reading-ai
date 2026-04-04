@@ -44,9 +44,9 @@ func show_dialogue():
 	#get_tree().change_scene_to_packed(target_scene)
 
 func _on_dialog_confirmed():
-	if libro != null and not esta_leyendo:
+	if libro != null: #and not esta_leyendo:
 		libro.visible = true
-		esta_leyendo = true
+		#esta_leyendo = true
 		
 	else:
 		print("Error: No has asignado una ruta de escena en el inspector.")
