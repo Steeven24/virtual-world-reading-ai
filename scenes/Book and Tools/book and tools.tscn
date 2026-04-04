@@ -17,6 +17,139 @@
 [ext_resource type="Texture2D" uid="uid://xersecqtrsx8" path="res://assets/Buttons/Book Tools/Hover/Borrar.PNG" id="11_xlxhx"]
 [ext_resource type="Texture2D" uid="uid://smye0xn3j6ic" path="res://assets/Buttons/Book Tools/Pressed/Hecho.PNG" id="13_jb4w5"]
 [ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
+[ext_resource type="Texture2D" uid="uid://b7bfp6166ijkc" path="res://assets/Buttons/Book Tools/BaseButton/colores.png" id="18_4uhxw"]
+[ext_resource type="Texture2D" uid="uid://df880aqhr0gfg" path="res://assets/Buttons/Book Tools/BaseButton/Icon/alineacion-central.png" id="19_56ivi"]
+[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas.png" id="20_56ivi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nksb"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4h2e"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_425m3"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s6yn"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12q57"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua4sa"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdc2b"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dsda"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvei6"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqkpc"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqqnr"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tcmt"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lv0g"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7stb"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ewr"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 318, 128, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vb0ts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nksb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4h2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_425m3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s6yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12q57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua4sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdc2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dsda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvei6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqkpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqqnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tcmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lv0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7stb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36ewr")
+}],
+"loop": true,
+"name": &"Space 1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4h2e")
+}],
+"loop": true,
+"name": &"Space 2",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4uhxw"]
 
 [node name="LecturaYLibro" type="Control" unique_id=2040741173]
 layout_mode = 3
@@ -27,9 +160,9 @@ ruta_texto = "res://readings/Test/loren ipsun.txt"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1745195057]
 layout_mode = 0
-offset_left = 20.0
+offset_left = 49.0
 offset_top = 20.0
-offset_right = 883.0
+offset_right = 912.0
 offset_bottom = 522.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
@@ -122,9 +255,9 @@ texture_focused = ExtResource("13_jb4w5")
 [node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 21.0
+offset_left = 50.0
 offset_top = 474.0
-offset_right = 66.0
+offset_right = 95.0
 offset_bottom = 519.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -137,9 +270,9 @@ flip_h = true
 [node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 475.0
+offset_left = 504.0
 offset_top = 474.0
-offset_right = 520.0
+offset_right = 549.0
 offset_bottom = 519.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -147,6 +280,47 @@ texture_normal = ExtResource("4_imnac")
 texture_pressed = ExtResource("4_imnac")
 ignore_texture_size = true
 stretch_mode = 4
+
+[node name="ButtonReading" type="Button" parent="." unique_id=1513072957]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 48.0
+offset_right = 89.0
+offset_bottom = 98.0
+
+[node name="Reading" type="AnimatedSprite2D" parent="ButtonReading" unique_id=892238578]
+position = Vector2(31, 25)
+rotation = 3.1415927
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 1"
+
+[node name="Text" type="Sprite2D" parent="ButtonReading/Reading" unique_id=1055218097]
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("19_56ivi")
+
+[node name="ButtonNotes" type="Button" parent="." unique_id=1477265914]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 101.0
+offset_right = 89.0
+offset_bottom = 151.0
+
+[node name="Notes" type="AnimatedSprite2D" parent="ButtonNotes" unique_id=781006497]
+position = Vector2(31, 25)
+rotation = 3.1415927
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 2"
+
+[node name="Notes" type="Sprite2D" parent="ButtonNotes/Notes" unique_id=273292658]
+texture_filter = 3
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("20_56ivi")
 
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
