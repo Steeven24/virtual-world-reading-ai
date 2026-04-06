@@ -1,15 +1,20 @@
 extends Control
 
-@onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/RichTextLabel
+@onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel
 @onready var label_pagina: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/Label
 @onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
 @onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
+
+@onready var boton_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
+@onready var boton_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
+
 @export var target_scene: PackedScene
 #@export var texto_completo: 
 @export_global_file("*.txt", "*.md") var ruta_texto: String
 		
 #@export var next_scene_path: String
+var modo_actual = "lectura"
 
 
 enum Herramienta {
@@ -41,6 +46,7 @@ var pagina_actual: int = 0
 var estilos_por_pagina: Array[Array] = []
 
 func _ready() -> void:
+	$PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer.visible = false
 	var file = FileAccess.open(ruta_texto, FileAccess.READ)
 	var texto_completo = file.get_as_text()
 	#$RichTextLabel.text = texto_completo # O el nodo donde muestres el texto
@@ -217,6 +223,10 @@ func mostrar_pagina():
 	label_pagina.text = "
 	Pag %d de %d" % [pagina_actual + 1, paginas.size()]
 
+func mostrar_notas():
+	_refrescar_texto_actual()
+	label_pagina.text = "
+	Notas"
 
 func _on_button_right_pressed() -> void:
 	if pagina_actual < paginas.size() - 1:
@@ -228,3 +238,24 @@ func _on_button_left_pressed() -> void:
 	if pagina_actual > 0:
 		pagina_actual -= 1
 		mostrar_pagina()
+
+
+func _on_button_notes_pressed() -> void:
+	mostrar_notas()
+	modo_actual = "notas"
+	boton_lectura.visible = false
+	boton_notas.visible = true
+	
+	
+func _on_button_reading_pressed() -> void:
+	modo_actual = "lectura"
+	mostrar_pagina()
+	boton_lectura.visible = true
+	boton_notas.visible = false
+	
+	
+	
+	
+	
+	
+	
