@@ -290,7 +290,6 @@ offset_bottom = 98.0
 
 [node name="Reading" type="AnimatedSprite2D" parent="ButtonReading" unique_id=892238578]
 position = Vector2(31, 25)
-rotation = 3.1415927
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb0ts")
 animation = &"Space 1"
@@ -310,7 +309,6 @@ offset_bottom = 151.0
 
 [node name="Notes" type="AnimatedSprite2D" parent="ButtonNotes" unique_id=781006497]
 position = Vector2(31, 25)
-rotation = 3.1415927
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb0ts")
 animation = &"Space 2"
