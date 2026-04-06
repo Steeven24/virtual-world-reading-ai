@@ -208,9 +208,10 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer" unique_id=926003327]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.66369516, 0.6314033, 2.1168277, 1)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_x4e7g")
 placeholder_text = "Escribe tus notas aquí..."
 
