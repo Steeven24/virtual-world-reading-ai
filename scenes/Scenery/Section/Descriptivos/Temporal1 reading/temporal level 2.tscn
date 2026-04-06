@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b6nb0ck7hvws5"]
+
+[ext_resource type="Texture2D" uid="uid://c83o4nqiunfp5" path="res://assets/Temporal sprites/temporal level 2.png" id="1_fkrat"]
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_rm1yk"]
+[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_bgo5h"]
+[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_lfj74"]
+[ext_resource type="PackedScene" uid="uid://7835fgmtxiay" path="res://scenes/Interactuable/book_appear_confirmation.tscn" id="5_dj6io"]
+[ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="7_fkrat"]
+[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="7_oqdcn"]
+[ext_resource type="PackedScene" uid="uid://xvcsqs1ebaoq" path="res://scenes/Challenges/Temporal Challenge/temporal challenge2.tscn" id="8_b8uhp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
+size = Vector2(1247.25, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf8kc"]
+size = Vector2(45, 884)
+
+[node name="Level2" type="Node2D" unique_id=700575724]
+
+[node name="TemporalLevel2" type="Sprite2D" parent="." unique_id=766083718]
+position = Vector2(939.6665, 512)
+scale = Vector2(0.66666657, 0.6666666)
+texture = ExtResource("1_fkrat")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1333429592]
+visible = false
+texture_filter = 1
+position = Vector2(768, 512)
+texture = ExtResource("1_rm1yk")
+
+[node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_bgo5h")]
+position = Vector2(575, 520)
+target_scene = ExtResource("7_fkrat")
+
+[node name="Book2" parent="." unique_id=1027730642 node_paths=PackedStringArray("libro") instance=ExtResource("5_dj6io")]
+position = Vector2(1334, 524)
+libro = NodePath("../CanvasLayer")
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_lfj74")]
+position = Vector2(842, 864)
+
+[node name="Stage border" type="StaticBody2D" parent="Player" unique_id=795797537]
+position = Vector2(-650, -488)
+
+[node name="top border" type="CollisionShape2D" parent="Player/Stage border" unique_id=2085020761]
+position = Vector2(745.375, -170)
+shape = SubResource("RectangleShape2D_5v64h")
+
+[node name="left border" type="CollisionShape2D" parent="Player/Stage border" unique_id=924992708]
+position = Vector2(133, 331)
+shape = SubResource("RectangleShape2D_kf8kc")
+
+[node name="down border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1522391970]
+position = Vector2(749, 709)
+shape = SubResource("RectangleShape2D_5v64h")
+
+[node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=563187696]
+position = Vector2(1356, 328)
+shape = SubResource("RectangleShape2D_kf8kc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=56987683]
+visible = false
+
+[node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("7_oqdcn")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+target_scene = ExtResource("8_b8uhp")
+ruta_texto = "C:/Users/Kevin/Desktop/Proyecto Godot Prácticas/PROYECTO/virtual-world-reading-ai/readings/Descriptivo/temporal reading 1.txt"

@@ -1,0 +1,349 @@
+[gd_scene format=3 uid="uid://b8dg7m2oxjlo8"]
+
+[ext_resource type="Texture2D" uid="uid://c7csw66tdht55" path="res://assets/Book/book.png" id="1_2ergs"]
+[ext_resource type="Script" uid="uid://be1yovmmpirh8" path="res://scripts/Interactions/Book and Tools/bookAndTools.gd" id="1_q0t4q"]
+[ext_resource type="Texture2D" uid="uid://dcnjoabpaqltd" path="res://assets/Buttons/Book Tools/BaseButton/Resaltar.png" id="1_uavve"]
+[ext_resource type="Texture2D" uid="uid://bwlksekbvnn8n" path="res://assets/Buttons/Book Tools/BaseButton/Subrayar.png" id="2_2ergs"]
+[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_x4e7g"]
+[ext_resource type="Texture2D" uid="uid://d0n660l2d37jt" path="res://assets/Buttons/Book Tools/BaseButton/Borrar.png" id="3_x4e7g"]
+[ext_resource type="Texture2D" uid="uid://dvgeq7eubrcsp" path="res://assets/Buttons/Book Tools/Pressed/Resaltar.PNG" id="4_488jl"]
+[ext_resource type="Texture2D" uid="uid://b58vbmu0tva53" path="res://assets/Buttons/Book Tools/BaseButton/right.png" id="4_imnac"]
+[ext_resource type="Texture2D" uid="uid://dosj6l24jpd6n" path="res://assets/Buttons/Book Tools/BaseButton/Hecho.png" id="4_m617q"]
+[ext_resource type="Texture2D" uid="uid://dpfjknqh7icak" path="res://assets/Buttons/Book Tools/Hover/Resaltar.PNG" id="5_to0nk"]
+[ext_resource type="Texture2D" uid="uid://clx32ww3mx4jx" path="res://assets/Buttons/Book Tools/Pressed/Subrayar.PNG" id="7_q0t4q"]
+[ext_resource type="Texture2D" uid="uid://1j4r3p2jmpe6" path="res://assets/Buttons/Book Tools/Hover/Subrayar.PNG" id="8_imnac"]
+[ext_resource type="Texture2D" uid="uid://dd0h7c4tf5fri" path="res://assets/Buttons/Book Tools/Pressed/Borrar.PNG" id="10_joms6"]
+[ext_resource type="Texture2D" uid="uid://xersecqtrsx8" path="res://assets/Buttons/Book Tools/Hover/Borrar.PNG" id="11_xlxhx"]
+[ext_resource type="Texture2D" uid="uid://smye0xn3j6ic" path="res://assets/Buttons/Book Tools/Pressed/Hecho.PNG" id="13_jb4w5"]
+[ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
+[ext_resource type="Texture2D" uid="uid://b7bfp6166ijkc" path="res://assets/Buttons/Book Tools/BaseButton/colores.png" id="18_4uhxw"]
+[ext_resource type="Texture2D" uid="uid://df880aqhr0gfg" path="res://assets/Buttons/Book Tools/BaseButton/Icon/alineacion-central.png" id="19_56ivi"]
+[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas.png" id="20_56ivi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nksb"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4h2e"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_425m3"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 0, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s6yn"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12q57"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua4sa"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdc2b"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 106, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dsda"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvei6"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqkpc"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqqnr"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 212, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tcmt"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(0, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lv0g"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(128, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7stb"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(256, 318, 128, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ewr"]
+atlas = ExtResource("18_4uhxw")
+region = Rect2(384, 318, 128, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vb0ts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nksb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4h2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_425m3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s6yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12q57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua4sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdc2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dsda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvei6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqkpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqqnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tcmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lv0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7stb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36ewr")
+}],
+"loop": true,
+"name": &"Space 1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4h2e")
+}],
+"loop": true,
+"name": &"Space 2",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4uhxw"]
+
+[node name="LecturaYLibro" type="Control" unique_id=2040741173]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_q0t4q")
+target_scene_path = "uid://bu0dbhg1ki0ng"
+ruta_texto = "res://readings/Test/loren ipsun.txt"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1745195057]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 20.0
+offset_right = 912.0
+offset_bottom = 522.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=528127396]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="Libro" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1999561932]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro" unique_id=618658811]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=506245756]
+layout_mode = 2
+texture = ExtResource("1_2ergs")
+region_rect = Rect2(0, 0, 1059, 918)
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_x4e7g")
+theme_override_font_sizes/font_size = 21
+text = "Pag 3 de 6"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 70
+
+[node name="NotasContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1339529905]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer" unique_id=926003327]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.2784314, 0.2627451, 0.9490196, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+theme_override_fonts/font = ExtResource("2_x4e7g")
+placeholder_text = "Escribe tus notas aquí..."
+wrap_mode = 1
+
+[node name="LecturaContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1992287855]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer" unique_id=429815083]
+layout_mode = 2
+focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_x4e7g")
+bbcode_enabled = true
+text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Este texto está resaltado y subrayado[/u][/bgcolor] de prueba Texto de prueba Texto de prueba Texto de prueba
+
+ Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba "
+fit_content = true
+tab_size = 5
+selection_enabled = true
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
+layout_mode = 2
+
+[node name="Herramientas" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResaltarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
+layout_mode = 2
+action_mode = 0
+keep_pressed_outside = true
+texture_normal = ExtResource("1_uavve")
+texture_pressed = ExtResource("4_488jl")
+texture_hover = ExtResource("5_to0nk")
+texture_focused = ExtResource("4_488jl")
+
+[node name="SubrayarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
+layout_mode = 2
+texture_normal = ExtResource("2_2ergs")
+texture_pressed = ExtResource("7_q0t4q")
+texture_hover = ExtResource("8_imnac")
+texture_focused = ExtResource("7_q0t4q")
+
+[node name="BorrarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
+layout_mode = 2
+texture_normal = ExtResource("3_x4e7g")
+texture_pressed = ExtResource("10_joms6")
+texture_hover = ExtResource("11_xlxhx")
+texture_focused = ExtResource("10_joms6")
+
+[node name="HechoButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
+layout_mode = 2
+texture_normal = ExtResource("4_m617q")
+texture_pressed = ExtResource("13_jb4w5")
+texture_hover = ExtResource("14_bm4mi")
+texture_focused = ExtResource("13_jb4w5")
+
+[node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 474.0
+offset_right = 95.0
+offset_bottom = 519.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("4_imnac")
+texture_pressed = ExtResource("4_imnac")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
+[node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 504.0
+offset_top = 474.0
+offset_right = 549.0
+offset_bottom = 519.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("4_imnac")
+texture_pressed = ExtResource("4_imnac")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ButtonReading" type="Button" parent="." unique_id=1513072957]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 48.0
+offset_right = 89.0
+offset_bottom = 98.0
+
+[node name="Reading" type="AnimatedSprite2D" parent="ButtonReading" unique_id=892238578]
+position = Vector2(31, 25)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 1"
+
+[node name="Text" type="Sprite2D" parent="ButtonReading/Reading" unique_id=1055218097]
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("19_56ivi")
+
+[node name="ButtonNotes" type="Button" parent="." unique_id=1477265914]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 101.0
+offset_right = 89.0
+offset_bottom = 151.0
+
+[node name="Notes" type="AnimatedSprite2D" parent="ButtonNotes" unique_id=781006497]
+position = Vector2(31, 25)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 2"
+
+[node name="Notes" type="Sprite2D" parent="ButtonNotes/Notes" unique_id=273292658]
+texture_filter = 3
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("20_56ivi")
+
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
+[connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="pressed" from="ButtonRight" to="." method="_on_button_right_pressed"]
+[connection signal="pressed" from="ButtonReading" to="." method="_on_button_reading_pressed"]
+[connection signal="pressed" from="ButtonNotes" to="." method="_on_button_notes_pressed"]

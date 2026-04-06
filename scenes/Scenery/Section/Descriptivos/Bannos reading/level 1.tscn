@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c4qs2adq7f8bt"]
+
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_5v64h"]
+[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_mlacg"]
+[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="4_c6ahh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
+size = Vector2(1176.5, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf8kc"]
+size = Vector2(45, 642)
+
+[node name="Level1" type="Node2D" unique_id=700575724]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1333429592]
+texture_filter = 1
+position = Vector2(768, 512)
+texture = ExtResource("1_5v64h")
+
+[node name="Book" parent="." unique_id=1070625844 instance=ExtResource("4_c6ahh")]
+position = Vector2(974, 620)
+target_scene_path = "uid://b8dg7m2oxjlo8"
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_mlacg")]
+position = Vector2(688, 862)
+
+[node name="Stage border" type="StaticBody2D" parent="Player" unique_id=795797537]
+position = Vector2(-496, -486)
+
+[node name="top border" type="CollisionShape2D" parent="Player/Stage border" unique_id=2085020761]
+position = Vector2(583, -43)
+shape = SubResource("RectangleShape2D_5v64h")
+
+[node name="left border" type="CollisionShape2D" parent="Player/Stage border" unique_id=924992708]
+position = Vector2(12.5, 331)
+shape = SubResource("RectangleShape2D_kf8kc")
+
+[node name="down border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1522391970]
+position = Vector2(576, 711)
+shape = SubResource("RectangleShape2D_5v64h")
+
+[node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=563187696]
+position = Vector2(1147, 328)
+shape = SubResource("RectangleShape2D_kf8kc")

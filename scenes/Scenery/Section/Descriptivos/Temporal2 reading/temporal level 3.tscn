@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cup2q311cpg6l"]
+
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_t0p74"]
+[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_fseq8"]
+[ext_resource type="PackedScene" uid="uid://dr4semfrcai0y" path="res://scenes/Challenges/Descriptivos/Bannos/challenge3.tscn" id="3_8vvbs"]
+[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_5iaj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvmgh"]
+size = Vector2(1176.5, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xchko"]
+size = Vector2(45, 642)
+
+[node name="Level3" type="Node2D" unique_id=511817633]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1196522793]
+texture_filter = 1
+position = Vector2(768, 512)
+texture = ExtResource("1_t0p74")
+
+[node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_fseq8")]
+position = Vector2(425, 603)
+target_scene = ExtResource("3_8vvbs")
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_5iaj3")]
+position = Vector2(688, 862)
+
+[node name="Stage border" type="StaticBody2D" parent="Player" unique_id=486193148]
+position = Vector2(-496, -486)
+
+[node name="top border" type="CollisionShape2D" parent="Player/Stage border" unique_id=358112181]
+position = Vector2(583, -43)
+shape = SubResource("RectangleShape2D_wvmgh")
+
+[node name="left border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1197345461]
+position = Vector2(12.5, 331)
+shape = SubResource("RectangleShape2D_xchko")
+
+[node name="down border" type="CollisionShape2D" parent="Player/Stage border" unique_id=226152979]
+position = Vector2(576, 711)
+shape = SubResource("RectangleShape2D_wvmgh")
+
+[node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1688038984]
+position = Vector2(1147, 328)
+shape = SubResource("RectangleShape2D_xchko")
