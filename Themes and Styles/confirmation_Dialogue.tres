@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://1ytmo6fq5der"]
+
+[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="1_j78h3"]
+[ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="2_6ho2w"]
+
+[resource]
+default_font = ExtResource("1_j78h3")
+AcceptDialog/fonts/title_font = ExtResource("1_j78h3")
+AcceptDialog/styles/panel = ExtResource("2_6ho2w")

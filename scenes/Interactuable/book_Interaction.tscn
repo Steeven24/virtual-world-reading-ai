@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b0xq80oyo0m3d" path="res://assets/Interaction/book.png" id="1_67ucf"]
 [ext_resource type="Script" uid="uid://sa8a8ey78ykc" path="res://scripts/Interactions/Teleport/pressE_teleport_book.gd" id="1_m8t72"]
 [ext_resource type="Texture2D" uid="uid://pet6wb4ol05d" path="res://assets/Interaction/pressE.png" id="3_0rspi"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="3_l8hwa"]
 [ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="4_4of3y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
@@ -105,7 +106,7 @@ oversampling_override = 1.0
 title = "Confirmar"
 position = Vector2i(0, 36)
 size = Vector2i(400, 150)
-visible = true
+theme = ExtResource("3_l8hwa")
 ok_button_text = "Si"
 dialog_text = "¿Estás seguro de que deseas 
 empezar el desafío?"
