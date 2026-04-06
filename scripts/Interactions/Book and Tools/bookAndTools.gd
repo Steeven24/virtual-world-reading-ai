@@ -5,9 +5,15 @@ extends Control
 @onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
 @onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
 @onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
+@onready var text_notas: TextEdit = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer/TextEdit
+@onready var panel_boton_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
+@onready var panel_boton_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
 
-@onready var boton_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
-@onready var boton_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
+@onready var boton_izq: TextureButton = $ButtonLeft
+@onready var boton_der: TextureButton = $ButtonRight
+
+@onready var boton_lectura: Button = $ButtonReading
+@onready var boton_notas: Button = $ButtonNotes
 
 @export var target_scene: PackedScene
 #@export var texto_completo: 
@@ -15,6 +21,7 @@ extends Control
 		
 #@export var next_scene_path: String
 var modo_actual = "lectura"
+var notas_por_pagina = {}
 
 
 enum Herramienta {
@@ -226,7 +233,25 @@ func mostrar_pagina():
 func mostrar_notas():
 	_refrescar_texto_actual()
 	label_pagina.text = "
-	Notas"
+	Notas - Pag %d" % [pagina_actual + 1]
+	
+func guardar_nota():
+	text_notas.text
+	notas_por_pagina[pagina_actual] = text_notas.text
+
+func aparecer_botones_izq_y_der():
+	boton_der.visible = true
+	boton_izq.visible = true
+	
+func ocultar_botones_izq_y_der():
+	boton_der.visible = false
+	boton_izq.visible = false
+
+func cargar_nota():
+	if pagina_actual in notas_por_pagina:
+		text_notas.text = notas_por_pagina[pagina_actual]
+	else:
+		text_notas.text = ""
 
 func _on_button_right_pressed() -> void:
 	if pagina_actual < paginas.size() - 1:
@@ -241,17 +266,25 @@ func _on_button_left_pressed() -> void:
 
 
 func _on_button_notes_pressed() -> void:
+	boton_notas.disabled = true
+	boton_lectura.disabled = false
+	ocultar_botones_izq_y_der()
 	mostrar_notas()
+	cargar_nota()
 	modo_actual = "notas"
-	boton_lectura.visible = false
-	boton_notas.visible = true
+	panel_boton_lectura.visible = false
+	panel_boton_notas.visible = true
 	
 	
 func _on_button_reading_pressed() -> void:
+	boton_notas.disabled = false
+	boton_lectura.disabled = true
+	aparecer_botones_izq_y_der()
+	guardar_nota()
 	modo_actual = "lectura"
 	mostrar_pagina()
-	boton_lectura.visible = true
-	boton_notas.visible = false
+	panel_boton_lectura.visible = true
+	panel_boton_notas.visible = false
 	
 	
 	
