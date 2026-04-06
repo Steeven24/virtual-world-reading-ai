@@ -211,9 +211,13 @@ layout_mode = 2
 modulate = Color(0.66369516, 0.6314033, 2.1168277, 1)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.6)
 theme_override_fonts/font = ExtResource("2_x4e7g")
 placeholder_text = "Escribe tus notas aquí..."
+wrap_mode = 1
 
 [node name="LecturaContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1992287855]
 self_modulate = Color(1, 1, 1, 0)
