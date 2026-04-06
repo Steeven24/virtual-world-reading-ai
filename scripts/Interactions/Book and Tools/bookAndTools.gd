@@ -14,8 +14,8 @@ extends Control
 
 @onready var boton_lectura: Button = $ButtonReading
 @onready var boton_notas: Button = $ButtonNotes
-
-@export var target_scene: PackedScene
+@export_file("*.tscn") var target_scene_path: String
+#@export var target_scene: PackedScene
 #@export var texto_completo: 
 @export_global_file("*.txt", "*.md") var ruta_texto: String
 		
@@ -23,6 +23,8 @@ extends Control
 var modo_actual = "lectura"
 var notas_por_pagina = {}
 
+func change_scene():
+	SceneManager.transition_to(target_scene_path)
 
 enum Herramienta {
 	NINGUNA,
@@ -83,10 +85,11 @@ func _on_borrar_button_pressed() -> void:
 
 func _on_hecho_button_pressed() -> void:
 	aplicar_formato()
-	if target_scene != null:
-		get_tree().change_scene_to_packed(target_scene)
-	else:
-		print("Error: No has asignado una ruta de escena en el inspector.")
+	change_scene()
+	#if target_scene != null:
+		#get_tree().change_scene_to_packed(target_scene)
+	#else:
+		#print("Error: No has asignado una ruta de escena en el inspector.")
 	
 
 func _on_rich_text_label_gui_input(event: InputEvent) -> void:
@@ -236,7 +239,6 @@ func mostrar_notas():
 	Notas - Pag %d" % [pagina_actual + 1]
 	
 func guardar_nota():
-	text_notas.text
 	notas_por_pagina[pagina_actual] = text_notas.text
 
 func aparecer_botones_izq_y_der():

@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_rdscn"]
 [ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="3_uogk4"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_i0rb6"]
-[ext_resource type="PackedScene" uid="uid://c4qs2adq7f8bt" path="res://scenes/Scenery/Section/Descriptivos/Bannos reading/level 1.tscn" id="5_6ukcv"]
-[ext_resource type="PackedScene" uid="uid://yaxwyqy4sp3k" path="res://scenes/Scenery/Section/Descriptivos/Bannos reading/level 2.tscn" id="5_usxdn"]
 
 [node name="Lobby" type="Node2D" unique_id=770369048]
 
@@ -13,11 +11,10 @@
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_rdscn")]
 position = Vector2(447, 523)
-target_scene = ExtResource("5_usxdn")
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
 position = Vector2(1306, 1187)
 
 [node name="Telescope" parent="." unique_id=1337560202 instance=ExtResource("3_uogk4")]
 position = Vector2(448, 1257)
-target_scene = ExtResource("5_6ukcv")
+target_scene_path = "uid://c4qs2adq7f8bt"

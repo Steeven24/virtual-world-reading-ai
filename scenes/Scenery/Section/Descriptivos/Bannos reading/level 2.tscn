@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_m72cy"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="3_ngjcs"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="3_omm14"]
-[ext_resource type="PackedScene" uid="uid://unrr75n3ny2j" path="res://scenes/Challenges/Descriptivos/Bannos/challenge2.tscn" id="3_snpqo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -20,7 +19,7 @@ texture = ExtResource("1_m72cy")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_ngjcs")]
 position = Vector2(752, 591)
-target_scene = ExtResource("3_snpqo")
+target_scene_path = "uid://unrr75n3ny2j"
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("3_omm14")]
 position = Vector2(688, 862)

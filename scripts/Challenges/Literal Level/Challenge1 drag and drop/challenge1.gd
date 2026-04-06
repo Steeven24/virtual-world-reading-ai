@@ -2,7 +2,12 @@ extends Node2D
 
 var contador = 0
 #@export var next_scene_path: String
-@export var target_scene: PackedScene
+#@export var target_scene: PackedScene
+@export_file("*.tscn") var target_scene_path: String
+
+func change_scene():
+	SceneManager.transition_to(target_scene_path)
+
 
 func objeto_correcto():
 	contador += 1
@@ -22,5 +27,6 @@ func ganaste():
 
 	# Esperar 2 segundos y cambiar escena
 	await get_tree().create_timer(2.0).timeout
-	get_tree().change_scene_to_packed(target_scene)
+	SceneManager.transition_to(target_scene_path)
+	#get_tree().change_scene_to_packed(target_scene)
 	#get_tree().change_scene_to_file(next_scene_path)

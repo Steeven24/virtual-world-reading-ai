@@ -1,13 +1,14 @@
 extends Node2D
 
-@export var target_scene: PackedScene
+#@export var target_scene: PackedScene
 var player_in_range = false
+#@export var target_scene: PackedScene
+# Usamos export_file para que Godot nos dé un selector de archivos en el inspector
+@export_file("*.tscn") var target_scene_path: String
 
-func cambiar_Escena():
-	if target_scene != null:
-		get_tree().change_scene_to_packed(target_scene)
-	else:
-		print("No hay una escena seleccionada")
+		
+func change_scene():
+	SceneManager.transition_to(target_scene_path)
 
 func _ready():
 	$Book/Area2D/message.visible = false
@@ -38,14 +39,11 @@ func show_dialogue():
 	print("¡Hola! Este es un diálogo.")
 
 
-func change_scene():
-	get_tree().change_scene_to_packed(target_scene)
+
 
 func _on_dialog_confirmed():
-	if target_scene != null:
-		get_tree().change_scene_to_packed(target_scene)
-	else:
-		print("Error: No has asignado una ruta de escena en el inspector.")
+		change_scene()
+	
 		
 
 		

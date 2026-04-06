@@ -16,7 +16,7 @@ size = Vector2(76.53227, 62.72728)
 
 [node name="Challenge3" type="Node2D" unique_id=2035677237]
 script = ExtResource("1_tvjhr")
-next_scene = "res://scenes/Scenery/Lobby/lobby.tscn"
+target_scene_path = "uid://ceqllypl7qp5q"
 
 [node name="Back" type="Sprite2D" parent="." unique_id=1111780985]
 position = Vector2(552, 334)

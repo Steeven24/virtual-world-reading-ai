@@ -2,8 +2,8 @@ extends Node2D
 
 #@export var next_scene_path: String
 var player_in_range = false
-
-@export var target_scene: PackedScene
+@export_file("*.tscn") var target_scene_path: String
+#@export var target_scene: PackedScene
 
 func _ready():
 	$Area2D/message.visible = false
@@ -43,13 +43,15 @@ func show_dialogue():
 		#print("Error: No has asignado una ruta de escena en el inspector.")
 
 func change_scene():
-	get_tree().change_scene_to_packed(target_scene)
+	SceneManager.transition_to(target_scene_path)
+	#get_tree().change_scene_to_packed(target_scene)
 
 func _on_dialog_confirmed():
-	if target_scene != null:
-		get_tree().change_scene_to_packed(target_scene)
-	else:
-		print("Error: No has asignado una ruta de escena en el inspector.")
+	#if target_scene != null:
+		change_scene()
+		#get_tree().change_scene_to_packed(target_scene)
+	#else:
+		#print("Error: No has asignado una ruta de escena en el inspector.")
 		
 #func cambiar_Escena():
 	#if target_scene != null:
