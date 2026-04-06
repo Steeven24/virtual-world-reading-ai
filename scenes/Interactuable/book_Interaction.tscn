@@ -104,12 +104,12 @@ metadata/_edit_use_anchors_ = true
 [node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
 oversampling_override = 1.0
 title = "Confirmar"
-position = Vector2i(0, 36)
-size = Vector2i(400, 150)
+position = Vector2i(400, 425)
+size = Vector2i(289, 150)
 theme = ExtResource("3_l8hwa")
 ok_button_text = "Si"
-dialog_text = "¿Estás seguro de que deseas 
-empezar el desafío?"
+dialog_text = "¿Estás seguro de que deseas empezar el desafío?"
+dialog_autowrap = true
 cancel_button_text = "No"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Book/Area2D" unique_id=2002675207]

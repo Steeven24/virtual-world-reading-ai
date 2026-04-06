@@ -100,7 +100,7 @@ metadata/_edit_use_anchors_ = true
 [node name="confirm" type="ConfirmationDialog" parent="Area2D" unique_id=1163613631]
 oversampling_override = 1.0
 title = "Confirmar"
-position = Vector2i(400, 450)
+position = Vector2i(400, 425)
 size = Vector2i(239, 106)
 theme = ExtResource("2_n1o1d")
 ok_button_text = "Si"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_5v64h"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_mlacg"]
-[ext_resource type="PackedScene" uid="uid://c6jbtga6g3t55" path="res://scenes/Book and Tools/book and tools2.tscn" id="3_gecer"]
+[ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="3_gecer"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="4_c6ahh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
