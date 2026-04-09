@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://b8g1p0kfql5y2"]
 
 [ext_resource type="Script" uid="uid://b6cmdh1j1pej3" path="res://scripts/Interactions/Teleport/pressE_teleport_dialogue.gd" id="2_cls42"]
+[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_kyc8s"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_n1o1d"]
 [ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_0esm7"]
-[ext_resource type="Texture2D" uid="uid://pet6wb4ol05d" path="res://assets/Interaction/pressE.png" id="3_apj85"]
+[ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="3_n1o1d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
 
@@ -92,9 +93,22 @@ scale = Vector2(45.373333, 45.373333)
 shape = SubResource("CircleShape2D_32c1v")
 
 [node name="message" type="Label" parent="Area2D" unique_id=1805099042]
-offset_right = 81.0
-offset_bottom = 23.0
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -312.8889
+offset_right = 250.0
+offset_bottom = -192.88889
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kyc8s")
+theme_override_font_sizes/font_size = 100
 text = "Presione E"
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="confirm" type="ConfirmationDialog" parent="Area2D" unique_id=1163613631]
@@ -118,19 +132,13 @@ shape = SubResource("RectangleShape2D_qqvbj")
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=2141102064]
 visible = false
 texture_filter = 1
-position = Vector2(57, -93.00001)
-scale = Vector2(0.5138866, 0.81142974)
-texture = ExtResource("3_apj85")
-
-[node name="ColorRect" type="ColorRect" parent="Speech bubble" unique_id=1598571114]
-offset_left = -31.249842
-offset_top = -45.8331
-offset_right = 29.166521
-offset_bottom = 14.583263
+position = Vector2(0, -100)
+scale = Vector2(0.9, 1)
+texture = ExtResource("3_n1o1d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=418304668]
 texture_filter = 1
-position = Vector2(-3.230091, -15.358772)
-scale = Vector2(2.8556876, 1.8085357)
+position = Vector2(0, -6)
+scale = Vector2(1.6305552, 1.4674996)
 sprite_frames = SubResource("SpriteFrames_n1o1d")
 autoplay = "default"

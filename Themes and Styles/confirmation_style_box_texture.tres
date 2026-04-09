@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxTexture" format=3 uid="uid://5fhm6lslsa2m"]
 
-[ext_resource type="Texture2D" uid="uid://dmup867oqea4b" path="res://assets/Speech bubble/Speech bubble.png" id="1_xo74s"]
+[ext_resource type="Texture2D" uid="uid://katismhgvipn" path="res://assets/Speech bubble/cuadro de texto3.png" id="1_xo74s"]
 
 [resource]
 texture = ExtResource("1_xo74s")
@@ -8,3 +8,4 @@ texture_margin_left = 28.0
 texture_margin_top = 28.0
 texture_margin_right = 28.0
 texture_margin_bottom = 32.0
+modulate_color = Color(1, 1, 1, 0.28235295)
