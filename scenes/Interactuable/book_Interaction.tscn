@@ -122,7 +122,7 @@ scale = Vector2(11.9226675, 11.9226675)
 shape = SubResource("RectangleShape2D_qqvbj")
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=813599933]
-self_modulate = Color(0.89411765, 0.8156863, 0.69411767, 0.87058824)
+visible = false
 texture_filter = 1
 position = Vector2(0, -100)
 scale = Vector2(0.9, 1)
