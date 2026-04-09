@@ -101,10 +101,13 @@ offset_bottom = 23.0
 metadata/_edit_use_anchors_ = true
 
 [node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Confirmar"
-position = Vector2i(400, 425)
-size = Vector2i(289, 150)
+position = Vector2i(400, 402)
+size = Vector2i(286, 141)
+borderless = true
+transparent = true
 theme = ExtResource("3_l8hwa")
 ok_button_text = "Si"
 dialog_text = "¿Estás seguro de que deseas empezar el desafío?"
@@ -119,7 +122,7 @@ scale = Vector2(11.9226675, 11.9226675)
 shape = SubResource("RectangleShape2D_qqvbj")
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=813599933]
-visible = false
+self_modulate = Color(0.89411765, 0.8156863, 0.69411767, 0.87058824)
 texture_filter = 1
 position = Vector2(0, -100)
 scale = Vector2(0.9, 1)

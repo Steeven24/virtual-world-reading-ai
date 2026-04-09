@@ -102,11 +102,13 @@ text = "Presione E"
 metadata/_edit_use_anchors_ = true
 
 [node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
+transparent_bg = true
 oversampling_override = 1.0
-title = "Confirmar"
-position = Vector2i(400, 202)
+title = ""
+position = Vector2i(400, 402)
 size = Vector2i(289, 147)
-visible = true
+borderless = true
+transparent = true
 theme = ExtResource("3_2li7k")
 ok_button_text = "Si"
 dialog_text = "¿Estás seguro de que deseas 
@@ -139,6 +141,14 @@ position = Vector2(-3.230091, -15.358772)
 scale = Vector2(2.8556876, 1.8085357)
 sprite_frames = SubResource("SpriteFrames_2li7k")
 autoplay = "default"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=219874877]
+visible = false
+offset_left = 381.00003
+offset_top = 165.00002
+offset_right = 434.34396
+offset_bottom = 387.0
+scale = Vector2(6.28, 1)
 
 [connection signal="body_entered" from="Book/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Book/Area2D" to="." method="_on_area_2d_body_exited"]
