@@ -7,6 +7,7 @@
 
 [resource]
 default_font = ExtResource("1_j78h3")
+default_font_size = 30
 AcceptDialog/fonts/title_font = ExtResource("1_j78h3")
 AcceptDialog/styles/embedded_border = SubResource("StyleBoxEmpty_j78h3")
 AcceptDialog/styles/panel = ExtResource("2_6ho2w")

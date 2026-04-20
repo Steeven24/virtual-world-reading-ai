@@ -96,6 +96,7 @@ scale = Vector2(45.373333, 45.373333)
 shape = SubResource("CircleShape2D_32c1v")
 
 [node name="message" type="Label" parent="Book/Area2D" unique_id=1805099042]
+visible = false
 offset_right = 81.0
 offset_bottom = 23.0
 text = "Presione E"
@@ -105,8 +106,9 @@ metadata/_edit_use_anchors_ = true
 transparent_bg = true
 oversampling_override = 1.0
 title = ""
-position = Vector2i(400, 402)
-size = Vector2i(289, 147)
+initial_position = 2
+size = Vector2i(493, 192)
+visible = true
 borderless = true
 transparent = true
 theme = ExtResource("3_2li7k")
