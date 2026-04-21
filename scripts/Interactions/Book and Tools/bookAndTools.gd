@@ -8,12 +8,15 @@ extends Control
 @onready var text_notas: TextEdit = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer/TextEdit
 @onready var panel_boton_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
 @onready var panel_boton_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
+@onready var panel_boton_notas_juntas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer
 
 @onready var boton_izq: TextureButton = $ButtonLeft
 @onready var boton_der: TextureButton = $ButtonRight
 
 @onready var boton_lectura: Button = $ButtonReading
 @onready var boton_notas: Button = $ButtonNotes
+@onready var boton_compilatorio: Button = $ButtonCompilatorio
+
 @export_file("*.tscn") var target_scene_path: String
 #@export var target_scene: PackedScene
 #@export var texto_completo: 
@@ -56,6 +59,7 @@ var estilos_por_pagina: Array[Array] = []
 
 func _ready() -> void:
 	$PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer.visible = false
+	panel_boton_notas_juntas.visible = false
 	var file = FileAccess.open(ruta_texto, FileAccess.READ)
 	var texto_completo = file.get_as_text()
 	#$RichTextLabel.text = texto_completo # O el nodo donde muestres el texto
@@ -238,6 +242,11 @@ func mostrar_notas():
 	label_pagina.text = "
 	Notas - Pag %d" % [pagina_actual + 1]
 	
+func mostrar_compilatorio():
+	_refrescar_texto_actual()
+	label_pagina.text = "
+	Agrupación de todas las notas"
+	
 func guardar_nota():
 	notas_por_pagina[pagina_actual] = text_notas.text
 
@@ -269,6 +278,7 @@ func _on_button_left_pressed() -> void:
 
 func _on_button_notes_pressed() -> void:
 	boton_notas.disabled = true
+	boton_compilatorio.disabled = false
 	boton_lectura.disabled = false
 	ocultar_botones_izq_y_der()
 	mostrar_notas()
@@ -276,17 +286,54 @@ func _on_button_notes_pressed() -> void:
 	modo_actual = "notas"
 	panel_boton_lectura.visible = false
 	panel_boton_notas.visible = true
+	panel_boton_notas_juntas.visible = false
 	
 	
 func _on_button_reading_pressed() -> void:
 	boton_notas.disabled = false
+	boton_compilatorio.disabled = false
 	boton_lectura.disabled = true
 	aparecer_botones_izq_y_der()
 	guardar_nota()
 	modo_actual = "lectura"
 	mostrar_pagina()
+	panel_boton_notas_juntas.visible = false
 	panel_boton_lectura.visible = true
 	panel_boton_notas.visible = false
+	
+	
+	
+func _on_button_compilatorio_pressed():
+	boton_notas.disabled = false
+	boton_compilatorio.disabled = true
+	boton_lectura.disabled = false
+	ocultar_botones_izq_y_der()
+	guardar_nota() # importante guardar antes
+	modo_actual = "compilatorio"
+	mostrar_compilatorio()
+	panel_boton_lectura.visible = false
+	panel_boton_notas.visible = false
+	panel_boton_notas_juntas.visible = true
+	generar_compilatorio()
+	
+	
+	
+	
+func generar_compilatorio():
+	var rtl = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer/RichTextLabel
+	var texto = "" #= "[center][b]📚 Compilatorio de Notas[/b][/center]\n\n"
+	var paginas_ordenadas = notas_por_pagina.keys()
+	paginas_ordenadas.sort()
+	
+	for pagina in paginas_ordenadas:
+		var nota = notas_por_pagina[pagina]
+		if nota.strip_edges() != "":
+			texto += "[b]Página %d:[/b]\n" % (pagina + 1)
+			texto += nota + "\n\n"
+	rtl.bbcode_enabled = true
+	rtl.text = texto
+	
+	
 	
 	
 	

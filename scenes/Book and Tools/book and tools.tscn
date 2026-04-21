@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_x4e7g"]
 [ext_resource type="Texture2D" uid="uid://d0n660l2d37jt" path="res://assets/Buttons/Book Tools/BaseButton/Borrar.png" id="3_x4e7g"]
 [ext_resource type="Texture2D" uid="uid://dvgeq7eubrcsp" path="res://assets/Buttons/Book Tools/Pressed/Resaltar.PNG" id="4_488jl"]
+[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="4_gntck"]
 [ext_resource type="Texture2D" uid="uid://b58vbmu0tva53" path="res://assets/Buttons/Book Tools/BaseButton/right.png" id="4_imnac"]
 [ext_resource type="Texture2D" uid="uid://dosj6l24jpd6n" path="res://assets/Buttons/Book Tools/BaseButton/Hecho.png" id="4_m617q"]
 [ext_resource type="Texture2D" uid="uid://dpfjknqh7icak" path="res://assets/Buttons/Book Tools/Hover/Resaltar.PNG" id="5_to0nk"]
@@ -18,7 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
 [ext_resource type="Texture2D" uid="uid://b7bfp6166ijkc" path="res://assets/Buttons/Book Tools/BaseButton/colores.png" id="18_4uhxw"]
 [ext_resource type="Texture2D" uid="uid://df880aqhr0gfg" path="res://assets/Buttons/Book Tools/BaseButton/Icon/alineacion-central.png" id="19_56ivi"]
-[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas.png" id="20_56ivi"]
+[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/nota.png" id="20_56ivi"]
+[ext_resource type="Texture2D" uid="uid://carl2uuuk1m4v" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png" id="20_gntck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
 atlas = ExtResource("18_4uhxw")
@@ -146,6 +148,14 @@ animations = [{
 "loop": true,
 "name": &"Space 2",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvei6")
+}],
+"loop": true,
+"name": &"Space 3",
+"speed": 5.0
 }]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4uhxw"]
@@ -232,6 +242,16 @@ text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Es
 fit_content = true
 tab_size = 5
 selection_enabled = true
+
+[node name="CompilatorioContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=299954627]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer" unique_id=992739798]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_x4e7g")
+theme_override_fonts/bold_font = ExtResource("4_gntck")
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
 layout_mode = 2
@@ -338,6 +358,25 @@ position = Vector2(14.000061, 3.0517578e-05)
 scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("20_56ivi")
 
+[node name="ButtonCompilatorio" type="Button" parent="." unique_id=1419384677]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 154.0
+offset_right = 89.0
+offset_bottom = 204.0
+
+[node name="Reading" type="AnimatedSprite2D" parent="ButtonCompilatorio" unique_id=254550279]
+position = Vector2(31, 25)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 3"
+
+[node name="Text" type="Sprite2D" parent="ButtonCompilatorio/Reading" unique_id=1028034865]
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("20_gntck")
+
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
@@ -347,3 +386,4 @@ texture = ExtResource("20_56ivi")
 [connection signal="pressed" from="ButtonRight" to="." method="_on_button_right_pressed"]
 [connection signal="pressed" from="ButtonReading" to="." method="_on_button_reading_pressed"]
 [connection signal="pressed" from="ButtonNotes" to="." method="_on_button_notes_pressed"]
+[connection signal="pressed" from="ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
