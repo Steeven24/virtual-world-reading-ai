@@ -264,21 +264,26 @@ func _refrescar_texto_actual() -> void:
 		var debe_resaltar: bool = estado["resaltar"]
 		var debe_subrayar: bool = estado["subrayar"]
 
-		# Cerrar etiquetas que ya no aplican (orden inverso al de apertura)
-		if subrayar_activo and not debe_subrayar:
-			bbcode += "[/u]"
-			subrayar_activo = false
-		if resaltar_activo and not debe_resaltar:
-			bbcode += "[/bgcolor]"
-			resaltar_activo = false
+		# Si cualquier estilo cambia, cerrar TODAS las etiquetas activas
+		# y reabrir las necesarias. Esto evita cruces de etiquetas BBCode
+		# (ej: [u][bgcolor]...[/u][/bgcolor] → inválido).
+		var hay_cambio: bool = (debe_resaltar != resaltar_activo) or (debe_subrayar != subrayar_activo)
 
-		# Abrir etiquetas necesarias
-		if not resaltar_activo and debe_resaltar:
-			bbcode += "[bgcolor=yellow]"
-			resaltar_activo = true
-		if not subrayar_activo and debe_subrayar:
-			bbcode += "[u]"
-			subrayar_activo = true
+		if hay_cambio:
+			# Cerrar en orden inverso al de apertura (interior primero)
+			if subrayar_activo:
+				bbcode += "[/u]"
+			if resaltar_activo:
+				bbcode += "[/bgcolor]"
+
+			# Reabrir solo las etiquetas que siguen siendo necesarias
+			if debe_resaltar:
+				bbcode += "[bgcolor=yellow]"
+			if debe_subrayar:
+				bbcode += "[u]"
+
+			resaltar_activo = debe_resaltar
+			subrayar_activo = debe_subrayar
 
 		bbcode += _escapar_bbcode(texto_base[i])
 
