@@ -39,24 +39,23 @@ func _test_health_check() -> void:
 	_tests_total += 1
 	print("► Test 1: Health Check...")
 
-	var result: Dictionary = {}
-	var received := false
-
-	ReadingAPI.check_health(func(data):
-		result = data if data is Dictionary else {}
-		received = true
-	)
+	var state = [false, {}]
+	var cb := func(data):
+		state[1] = data if data is Dictionary else {}
+		state[0] = true
+	
+	ReadingAPI.check_health(cb)
 
 	# Esperar respuesta (máx 5 segundos)
 	var elapsed := 0.0
-	while not received and elapsed < 5.0:
+	while not state[0] and elapsed < 5.0:
 		await get_tree().create_timer(0.1).timeout
 		elapsed += 0.1
 
-	if received and result.get("status", "") == "ok":
-		_pass("Health OK — DB: %s" % result.get("database", "?"))
-	elif received:
-		_fail("Health respondió pero con estado: %s" % str(result))
+	if state[0] and state[1].get("status", "") == "ok":
+		_pass("Health OK — DB: %s" % state[1].get("database", "?"))
+	elif state[0]:
+		_fail("Health respondió pero con estado: %s" % str(state[1]))
 	else:
 		_fail("Health no respondió en 5s")
 

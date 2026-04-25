@@ -172,7 +172,7 @@ layout_mode = 0
 offset_left = 49.0
 offset_top = 20.0
 offset_right = 912.0
-offset_bottom = 522.0
+offset_bottom = 576.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
@@ -184,6 +184,7 @@ theme_override_constants/separation = 16
 [node name="Libro" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1999561932]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro" unique_id=618658811]
 custom_minimum_size = Vector2(0, 100)
@@ -233,13 +234,13 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer" unique_id=429815083]
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 bbcode_enabled = true
 text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Este texto está resaltado y subrayado[/u][/bgcolor] de prueba Texto de prueba Texto de prueba Texto de prueba
 
  Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba "
-fit_content = true
 tab_size = 5
 selection_enabled = true
 
@@ -293,10 +294,10 @@ texture_focused = ExtResource("13_jb4w5")
 [node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 50.0
-offset_top = 474.0
-offset_right = 95.0
-offset_bottom = 519.0
+offset_left = 78.0
+offset_top = 488.0
+offset_right = 123.0
+offset_bottom = 533.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 texture_normal = ExtResource("4_imnac")
@@ -308,10 +309,10 @@ flip_h = true
 [node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 504.0
-offset_top = 474.0
-offset_right = 549.0
-offset_bottom = 519.0
+offset_left = 483.0
+offset_top = 488.0
+offset_right = 528.0
+offset_bottom = 533.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("4_imnac")

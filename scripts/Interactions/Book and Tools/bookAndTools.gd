@@ -15,7 +15,7 @@ enum ModoVista {LECTURA, NOTAS, COMPILATORIO}
 
 # ─── Constantes ─────────────────────────────────────────────────────────────────
 
-const CARACTERES_POR_PAGINA: int = 800
+const CARACTERES_POR_PAGINA: int = 700
 ## Proporción mínima de llenado de una página al fragmentar texto.
 const PROPORCION_MINIMA_PAGINA: float = 0.6
 
@@ -104,7 +104,8 @@ func _load_from_file() -> void:
 	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
 	_actualizar_estado_botones()
-	_mostrar_pagina()
+	pagina_actual = 0
+	_cambiar_modo(ModoVista.LECTURA)
 
 # ─── Carga desde la API (precarga al entrar a la escena) ───────────────────────
 
@@ -144,7 +145,7 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	_inicializar_estilos()
 	pagina_actual = 0
 	_actualizar_estado_botones()
-	_mostrar_pagina()
+	_cambiar_modo(ModoVista.LECTURA)
 
 
 ## Callback cuando la API falla (red, timeout, etc.).
@@ -430,7 +431,8 @@ func _escapar_bbcode(texto: String) -> String:
 # ─── Sistema de notas ───────────────────────────────────────────────────────────
 
 func _guardar_nota() -> void:
-	notas_por_pagina[pagina_actual] = text_notas.text
+	if modo_actual == ModoVista.NOTAS:
+		notas_por_pagina[pagina_actual] = text_notas.text
 
 
 func _cargar_nota() -> void:
