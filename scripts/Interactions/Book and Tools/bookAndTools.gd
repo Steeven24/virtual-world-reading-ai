@@ -1,5 +1,10 @@
 ## Script que gestiona la interfaz del libro interactivo con herramientas
 ## de lectura (resaltar, subrayar, borrar) y sistema de notas por página.
+##
+## Soporta dos modos de carga de contenido:
+## - Archivo local: si @export ruta_texto apunta a un .txt válido.
+## - API remota: si ruta_texto está vacío y typology_filter tiene valor,
+##   precarga una lectura aleatoria desde la API al entrar a la escena.
 extends Control
 
 # ─── Enumeraciones ──────────────────────────────────────────────────────────────
@@ -14,10 +19,17 @@ const CARACTERES_POR_PAGINA: int = 800
 ## Proporción mínima de llenado de una página al fragmentar texto.
 const PROPORCION_MINIMA_PAGINA: float = 0.6
 
+## Ruta del archivo que almacena el UUID del dispositivo.
+const DEVICE_ID_PATH: String = "user://device_id.txt"
+
 # ─── Exports ────────────────────────────────────────────────────────────────────
 
 @export_file("*.tscn") var target_scene_path: String
 @export_global_file("*.txt", "*.md") var ruta_texto: String
+
+## Tipología para cargar desde la API (ej: "Descriptivo", "Narrativo", etc.).
+## Si ruta_texto está vacío y esto tiene valor, se usa el modo API.
+@export var typology_filter: String = ""
 
 # ─── Nodos referenciados (@onready) ─────────────────────────────────────────────
 
@@ -50,22 +62,130 @@ var paginas: Array[String] = []
 var estilos_por_pagina: Array[Array] = []
 var notas_por_pagina: Dictionary = {}
 
+## ID de la lectura actualmente cargada desde la API (-1 si es archivo local).
+var _current_reading_id: int = -1
+
+## True mientras se espera la respuesta de la API.
+var _is_loading: bool = false
+
+## UUID del dispositivo, usado para marcar lecturas como vistas.
+## Será reemplazado por el ID del usuario cuando se implemente el login.
+var _user_id: String = ""
+
+## True si el contenido se carga desde la API en lugar de un archivo local.
+var _uses_api: bool = false
+
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────────
 
 func _ready() -> void:
 	panel_notas.visible = false
 	panel_compilatorio.visible = false
 
-	var file := FileAccess.open(ruta_texto, FileAccess.READ)
-	var texto_completo := file.get_as_text()
-
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
 	_configurar_botones_herramientas()
+
+	# Determinar modo de carga
+	_uses_api = ruta_texto.is_empty() and not typology_filter.is_empty()
+
+	if _uses_api:
+		_user_id = _get_or_create_user_id()
+		_connect_api_signals()
+		_preload_from_api()
+	else:
+		_load_from_file()
+
+# ─── Carga desde archivo local (comportamiento original) ───────────────────────
+
+func _load_from_file() -> void:
+	var file := FileAccess.open(ruta_texto, FileAccess.READ)
+	var texto_completo := file.get_as_text()
+
 	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
 	_actualizar_estado_botones()
 	_mostrar_pagina()
+
+# ─── Carga desde la API (precarga al entrar a la escena) ───────────────────────
+
+## Conecta las señales del Autoload ReadingAPI para recibir respuestas.
+func _connect_api_signals() -> void:
+	ReadingAPI.random_reading_loaded.connect(_on_api_reading_received)
+	ReadingAPI.request_failed.connect(_on_api_request_failed)
+
+
+## Solicita una lectura aleatoria de la tipología configurada.
+## Muestra un estado de carga mientras espera la respuesta.
+func _preload_from_api() -> void:
+	_is_loading = true
+	_set_loading_state()
+	ReadingAPI.get_random_reading(typology_filter)
+
+
+## Muestra un estado visual de carga en el libro.
+func _set_loading_state() -> void:
+	rtl.text = "[color=black][center]Cargando lectura...[/center][/color]"
+	label_pagina.text = "\n\tCargando..."
+	boton_izq.visible = false
+	boton_der.visible = false
+
+
+## Callback cuando la API retorna una lectura exitosamente.
+func _on_api_reading_received(data: Dictionary) -> void:
+	_is_loading = false
+	_current_reading_id = int(data.get("id", -1))
+
+	var content: String = str(data.get("content", ""))
+	if content.is_empty():
+		_show_error_state("La lectura no tiene contenido.")
+		return
+
+	paginas = _fragmentar_texto(content, CARACTERES_POR_PAGINA)
+	_inicializar_estilos()
+	pagina_actual = 0
+	_actualizar_estado_botones()
+	_mostrar_pagina()
+
+
+## Callback cuando la API falla (red, timeout, etc.).
+func _on_api_request_failed(endpoint: String, error: String) -> void:
+	# Solo reaccionar si estamos esperando nuestra lectura
+	if not _is_loading:
+		return
+	_is_loading = false
+	_show_error_state("No se pudo cargar la lectura.\n%s" % error)
+	push_error("[BookAndTools] Fallo en %s: %s" % [endpoint, error])
+
+
+## Muestra un mensaje de error en el RichTextLabel del libro.
+func _show_error_state(message: String) -> void:
+	rtl.text = "[color=red][center]%s[/center][/color]" % _escapar_bbcode(message)
+	label_pagina.text = "\n\tError"
+	boton_izq.visible = false
+	boton_der.visible = false
+
+
+# ─── Identificador de usuario (UUID de dispositivo) ─────────────────────────────
+
+## Obtiene o genera un UUID único por dispositivo, almacenado en user://.
+## Cuando se implemente el sistema de login, este valor será reemplazado
+## por el ID del usuario autenticado.
+func _get_or_create_user_id() -> String:
+	if FileAccess.file_exists(DEVICE_ID_PATH):
+		var file := FileAccess.open(DEVICE_ID_PATH, FileAccess.READ)
+		if file:
+			var uid := file.get_as_text().strip_edges()
+			file.close()
+			if not uid.is_empty():
+				return uid
+
+	# Generar un UUID simple basado en timestamp + aleatorio
+	var uid := "device_%d_%d" % [randi(), int(Time.get_unix_time_from_system())]
+	var file := FileAccess.open(DEVICE_ID_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(uid)
+		file.close()
+	return uid
 
 # ─── Señales de botones de herramientas ─────────────────────────────────────────
 
@@ -83,6 +203,9 @@ func _on_borrar_button_pressed() -> void:
 
 func _on_hecho_button_pressed() -> void:
 	_aplicar_formato()
+	# Marcar como vista si se cargó desde la API
+	if _uses_api and _current_reading_id > 0:
+		ReadingAPI.mark_seen(_user_id, _current_reading_id)
 	_cambiar_escena()
 
 # ─── Señales de entrada del RichTextLabel ────────────────────────────────────────
@@ -253,6 +376,10 @@ func _mostrar_pagina() -> void:
 
 
 func _refrescar_texto_actual() -> void:
+	# Si estamos cargando o no hay páginas, no refrescar
+	if _is_loading or paginas.is_empty():
+		return
+
 	var texto_base: String = paginas[pagina_actual]
 	var estilos_actuales: Array = estilos_por_pagina[pagina_actual]
 	var bbcode: String = "[color=black]"
@@ -327,4 +454,15 @@ func _generar_compilatorio() -> void:
 # ─── Navegación de escenas ──────────────────────────────────────────────────────
 
 func _cambiar_escena() -> void:
+	# Desconectar señales de la API al salir de la escena
+	if _uses_api:
+		_disconnect_api_signals()
 	SceneManager.transition_to(target_scene_path)
+
+
+## Desconecta las señales de ReadingAPI para evitar callbacks huérfanos.
+func _disconnect_api_signals() -> void:
+	if ReadingAPI.random_reading_loaded.is_connected(_on_api_reading_received):
+		ReadingAPI.random_reading_loaded.disconnect(_on_api_reading_received)
+	if ReadingAPI.request_failed.is_connected(_on_api_request_failed):
+		ReadingAPI.request_failed.disconnect(_on_api_request_failed)
