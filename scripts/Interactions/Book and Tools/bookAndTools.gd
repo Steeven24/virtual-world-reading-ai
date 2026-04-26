@@ -459,7 +459,16 @@ func _cambiar_escena() -> void:
 	# Desconectar señales de la API al salir de la escena
 	if _uses_api:
 		_disconnect_api_signals()
+	SceneManager.is_ui_open = false
 	SceneManager.transition_to(target_scene_path)
+
+func _on_button_cerrar_pressed() -> void:
+	var canvas := get_parent() as CanvasLayer
+	if canvas:
+		canvas.visible = false
+	else:
+		visible = false
+	SceneManager.is_ui_open = false
 
 
 ## Desconecta las señales de ReadingAPI para evitar callbacks huérfanos.

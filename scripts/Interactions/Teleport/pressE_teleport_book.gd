@@ -37,11 +37,7 @@ func _process(delta):
 func show_dialogue():
 	var dialog = $Book/Area2D/confirm
 	$"../CanvasLayer".visible = true
-	
-	
-	
-	
-	
+	SceneManager.is_ui_open = true
 	
 	#
 	## 1. Forzamos posicionamiento absoluto

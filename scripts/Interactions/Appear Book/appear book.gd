@@ -89,6 +89,7 @@ func show_dialogue():
 func _on_dialog_confirmed():
 	if libro != null: #and not esta_leyendo:
 		libro.visible = true
+		SceneManager.is_ui_open = true
 		#esta_leyendo = true
 		
 	else:
