@@ -11,6 +11,10 @@ extends Node
 signal session_ready
 ## Emitida si falla la carga de la sesión.
 signal session_failed(error: String)
+## Emitida cuando la puntuación cambia (para actualizar HUD).
+signal score_changed(total_score: int)
+## Emitida cuando se desbloquea un logro nuevo.
+signal achievement_unlocked(achievement_id: String, achievement_name: String)
 
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
@@ -22,6 +26,19 @@ const QUESTIONS_PER_LEVEL: int = 2
 
 ## Mostrar la respuesta correcta en los desafíos (solo para desarrollo).
 const DEBUG_SHOW_ANSWER: bool = true
+
+## Puntos por respuesta correcta según nivel.
+const POINTS_BY_LEVEL: Dictionary = {
+	"Literal": 10,
+	"Inferencial": 20,
+	"Critico": 30,
+}
+
+## Bonus por completar un nivel sin errores (2/2 correctas).
+const LEVEL_PERFECT_BONUS: int = 15
+
+## Bonus por completar los 3 niveles de una lectura.
+const SESSION_COMPLETE_BONUS: int = 50
 
 # ─── Rutas de escenas ────────────────────────────────────────────────────────
 
@@ -61,6 +78,23 @@ var results: Array = []
 
 ## True si hay una sesión activa.
 var is_active: bool = false
+
+## Contador de errores en el nivel actual (para bonus perfecto).
+var _level_errors: int = 0
+
+# ─── Sistema de puntuación ───────────────────────────────────────────────
+
+## Datos de puntuación. Se reinicia al iniciar el juego.
+## En el futuro, persistirá por usuario.
+var score_data: Dictionary = {
+	"total_score": 0,
+	"sessions_completed": 0,
+	"correct_by_level": {"Literal": 0, "Inferencial": 0, "Critico": 0},
+	"incorrect_by_level": {"Literal": 0, "Inferencial": 0, "Critico": 0},
+	"typologies_completed": [],
+	"perfect_sessions": 0,
+	"achievements": [],
+}
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
 
@@ -136,10 +170,22 @@ func submit_answer(letter: String) -> Dictionary:
 		"correct_answer": correct_letter,
 	})
 
+	# Otorgar puntos
+	var points_earned: int = 0
+	if is_correct:
+		points_earned = POINTS_BY_LEVEL.get(get_current_level(), 10)
+		score_data["total_score"] += points_earned
+		score_data["correct_by_level"][get_current_level()] += 1
+		score_changed.emit(score_data["total_score"])
+	else:
+		_level_errors += 1
+		score_data["incorrect_by_level"][get_current_level()] += 1
+
 	return {
 		"correct": is_correct,
 		"justification": justification,
 		"correct_answer": correct_letter,
+		"points_earned": points_earned,
 	}
 
 
@@ -156,8 +202,13 @@ func advance_to_next() -> String:
 		return QUIZ_SCENE
 
 	# Avanzar al siguiente nivel
+	# Verificar bonus de nivel perfecto antes de avanzar
+	if _level_errors == 0:
+		score_data["total_score"] += LEVEL_PERFECT_BONUS
+		score_changed.emit(score_data["total_score"])
 	current_level_index += 1
 	current_question_index = 0
+	_level_errors = 0
 
 	# ¿Hay más niveles?
 	if current_level_index < LEVELS.size():
@@ -171,7 +222,7 @@ func advance_to_next() -> String:
 		return scene_path
 
 	# Todos los niveles completados
-	is_active = false
+	_on_session_complete()
 	return lobby_scene
 
 
@@ -201,6 +252,72 @@ func get_results_summary() -> Dictionary:
 		"score_percent": (float(correct) / float(total) * 100.0) if total > 0 else 0.0,
 		"details": results,
 	}
+
+
+## Retorna la puntuación total actual.
+func get_total_score() -> int:
+	return score_data.get("total_score", 0)
+
+
+## Retorna la lista de logros desbloqueados.
+func get_achievements() -> Array:
+	return score_data.get("achievements", [])
+
+
+# ─── Lógica de sesión completada ───────────────────────────────────────
+
+func _on_session_complete() -> void:
+	is_active = false
+	score_data["sessions_completed"] += 1
+
+	# Registrar tipología completada
+	if not current_typology.is_empty() and current_typology not in score_data["typologies_completed"]:
+		score_data["typologies_completed"].append(current_typology)
+
+	# Bonus por sesión completa
+	score_data["total_score"] += SESSION_COMPLETE_BONUS
+
+	# Verificar sesión perfecta (0 errores en toda la sesión)
+	var total_errors := results.filter(func(r): return not r["correct"]).size()
+	if total_errors == 0:
+		score_data["perfect_sessions"] += 1
+
+	score_changed.emit(score_data["total_score"])
+	_check_achievements()
+
+
+func _check_achievements() -> void:
+	var unlocked: Array = score_data["achievements"]
+
+	# Primera lectura
+	if score_data["sessions_completed"] >= 1 and "first_reading" not in unlocked:
+		_unlock("first_reading", "📖 Primera lectura")
+
+	# Explorador: 1 sesión de cada tipología (5 tipologías)
+	if score_data["typologies_completed"].size() >= 5 and "explorer" not in unlocked:
+		_unlock("explorer", "🏅 Explorador")
+
+	# Perfeccionista: 1 sesión sin errores
+	if score_data["perfect_sessions"] >= 1 and "perfectionist" not in unlocked:
+		_unlock("perfectionist", "🎯 Perfeccionista")
+
+	# Lector ávido: 5 sesiones
+	if score_data["sessions_completed"] >= 5 and "avid_reader" not in unlocked:
+		_unlock("avid_reader", "📚 Lector ávido")
+
+	# Estrellas por nivel
+	if score_data["correct_by_level"]["Literal"] >= 10 and "star_literal" not in unlocked:
+		_unlock("star_literal", "⭐ Estrella literal")
+	if score_data["correct_by_level"]["Inferencial"] >= 10 and "star_inferencial" not in unlocked:
+		_unlock("star_inferencial", "⭐⭐ Estrella inferencial")
+	if score_data["correct_by_level"]["Critico"] >= 10 and "star_critico" not in unlocked:
+		_unlock("star_critico", "⭐⭐⭐ Estrella crítica")
+
+
+func _unlock(id: String, display_name: String) -> void:
+	score_data["achievements"].append(id)
+	achievement_unlocked.emit(id, display_name)
+	print("[GameSession] Logro desbloqueado: %s" % display_name)
 
 
 # ─── Conexión con la API ─────────────────────────────────────────────────────

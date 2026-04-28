@@ -157,12 +157,13 @@ func _on_option_pressed(letter: String) -> void:
 	_was_correct = result.get("correct", false)
 	var justification: String = str(result.get("justification", ""))
 	var correct_letter: String = str(result.get("correct_answer", ""))
+	var points: int = result.get("points_earned", 0)
 
 	# Colorear los botones
 	_highlight_answers(letter, correct_letter)
 
 	# Mostrar feedback
-	_show_feedback(_was_correct, justification)
+	_show_feedback(_was_correct, justification, points)
 
 
 func _highlight_answers(selected: String, correct: String) -> void:
@@ -207,16 +208,16 @@ func _highlight_answers(selected: String, correct: String) -> void:
 		idx += 1
 
 
-func _show_feedback(correct: bool, justification: String) -> void:
+func _show_feedback(correct: bool, justification: String, points: int = 0) -> void:
 	feedback_panel.visible = true
 
 	if correct:
-		result_label.text = "¡Correcto! 🎉"
+		result_label.text = "¡Correcto! +%d pts" % points
 		result_label.add_theme_color_override("font_color", COLOR_CORRECT)
 		continue_button.visible = true
 		restart_button.visible = false
 	else:
-		result_label.text = "Incorrecto 😔"
+		result_label.text = "Incorrecto"
 		result_label.add_theme_color_override("font_color", COLOR_INCORRECT)
 		continue_button.visible = false
 		restart_button.visible = true

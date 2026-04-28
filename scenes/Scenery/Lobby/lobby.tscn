@@ -1,32 +1,43 @@
 [gd_scene format=3 uid="uid://ceqllypl7qp5q"]
 
 [ext_resource type="PackedScene" uid="uid://dnu525gld5vcf" path="res://scenes/Scenery/Lobby/scenery.tscn" id="1_htkf2"]
-[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_rdscn"]
 [ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="3_uogk4"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_i0rb6"]
+[ext_resource type="PackedScene" path="res://scenes/Scenery/Lobby/score_hud.tscn" id="5_score"]
 
 [node name="Lobby" type="Node2D" unique_id=770369048]
 
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
-[node name="Textos Narrativos" parent="." unique_id=278619741 instance=ExtResource("2_rdscn")]
-position = Vector2(447, 523)
-
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
 position = Vector2(1306, 1187)
 
-[node name="Telescope" parent="." unique_id=1337560202 instance=ExtResource("3_uogk4")]
+[node name="Textos Descriptivos" parent="." instance=ExtResource("3_uogk4")]
 position = Vector2(448, 1257)
-target_scene_path = "uid://c4qs2adq7f8bt"
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Descriptivo"
 
-[node name="Textos Expositivos" parent="." unique_id=1156385085 instance=ExtResource("3_uogk4")]
+[node name="Textos Narrativos" parent="." instance=ExtResource("3_uogk4")]
+position = Vector2(447, 523)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Narrativo"
+
+[node name="Textos Expositivos" parent="." instance=ExtResource("3_uogk4")]
 position = Vector2(1408, 305)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Expositivo"
 
-[node name="Textos Instructivos" parent="." unique_id=1043705480 instance=ExtResource("3_uogk4")]
+[node name="Textos Instructivos" parent="." instance=ExtResource("3_uogk4")]
 position = Vector2(2371, 592)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Instructivo"
 
-[node name="Textos Argumentativos" parent="." unique_id=156110156 instance=ExtResource("3_uogk4")]
+[node name="Textos Argumentativos" parent="." instance=ExtResource("3_uogk4")]
 position = Vector2(2371, 1255)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Argumentativo"
 
-[node name="Tutorial o Practice" parent="." unique_id=98377643 instance=ExtResource("3_uogk4")]
+[node name="Tutorial" parent="." instance=ExtResource("3_uogk4")]
 position = Vector2(1402, 826)
+
+[node name="ScoreHUD" parent="." instance=ExtResource("5_score")]

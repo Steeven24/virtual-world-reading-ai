@@ -98,6 +98,9 @@ func _ready() -> void:
 	_configurar_botones_herramientas()
 
 	# Determinar modo de carga
+	# Si no tiene typology_filter propio, usar el de GameSession (configurado desde el Lobby)
+	if typology_filter.is_empty() and not GameSession.current_typology.is_empty():
+		typology_filter = GameSession.current_typology
 	_uses_api = ruta_texto.is_empty() and not typology_filter.is_empty()
 
 	if _uses_api:
@@ -155,8 +158,11 @@ func _on_api_reading_received(data: Dictionary) -> void:
 
 	# Alimentar GameSession con la lectura completa (preguntas incluidas)
 	GameSession.start_session_with_data(data)
-	GameSession.configure_scenes(level2_scene_path, level3_scene_path, lobby_scene_path)
-	GameSession.level_scenes["Literal"] = level1_scene_path
+	# Solo reconfigurar escenas si los exports tienen valor (flujo Baños legacy).
+	# Para el flujo genérico, las rutas ya fueron configuradas desde el Lobby.
+	if not level2_scene_path.is_empty():
+		GameSession.configure_scenes(level2_scene_path, level3_scene_path, lobby_scene_path)
+		GameSession.level_scenes["Literal"] = level1_scene_path
 
 	paginas = _fragmentar_texto(content, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()

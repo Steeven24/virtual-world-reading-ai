@@ -1,9 +1,11 @@
 extends Node2D
 
-#@export var next_scene_path: String
 var player_in_range = false
 @export_file("*.tscn") var target_scene_path: String
-#@export var target_scene: PackedScene
+
+## Tipología textual (ej: "Narrativo", "Expositivo"). Si tiene valor,
+## configura GameSession antes de transicionar para el flujo dinámico.
+@export var typology: String = ""
 
 func _ready():
 	$Area2D/message.visible = false
@@ -86,19 +88,19 @@ func show_dialogue():
 	#else:
 		#print("Error: No has asignado una ruta de escena en el inspector.")
 
+## Rutas de escenas genéricas para el flujo dinámico.
+const GENERIC_LEVEL1 := "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+const GENERIC_LEVEL23 := "res://scenes/Scenery/Section/Generic Level/generic_level2-3.tscn"
+const LOBBY := "res://scenes/Scenery/Lobby/lobby.tscn"
+
 func change_scene():
 	SceneManager.transition_to(target_scene_path)
-	#get_tree().change_scene_to_packed(target_scene)
+
 
 func _on_dialog_confirmed():
-	#if target_scene != null:
-		change_scene()
-		#get_tree().change_scene_to_packed(target_scene)
-	#else:
-		#print("Error: No has asignado una ruta de escena en el inspector.")
-		
-#func cambiar_Escena():
-	#if target_scene != null:
-		#get_tree().change_scene_to_packed(target_scene)
-	#else:
-		#print("No hay una escena seleccionada")
+	# Si tiene tipología, configurar GameSession para el flujo dinámico
+	if not typology.is_empty():
+		GameSession.current_typology = typology
+		GameSession.configure_scenes(GENERIC_LEVEL23, GENERIC_LEVEL23, LOBBY)
+		GameSession.level_scenes["Literal"] = GENERIC_LEVEL1
+	change_scene()
