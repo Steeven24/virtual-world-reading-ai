@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dw4dill5cd1sr"]
+
+[ext_resource type="Texture2D" uid="uid://bv4sxfshha1nj" path="res://assets/Temporal sprites/robot asistente.png" id="1_3o6w5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gomu"]
+atlas = ExtResource("1_3o6w5")
+region = Rect2(0, 120, 682, 841)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5t7e"]
+atlas = ExtResource("1_3o6w5")
+region = Rect2(682, 961, 682, 841)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4eeoo"]
+atlas = ExtResource("1_3o6w5")
+region = Rect2(1364, 961, 682, 841)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qol45"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gomu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5t7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4eeoo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Assistant" type="AnimatedSprite2D" unique_id=2128936607]
+scale = Vector2(0.13819645, 0.13819645)
+sprite_frames = SubResource("SpriteFrames_qol45")
+autoplay = "default"
+frame_progress = 0.17715919

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://de64m4xh7lw4x"]
 
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_2dfpp"]
-[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="3_pwk07"]
+[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="3_pwk07"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="3_qcy7t"]
+[ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="4_aedrb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvmgh"]
 size = Vector2(1176.5, 118)
@@ -16,10 +17,6 @@ size = Vector2(45, 642)
 texture_filter = 1
 position = Vector2(768, 512)
 texture = ExtResource("1_2dfpp")
-
-[node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_pwk07")]
-position = Vector2(425, 603)
-target_scene_path = "uid://dr4semfrcai0y"
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("3_qcy7t")]
 position = Vector2(688, 862)
@@ -42,3 +39,10 @@ shape = SubResource("RectangleShape2D_wvmgh")
 [node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=1688038984]
 position = Vector2(1147, 328)
 shape = SubResource("RectangleShape2D_xchko")
+
+[node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("3_pwk07")]
+position = Vector2(470, 605.00006)
+
+[node name="Interaction" parent="." unique_id=278619741 instance=ExtResource("4_aedrb")]
+position = Vector2(470, 589)
+target_scene_path = "uid://dr4semfrcai0y"
