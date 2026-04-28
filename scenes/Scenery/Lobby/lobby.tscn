@@ -12,32 +12,32 @@
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
 position = Vector2(1306, 1187)
 
-[node name="Textos Descriptivos" parent="." instance=ExtResource("3_uogk4")]
+[node name="Textos Descriptivos" parent="." unique_id=1672341599 instance=ExtResource("3_uogk4")]
 position = Vector2(448, 1257)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Descriptivo"
 
-[node name="Textos Narrativos" parent="." instance=ExtResource("3_uogk4")]
+[node name="Textos Narrativos" parent="." unique_id=603618769 instance=ExtResource("3_uogk4")]
 position = Vector2(447, 523)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Narrativo"
 
-[node name="Textos Expositivos" parent="." instance=ExtResource("3_uogk4")]
+[node name="Textos Expositivos" parent="." unique_id=1701415898 instance=ExtResource("3_uogk4")]
 position = Vector2(1408, 305)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Expositivo"
 
-[node name="Textos Instructivos" parent="." instance=ExtResource("3_uogk4")]
+[node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
 position = Vector2(2371, 592)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Instructivo"
 
-[node name="Textos Argumentativos" parent="." instance=ExtResource("3_uogk4")]
+[node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
 position = Vector2(2371, 1255)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Argumentativo"
 
-[node name="Tutorial" parent="." instance=ExtResource("3_uogk4")]
+[node name="Tutorial" parent="." unique_id=263230981 instance=ExtResource("3_uogk4")]
 position = Vector2(1402, 826)
 
-[node name="ScoreHUD" parent="." instance=ExtResource("5_score")]
+[node name="ScoreHUD" parent="." unique_id=1793516881 instance=ExtResource("5_score")]
