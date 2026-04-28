@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://b7ctvbpcer5og"]
+
+[ext_resource type="Script" uid="uid://sa8a8ey78ykc" path="res://scripts/Interactions/Teleport/pressE_teleport_book.gd" id="1_5y0vv"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="3_76431"]
+[ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="4_igvfn"]
+[ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="5_e73kx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqvbj"]
+size = Vector2(44.87207, 23.380325)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hwa"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(0, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd1hg"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(22, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnrq7"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(44, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nc5w"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(66, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxddg"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(88, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y2k1"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(0, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6ad"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(22, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o5gn"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(44, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbu57"]
+atlas = ExtResource("5_e73kx")
+region = Rect2(66, 42, 22, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vd1hg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd1hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnrq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nc5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxddg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y2k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o5gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbu57")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Book" type="Node2D" unique_id=278619741]
+script = ExtResource("1_5y0vv")
+
+[node name="Book" type="Sprite2D" parent="." unique_id=891650979]
+scale = Vector2(0.17578125, 0.17578125)
+
+[node name="Area2D" type="Area2D" parent="Book" unique_id=127112387]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D" unique_id=577816882]
+scale = Vector2(69.49422, 69.49422)
+shape = SubResource("CircleShape2D_32c1v")
+
+[node name="message" type="Label" parent="Book/Area2D" unique_id=1805099042]
+offset_right = 81.0
+offset_bottom = 23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
+transparent_bg = true
+oversampling_override = 1.0
+title = "Confirmar"
+position = Vector2i(400, 402)
+size = Vector2i(286, 141)
+borderless = true
+transparent = true
+theme = ExtResource("3_76431")
+ok_button_text = "Si"
+dialog_text = "¿Estás seguro de que deseas empezar el desafío?"
+dialog_autowrap = true
+cancel_button_text = "No"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Book/Area2D" unique_id=2002675207]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book/Area2D/StaticBody2D" unique_id=528848039]
+position = Vector2(0.119628906, -93.86597)
+scale = Vector2(11.9226675, 11.9226675)
+shape = SubResource("RectangleShape2D_qqvbj")
+disabled = true
+
+[node name="Speech bubble" type="Sprite2D" parent="." unique_id=813599933]
+visible = false
+texture_filter = 1
+position = Vector2(0, -100)
+scale = Vector2(0.9, 1)
+texture = ExtResource("4_igvfn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=1894854890]
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(1.6305552, 1.4674996)
+sprite_frames = SubResource("SpriteFrames_vd1hg")
+autoplay = "default"
+
+[connection signal="body_entered" from="Book/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Book/Area2D" to="." method="_on_area_2d_body_exited"]

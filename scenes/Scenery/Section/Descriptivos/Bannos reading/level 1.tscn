@@ -15,8 +15,8 @@ size = Vector2(45, 642)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1333429592]
 texture_filter = 1
-position = Vector2(768, 512)
 texture = ExtResource("1_5v64h")
+centered = false
 
 [node name="Book" parent="." unique_id=1070625844 instance=ExtResource("4_c6ahh")]
 position = Vector2(974, 620)
