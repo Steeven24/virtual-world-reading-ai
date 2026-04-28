@@ -9,7 +9,7 @@
 
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
-[node name="Book" parent="." unique_id=278619741 instance=ExtResource("2_rdscn")]
+[node name="Textos Narrativos" parent="." unique_id=278619741 instance=ExtResource("2_rdscn")]
 position = Vector2(447, 523)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
@@ -18,3 +18,15 @@ position = Vector2(1306, 1187)
 [node name="Telescope" parent="." unique_id=1337560202 instance=ExtResource("3_uogk4")]
 position = Vector2(448, 1257)
 target_scene_path = "uid://c4qs2adq7f8bt"
+
+[node name="Textos Expositivos" parent="." unique_id=1156385085 instance=ExtResource("3_uogk4")]
+position = Vector2(1408, 305)
+
+[node name="Textos Instructivos" parent="." unique_id=1043705480 instance=ExtResource("3_uogk4")]
+position = Vector2(2371, 592)
+
+[node name="Textos Argumentativos" parent="." unique_id=156110156 instance=ExtResource("3_uogk4")]
+position = Vector2(2371, 1255)
+
+[node name="Tutorial o Practice" parent="." unique_id=98377643 instance=ExtResource("3_uogk4")]
+position = Vector2(1402, 826)
