@@ -15,6 +15,9 @@ const COLOR_INCORRECT := Color(0.65, 0.12, 0.12, 1.0)
 const COLOR_DEBUG_HINT := Color(0.1, 0.45, 0.18, 0.3)
 const COLOR_LETTER := Color(0.85, 0.75, 0.3, 1.0)
 
+## Fuente del proyecto para aplicar a los botones generados dinámicamente.
+const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+
 # ─── Nodos referenciados ─────────────────────────────────────────────────────
 
 @onready var level_badge: Label = %LevelBadge
@@ -34,10 +37,14 @@ const COLOR_LETTER := Color(0.85, 0.75, 0.3, 1.0)
 var _current_question: Dictionary = {}
 var _answered: bool = false
 var _was_correct: bool = false
+var _font: Font = null
 
 # ─── Ciclo de vida ───────────────────────────────────────────────────────────
 
 func _ready() -> void:
+	# Precargar la fuente del proyecto
+	_font = load(FONT_PATH)
+
 	feedback_panel.visible = false
 	continue_button.visible = false
 	restart_button.visible = false
@@ -117,6 +124,8 @@ func _create_option_buttons() -> void:
 
 		button.add_theme_color_override("font_color", Color.WHITE)
 		button.add_theme_font_size_override("font_size", 18)
+		if _font:
+			button.add_theme_font_override("font", _font)
 
 		# Debug: resaltar la respuesta correcta sutilmente
 		if GameSession.DEBUG_SHOW_ANSWER:
