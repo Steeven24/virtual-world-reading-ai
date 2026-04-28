@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://3hsd1gb4gr66"
 ReadingAPI="*res://scripts/Global/reading_api.gd"
+GameSession="*res://scripts/Global/game_session.gd"
 
 [display]
 

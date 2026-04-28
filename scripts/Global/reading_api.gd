@@ -19,6 +19,9 @@ signal reading_loaded(data: Dictionary)
 ## Emitida cuando se recibe una lectura aleatoria.
 signal random_reading_loaded(data: Dictionary)
 
+## Emitida cuando se recibe una lectura completa con preguntas y respuestas.
+signal full_reading_loaded(data: Dictionary)
+
 ## Emitida cuando se recibe la lista de tipologías.
 signal typologies_loaded(data: Array)
 
@@ -94,6 +97,25 @@ func get_random_reading(typology: String = "") -> void:
 	if not typology.is_empty():
 		url += "?typology=%s" % typology.uri_encode()
 	_enqueue_request(url, "random_reading", {})
+
+
+## Obtiene una lectura aleatoria COMPLETA con preguntas y respuestas.
+## Ideal para poblar los desafíos dinámicos.
+func get_random_reading_full(typology: String = "") -> void:
+	var url := "%s/readings/random/full" % ApiConfig.BASE_URL
+	if not typology.is_empty():
+		url += "?typology=%s" % typology.uri_encode()
+	_enqueue_request(url, "full_reading", {})
+
+
+## Obtiene una lectura completa por ID con preguntas y respuestas.
+func get_reading_full(reading_id: int) -> void:
+	var cached := _cache.get_cached_full_reading(reading_id)
+	if not cached.is_empty():
+		full_reading_loaded.emit(cached)
+		return
+	var url := "%s/readings/%d/full" % [ApiConfig.BASE_URL, reading_id]
+	_enqueue_request(url, "full_reading", {"reading_id": reading_id})
 
 
 ## Lista las tipologías disponibles con su conteo.
@@ -242,6 +264,13 @@ func _dispatch_response(req: Dictionary, data) -> void:
 				if rid is int and rid > 0:
 					_cache.cache_reading(rid, data)
 				random_reading_loaded.emit(data)
+
+		"full_reading":
+			if data is Dictionary:
+				var rid = data.get("id", 0)
+				if rid is int and rid > 0:
+					_cache.cache_full_reading(rid, data)
+				full_reading_loaded.emit(data)
 
 		"typologies":
 			if data is Dictionary and data.has("typologies"):

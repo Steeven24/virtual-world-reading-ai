@@ -45,4 +45,4 @@ position = Vector2(470, 605.00006)
 
 [node name="Interaction" parent="." unique_id=278619741 instance=ExtResource("4_aedrb")]
 position = Vector2(470, 589)
-target_scene_path = "uid://dr4semfrcai0y"
+target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"

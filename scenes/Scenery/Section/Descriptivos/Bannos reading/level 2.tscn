@@ -45,4 +45,4 @@ shape = SubResource("RectangleShape2D_kf8kc")
 
 [node name="Interaction" parent="." unique_id=1743839777 instance=ExtResource("5_3gomu")]
 position = Vector2(751, 595)
-target_scene_path = "uid://unrr75n3ny2j"
+target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"

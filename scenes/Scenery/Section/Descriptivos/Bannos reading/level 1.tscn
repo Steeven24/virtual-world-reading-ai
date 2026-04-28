@@ -50,3 +50,7 @@ visible = false
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_gecer")]
 ruta_texto = ""
 typology_filter = "Descriptivo"
+level2_scene_path = "uid://yaxwyqy4sp3k"
+level3_scene_path = "uid://de64m4xh7lw4x"
+lobby_scene_path = "uid://ceqllypl7qp5q"
+level1_scene_path = "uid://c4qs2adq7f8bt"

@@ -31,6 +31,18 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 ## Si ruta_texto está vacío y esto tiene valor, se usa el modo API.
 @export var typology_filter: String = ""
 
+## Ruta de la escena del nivel intermedio para Inferencial.
+@export_file("*.tscn") var level2_scene_path: String = ""
+
+## Ruta de la escena del nivel intermedio para Crítico.
+@export_file("*.tscn") var level3_scene_path: String = ""
+
+## Ruta de la escena de retorno (Lobby).
+@export_file("*.tscn") var lobby_scene_path: String = ""
+
+## Ruta de la escena actual (Level 1) para reinicio.
+@export_file("*.tscn") var level1_scene_path: String = ""
+
 # ─── Nodos referenciados (@onready) ─────────────────────────────────────────────
 
 @onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel
@@ -111,16 +123,16 @@ func _load_from_file() -> void:
 
 ## Conecta las señales del Autoload ReadingAPI para recibir respuestas.
 func _connect_api_signals() -> void:
-	ReadingAPI.random_reading_loaded.connect(_on_api_reading_received)
+	ReadingAPI.full_reading_loaded.connect(_on_api_reading_received)
 	ReadingAPI.request_failed.connect(_on_api_request_failed)
 
 
-## Solicita una lectura aleatoria de la tipología configurada.
+## Solicita una lectura aleatoria COMPLETA de la tipología configurada.
 ## Muestra un estado de carga mientras espera la respuesta.
 func _preload_from_api() -> void:
 	_is_loading = true
 	_set_loading_state()
-	ReadingAPI.get_random_reading(typology_filter)
+	ReadingAPI.get_random_reading_full(typology_filter)
 
 
 ## Muestra un estado visual de carga en el libro.
@@ -140,6 +152,11 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	if content.is_empty():
 		_show_error_state("La lectura no tiene contenido.")
 		return
+
+	# Alimentar GameSession con la lectura completa (preguntas incluidas)
+	GameSession.start_session_with_data(data)
+	GameSession.configure_scenes(level2_scene_path, level3_scene_path, lobby_scene_path)
+	GameSession.level_scenes["Literal"] = level1_scene_path
 
 	paginas = _fragmentar_texto(content, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
@@ -207,7 +224,14 @@ func _on_hecho_button_pressed() -> void:
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)
-	_cambiar_escena()
+	# Si hay sesión activa, ir al quiz dinámico
+	if GameSession.is_active:
+		if _uses_api:
+			_disconnect_api_signals()
+		SceneManager.is_ui_open = false
+		SceneManager.transition_to(GameSession.QUIZ_SCENE)
+	else:
+		_cambiar_escena()
 
 # ─── Señales de entrada del RichTextLabel ────────────────────────────────────────
 
@@ -473,7 +497,7 @@ func _on_button_cerrar_pressed() -> void:
 
 ## Desconecta las señales de ReadingAPI para evitar callbacks huérfanos.
 func _disconnect_api_signals() -> void:
-	if ReadingAPI.random_reading_loaded.is_connected(_on_api_reading_received):
-		ReadingAPI.random_reading_loaded.disconnect(_on_api_reading_received)
+	if ReadingAPI.full_reading_loaded.is_connected(_on_api_reading_received):
+		ReadingAPI.full_reading_loaded.disconnect(_on_api_reading_received)
 	if ReadingAPI.request_failed.is_connected(_on_api_request_failed):
 		ReadingAPI.request_failed.disconnect(_on_api_request_failed)

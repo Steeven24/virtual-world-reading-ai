@@ -7,9 +7,10 @@ class_name ReadingCache
 
 var _cache_data: Dictionary = {
 	"version": 1,
-	"readings": {},   # id (String) → Dictionary con datos de la lectura
-	"pages": {},      # clave compuesta → Dictionary con respuesta paginada
-	"timestamps": {}, # misma clave → timestamp ISO 8601
+	"readings": {},        # id (String) → Dictionary con datos de la lectura
+	"full_readings": {},   # id (String) → Dictionary con lectura + preguntas + respuestas
+	"pages": {},           # clave compuesta → Dictionary con respuesta paginada
+	"timestamps": {},      # misma clave → timestamp ISO 8601
 }
 var _seen_data: Dictionary = {
 	"seen_ids": [],   # Array de int con IDs de lecturas vistas
@@ -93,6 +94,28 @@ func cache_reading(id: int, data: Dictionary) -> void:
 	_cache_data["readings"][key] = data
 	_cache_data["timestamps"]["reading_%s" % key] = Time.get_datetime_string_from_system(true)
 	_enforce_cache_limit()
+	_save_cache()
+
+
+# ── Lecturas completas (con preguntas y respuestas) ───────────────────────────
+
+## Retorna la lectura completa cacheada o un Dictionary vacío.
+func get_cached_full_reading(id: int, allow_expired: bool = false) -> Dictionary:
+	var key := str(id)
+	if not _cache_data.get("full_readings", {}).has(key):
+		return {}
+	if not allow_expired and _is_expired("full_reading_%s" % key):
+		return {}
+	return _cache_data["full_readings"][key]
+
+
+## Almacena una lectura completa (con preguntas) en caché.
+func cache_full_reading(id: int, data: Dictionary) -> void:
+	var key := str(id)
+	if not _cache_data.has("full_readings"):
+		_cache_data["full_readings"] = {}
+	_cache_data["full_readings"][key] = data
+	_cache_data["timestamps"]["full_reading_%s" % key] = Time.get_datetime_string_from_system(true)
 	_save_cache()
 
 
@@ -181,5 +204,5 @@ func _enforce_cache_limit() -> void:
 
 ## Invalida todo el caché (útil al actualizar la versión de la API).
 func invalidate_all() -> void:
-	_cache_data = {"version": 1, "readings": {}, "pages": {}, "timestamps": {}}
+	_cache_data = {"version": 1, "readings": {}, "full_readings": {}, "pages": {}, "timestamps": {}}
 	_save_cache()
