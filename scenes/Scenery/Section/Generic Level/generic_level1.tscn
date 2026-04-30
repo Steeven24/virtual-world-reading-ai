@@ -15,11 +15,11 @@ size = Vector2(623.75, 92.5)
 size = Vector2(469, 703)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
-a = Vector2(366, -93.5)
+a = Vector2(360.88312, -174.89941)
 b = Vector2(-77, 221.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
-size = Vector2(706.5, 188)
+size = Vector2(470.88953, 188)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
 size = Vector2(491.25, 119.5)
@@ -36,18 +36,22 @@ size = Vector2(275.8287, 19.528374)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
 size = Vector2(67.9725, 66.60445)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_by13k"]
+size = Vector2(224.98145, 108.53314)
+
 [node name="Level1" type="Node2D" unique_id=1292648426]
 
-[node name="GenericBackground" type="Sprite2D" parent="." unique_id=414023814]
-scale = Vector2(0.3857007, 0.38553342)
+[node name="Background" type="Sprite2D" parent="." unique_id=414023814]
+texture_filter = 1
+scale = Vector2(0.4261636, 0.42597878)
 texture = ExtResource("2_k2vi6")
 centered = false
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
-position = Vector2(486, 271)
+position = Vector2(556, 455)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
-scale = Vector2(0.70665795, 0.70665795)
+scale = Vector2(0.78146297, 0.78146297)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
 position = Vector2(770, 823.25)
@@ -66,7 +70,7 @@ position = Vector2(508, 319.5)
 shape = SubResource("SegmentShape2D_lfliw")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
-position = Vector2(1179.75, 130)
+position = Vector2(1297.5552, 130)
 shape = SubResource("RectangleShape2D_yon38")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
@@ -91,8 +95,12 @@ position = Vector2(1195.7461, 266.79572)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D" unique_id=279967999]
+position = Vector2(949.3825, 119.528786)
+shape = SubResource("RectangleShape2D_by13k")
+
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
-position = Vector2(848, 182)
+position = Vector2(934, 200)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]

@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://d1127u8csvxrh" path="res://assets/Buttons/Book Tools/BaseButton/button-right-over.png" id="20_8nksb"]
 [ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/nota.png" id="20_56ivi"]
 [ext_resource type="Texture2D" uid="uid://carl2uuuk1m4v" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png" id="20_gntck"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="theme_confirm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
 atlas = ExtResource("18_4uhxw")
@@ -409,6 +410,21 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_gntck")
 text = "X"
 
+[node name="ConfirmDesafios" type="ConfirmationDialog" parent="." unique_id=501246328]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "Confirmar"
+size = Vector2i(1106, 232)
+borderless = true
+transparent = true
+theme = ExtResource("theme_confirm")
+ok_button_text = "Sí, empezar"
+dialog_text = "¿Estás seguro de que deseas empezar los desafíos?
+
+Recuerda que ya no podrás acceder a la lectura ni a las notas tomadas."
+cancel_button_text = "Cancelar"
+
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
@@ -420,3 +436,4 @@ text = "X"
 [connection signal="pressed" from="ButtonNotes" to="." method="_on_button_notes_pressed"]
 [connection signal="pressed" from="ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
 [connection signal="pressed" from="ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
+[connection signal="confirmed" from="ConfirmDesafios" to="." method="_on_confirm_challenges"]

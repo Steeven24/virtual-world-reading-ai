@@ -65,6 +65,7 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 @onready var boton_notas: Button = $ButtonNotes
 @onready var boton_compilatorio: Button = $ButtonCompilatorio
 @onready var label_notas_guardadas: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2/LabelNotasGuardadas
+@onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
 
 # ─── Estado interno ─────────────────────────────────────────────────────────────
 
@@ -87,6 +88,11 @@ var _user_id: String = ""
 
 ## True si el contenido se carga desde la API en lugar de un archivo local.
 var _uses_api: bool = false
+
+## Tracking de uso de herramientas para retroalimentación en resultados.
+var _used_highlight: bool = false
+var _used_underline: bool = false
+var _used_notes: bool = false
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────────
 
@@ -228,6 +234,62 @@ func _on_borrar_button_pressed() -> void:
 
 func _on_hecho_button_pressed() -> void:
 	_aplicar_formato()
+	_show_confirm_dialog()
+
+
+## Muestra el diálogo de confirmación con animación slide-up en la parte inferior.
+func _show_confirm_dialog() -> void:
+	var dialog := confirm_desafios
+
+	# Forzar posicionamiento absoluto
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
+
+	# Configuración de texto
+	dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	dialog.min_size = Vector2i(900, 150)
+
+	# Posicionar fuera de pantalla antes de mostrar (evita destello visual)
+	dialog.transparent = true
+	dialog.position = Vector2i(-10000, -10000)
+
+	# Mostrar (invisible para el usuario)
+	dialog.show()
+
+	# Esperar a que Godot calcule el tamaño real
+	await get_tree().process_frame
+	dialog.reset_size()
+
+	# Posición final: centrado horizontalmente, abajo con margen
+	var screen_size := get_viewport().get_visible_rect().size
+	var final_x: int = int((screen_size.x - dialog.size.x) / 2)
+	var final_y: int = int(screen_size.y - dialog.size.y - 60)
+
+	# Animación slide-up + fade-in
+	var offset_y: int = 30
+	dialog.position = Vector2i(final_x, final_y + offset_y)
+
+	# Ocultar hijos para hacer fade-in del contenido
+	for child in dialog.get_children():
+		if child is Control:
+			child.modulate.a = 0.0
+
+	# Tween: deslizar hacia arriba + fade-in
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.set_parallel(true)
+	tween.tween_method(func(y): dialog.position = Vector2i(final_x, y), final_y + offset_y, final_y, 0.3)
+
+	for child in dialog.get_children():
+		if child is Control:
+			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
+
+
+func _on_confirm_challenges() -> void:
+	# Reportar uso de herramientas a GameSession
+	GameSession.tools_used = {
+		"highlight": _used_highlight,
+		"underline": _used_underline,
+		"notes": _used_notes,
+	}
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)
@@ -356,8 +418,10 @@ func _aplicar_formato() -> void:
 		match herramienta_actual:
 			Herramienta.RESALTAR:
 				estado["resaltar"] = true
+				_used_highlight = true
 			Herramienta.SUBRAYAR:
 				estado["subrayar"] = true
+				_used_underline = true
 			Herramienta.BORRAR:
 				estado["resaltar"] = false
 				estado["subrayar"] = false
@@ -467,6 +531,8 @@ func _escapar_bbcode(texto: String) -> String:
 func _guardar_nota() -> void:
 	if modo_actual == ModoVista.NOTAS:
 		notas_por_pagina[pagina_actual] = text_notas.text
+		if not text_notas.text.strip_edges().is_empty():
+			_used_notes = true
 		_actualizar_indicador_notas()
 
 

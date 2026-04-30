@@ -95,6 +95,10 @@ var is_active: bool = false
 ## Contador de errores en el nivel actual (para bonus perfecto).
 var _level_errors: int = 0
 
+## Registro de herramientas usadas durante la lectura.
+## Se llena desde bookAndTools.gd al confirmar el inicio de desafíos.
+var tools_used: Dictionary = {"highlight": false, "underline": false, "notes": false}
+
 # ─── Sistema de puntuación ───────────────────────────────────────────────
 
 ## Datos de puntuación. Se reinicia al iniciar el juego.
