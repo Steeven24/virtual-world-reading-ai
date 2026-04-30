@@ -257,6 +257,22 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 theme_override_fonts/bold_font = ExtResource("4_gntck")
 
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=1891725318]
+custom_minimum_size = Vector2(125, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+size_flags_stretch_ratio = 20.0
+
+[node name="LabelNotasGuardadas" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2" unique_id=147481246]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 0.6)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 14
+text = "📝 Notas"
+
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
 layout_mode = 2
 

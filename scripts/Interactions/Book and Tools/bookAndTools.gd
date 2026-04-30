@@ -64,6 +64,7 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 @onready var boton_lectura: Button = $ButtonReading
 @onready var boton_notas: Button = $ButtonNotes
 @onready var boton_compilatorio: Button = $ButtonCompilatorio
+@onready var label_notas_guardadas: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2/LabelNotasGuardadas
 
 # ─── Estado interno ─────────────────────────────────────────────────────────────
 
@@ -311,6 +312,8 @@ func _cambiar_modo(nuevo_modo: ModoVista) -> void:
 		ModoVista.COMPILATORIO:
 			label_pagina.text = "\n\tAgrupación de todas las notas"
 
+	_actualizar_indicador_notas()
+
 # ─── Herramientas de formato ────────────────────────────────────────────────────
 
 func _configurar_botones_herramientas() -> void:
@@ -404,6 +407,7 @@ func _inicializar_estilos() -> void:
 func _mostrar_pagina() -> void:
 	_refrescar_texto_actual()
 	label_pagina.text = "\n\tPag %d de %d" % [pagina_actual + 1, paginas.size()]
+	_actualizar_indicador_notas()
 
 
 func _refrescar_texto_actual() -> void:
@@ -463,6 +467,15 @@ func _escapar_bbcode(texto: String) -> String:
 func _guardar_nota() -> void:
 	if modo_actual == ModoVista.NOTAS:
 		notas_por_pagina[pagina_actual] = text_notas.text
+		_actualizar_indicador_notas()
+
+
+## Muestra u oculta el indicador "📝 Notas guardadas" según si la página
+## actual tiene notas escritas por el jugador.
+func _actualizar_indicador_notas() -> void:
+	var nota: String = notas_por_pagina.get(pagina_actual, "")
+	var tiene_notas := not nota.strip_edges().is_empty()
+	label_notas_guardadas.visible = tiene_notas and modo_actual == ModoVista.LECTURA
 
 
 func _cargar_nota() -> void:
