@@ -20,6 +20,9 @@ const ACHIEVEMENT_NAMES: Dictionary = {
 	"star_literal": "⭐ Estrella literal",
 	"star_inferencial": "⭐⭐ Estrella inferencial",
 	"star_critico": "⭐⭐⭐ Estrella crítica",
+	"improvement": "📈 En mejora",
+	"centurion": "💯 Centurión",
+	"half_millennium": "🏆 Medio milenio",
 }
 
 
@@ -85,22 +88,8 @@ func _populate_achievements() -> void:
 	achievements_list.add_child(stats)
 
 
-func _on_achievement_unlocked(_id: String, display_name: String) -> void:
-	# Animación temporal de notificación
-	var notification := Label.new()
-	notification.text = "🏆 %s" % display_name
-	notification.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3, 1.0))
-	notification.add_theme_font_size_override("font_size", 20)
-	var font = load(FONT_PATH)
-	if font:
-		notification.add_theme_font_override("font", font)
-	notification.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	notification.anchors_preset = Control.PRESET_CENTER_TOP
-	notification.position.y = 60
-	add_child(notification)
-
-	# Fade out después de 3 segundos
-	var tween := create_tween()
-	tween.tween_interval(2.5)
-	tween.tween_property(notification, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(notification.queue_free)
+func _on_achievement_unlocked(_id: String, _display_name: String) -> void:
+	# La notificación visual la gestiona el Autoload AchievementToast.
+	# Aquí solo refrescamos la lista si está abierta.
+	if achievements_panel.visible:
+		_populate_achievements()

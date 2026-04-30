@@ -29,7 +29,6 @@ const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
 @onready var justification_label: RichTextLabel = %JustificationLabel
 @onready var assistant_sprite: AnimatedSprite2D = %AssistantSprite
 @onready var continue_button: Button = %ContinueButton
-@onready var restart_button: Button = %RestartButton
 @onready var background: TextureRect = %Background
 
 # ─── Estado interno ──────────────────────────────────────────────────────────
@@ -47,10 +46,8 @@ func _ready() -> void:
 
 	feedback_panel.visible = false
 	continue_button.visible = false
-	restart_button.visible = false
 
 	continue_button.pressed.connect(_on_continue_pressed)
-	restart_button.pressed.connect(_on_restart_pressed)
 
 	_load_question()
 
@@ -163,7 +160,8 @@ func _on_option_pressed(letter: String) -> void:
 	_highlight_answers(letter, correct_letter)
 
 	# Mostrar feedback
-	_show_feedback(_was_correct, justification, points)
+	var penalty: int = result.get("penalty", 0)
+	_show_feedback(_was_correct, justification, points, penalty)
 
 
 func _highlight_answers(selected: String, correct: String) -> void:
@@ -208,19 +206,16 @@ func _highlight_answers(selected: String, correct: String) -> void:
 		idx += 1
 
 
-func _show_feedback(correct: bool, justification: String, points: int = 0) -> void:
+func _show_feedback(correct: bool, justification: String, points: int = 0, penalty: int = 0) -> void:
 	feedback_panel.visible = true
+	continue_button.visible = true
 
 	if correct:
 		result_label.text = "¡Correcto! +%d pts" % points
 		result_label.add_theme_color_override("font_color", COLOR_CORRECT)
-		continue_button.visible = true
-		restart_button.visible = false
 	else:
-		result_label.text = "Incorrecto"
+		result_label.text = "Incorrecto -%d pts" % penalty
 		result_label.add_theme_color_override("font_color", COLOR_INCORRECT)
-		continue_button.visible = false
-		restart_button.visible = true
 
 	justification_label.bbcode_enabled = true
 	justification_label.text = "[color=white]%s[/color]" % justification
@@ -249,13 +244,3 @@ func _on_continue_pressed() -> void:
 		# Fallback al lobby
 		next_scene = GameSession.lobby_scene
 	SceneManager.transition_to(next_scene)
-
-
-func _on_restart_pressed() -> void:
-	GameSession.restart_from_level1()
-	var level1_scene: String = GameSession.get_level1_scene()
-	if level1_scene.is_empty():
-		# Fallback: recargar el quiz con las nuevas preguntas
-		SceneManager.transition_to(GameSession.QUIZ_SCENE)
-	else:
-		SceneManager.transition_to(level1_scene)

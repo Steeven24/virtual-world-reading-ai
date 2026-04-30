@@ -34,16 +34,29 @@ const POINTS_BY_LEVEL: Dictionary = {
 	"Critico": 30,
 }
 
+## Penalización por respuesta incorrecta según nivel (escalada).
+const PENALTY_BY_LEVEL: Dictionary = {
+	"Literal": 3,
+	"Inferencial": 5,
+	"Critico": 8,
+}
+
 ## Bonus por completar un nivel sin errores (2/2 correctas).
 const LEVEL_PERFECT_BONUS: int = 15
 
 ## Bonus por completar los 3 niveles de una lectura.
 const SESSION_COMPLETE_BONUS: int = 50
 
+## Bonus adicional por sesión perfecta (0 errores en toda la sesión).
+const SESSION_PERFECT_BONUS: int = 25
+
 # ─── Rutas de escenas ────────────────────────────────────────────────────────
 
 ## Escena del quiz genérico.
 const QUIZ_SCENE: String = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
+
+## Escena de resultados al completar la sesión.
+const RESULTS_SCENE: String = "res://scenes/UI/session_results.tscn"
 
 ## Escenas de niveles (escenarios intermedios).
 ## Estas se configuran al iniciar sesión según la lectura.
@@ -94,7 +107,11 @@ var score_data: Dictionary = {
 	"typologies_completed": [],
 	"perfect_sessions": 0,
 	"achievements": [],
+	"best_scores_by_typology": {},
 }
+
+## Puntaje acumulado solo en la sesión actual (para comparar con best).
+var _current_session_score: int = 0
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
 
@@ -107,6 +124,7 @@ func start_session(typology: String) -> void:
 	current_level_index = 0
 	current_question_index = 0
 	results.clear()
+	_current_session_score = 0
 	is_active = true
 	_connect_api()
 	ReadingAPI.get_random_reading_full(typology)
@@ -126,6 +144,7 @@ func start_session_with_data(data: Dictionary) -> void:
 	current_level_index = 0
 	current_question_index = 0
 	results.clear()
+	_current_session_score = 0
 	is_active = true
 	_prepare_level_questions()
 	session_ready.emit()
@@ -151,7 +170,7 @@ func get_progress_text() -> String:
 
 
 ## Valida la respuesta del jugador.
-## Retorna un Dictionary con {correct: bool, justification: String, correct_answer: String}
+## Retorna un Dictionary con {correct, justification, correct_answer, points_earned, penalty}
 func submit_answer(letter: String) -> Dictionary:
 	var question := get_current_question()
 	if question.is_empty():
@@ -160,32 +179,40 @@ func submit_answer(letter: String) -> Dictionary:
 	var correct_letter: String = str(question.get("correct_answer", ""))
 	var is_correct: bool = letter.to_upper() == correct_letter.to_upper()
 	var justification: String = str(question.get("justification", ""))
+	var current_level := get_current_level()
 
 	# Registrar resultado
 	results.append({
-		"level": get_current_level(),
+		"level": current_level,
 		"question_id": question.get("id", 0),
 		"correct": is_correct,
 		"letter_selected": letter,
 		"correct_answer": correct_letter,
 	})
 
-	# Otorgar puntos
+	# Otorgar puntos o penalizar
 	var points_earned: int = 0
+	var penalty: int = 0
 	if is_correct:
-		points_earned = POINTS_BY_LEVEL.get(get_current_level(), 10)
+		points_earned = POINTS_BY_LEVEL.get(current_level, 10)
 		score_data["total_score"] += points_earned
-		score_data["correct_by_level"][get_current_level()] += 1
-		score_changed.emit(score_data["total_score"])
+		_current_session_score += points_earned
+		score_data["correct_by_level"][current_level] += 1
 	else:
+		penalty = PENALTY_BY_LEVEL.get(current_level, 5)
+		score_data["total_score"] = maxi(0, score_data["total_score"] - penalty)
+		_current_session_score = maxi(0, _current_session_score - penalty)
 		_level_errors += 1
-		score_data["incorrect_by_level"][get_current_level()] += 1
+		score_data["incorrect_by_level"][current_level] += 1
+
+	score_changed.emit(score_data["total_score"])
 
 	return {
 		"correct": is_correct,
 		"justification": justification,
 		"correct_answer": correct_letter,
 		"points_earned": points_earned,
+		"penalty": penalty,
 	}
 
 
@@ -193,7 +220,7 @@ func submit_answer(letter: String) -> Dictionary:
 ## Retorna la ruta de la escena a la que se debe transicionar.
 ## - Si hay más preguntas en el nivel → QUIZ_SCENE (misma escena, nueva pregunta)
 ## - Si se completó el nivel → escena del siguiente escenario intermedio
-## - Si se completaron todos los niveles → lobby_scene
+## - Si se completaron todos los niveles → RESULTS_SCENE
 func advance_to_next() -> String:
 	current_question_index += 1
 
@@ -204,7 +231,9 @@ func advance_to_next() -> String:
 	# Avanzar al siguiente nivel
 	# Verificar bonus de nivel perfecto antes de avanzar
 	if _level_errors == 0:
-		score_data["total_score"] += LEVEL_PERFECT_BONUS
+		var bonus := LEVEL_PERFECT_BONUS
+		score_data["total_score"] += bonus
+		_current_session_score += bonus
 		score_changed.emit(score_data["total_score"])
 	current_level_index += 1
 	current_question_index = 0
@@ -221,24 +250,39 @@ func advance_to_next() -> String:
 			return QUIZ_SCENE
 		return scene_path
 
-	# Todos los niveles completados
+	# Todos los niveles completados → pantalla de resultados
 	_on_session_complete()
-	return lobby_scene
+	return RESULTS_SCENE
 
 
-## Reinicia al nivel 1 (Literal) manteniendo la misma lectura.
-## Útil cuando el jugador falla y quiere reintentar.
-func restart_from_level1() -> void:
+## Inicia una nueva sesión con otra lectura de la misma tipología.
+## Usado desde la pantalla de resultados para mejorar el puntaje.
+func retry_with_new_reading() -> void:
+	var typology := current_typology
 	current_level_index = 0
 	current_question_index = 0
 	results.clear()
-	_prepare_level_questions()
+	_current_session_score = 0
+	_level_errors = 0
+	is_active = true
+	_connect_api()
+	ReadingAPI.get_random_reading_full(typology)
 
 
-## Retorna la ruta de la escena del Level 1 (lectura + libro).
-## Se usa para el reinicio cuando el jugador falla.
-func get_level1_scene() -> String:
-	return level_scenes.get("Literal", "")
+## Retorna el puntaje obtenido solo en la sesión actual.
+func get_session_score() -> int:
+	return _current_session_score
+
+
+## Retorna el mejor puntaje registrado para una tipología.
+func get_best_score(typology: String) -> int:
+	return score_data["best_scores_by_typology"].get(typology, 0)
+
+
+## Retorna true si la sesión actual superó el mejor puntaje previo.
+func is_new_record() -> bool:
+	var best: int = get_best_score(current_typology)
+	return _current_session_score > best
 
 
 ## Retorna un resumen de los resultados al final de la sesión.
@@ -276,11 +320,19 @@ func _on_session_complete() -> void:
 
 	# Bonus por sesión completa
 	score_data["total_score"] += SESSION_COMPLETE_BONUS
+	_current_session_score += SESSION_COMPLETE_BONUS
 
 	# Verificar sesión perfecta (0 errores en toda la sesión)
 	var total_errors := results.filter(func(r): return not r["correct"]).size()
 	if total_errors == 0:
 		score_data["perfect_sessions"] += 1
+		score_data["total_score"] += SESSION_PERFECT_BONUS
+		_current_session_score += SESSION_PERFECT_BONUS
+
+	# Actualizar mejor puntaje por tipología
+	var best: int = score_data["best_scores_by_typology"].get(current_typology, 0)
+	if _current_session_score > best:
+		score_data["best_scores_by_typology"][current_typology] = _current_session_score
 
 	score_changed.emit(score_data["total_score"])
 	_check_achievements()
@@ -312,6 +364,18 @@ func _check_achievements() -> void:
 		_unlock("star_inferencial", "⭐⭐ Estrella inferencial")
 	if score_data["correct_by_level"]["Critico"] >= 10 and "star_critico" not in unlocked:
 		_unlock("star_critico", "⭐⭐⭐ Estrella crítica")
+
+	# En mejora: mejorar un puntaje previo
+	if is_new_record() and score_data["sessions_completed"] >= 2 and "improvement" not in unlocked:
+		_unlock("improvement", "📈 En mejora")
+
+	# Centurión: 100 pts totales
+	if score_data["total_score"] >= 100 and "centurion" not in unlocked:
+		_unlock("centurion", "💯 Centurión")
+
+	# Medio milenio: 500 pts totales
+	if score_data["total_score"] >= 500 and "half_millennium" not in unlocked:
+		_unlock("half_millennium", "🏆 Medio milenio")
 
 
 func _unlock(id: String, display_name: String) -> void:
