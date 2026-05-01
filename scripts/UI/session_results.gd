@@ -216,7 +216,7 @@ func _show_assistant_tip(missing_tools: Array[String]) -> void:
 
 	# Iniciar animación del asistente
 	if assistant_sprite:
-		assistant_sprite.play("default")
+		assistant_sprite.play("default")       
 
 	var dialog := assistant_tip_dialog
 
