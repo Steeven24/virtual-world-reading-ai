@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2n16dlkqovbb"
-path="res://.godot/imported/notas.png-cd96d385bbf405561c41201ffccb1ae6.ctex"
+uid="uid://carl2uuuk1m4v"
+path="res://.godot/imported/notas-juntas.png-003e6676ce6a8e01f45bac4a7d0140b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Buttons/Book Tools/BaseButton/Icon/notas.png"
-dest_files=["res://.godot/imported/notas.png-cd96d385bbf405561c41201ffccb1ae6.ctex"]
+source_file="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png"
+dest_files=["res://.godot/imported/notas-juntas.png-003e6676ce6a8e01f45bac4a7d0140b7.ctex"]
 
 [params]
 

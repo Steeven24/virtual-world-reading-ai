@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://yaxwyqy4sp3k"]
 
 [ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_m72cy"]
-[ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="3_ngjcs"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="3_omm14"]
+[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="3_snpqo"]
+[ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="5_3gomu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v64h"]
 size = Vector2(1176.5, 118)
@@ -17,9 +18,8 @@ texture_filter = 1
 position = Vector2(768, 512)
 texture = ExtResource("1_m72cy")
 
-[node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_ngjcs")]
-position = Vector2(752, 591)
-target_scene_path = "uid://unrr75n3ny2j"
+[node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("3_snpqo")]
+position = Vector2(751.875, 607.6127)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("3_omm14")]
 position = Vector2(688, 862)
@@ -42,3 +42,7 @@ shape = SubResource("RectangleShape2D_5v64h")
 [node name="right border" type="CollisionShape2D" parent="Player/Stage border" unique_id=563187696]
 position = Vector2(1147, 328)
 shape = SubResource("RectangleShape2D_kf8kc")
+
+[node name="Interaction" parent="." unique_id=1743839777 instance=ExtResource("5_3gomu")]
+position = Vector2(751, 595)
+target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"

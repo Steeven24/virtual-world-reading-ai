@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_x4e7g"]
 [ext_resource type="Texture2D" uid="uid://d0n660l2d37jt" path="res://assets/Buttons/Book Tools/BaseButton/Borrar.png" id="3_x4e7g"]
 [ext_resource type="Texture2D" uid="uid://dvgeq7eubrcsp" path="res://assets/Buttons/Book Tools/Pressed/Resaltar.PNG" id="4_488jl"]
-[ext_resource type="Texture2D" uid="uid://b58vbmu0tva53" path="res://assets/Buttons/Book Tools/BaseButton/right.png" id="4_imnac"]
+[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="4_gntck"]
 [ext_resource type="Texture2D" uid="uid://dosj6l24jpd6n" path="res://assets/Buttons/Book Tools/BaseButton/Hecho.png" id="4_m617q"]
 [ext_resource type="Texture2D" uid="uid://dpfjknqh7icak" path="res://assets/Buttons/Book Tools/Hover/Resaltar.PNG" id="5_to0nk"]
 [ext_resource type="Texture2D" uid="uid://clx32ww3mx4jx" path="res://assets/Buttons/Book Tools/Pressed/Subrayar.PNG" id="7_q0t4q"]
@@ -16,9 +16,15 @@
 [ext_resource type="Texture2D" uid="uid://xersecqtrsx8" path="res://assets/Buttons/Book Tools/Hover/Borrar.PNG" id="11_xlxhx"]
 [ext_resource type="Texture2D" uid="uid://smye0xn3j6ic" path="res://assets/Buttons/Book Tools/Pressed/Hecho.PNG" id="13_jb4w5"]
 [ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
+[ext_resource type="Texture2D" uid="uid://bnlm3obxm2fb2" path="res://assets/Buttons/Book Tools/BaseButton/button-left.png" id="17_r4h2e"]
 [ext_resource type="Texture2D" uid="uid://b7bfp6166ijkc" path="res://assets/Buttons/Book Tools/BaseButton/colores.png" id="18_4uhxw"]
+[ext_resource type="Texture2D" uid="uid://ba8gvgky1rfsy" path="res://assets/Buttons/Book Tools/BaseButton/button-left-pressed.png" id="18_8nksb"]
+[ext_resource type="Texture2D" uid="uid://bniilje45jhq4" path="res://assets/Buttons/Book Tools/BaseButton/button-right.png" id="18_425m3"]
 [ext_resource type="Texture2D" uid="uid://df880aqhr0gfg" path="res://assets/Buttons/Book Tools/BaseButton/Icon/alineacion-central.png" id="19_56ivi"]
-[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas.png" id="20_56ivi"]
+[ext_resource type="Texture2D" uid="uid://d1127u8csvxrh" path="res://assets/Buttons/Book Tools/BaseButton/button-right-over.png" id="20_8nksb"]
+[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/nota.png" id="20_56ivi"]
+[ext_resource type="Texture2D" uid="uid://carl2uuuk1m4v" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png" id="20_gntck"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="theme_confirm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
 atlas = ExtResource("18_4uhxw")
@@ -146,6 +152,14 @@ animations = [{
 "loop": true,
 "name": &"Space 2",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvei6")
+}],
+"loop": true,
+"name": &"Space 3",
+"speed": 5.0
 }]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4uhxw"]
@@ -162,7 +176,7 @@ layout_mode = 0
 offset_left = 49.0
 offset_top = 20.0
 offset_right = 912.0
-offset_bottom = 522.0
+offset_bottom = 576.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
@@ -174,6 +188,7 @@ theme_override_constants/separation = 16
 [node name="Libro" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1999561932]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro" unique_id=618658811]
 custom_minimum_size = Vector2(0, 100)
@@ -186,6 +201,7 @@ texture = ExtResource("1_2ergs")
 region_rect = Rect2(0, 0, 1059, 918)
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -194,12 +210,13 @@ theme_override_fonts/font = ExtResource("2_x4e7g")
 theme_override_font_sizes/font_size = 21
 text = "Pag 3 de 6"
 horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
 layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 50
+theme_override_constants/margin_right = 65
 theme_override_constants/margin_bottom = 70
 
 [node name="NotasContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1339529905]
@@ -223,15 +240,42 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer" unique_id=429815083]
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 bbcode_enabled = true
 text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Este texto está resaltado y subrayado[/u][/bgcolor] de prueba Texto de prueba Texto de prueba Texto de prueba
 
  Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba "
-fit_content = true
 tab_size = 5
+horizontal_alignment = 3
 selection_enabled = true
+
+[node name="CompilatorioContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=299954627]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer" unique_id=992739798]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_x4e7g")
+theme_override_fonts/bold_font = ExtResource("4_gntck")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=1891725318]
+custom_minimum_size = Vector2(125, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+size_flags_stretch_ratio = 20.0
+
+[node name="LabelNotasGuardadas" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2" unique_id=147481246]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 0.6)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 14
+text = "📝 Notas"
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
 layout_mode = 2
@@ -273,29 +317,28 @@ texture_focused = ExtResource("13_jb4w5")
 [node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 50.0
-offset_top = 474.0
-offset_right = 95.0
-offset_bottom = 519.0
+offset_left = 78.0
+offset_top = 488.0
+offset_right = 123.0
+offset_bottom = 533.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
-texture_normal = ExtResource("4_imnac")
-texture_pressed = ExtResource("4_imnac")
+texture_normal = ExtResource("17_r4h2e")
+texture_pressed = ExtResource("18_8nksb")
 ignore_texture_size = true
 stretch_mode = 4
-flip_h = true
 
 [node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 504.0
-offset_top = 474.0
-offset_right = 549.0
-offset_bottom = 519.0
+offset_left = 483.0
+offset_top = 488.0
+offset_right = 528.0
+offset_bottom = 533.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-texture_normal = ExtResource("4_imnac")
-texture_pressed = ExtResource("4_imnac")
+texture_normal = ExtResource("18_425m3")
+texture_pressed = ExtResource("20_8nksb")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -338,6 +381,50 @@ position = Vector2(14.000061, 3.0517578e-05)
 scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("20_56ivi")
 
+[node name="ButtonCompilatorio" type="Button" parent="." unique_id=1419384677]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 154.0
+offset_right = 89.0
+offset_bottom = 204.0
+
+[node name="Reading" type="AnimatedSprite2D" parent="ButtonCompilatorio" unique_id=254550279]
+position = Vector2(31, 25)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_vb0ts")
+animation = &"Space 3"
+
+[node name="Text" type="Sprite2D" parent="ButtonCompilatorio/Reading" unique_id=1028034865]
+material = SubResource("CanvasItemMaterial_4uhxw")
+position = Vector2(14.000061, 3.0517578e-05)
+scale = Vector2(0.15113121, 0.15113121)
+texture = ExtResource("20_gntck")
+
+[node name="ButtonCerrar" type="Button" parent="." unique_id=1234567890]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 20.0
+offset_right = 955.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+text = "X"
+
+[node name="ConfirmDesafios" type="ConfirmationDialog" parent="." unique_id=501246328]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "Confirmar"
+size = Vector2i(1106, 232)
+borderless = true
+transparent = true
+theme = ExtResource("theme_confirm")
+ok_button_text = "Sí, empezar"
+dialog_text = "¿Estás seguro de que deseas empezar los desafíos?
+
+Recuerda que ya no podrás acceder a la lectura ni a las notas tomadas."
+cancel_button_text = "Cancelar"
+
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
@@ -347,3 +434,6 @@ texture = ExtResource("20_56ivi")
 [connection signal="pressed" from="ButtonRight" to="." method="_on_button_right_pressed"]
 [connection signal="pressed" from="ButtonReading" to="." method="_on_button_reading_pressed"]
 [connection signal="pressed" from="ButtonNotes" to="." method="_on_button_notes_pressed"]
+[connection signal="pressed" from="ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
+[connection signal="pressed" from="ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
+[connection signal="confirmed" from="ConfirmDesafios" to="." method="_on_confirm_challenges"]

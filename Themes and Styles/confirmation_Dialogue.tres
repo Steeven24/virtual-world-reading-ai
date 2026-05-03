@@ -3,7 +3,11 @@
 [ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="1_j78h3"]
 [ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="2_6ho2w"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j78h3"]
+
 [resource]
 default_font = ExtResource("1_j78h3")
+default_font_size = 30
 AcceptDialog/fonts/title_font = ExtResource("1_j78h3")
+AcceptDialog/styles/embedded_border = SubResource("StyleBoxEmpty_j78h3")
 AcceptDialog/styles/panel = ExtResource("2_6ho2w")

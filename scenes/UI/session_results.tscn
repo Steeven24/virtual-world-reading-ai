@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://84vwbv4vpmfk"]
+
+[ext_resource type="Script" uid="uid://cs5jihjewq8al" path="res://scripts/UI/session_results.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="2_font_bold"]
+[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="3_font"]
+[ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="4_munmg"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="4_theme"]
+[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="5_assistant"]
+
+[node name="SessionResults" type="Control" unique_id=672114356]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1901731674]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.04, 0.08, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1465013674]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="PanelContainer" parent="CenterContainer" unique_id=1561959327]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainPanel" unique_id=946406956]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1719048379]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.75, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 28
+text = "📋 Resultados de la sesión"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=2136671212]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "\"Lectura\" — Tipología"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1056447136]
+layout_mode = 2
+
+[node name="ResultsGrid" type="GridContainer" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1271921271]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="HeaderNivel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer/ResultsGrid" unique_id=2145943820]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "Nivel"
+
+[node name="HeaderCorrectas" type="Label" parent="CenterContainer/MainPanel/VBoxContainer/ResultsGrid" unique_id=2073550668]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "✓ Correctas"
+
+[node name="HeaderIncorrectas" type="Label" parent="CenterContainer/MainPanel/VBoxContainer/ResultsGrid" unique_id=2033145047]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "✗ Incorrectas"
+
+[node name="HeaderPuntos" type="Label" parent="CenterContainer/MainPanel/VBoxContainer/ResultsGrid" unique_id=2018631960]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "Puntos"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1719676148]
+layout_mode = 2
+
+[node name="SessionScoreLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1917265415]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.75, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 24
+text = "⭐ Puntaje de sesión: 0 pts"
+horizontal_alignment = 1
+
+[node name="RecordLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=115314744]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 20
+text = "🎉 ¡Nuevo récord!"
+horizontal_alignment = 1
+
+[node name="BestScoreLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=1442611439]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "Mejor puntaje: 0 pts"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=58632515]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "Respuestas: 0/0 correctas (0%)"
+horizontal_alignment = 1
+
+[node name="GlobalScoreLabel" type="Label" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=671662808]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
+text = "Puntaje total acumulado: 0 pts"
+horizontal_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/MainPanel/VBoxContainer" unique_id=253573652]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=1589749336]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 18
+text = "🔄 Intentar con otra lectura"
+
+[node name="LobbyButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=1351769508]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 18
+text = "🏠 Volver al Lobby"
+
+[node name="AssistantTipDialog" type="AcceptDialog" parent="." unique_id=363101131]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "💡 Consejo del asistente"
+size = Vector2i(800, 225)
+borderless = true
+transparent = true
+theme = ExtResource("4_theme")
+theme_override_styles/panel = ExtResource("4_munmg")
+ok_button_text = "Entendido"
+
+[node name="TipContent" type="HBoxContainer" parent="AssistantTipDialog" unique_id=21684130]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="AssistantContainer" type="CenterContainer" parent="AssistantTipDialog/TipContent" unique_id=1844932154]
+custom_minimum_size = Vector2(90, 110)
+layout_mode = 2
+
+[node name="AssistantSprite" parent="AssistantTipDialog/TipContent/AssistantContainer" unique_id=528051760 instance=ExtResource("5_assistant")]
+unique_name_in_owner = true
+position = Vector2(45, 93.00001)
+scale = Vector2(0.2, 0.2)
+
+[node name="TipLabel" type="Label" parent="AssistantTipDialog/TipContent" unique_id=454888291]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
+theme_override_fonts/font = ExtResource("3_font")
+text = "¡Te recomiendo usar las herramientas del libro!"
+autowrap_mode = 2
+
+[connection signal="pressed" from="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer/RetryButton" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer/LobbyButton" to="." method="_on_lobby_pressed"]
