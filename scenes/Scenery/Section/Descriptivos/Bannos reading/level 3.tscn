@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://de64m4xh7lw4x"]
 
-[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_2dfpp"]
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Descriptivos/Bannos.png" id="1_2dfpp"]
 [ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="3_pwk07"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="3_qcy7t"]
 [ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="4_aedrb"]
