@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bmui6dwjehlby" path="res://assets/Scenery/Background/generic background.png" id="2_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
+[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_yj0pt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -108,3 +109,7 @@ visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_a8kxi")]
 ruta_texto = ""
+
+[node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_yj0pt")]
+position = Vector2(437, 179)
+character_pose = "derecha"

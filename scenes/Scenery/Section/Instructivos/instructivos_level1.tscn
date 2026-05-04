@@ -112,3 +112,4 @@ ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_i17dr")]
 position = Vector2(1011, 261)
+character_pose = "izquierda"

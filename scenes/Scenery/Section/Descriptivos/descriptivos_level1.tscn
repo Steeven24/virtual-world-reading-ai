@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_omdln"]
 [ext_resource type="Texture2D" uid="uid://rb6rbueriff8" path="res://assets/Scenery/Background/Section/Descriptivos.png" id="2_k2vi6"]
+[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="3_iw7ye"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
 
@@ -12,7 +13,7 @@ size = Vector2(1538, 58.5)
 size = Vector2(623.75, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(469, 703)
+size = Vector2(315.83667, 703)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
 a = Vector2(360.88312, -174.89941)
@@ -62,7 +63,7 @@ position = Vector2(327.875, 748.25)
 shape = SubResource("RectangleShape2D_k2vi6")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(224.5, 341.5)
+position = Vector2(147.91832, 341.5)
 shape = SubResource("RectangleShape2D_a8kxi")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
@@ -108,3 +109,7 @@ visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_a8kxi")]
 ruta_texto = ""
+
+[node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("3_iw7ye")]
+position = Vector2(171, 384)
+character_pose = "derecha"
