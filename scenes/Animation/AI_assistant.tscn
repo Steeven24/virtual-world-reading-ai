@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dw4dill5cd1sr"]
 
-[ext_resource type="Texture2D" uid="uid://bv4sxfshha1nj" path="res://assets/Temporal sprites/robot asistente.png" id="1_3o6w5"]
+[ext_resource type="Texture2D" uid="uid://bv4sxfshha1nj" path="res://assets/Characters/AI assistant/robot asistente.png" id="1_3o6w5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3gomu"]
 atlas = ExtResource("1_3o6w5")

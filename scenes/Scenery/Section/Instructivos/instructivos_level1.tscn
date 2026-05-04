@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_ioeiv"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_jqijx"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_6y0ck"]
+[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_i17dr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -100,7 +101,7 @@ position = Vector2(949.3825, 119.528786)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_jqijx")]
-position = Vector2(934, 200)
+position = Vector2(536, 417)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
@@ -108,3 +109,6 @@ visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_6y0ck")]
 ruta_texto = ""
+
+[node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_i17dr")]
+position = Vector2(1011, 261)
