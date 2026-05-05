@@ -142,6 +142,24 @@ var score_data: Dictionary = {
 ## Puntaje acumulado solo en la sesión actual (para comparar con best).
 var _current_session_score: int = 0
 
+# ─── Sistema de personajes ──────────────────────────────────────────────────
+
+## Personaje seleccionado ("male" o "women").
+var selected_character: String = "male"
+
+## Sufijo para las animaciones (ej: "_women").
+var anim_suffix: String = ""
+
+## Cambia el personaje y actualiza el sufijo de animación.
+func set_character(type: String) -> void:
+	selected_character = type
+	if type == "women":
+		anim_suffix = "_women"
+	else:
+		anim_suffix = ""
+	print("[GameSession] Personaje seleccionado: %s (Sufijo: '%s')" % [selected_character, anim_suffix])
+
+
 # ─── API Pública ─────────────────────────────────────────────────────────────
 
 ## Inicia una sesión de juego para la tipología dada.

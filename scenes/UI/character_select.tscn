@@ -1,0 +1,280 @@
+[gd_scene format=3 uid="uid://dtob54mse2ddn"]
+
+[ext_resource type="Script" uid="uid://isfk5tqfmwnh" path="res://scripts/UI/character_select.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://dd6b6c8angvbn" path="res://assets/Characters/Player/New sprites/walk.png" id="3_male_walk"]
+[ext_resource type="Texture2D" uid="uid://dk3t7r44tr7ai" path="res://assets/Characters/Player/Women/AllSprites.png" id="4_female_walk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0941176, 0.105882, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.160784, 0.180392, 0.270588, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.278431, 0.321569, 0.490196, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 10
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
+atlas = ExtResource("3_male_walk")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_male"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ail")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxtnq"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(0, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6q27"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(64, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyey8"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(128, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bwnf"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(192, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tayva"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(256, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8khf"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(320, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aciub"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(384, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk2ix"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(448, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43ckd"]
+atlas = ExtResource("4_female_walk")
+region = Rect2(512, 640, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_female"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxtnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6q27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyey8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bwnf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tayva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8khf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aciub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk2ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43ckd")
+}],
+"loop": true,
+"name": &"walk_down_women",
+"speed": 8.0
+}]
+
+[node name="CharacterSelect" type="Control" unique_id=143931053]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="Panel" parent="." unique_id=2055101384]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="VBoxMain" type="VBoxContainer" parent="." unique_id=1948785375]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Title" type="Label" parent="VBoxMain" unique_id=863017270]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "Escoge a tu personaje"
+horizontal_alignment = 1
+
+[node name="HBoxOptions" type="HBoxContainer" parent="VBoxMain" unique_id=99249356]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="MaleOption" type="PanelContainer" parent="VBoxMain/HBoxOptions" unique_id=1135154190]
+custom_minimum_size = Vector2(220, 280)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxMain/HBoxOptions/MaleOption" unique_id=342502642]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxMain/HBoxOptions/MaleOption/VBox" unique_id=1732243753]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="AnimMale" type="AnimatedSprite2D" parent="VBoxMain/HBoxOptions/MaleOption/VBox/Control" unique_id=1919406167]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(110, 80)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_male")
+animation = &"walk_down"
+
+[node name="Label" type="Label" parent="VBoxMain/HBoxOptions/MaleOption/VBox" unique_id=827307458]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "Niño"
+horizontal_alignment = 1
+
+[node name="ButtonMale" type="Button" parent="VBoxMain/HBoxOptions/MaleOption" unique_id=682146012]
+layout_mode = 2
+flat = true
+
+[node name="FemaleOption" type="PanelContainer" parent="VBoxMain/HBoxOptions" unique_id=198409854]
+custom_minimum_size = Vector2(220, 280)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxMain/HBoxOptions/FemaleOption" unique_id=1919610745]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxMain/HBoxOptions/FemaleOption/VBox" unique_id=1694307412]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="AnimFemale" type="AnimatedSprite2D" parent="VBoxMain/HBoxOptions/FemaleOption/VBox/Control" unique_id=1532543799]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(110, 80)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_female")
+animation = &"walk_down_women"
+
+[node name="Label" type="Label" parent="VBoxMain/HBoxOptions/FemaleOption/VBox" unique_id=1945731340]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "Niña"
+horizontal_alignment = 1
+
+[node name="ButtonFemale" type="Button" parent="VBoxMain/HBoxOptions/FemaleOption" unique_id=1103291160]
+layout_mode = 2
+flat = true
+
+[connection signal="pressed" from="VBoxMain/HBoxOptions/MaleOption/ButtonMale" to="." method="_on_male_selected"]
+[connection signal="pressed" from="VBoxMain/HBoxOptions/FemaleOption/ButtonFemale" to="." method="_on_female_selected"]

@@ -85,7 +85,7 @@ func _physics_process(delta):
 
 func update_animation(direction):
 	if direction == Vector2.ZERO:
-		anim.play("idle_" + last_direction)
+		anim.play("idle_" + last_direction + GameSession.anim_suffix)
 		return
 	
 	if abs(direction.x) > abs(direction.y):
@@ -99,4 +99,4 @@ func update_animation(direction):
 		else:
 			last_direction = "up"
 	
-	anim.play("walk_" + last_direction)
+	anim.play("walk_" + last_direction + GameSession.anim_suffix)

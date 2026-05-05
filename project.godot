@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="virtual-world-reading-ai"
-run/main_scene="uid://ceqllypl7qp5q"
+run/main_scene="res://scenes/UI/character_select.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
