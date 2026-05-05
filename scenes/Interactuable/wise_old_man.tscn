@@ -184,7 +184,7 @@ script = ExtResource("4_script")
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7tee3")
-animation = &"derecha"
+animation = &"izquierda"
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=565151310]
 texture_filter = 1

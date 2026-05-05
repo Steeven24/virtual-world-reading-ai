@@ -209,6 +209,7 @@ animations = [{
 radius = 70.0
 
 [node name="Teacher" type="Node2D" unique_id=1346007177]
+texture_filter = 1
 script = ExtResource("2_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=714753353]

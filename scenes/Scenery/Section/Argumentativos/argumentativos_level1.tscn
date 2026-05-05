@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://ccdrqht0dnxvn" path="res://assets/Scenery/Background/Section/Argumentativos.png" id="2_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_p71tj"]
+[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_p71tj"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
+[ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -51,9 +51,6 @@ texture_filter = 1
 scale = Vector2(0.4548685, 0.46875003)
 texture = ExtResource("2_k2vi6")
 centered = false
-
-[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
-position = Vector2(556, 455)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
 scale = Vector2(0.78146297, 0.78146297)
@@ -115,11 +112,14 @@ visible = false
 ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_p71tj")]
-position = Vector2(1007, 311)
+position = Vector2(1074, 348)
 character_pose = "izquierda"
 
 [node name="Teacher" parent="." unique_id=1696507402 instance=ExtResource("7_teacher")]
-position = Vector2(800, 311)
+position = Vector2(829, 307)
 
 [node name="RobotAssistant" parent="." unique_id=1221218627 instance=ExtResource("8_robot")]
-position = Vector2(600, 311)
+position = Vector2(547, 321)
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
+position = Vector2(556, 455)

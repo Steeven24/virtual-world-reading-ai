@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_ioeiv"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_jqijx"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_6y0ck"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_i17dr"]
+[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_i17dr"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
-[ext_resource type="PackedScene" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
+[ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -119,7 +119,7 @@ offset_bottom = 41.0
 ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_i17dr")]
-position = Vector2(1011, 261)
+position = Vector2(1079, 294)
 character_pose = "izquierda"
 
 [node name="Teacher" parent="." unique_id=611542146 instance=ExtResource("7_teacher")]

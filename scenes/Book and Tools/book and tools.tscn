@@ -283,6 +283,10 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 theme_override_fonts/bold_font = ExtResource("4_gntck")
+bbcode_enabled = true
+text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Este texto está resaltado y subrayado[/u][/bgcolor] de prueba Texto de prueba Texto de prueba Texto de prueba
+
+ Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba "
 
 [node name="MarginContainer2" type="MarginContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=1891725318]
 custom_minimum_size = Vector2(125, 60)
