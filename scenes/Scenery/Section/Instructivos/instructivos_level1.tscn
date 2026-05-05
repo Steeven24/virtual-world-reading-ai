@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_ioeiv"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_jqijx"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_6y0ck"]
-[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_i17dr"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_i17dr"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
-[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
-[ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -44,12 +44,11 @@ size = Vector2(67.9725, 66.60445)
 size = Vector2(224.98145, 108.53314)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
-scale = Vector2(1.09, 1.09)
 script = ExtResource("6_script_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=414023814]
 texture_filter = 1
-scale = Vector2(0.4261636, 0.42597878)
+scale = Vector2(0.4548685, 0.46875)
 texture = ExtResource("1_x6rtf")
 centered = false
 
@@ -110,12 +109,13 @@ position = Vector2(536, 417)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
+visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_6y0ck")]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_left = 68.0
+offset_top = 41.0
+offset_right = 68.0
+offset_bottom = 41.0
 ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_i17dr")]

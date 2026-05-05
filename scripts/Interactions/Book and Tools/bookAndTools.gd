@@ -631,9 +631,9 @@ func _update_title_layout(title_text: String) -> void:
 	# Forzar actualización de tamaño mínimo
 	var natural_width = label_title.get_combined_minimum_size().x
 	
-	if natural_width > 1021:
+	if natural_width > 866:
 		# Si excede el máximo, fijar ancho y activar envoltura
-		label_title.custom_minimum_size.x = 1021
+		label_title.custom_minimum_size.x = 866
 		label_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	else:
 		# Si es menor, dejar que el contenedor se ajuste al texto

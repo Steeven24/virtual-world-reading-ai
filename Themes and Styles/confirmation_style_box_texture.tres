@@ -4,8 +4,8 @@
 
 [resource]
 texture = ExtResource("1_xo74s")
-texture_margin_left = 22.0
-texture_margin_top = 22.0
-texture_margin_right = 22.0
-texture_margin_bottom = 27.0
+texture_margin_left = 28.0
+texture_margin_top = 28.0
+texture_margin_right = 28.0
+texture_margin_bottom = 32.0
 modulate_color = Color(1, 1, 1, 0.8745098)
