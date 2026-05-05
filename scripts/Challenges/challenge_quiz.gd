@@ -27,7 +27,7 @@ const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
 @onready var feedback_panel: PanelContainer = %FeedbackPanel
 @onready var result_label: Label = %ResultLabel
 @onready var justification_label: RichTextLabel = %JustificationLabel
-@onready var assistant_sprite: AnimatedSprite2D = %AssistantSprite
+@onready var assistant_sprite: Sprite2D = %AssistantSprite
 @onready var continue_button: Button = %ContinueButton
 @onready var background: TextureRect = %Background
 
@@ -220,9 +220,9 @@ func _show_feedback(correct: bool, justification: String, points: int = 0, penal
 	justification_label.bbcode_enabled = true
 	justification_label.text = "[color=white]%s[/color]" % justification
 
-	# Activar animación del asistente
-	if assistant_sprite:
-		assistant_sprite.play("default")
+	# Activar animación del asistente (reemplazado por Teacher estático)
+	# if assistant_sprite:
+	# 	assistant_sprite.play("default")
 
 	# Animación de aparición
 	feedback_panel.modulate.a = 0.0

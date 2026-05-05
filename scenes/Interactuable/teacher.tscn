@@ -239,10 +239,11 @@ shape = SubResource("CircleShape2D_teacher")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1231486270]
 transparent_bg = true
-title = "Confirmar"
-position = Vector2i(400, 402)
-size = Vector2i(286, 141)
-borderless = true
+oversampling_override = 1.0
+title = "Profesor"
+initial_position = 3
+size = Vector2i(500, 232)
+current_screen = 0
 transparent = true
 theme = ExtResource("4_theme")
 ok_button_text = "Sí"

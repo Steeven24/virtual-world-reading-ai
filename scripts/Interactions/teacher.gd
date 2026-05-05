@@ -4,6 +4,7 @@ extends Node2D
 @export var prompt_sprite_resource: Texture2D
 @export var dialog_theme: Theme
 @export_enum("default", "frente", "izquierda", "derecha") var character_pose: String = "frente"
+@export_file("*.tscn") var target_scene_path: String
 
 signal request_challenge(context)
 

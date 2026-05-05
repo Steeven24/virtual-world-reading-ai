@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bmui6dwjehlby" path="res://assets/Scenery/Background/generic background.png" id="1_pljxl"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_tmat0"]
-[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="3_pljxl"]
-[ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="4_tmat0"]
+[ext_resource type="Script" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
+[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -37,6 +37,7 @@ size = Vector2(275.8287, 19.528374)
 size = Vector2(67.9725, 66.60445)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
+script = ExtResource("3_script_ctrl")
 
 [node name="GenericBackground" type="Sprite2D" parent="." unique_id=414023814]
 scale = Vector2(0.3857007, 0.38553342)
@@ -88,11 +89,8 @@ position = Vector2(1195.7461, 266.79572)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
-[node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("3_pljxl")]
+[node name="Teacher" parent="." instance=ExtResource("4_teacher")]
 position = Vector2(924.125, 353.1116)
-
-[node name="Interaction" parent="." unique_id=278619741 instance=ExtResource("4_tmat0")]
-position = Vector2(923.25, 340.49893)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]

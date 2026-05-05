@@ -5,7 +5,29 @@
 [ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="3_font"]
 [ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="4_munmg"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="4_theme"]
-[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="5_assistant"]
+[ext_resource type="Texture2D" uid="uid://dltpqtnongrsv" path="res://assets/Characters/Teacher/character-spritesheet (3).png" id="5_teacher"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5udsl"]
+atlas = ExtResource("5_teacher")
+region = Rect2(0, 1536, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8aaj"]
+atlas = ExtResource("5_teacher")
+region = Rect2(64, 1536, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2jnm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5udsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8aaj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="SessionResults" type="Control" unique_id=672114356]
 layout_mode = 3
@@ -199,10 +221,21 @@ theme_override_constants/separation = 16
 custom_minimum_size = Vector2(90, 110)
 layout_mode = 2
 
-[node name="AssistantSprite" parent="AssistantTipDialog/TipContent/AssistantContainer" unique_id=528051760 instance=ExtResource("5_assistant")]
+[node name="AssistantSprite" type="Sprite2D" parent="AssistantTipDialog/TipContent/AssistantContainer" unique_id=528051760]
 unique_name_in_owner = true
-position = Vector2(45, 93.00001)
-scale = Vector2(0.2, 0.2)
+visible = false
+position = Vector2(45, 80)
+scale = Vector2(3, 3)
+texture = ExtResource("5_teacher")
+hframes = 4
+vframes = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AssistantTipDialog/TipContent/AssistantContainer" unique_id=509841079]
+texture_filter = 1
+position = Vector2(45, 80)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_f2jnm")
+autoplay = "default"
 
 [node name="TipLabel" type="Label" parent="AssistantTipDialog/TipContent" unique_id=454888291]
 unique_name_in_owner = true

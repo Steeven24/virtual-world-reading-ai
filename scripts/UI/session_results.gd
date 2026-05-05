@@ -30,7 +30,7 @@ const LEVELS: Array[String] = ["Literal", "Inferencial", "Critico"]
 @onready var lobby_button: Button = %LobbyButton
 @onready var assistant_tip_dialog: AcceptDialog = %AssistantTipDialog
 @onready var tip_label: Label = %TipLabel
-@onready var assistant_sprite: AnimatedSprite2D = %AssistantSprite
+@onready var assistant_sprite: Sprite2D = %AssistantSprite
 
 var _font_bold: Font = null
 
@@ -214,9 +214,9 @@ func _show_assistant_tip(missing_tools: Array[String]) -> void:
 
 	tip_label.text = "¡Te recomiendo usar las herramientas del libro! Intenta %s en tu próxima lectura para mejorar tu comprensión y obtener mejores resultados." % tools_text
 
-	# Iniciar animación del asistente
-	if assistant_sprite:
-		assistant_sprite.play("default")       
+	# Iniciar animación del asistente (Removido porque ahora es un Sprite estático)
+	# if assistant_sprite:
+	# 	assistant_sprite.play("default")       
 
 	var dialog := assistant_tip_dialog
 

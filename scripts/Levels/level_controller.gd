@@ -8,12 +8,18 @@ extends Node2D
 @onready var robot_assistant = $RobotAssistant if has_node("RobotAssistant") else null
 
 func _ready():
-	# El Teacher inicia oculto y sin colisiones
+	# El Teacher inicia oculto solo si hay una fase de lectura (Level 1)
 	if teacher:
-		teacher.visible = false
-		var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
-		if teacher_area:
-			teacher_area.set_deferred("disabled", true)
+		if lectura_y_libro or book_interaction:
+			teacher.visible = false
+			var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
+			if teacher_area:
+				teacher_area.set_deferred("disabled", true)
+		else:
+			teacher.visible = true
+			var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
+			if teacher_area:
+				teacher_area.set_deferred("disabled", false)
 		
 		# Conectar señal del teacher para cargar el desafío
 		if not teacher.request_challenge.is_connected(_on_teacher_request_challenge):
@@ -69,5 +75,7 @@ func _on_teacher_request_challenge(context):
 		elif book_interaction and not book_interaction.target_scene_path.is_empty():
 			# Book_interaction.target_scene_path suele apuntar a quiz si legacy
 			SceneManager.transition_to(book_interaction.target_scene_path)
+		elif teacher and "target_scene_path" in teacher and not teacher.target_scene_path.is_empty():
+			SceneManager.transition_to(teacher.target_scene_path)
 		else:
 			push_error("LevelController: No se encontró escena destino para el desafío.")
