@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="3_iw7ye"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
-[ext_resource type="Script" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
+[ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
-[ext_resource type="PackedScene" uid="uid://robotassistant123" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -44,6 +44,7 @@ size = Vector2(67.9725, 66.60445)
 size = Vector2(224.98145, 108.53314)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
+scale = Vector2(1.09, 1.09)
 script = ExtResource("6_script_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=414023814]
@@ -118,8 +119,8 @@ ruta_texto = ""
 position = Vector2(171, 384)
 character_pose = "derecha"
 
-[node name="Teacher" parent="." instance=ExtResource("7_teacher")]
+[node name="Teacher" parent="." unique_id=627261575 instance=ExtResource("7_teacher")]
 position = Vector2(371, 384)
 
-[node name="RobotAssistant" parent="." instance=ExtResource("8_robot")]
+[node name="RobotAssistant" parent="." unique_id=828506274 instance=ExtResource("8_robot")]
 position = Vector2(571, 384)

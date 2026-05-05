@@ -48,7 +48,7 @@ script = ExtResource("6_script_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=414023814]
 texture_filter = 1
-scale = Vector2(0.4261636, 0.42597878)
+scale = Vector2(0.4548685, 0.46875003)
 texture = ExtResource("2_k2vi6")
 centered = false
 
@@ -109,7 +109,6 @@ position = Vector2(252, 319)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
-visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_a8kxi")]
 ruta_texto = ""

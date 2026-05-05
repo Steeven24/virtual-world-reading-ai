@@ -124,8 +124,23 @@ func _ready() -> void:
 
 func _load_from_file() -> void:
 	var file := FileAccess.open(ruta_texto, FileAccess.READ)
-	var texto_completo := file.get_as_text()
-
+	#var texto_completo := file.get_as_text()
+	
+	
+	
+	
+	var texto_completo
+	
+	if file == null:
+		texto_completo = "Loren ipsun"
+	else: 
+		texto_completo = file.get_as_text()
+	
+	
+	
+	
+	
+	
 	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
 	_actualizar_estado_botones()
@@ -133,7 +148,7 @@ func _load_from_file() -> void:
 	
 	# Establecer título basado en el nombre del archivo
 	if label_title:
-		label_title.text = ruta_texto.get_file().get_basename().capitalize()
+		_update_title_layout(ruta_texto.get_file().get_basename().capitalize())
 		
 	_cambiar_modo(ModoVista.LECTURA)
 
@@ -158,7 +173,7 @@ func _set_loading_state() -> void:
 	rtl.text = "[color=black][center]Cargando lectura...[/center][/color]"
 	label_pagina.text = "\n\tCargando..."
 	if label_title:
-		label_title.text = "Cargando..."
+		_update_title_layout("Cargando...")
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -172,7 +187,7 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	var title: String = str(data.get("title", "Lectura sin título"))
 	
 	if label_title:
-		label_title.text = title
+		_update_title_layout(title)
 
 	if content.is_empty():
 		_show_error_state("La lectura no tiene contenido.")
@@ -208,7 +223,7 @@ func _show_error_state(message: String) -> void:
 	rtl.text = "[color=red][center]%s[/center][/color]" % _escapar_bbcode(message)
 	label_pagina.text = "\n\tError"
 	if label_title:
-		label_title.text = "Error de carga"
+		_update_title_layout("Error de carga")
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -599,3 +614,30 @@ func _disconnect_api_signals() -> void:
 		ReadingAPI.full_reading_loaded.disconnect(_on_api_reading_received)
 	if ReadingAPI.request_failed.is_connected(_on_api_request_failed):
 		ReadingAPI.request_failed.disconnect(_on_api_request_failed)
+
+
+## Ajusta el tamaño del título dinámicamente hasta un máximo de 1021px.
+## A partir de ese ancho, el texto comienza a envolverse (wrap) verticalmente.
+func _update_title_layout(title_text: String) -> void:
+	if not label_title:
+		return
+		
+	label_title.text = title_text
+	
+	# Resetear para calcular tamaño natural
+	label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
+	label_title.custom_minimum_size.x = 0
+	
+	# Forzar actualización de tamaño mínimo
+	var natural_width = label_title.get_combined_minimum_size().x
+	
+	if natural_width > 1021:
+		# Si excede el máximo, fijar ancho y activar envoltura
+		label_title.custom_minimum_size.x = 1021
+		label_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	else:
+		# Si es menor, dejar que el contenedor se ajuste al texto
+		label_title.custom_minimum_size.x = 0
+		label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
+		
+	# El PanelContainer padre se ajustará automáticamente gracias a grow_horizontal = 1 (si se configura en la escena)
