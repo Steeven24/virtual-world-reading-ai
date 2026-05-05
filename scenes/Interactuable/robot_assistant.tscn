@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dx1omrgl125if"]
+
+[ext_resource type="Texture2D" uid="uid://bv4sxfshha1nj" path="res://assets/Characters/AI assistant/robot asistente.png" id="1_sprite"]
+[ext_resource type="Script" uid="uid://chap5yx08blcw" path="res://scripts/Interactions/robot_assistant.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="3_bubble"]
+[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="4_4vn1n"]
+[ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="4_usyex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hwa"]
+atlas = ExtResource("4_usyex")
+region = Rect2(0, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd1hg"]
+atlas = ExtResource("4_usyex")
+region = Rect2(22, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnrq7"]
+atlas = ExtResource("4_usyex")
+region = Rect2(44, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nc5w"]
+atlas = ExtResource("4_usyex")
+region = Rect2(66, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxddg"]
+atlas = ExtResource("4_usyex")
+region = Rect2(88, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y2k1"]
+atlas = ExtResource("4_usyex")
+region = Rect2(0, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6ad"]
+atlas = ExtResource("4_usyex")
+region = Rect2(22, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o5gn"]
+atlas = ExtResource("4_usyex")
+region = Rect2(44, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbu57"]
+atlas = ExtResource("4_usyex")
+region = Rect2(66, 42, 22, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_00rte"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd1hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnrq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nc5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxddg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y2k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o5gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbu57")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_robot"]
+radius = 70.0
+
+[node name="RobotAssistant" type="Node2D" unique_id=473462007]
+script = ExtResource("2_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1658796489]
+visible = false
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_sprite")
+
+[node name="Speech bubble" type="Sprite2D" parent="." unique_id=2084718341]
+visible = false
+texture_filter = 1
+position = Vector2(0, -100)
+scale = Vector2(0.9, 1)
+texture = ExtResource("3_bubble")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=1911793991]
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(1.6305552, 1.4674996)
+sprite_frames = SubResource("SpriteFrames_00rte")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=279542102]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1080296951]
+shape = SubResource("CircleShape2D_robot")
+
+[node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("4_4vn1n")]

@@ -7,6 +7,8 @@
 ##   precarga una lectura aleatoria desde la API al entrar a la escena.
 extends Control
 
+signal warning_accepted
+
 # ─── Enumeraciones ──────────────────────────────────────────────────────────────
 
 enum Herramienta {NINGUNA, RESALTAR, SUBRAYAR, BORRAR}
@@ -293,14 +295,10 @@ func _on_confirm_challenges() -> void:
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)
-	# Si hay sesión activa, ir al quiz dinámico
-	if GameSession.is_active:
-		if _uses_api:
-			_disconnect_api_signals()
-		SceneManager.is_ui_open = false
-		SceneManager.transition_to(GameSession.QUIZ_SCENE)
-	else:
-		_cambiar_escena()
+		
+	# Emitir señal para que el SceneManager maneje la transición
+	warning_accepted.emit()
+	_on_button_cerrar_pressed()
 
 # ─── Señales de entrada del RichTextLabel ────────────────────────────────────────
 

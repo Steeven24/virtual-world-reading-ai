@@ -21,6 +21,7 @@ SceneManager="*uid://3hsd1gb4gr66"
 ReadingAPI="*res://scripts/Global/reading_api.gd"
 GameSession="*res://scripts/Global/game_session.gd"
 AchievementToast="*res://scripts/Global/achievement_toast.gd"
+MCPClientNode="*res://scripts/Global/mcp_client_node.gd"
 
 [display]
 
