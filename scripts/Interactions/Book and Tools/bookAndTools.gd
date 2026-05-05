@@ -47,26 +47,26 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 
 # ─── Nodos referenciados (@onready) ─────────────────────────────────────────────
 
-@onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel
-@onready var label_pagina: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/Label
-@onready var text_notas: TextEdit = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer/TextEdit
+@onready var rtl: RichTextLabel = %RichTextLabel
+@onready var label_pagina: Label = %LabelPagina
+@onready var text_notas: TextEdit = %TextEdit
 
-@onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
-@onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
-@onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
+@onready var resaltar_button: TextureButton = %ResaltarButton
+@onready var subrayar_button: TextureButton = %SubrayarButton
+@onready var borrar_button: TextureButton = %BorrarButton
 
-@onready var panel_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
-@onready var panel_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
-@onready var panel_compilatorio: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer
-@onready var rtl_compilatorio: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer/RichTextLabel
+@onready var panel_lectura: PanelContainer = %LecturaContainer
+@onready var panel_notas: PanelContainer = %NotasContainer
+@onready var panel_compilatorio: PanelContainer = %CompilatorioContainer
+@onready var rtl_compilatorio: RichTextLabel = %RichTextLabelCompilatorio
 
-@onready var boton_izq: TextureButton = $ButtonLeft
-@onready var boton_der: TextureButton = $ButtonRight
+@onready var boton_izq: TextureButton = %ButtonLeft
+@onready var boton_der: TextureButton = %ButtonRight
 
-@onready var boton_lectura: Button = $ButtonReading
-@onready var boton_notas: Button = $ButtonNotes
-@onready var boton_compilatorio: Button = $ButtonCompilatorio
-@onready var label_notas_guardadas: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2/LabelNotasGuardadas
+@onready var boton_lectura: Button = %ButtonReading
+@onready var boton_notas: Button = %ButtonNotes
+@onready var boton_compilatorio: Button = %ButtonCompilatorio
+@onready var label_notas_guardadas: Label = %LabelNotasGuardadas
 @onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
 @onready var label_title: Label = %LabelTitle
 
@@ -616,7 +616,7 @@ func _disconnect_api_signals() -> void:
 		ReadingAPI.request_failed.disconnect(_on_api_request_failed)
 
 
-## Ajusta el tamaño del título dinámicamente hasta un máximo de 1021px.
+## Ajusta el tamaño del título dinámicamente hasta un máximo de 863px.
 ## A partir de ese ancho, el texto comienza a envolverse (wrap) verticalmente.
 func _update_title_layout(title_text: String) -> void:
 	if not label_title:
@@ -631,9 +631,9 @@ func _update_title_layout(title_text: String) -> void:
 	# Forzar actualización de tamaño mínimo
 	var natural_width = label_title.get_combined_minimum_size().x
 	
-	if natural_width > 866:
+	if natural_width > 863:
 		# Si excede el máximo, fijar ancho y activar envoltura
-		label_title.custom_minimum_size.x = 866
+		label_title.custom_minimum_size.x = 863
 		label_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	else:
 		# Si es menor, dejar que el contenedor se ajuste al texto

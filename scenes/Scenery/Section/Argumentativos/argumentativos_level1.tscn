@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://ccdrqht0dnxvn" path="res://assets/Scenery/Background/Section/Argumentativos.png" id="2_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
-[ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_p71tj"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_p71tj"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
-[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
-[ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -109,6 +109,7 @@ position = Vector2(252, 319)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
+visible = false
 
 [node name="LecturaYLibro" parent="CanvasLayer" unique_id=2040741173 instance=ExtResource("4_a8kxi")]
 ruta_texto = ""

@@ -167,45 +167,59 @@ animations = [{
 
 [node name="LecturaYLibro" type="Control" unique_id=2040741173]
 layout_mode = 3
-anchors_preset = 0
-offset_left = -7.0
-offset_top = -13.0
-offset_right = -7.0
-offset_bottom = -13.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_q0t4q")
 target_scene_path = "uid://bu0dbhg1ki0ng"
 ruta_texto = "res://readings/Test/loren ipsun.txt"
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1745195057]
+[node name="UIAnchor" type="Control" parent="." unique_id=987654321]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -300.0
+offset_right = -450.0
+offset_bottom = -300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UIAnchor" unique_id=1745195057]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 20.0
-offset_right = 912.0
-offset_bottom = 576.0
+offset_left = 22.0
+offset_right = 885.0
+offset_bottom = 556.0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=528127396]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIAnchor/PanelContainer" unique_id=528127396]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 16
 
-[node name="Libro" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1999561932]
+[node name="Libro" type="VBoxContainer" parent="UIAnchor/PanelContainer/HBoxContainer" unique_id=1999561932]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro" unique_id=618658811]
+[node name="PanelContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro" unique_id=618658811]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=506245756]
+[node name="NinePatchRect" type="NinePatchRect" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=506245756]
 layout_mode = 2
 texture = ExtResource("1_2ergs")
 region_rect = Rect2(0, 0, 1059, 918)
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
+[node name="LabelPagina" type="Label" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=514401960]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -217,18 +231,20 @@ text = "Pag 3 de 6"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
+[node name="MarginContainer" type="MarginContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=2143574178]
 layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 65
 theme_override_constants/margin_bottom = 70
 
-[node name="NotasContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1339529905]
+[node name="NotasContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1339529905]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer" unique_id=926003327]
+[node name="TextEdit" type="TextEdit" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer" unique_id=926003327]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
@@ -239,41 +255,44 @@ theme_override_fonts/font = ExtResource("2_x4e7g")
 placeholder_text = "Escribe tus notas aquí..."
 wrap_mode = 1
 
-[node name="LecturaContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1992287855]
+[node name="LecturaContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=1992287855]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer" unique_id=429815083]
+[node name="RichTextLabel" type="RichTextLabel" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer" unique_id=429815083]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 bbcode_enabled = true
-text = "[color=black]Texto de prueba Texto de prueba Texto [bgcolor=yellow][u]Este texto está resaltado y subrayado[/u][/bgcolor] de prueba Texto de prueba Texto de prueba Texto de prueba
-
- Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba "
+text = "[color=black]Texto de prueba"
 tab_size = 5
 horizontal_alignment = 3
 selection_enabled = true
 
-[node name="CompilatorioContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=299954627]
+[node name="CompilatorioContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer" unique_id=299954627]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer" unique_id=992739798]
+[node name="RichTextLabelCompilatorio" type="RichTextLabel" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer" unique_id=992739798]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("2_x4e7g")
 theme_override_fonts/bold_font = ExtResource("4_gntck")
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=1891725318]
+[node name="MarginContainer2" type="MarginContainer" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer" unique_id=1891725318]
 custom_minimum_size = Vector2(125, 60)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 size_flags_stretch_ratio = 20.0
 
-[node name="LabelNotasGuardadas" type="Label" parent="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2" unique_id=147481246]
+[node name="LabelNotasGuardadas" type="Label" parent="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2" unique_id=147481246]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -282,14 +301,15 @@ theme_override_fonts/font = ExtResource("4_gntck")
 theme_override_font_sizes/font_size = 14
 text = "📝 Notas"
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1409438583]
+[node name="PanelContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer" unique_id=1409438583]
 layout_mode = 2
 
-[node name="Herramientas" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
+[node name="Herramientas" type="VBoxContainer" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ResaltarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
+[node name="ResaltarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
+unique_name_in_owner = true
 layout_mode = 2
 action_mode = 0
 keep_pressed_outside = true
@@ -298,49 +318,48 @@ texture_pressed = ExtResource("4_488jl")
 texture_hover = ExtResource("5_to0nk")
 texture_focused = ExtResource("4_488jl")
 
-[node name="SubrayarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
+[node name="SubrayarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("2_2ergs")
 texture_pressed = ExtResource("7_q0t4q")
 texture_hover = ExtResource("8_imnac")
 texture_focused = ExtResource("7_q0t4q")
 
-[node name="BorrarButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
+[node name="BorrarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("3_x4e7g")
 texture_pressed = ExtResource("10_joms6")
 texture_hover = ExtResource("11_xlxhx")
 texture_focused = ExtResource("10_joms6")
 
-[node name="HechoButton" type="TextureButton" parent="PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
+[node name="HechoButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
 layout_mode = 2
 texture_normal = ExtResource("4_m617q")
 texture_pressed = ExtResource("13_jb4w5")
 texture_hover = ExtResource("14_bm4mi")
 texture_focused = ExtResource("13_jb4w5")
 
-[node name="MetadataContainer" type="PanelContainer" parent="." unique_id=1122334455]
+[node name="MetadataContainer" type="PanelContainer" parent="UIAnchor" unique_id=1122334455]
 texture_filter = 1
 layout_mode = 0
-offset_left = 49.0
-offset_top = 548.0
-offset_right = 177.0
-offset_bottom = 621.0
+offset_left = 22.0
+offset_top = 528.0
+offset_right = 364.0
+offset_bottom = 612.0
 theme_override_styles/panel = ExtResource("29_stylebox")
 
-[node name="MarginContainer" type="MarginContainer" parent="MetadataContainer" unique_id=289518930]
+[node name="MarginContainer" type="MarginContainer" parent="UIAnchor/MetadataContainer" unique_id=289518930]
 layout_mode = 2
-size_flags_vertical = 4
 
-[node name="VBoxMetadata" type="VBoxContainer" parent="MetadataContainer/MarginContainer" unique_id=-2061521730]
+[node name="VBoxMetadata" type="VBoxContainer" parent="UIAnchor/MetadataContainer/MarginContainer" unique_id=-2061521730]
 layout_mode = 2
-size_flags_vertical = 4
 theme_override_constants/separation = 2
 
-[node name="LabelTitle" type="Label" parent="MetadataContainer/MarginContainer/VBoxMetadata" unique_id=-950410619]
+[node name="LabelTitle" type="Label" parent="UIAnchor/MetadataContainer/MarginContainer/VBoxMetadata" unique_id=-950410619]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
 theme_override_fonts/font = ExtResource("4_gntck")
@@ -349,98 +368,98 @@ text = "Título "
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
+[node name="ButtonLeft" type="TextureButton" parent="UIAnchor" unique_id=1190728367]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 78.0
-offset_top = 488.0
-offset_right = 123.0
-offset_bottom = 533.0
-size_flags_horizontal = 0
-size_flags_vertical = 8
+offset_left = 51.0
+offset_top = 468.0
+offset_right = 96.0
+offset_bottom = 513.0
 texture_normal = ExtResource("17_r4h2e")
 texture_pressed = ExtResource("18_8nksb")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="ButtonRight" type="TextureButton" parent="." unique_id=1361551400]
+[node name="ButtonRight" type="TextureButton" parent="UIAnchor" unique_id=1361551400]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_left = 483.0
-offset_top = 488.0
-offset_right = 528.0
-offset_bottom = 533.0
-size_flags_horizontal = 8
-size_flags_vertical = 8
+offset_left = 456.0
+offset_top = 468.0
+offset_right = 501.0
+offset_bottom = 513.0
 texture_normal = ExtResource("18_425m3")
 texture_pressed = ExtResource("20_8nksb")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="ButtonReading" type="Button" parent="." unique_id=1513072957]
+[node name="ButtonReading" type="Button" parent="UIAnchor" unique_id=1513072957]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 27.0
-offset_top = 48.0
-offset_right = 89.0
-offset_bottom = 98.0
+offset_left = -22.0
+offset_top = 28.0
+offset_right = 40.0
+offset_bottom = 78.0
 
-[node name="Reading" type="AnimatedSprite2D" parent="ButtonReading" unique_id=892238578]
+[node name="Reading" type="AnimatedSprite2D" parent="UIAnchor/ButtonReading" unique_id=892238578]
 position = Vector2(31, 25)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb0ts")
 animation = &"Space 1"
 
-[node name="Text" type="Sprite2D" parent="ButtonReading/Reading" unique_id=1055218097]
+[node name="Text" type="Sprite2D" parent="UIAnchor/ButtonReading/Reading" unique_id=1055218097]
 material = SubResource("CanvasItemMaterial_4uhxw")
 position = Vector2(14.000061, 3.0517578e-05)
 scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("19_56ivi")
 
-[node name="ButtonNotes" type="Button" parent="." unique_id=1477265914]
+[node name="ButtonNotes" type="Button" parent="UIAnchor" unique_id=1477265914]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 27.0
-offset_top = 101.0
-offset_right = 89.0
-offset_bottom = 151.0
+offset_left = -22.0
+offset_top = 81.0
+offset_right = 40.0
+offset_bottom = 131.0
 
-[node name="Notes" type="AnimatedSprite2D" parent="ButtonNotes" unique_id=781006497]
+[node name="Notes" type="AnimatedSprite2D" parent="UIAnchor/ButtonNotes" unique_id=781006497]
 position = Vector2(31, 25)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb0ts")
 animation = &"Space 2"
 
-[node name="Notes" type="Sprite2D" parent="ButtonNotes/Notes" unique_id=273292658]
+[node name="Notes" type="Sprite2D" parent="UIAnchor/ButtonNotes/Notes" unique_id=273292658]
 texture_filter = 3
 material = SubResource("CanvasItemMaterial_4uhxw")
 position = Vector2(14.000061, 3.0517578e-05)
 scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("20_56ivi")
 
-[node name="ButtonCompilatorio" type="Button" parent="." unique_id=1419384677]
+[node name="ButtonCompilatorio" type="Button" parent="UIAnchor" unique_id=1419384677]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 27.0
-offset_top = 154.0
-offset_right = 89.0
-offset_bottom = 204.0
+offset_left = -22.0
+offset_top = 134.0
+offset_right = 40.0
+offset_bottom = 184.0
 
-[node name="Reading" type="AnimatedSprite2D" parent="ButtonCompilatorio" unique_id=254550279]
+[node name="Reading" type="AnimatedSprite2D" parent="UIAnchor/ButtonCompilatorio" unique_id=254550279]
 position = Vector2(31, 25)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb0ts")
 animation = &"Space 3"
 
-[node name="Text" type="Sprite2D" parent="ButtonCompilatorio/Reading" unique_id=1028034865]
+[node name="Text" type="Sprite2D" parent="UIAnchor/ButtonCompilatorio/Reading" unique_id=1028034865]
 material = SubResource("CanvasItemMaterial_4uhxw")
 position = Vector2(14.000061, 3.0517578e-05)
 scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("20_gntck")
 
-[node name="ButtonCerrar" type="Button" parent="." unique_id=1234567890]
+[node name="ButtonCerrar" type="Button" parent="UIAnchor" unique_id=1234567890]
 layout_mode = 0
-offset_left = 920.0
-offset_top = 20.0
-offset_right = 955.0
-offset_bottom = 55.0
+offset_left = 900.0
+offset_right = 935.0
+offset_bottom = 35.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_gntck")
 text = "X"
@@ -460,15 +479,15 @@ dialog_text = "¿Estás seguro de que deseas empezar los desafíos?
 Recuerda que ya no podrás acceder a la lectura ni a las notas tomadas."
 cancel_button_text = "Cancelar"
 
-[connection signal="gui_input" from="PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
-[connection signal="pressed" from="ButtonLeft" to="." method="_on_button_left_pressed"]
-[connection signal="pressed" from="ButtonRight" to="." method="_on_button_right_pressed"]
-[connection signal="pressed" from="ButtonReading" to="." method="_on_button_reading_pressed"]
-[connection signal="pressed" from="ButtonNotes" to="." method="_on_button_notes_pressed"]
-[connection signal="pressed" from="ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
-[connection signal="pressed" from="ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
+[connection signal="gui_input" from="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonRight" to="." method="_on_button_right_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonReading" to="." method="_on_button_reading_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonNotes" to="." method="_on_button_notes_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
+[connection signal="pressed" from="UIAnchor/ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
 [connection signal="confirmed" from="ConfirmDesafios" to="." method="_on_confirm_challenges"]
