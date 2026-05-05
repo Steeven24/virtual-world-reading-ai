@@ -13,6 +13,11 @@ func _ready():
 	$Area2D.body_entered.connect(_on_body_entered)
 	$Area2D.body_exited.connect(_on_body_exited)
 	$Area2D/confirm.confirmed.connect(_on_dialog_confirmed)
+	$Area2D/confirm.canceled.connect(_on_dialog_closed)
+	# Por si se cierra con la X o de otra forma
+	$Area2D/confirm.visibility_changed.connect(
+		func(): if not $Area2D/confirm.visible: _on_dialog_closed()
+	)
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -32,6 +37,10 @@ func _process(delta):
 			
 
 func show_dialogue():
+	if SceneManager.is_ui_open:
+		return
+		
+	SceneManager.is_ui_open = true
 	var dialog = $Area2D/confirm
 	
 	# 1. Forzamos posicionamiento absoluto
@@ -97,7 +106,12 @@ func change_scene():
 	SceneManager.transition_to(target_scene_path)
 
 
+func _on_dialog_closed():
+	SceneManager.is_ui_open = false
+
+
 func _on_dialog_confirmed():
+	_on_dialog_closed()
 	# Si tiene tipología, configurar GameSession para el flujo dinámico
 	if not typology.is_empty():
 		GameSession.current_typology = typology

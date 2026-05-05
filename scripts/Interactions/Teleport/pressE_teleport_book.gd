@@ -16,6 +16,11 @@ func _ready():
 	$Book/Area2D.body_entered.connect(_on_body_entered)
 	$Book/Area2D.body_exited.connect(_on_body_exited)
 	$Book/Area2D/confirm.confirmed.connect(_on_dialog_confirmed)
+	$Book/Area2D/confirm.canceled.connect(_on_dialog_closed)
+	# Por si se cierra de otra forma
+	$Book/Area2D/confirm.visibility_changed.connect(
+		func(): if not $Book/Area2D/confirm.visible: _on_dialog_closed()
+	)
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -35,6 +40,9 @@ func _process(delta):
 			
 	
 func show_dialogue():
+	if SceneManager.is_ui_open:
+		return
+		
 	var dialog = $Book/Area2D/confirm
 	$"../CanvasLayer".visible = true
 	SceneManager.is_ui_open = true
@@ -94,7 +102,12 @@ func show_dialogue():
 
 
 
+func _on_dialog_closed():
+	SceneManager.is_ui_open = false
+
+
 func _on_dialog_confirmed():
+		_on_dialog_closed()
 		change_scene()
 	
 		
