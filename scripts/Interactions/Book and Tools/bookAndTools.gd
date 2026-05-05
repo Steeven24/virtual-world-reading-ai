@@ -68,6 +68,7 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 @onready var boton_compilatorio: Button = $ButtonCompilatorio
 @onready var label_notas_guardadas: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2/LabelNotasGuardadas
 @onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
+@onready var label_title: Label = %LabelTitle
 
 # ─── Estado interno ─────────────────────────────────────────────────────────────
 
@@ -129,6 +130,11 @@ func _load_from_file() -> void:
 	_inicializar_estilos()
 	_actualizar_estado_botones()
 	pagina_actual = 0
+	
+	# Establecer título basado en el nombre del archivo
+	if label_title:
+		label_title.text = ruta_texto.get_file().get_basename().capitalize()
+		
 	_cambiar_modo(ModoVista.LECTURA)
 
 # ─── Carga desde la API (precarga al entrar a la escena) ───────────────────────
@@ -151,6 +157,8 @@ func _preload_from_api() -> void:
 func _set_loading_state() -> void:
 	rtl.text = "[color=black][center]Cargando lectura...[/center][/color]"
 	label_pagina.text = "\n\tCargando..."
+	if label_title:
+		label_title.text = "Cargando..."
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -161,6 +169,11 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	_current_reading_id = int(data.get("id", -1))
 
 	var content: String = str(data.get("content", ""))
+	var title: String = str(data.get("title", "Lectura sin título"))
+	
+	if label_title:
+		label_title.text = title
+
 	if content.is_empty():
 		_show_error_state("La lectura no tiene contenido.")
 		return
@@ -194,6 +207,8 @@ func _on_api_request_failed(endpoint: String, error: String) -> void:
 func _show_error_state(message: String) -> void:
 	rtl.text = "[color=red][center]%s[/center][/color]" % _escapar_bbcode(message)
 	label_pagina.text = "\n\tError"
+	if label_title:
+		label_title.text = "Error de carga"
 	boton_izq.visible = false
 	boton_der.visible = false
 

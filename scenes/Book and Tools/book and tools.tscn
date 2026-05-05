@@ -314,6 +314,34 @@ texture_pressed = ExtResource("13_jb4w5")
 texture_hover = ExtResource("14_bm4mi")
 texture_focused = ExtResource("13_jb4w5")
 
+[node name="MetadataContainer" type="MarginContainer" parent="." unique_id=1122334455]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 582.0
+offset_right = 912.0
+offset_bottom = 632.0
+
+[node name="VBoxMetadata" type="VBoxContainer" parent="MetadataContainer" unique_id=-2061521730]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ColorRect" type="ColorRect" parent="MetadataContainer/VBoxMetadata" unique_id=1412502722]
+layout_mode = 2
+color = Color(0.26027575, 0.3347144, 0.29902753, 1)
+
+[node name="LabelTitle" type="Label" parent="MetadataContainer/VBoxMetadata/ColorRect" unique_id=-950410619]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 2.0
+offset_right = 863.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 20
+text = "Título de la Lectura"
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="ButtonLeft" type="TextureButton" parent="." unique_id=1190728367]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 0

@@ -20,7 +20,7 @@ size = Vector2(167.3971, 703)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
 a = Vector2(360.88312, -174.89941)
-b = Vector2(-77, 221.5)
+b = Vector2(-383.87384, -45.654663)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
 size = Vector2(470.88953, 188)
