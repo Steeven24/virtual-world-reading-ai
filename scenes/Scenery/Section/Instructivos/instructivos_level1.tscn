@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="6_script_ctrl"]
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
 [ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
+[ext_resource type="PackedScene" uid="uid://1ava8ttaxqee" path="res://scenes/Animation/zzz.tscn" id="9_xvsyq"]
+[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Interactuable/button_home.tscn" id="10_1g4m4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -127,3 +129,13 @@ position = Vector2(800, 261)
 
 [node name="RobotAssistant" parent="." unique_id=600248527 instance=ExtResource("8_robot")]
 position = Vector2(1036, 477)
+
+[node name="Zzz" parent="." unique_id=115294721 instance=ExtResource("9_xvsyq")]
+position = Vector2(956, 622)
+scale = Vector2(0.6, 0.6)
+
+[node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("10_1g4m4")]
+offset_left = 1200.0
+offset_top = 640.0
+offset_right = 1200.0
+offset_bottom = 640.0

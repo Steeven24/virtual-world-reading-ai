@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_tmat0"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
+[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Interactuable/button_home.tscn" id="5_tmat0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -95,3 +96,9 @@ target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]
 position = Vector2(486, 271)
+
+[node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("5_tmat0")]
+offset_left = 1200.0
+offset_top = 640.0
+offset_right = 1200.0
+offset_bottom = 640.0
