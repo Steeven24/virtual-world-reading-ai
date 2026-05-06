@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://d02b5xmkx5unk"]
 
 [ext_resource type="Texture2D" uid="uid://vmsjkab1xo3w" path="res://assets/Scenery/Background/Section/Instructivos.png" id="1_x2bap"]
-[ext_resource type="Script" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
-[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
+[ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_opqbh"]
+[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -40,7 +40,7 @@ size = Vector2(67.9725, 66.60445)
 script = ExtResource("3_script_ctrl")
 
 [node name="GenericBackground" type="Sprite2D" parent="." unique_id=414023814]
-scale = Vector2(0.3857007, 0.38553342)
+scale = Vector2(0.45486853, 0.46875)
 texture = ExtResource("1_x2bap")
 centered = false
 
@@ -89,11 +89,9 @@ position = Vector2(1195.7461, 266.79572)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
-
-
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_opqbh")]
 position = Vector2(486, 271)
 
-[node name="Teacher" parent="." instance=ExtResource("4_teacher")]
+[node name="Teacher" parent="." unique_id=243352866 instance=ExtResource("4_teacher")]
 position = Vector2(924.125, 353.1116)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
