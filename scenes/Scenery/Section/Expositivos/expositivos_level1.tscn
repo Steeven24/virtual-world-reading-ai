@@ -18,7 +18,7 @@ size = Vector2(724.5622, 58.5)
 size = Vector2(623.75, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(469, 703)
+size = Vector2(469, 755.86975)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
 a = Vector2(360.88312, -174.89941)
@@ -28,7 +28,7 @@ b = Vector2(-77, 221.5)
 size = Vector2(470.88953, 188)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
-size = Vector2(491.25, 119.5)
+size = Vector2(697.4099, 67.427795)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
 size = Vector2(309, 84)
@@ -61,15 +61,15 @@ position = Vector2(556, 455)
 scale = Vector2(0.78146297, 0.78146297)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(363.28113, 823.25006)
+position = Vector2(357.02267, 871.44244)
 shape = SubResource("RectangleShape2D_omdln")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
-position = Vector2(327.875, 748.25)
+position = Vector2(303.27734, 789.54474)
 shape = SubResource("RectangleShape2D_k2vi6")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(224.5, 341.5)
+position = Vector2(226.49826, 374.49997)
 shape = SubResource("RectangleShape2D_a8kxi")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
@@ -77,11 +77,11 @@ position = Vector2(508, 319.5)
 shape = SubResource("SegmentShape2D_lfliw")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
-position = Vector2(1297.5552, 130)
+position = Vector2(1401.218, 92.13489)
 shape = SubResource("RectangleShape2D_yon38")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
-position = Vector2(1294.375, 752.75)
+position = Vector2(1277.7317, 885.9616)
 shape = SubResource("RectangleShape2D_68003")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
@@ -89,7 +89,7 @@ position = Vector2(1386.5, 650)
 shape = SubResource("RectangleShape2D_pculv")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
-position = Vector2(1484.5, 405.5)
+position = Vector2(1573.971, 383.89536)
 shape = SubResource("RectangleShape2D_o0pav")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
@@ -103,7 +103,7 @@ scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D" unique_id=279967999]
-position = Vector2(949.3825, 119.528786)
+position = Vector2(971.2552, 213.70175)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
