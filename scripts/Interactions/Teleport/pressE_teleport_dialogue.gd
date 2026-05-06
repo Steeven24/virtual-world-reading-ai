@@ -114,8 +114,6 @@ func _on_dialog_confirmed():
 	_on_dialog_closed()
 	# Si tiene tipología, configurar GameSession para el flujo dinámico
 	if not typology.is_empty():
-		GameSession.current_typology = typology
-		
 		var level1: String = GENERIC_LEVEL1
 		var level23: String = GENERIC_LEVEL23
 		
@@ -125,10 +123,18 @@ func _on_dialog_confirmed():
 			level1 = scenes.get("level1", GENERIC_LEVEL1)
 			level23 = scenes.get("level23", GENERIC_LEVEL23)
 			
-		GameSession.configure_scenes(level23, level23, LOBBY)
-		GameSession.level_scenes["Literal"] = level1
-		
-		# Reemplazar la escena objetivo configurada en el inspector por la calculada dinámicamente
-		target_scene_path = level1
+		# Si hay una sesión activa de esta misma tipología, reanudamos en su nivel actual
+		if GameSession.is_active and GameSession.current_typology == typology:
+			var current_level_key = GameSession.get_current_level()
+			if GameSession.level_scenes.has(current_level_key) and not GameSession.level_scenes[current_level_key].is_empty():
+				target_scene_path = GameSession.level_scenes[current_level_key]
+			else:
+				target_scene_path = level1 # Fallback de seguridad
+		else:
+			# Nueva sesión (o cambió de tipología)
+			GameSession.current_typology = typology
+			GameSession.configure_scenes(level23, level23, LOBBY)
+			GameSession.level_scenes["Literal"] = level1
+			target_scene_path = level1
 		
 	change_scene()

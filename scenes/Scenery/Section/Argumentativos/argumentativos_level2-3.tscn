@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="6_ihn47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
-size = Vector2(1538, 58.5)
+size = Vector2(630.1398, 58.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
 size = Vector2(623.75, 92.5)
@@ -50,7 +50,8 @@ centered = false
 scale = Vector2(0.70665795, 0.70665795)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(770, 823.25)
+position = Vector2(316.06995, 823.2502)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_omdln")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]

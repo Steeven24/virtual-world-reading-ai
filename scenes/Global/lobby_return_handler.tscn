@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://byw07o50nw5e"]
+
+[ext_resource type="Script" uid="uid://dwyj1ff0vahd8" path="res://scripts/Global/lobby_return_handler.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_theme"]
+
+[node name="LobbyReturnHandler" type="CanvasLayer" unique_id=46534751]
+layer = 100
+script = ExtResource("1_script")
+
+[node name="ConfirmDialog" type="ConfirmationDialog" parent="." unique_id=344777163]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "Regresar al Lobby"
+size = Vector2i(800, 200)
+visible = true
+borderless = true
+transparent = true
+theme = ExtResource("2_theme")
+ok_button_text = "Sí, regresar"
+dialog_text = "¿Estás seguro de que deseas regresar al Lobby? Tu progreso no se perderá."
+dialog_autowrap = true
+cancel_button_text = "Cancelar"
+
+[connection signal="canceled" from="ConfirmDialog" to="." method="_on_dialog_closed"]
+[connection signal="confirmed" from="ConfirmDialog" to="." method="_on_dialog_confirmed"]

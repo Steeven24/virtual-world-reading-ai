@@ -22,6 +22,7 @@ ReadingAPI="*res://scripts/Global/reading_api.gd"
 GameSession="*res://scripts/Global/game_session.gd"
 AchievementToast="*res://scripts/Global/achievement_toast.gd"
 MCPClientNode="*res://scripts/Global/mcp_client_node.gd"
+LobbyReturnHandler="*res://scenes/Global/lobby_return_handler.tscn"
 
 [display]
 

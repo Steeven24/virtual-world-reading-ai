@@ -1,9 +1,12 @@
-[gd_scene format=3 uid="uid://2pfpyxswjbob"]
+[gd_scene load_steps=3 format=3 uid="uid://2pfpyxswjbob"]
+
+[ext_resource type="Script" path="res://scripts/Interactions/Area/return_lobby_area.gd" id="1_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ey03"]
 size = Vector2(186, 20)
 
 [node name="ReturnLobbyArea" type="Node2D" unique_id=758289689]
+script = ExtResource("1_script")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1609721325]
 

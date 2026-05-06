@@ -290,7 +290,7 @@ func _show_confirm_dialog() -> void:
 	# Esperar a que Godot calcule el tamaño real
 	await get_tree().process_frame
 	dialog.reset_size()
-
+	
 	# Posición final: centrado horizontalmente, abajo con margen
 	var screen_size := get_viewport().get_visible_rect().size
 	var final_x: int = int((screen_size.x - dialog.size.x) / 2)
