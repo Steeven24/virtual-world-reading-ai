@@ -15,6 +15,39 @@ size = Vector2(1247.25, 118)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf8kc"]
 size = Vector2(45, 884)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_river_top"]
+size = Vector2(95, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_river_bot"]
+size = Vector2(90, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_garden"]
+size = Vector2(200, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_firewood"]
+size = Vector2(390, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_house"]
+size = Vector2(375, 410)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trees_top"]
+size = Vector2(860, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trees_bl"]
+size = Vector2(280, 595)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rocks_bl"]
+size = Vector2(220, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tree_br"]
+size = Vector2(280, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trees_re"]
+size = Vector2(220, 235)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom_row"]
+size = Vector2(1880, 120)
+
 [node name="Level2" type="Node2D" unique_id=700575724]
 
 [node name="TemporalLevel2" type="Sprite2D" parent="." unique_id=766083718]
@@ -66,3 +99,49 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 target_scene = ExtResource("8_b8uhp")
 ruta_texto = "C:/Users/Kevin/Desktop/Proyecto Godot Prácticas/PROYECTO/virtual-world-reading-ai/readings/Descriptivo/temporal reading 1.txt"
+
+[node name="Scenery walls" type="StaticBody2D" parent="."]
+
+[node name="river_top" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1095, 140)
+shape = SubResource("RectangleShape2D_river_top")
+
+[node name="river_bot" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1095, 405)
+shape = SubResource("RectangleShape2D_river_bot")
+
+[node name="garden" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1350, 313)
+shape = SubResource("RectangleShape2D_garden")
+
+[node name="firewood" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1400, 477)
+shape = SubResource("RectangleShape2D_firewood")
+
+[node name="house" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1675, 297)
+shape = SubResource("RectangleShape2D_house")
+
+[node name="trees_top" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(430, 180)
+shape = SubResource("RectangleShape2D_trees_top")
+
+[node name="trees_bottom_left" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(140, 735)
+shape = SubResource("RectangleShape2D_trees_bl")
+
+[node name="rocks_bottom_left" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(450, 740)
+shape = SubResource("RectangleShape2D_rocks_bl")
+
+[node name="tree_bottom_right" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1740, 850)
+shape = SubResource("RectangleShape2D_tree_br")
+
+[node name="trees_right_edge" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(1770, 570)
+shape = SubResource("RectangleShape2D_trees_re")
+
+[node name="bottom_tree_row" type="CollisionShape2D" parent="Scenery walls"]
+position = Vector2(940, 965)
+shape = SubResource("RectangleShape2D_bottom_row")
