@@ -4,10 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_tmat0"]
 [ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
-[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Interactuable/button_home.tscn" id="5_tmat0"]
+[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="5_tmat0"]
+[ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="6_yhit3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
-size = Vector2(1538, 58.5)
+size = Vector2(641.4607, 58.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
 size = Vector2(623.75, 92.5)
@@ -49,7 +50,8 @@ centered = false
 scale = Vector2(0.70665795, 0.70665795)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(770, 823.25)
+position = Vector2(321.73044, 823.2502)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_omdln")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
@@ -102,3 +104,6 @@ offset_left = 1200.0
 offset_top = 640.0
 offset_right = 1200.0
 offset_bottom = 640.0
+
+[node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("6_yhit3")]
+position = Vector2(696, 713)

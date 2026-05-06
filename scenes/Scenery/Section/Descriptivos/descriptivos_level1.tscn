@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="7_teacher"]
 [ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 [ext_resource type="PackedScene" uid="uid://1ava8ttaxqee" path="res://scenes/Animation/zzz.tscn" id="9_41531"]
-[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Interactuable/button_home.tscn" id="10_xuw7d"]
+[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="10_xuw7d"]
+[ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="11_rx0p1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1538, 58.5)
@@ -135,3 +136,6 @@ offset_left = 1200.0
 offset_top = 640.0
 offset_right = 1200.0
 offset_bottom = 640.0
+
+[node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("11_rx0p1")]
+position = Vector2(303, 714)
