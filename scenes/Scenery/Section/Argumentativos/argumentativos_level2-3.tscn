@@ -8,29 +8,32 @@
 [ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="6_ihn47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
-size = Vector2(630.1398, 58.5)
+size = Vector2(1192.4392, 58.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
-size = Vector2(623.75, 92.5)
+size = Vector2(1796.3274, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(469, 703)
+size = Vector2(133.11472, 1009.06885)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
 a = Vector2(366, -93.5)
 b = Vector2(-77, 221.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihn47"]
+size = Vector2(398.35413, 188)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
-size = Vector2(706.5, 188)
+size = Vector2(1702.3796, 188)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
-size = Vector2(491.25, 119.5)
+size = Vector2(481.94867, 119.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
-size = Vector2(309, 84)
+size = Vector2(113.46179, 311.32443)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0pav"]
-size = Vector2(119, 425)
+size = Vector2(119, 1062.9823)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lfliw"]
 size = Vector2(275.8287, 19.528374)
@@ -50,36 +53,47 @@ centered = false
 scale = Vector2(0.70665795, 0.70665795)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(316.06995, 823.2502)
+position = Vector2(1178.3308, 982.08765)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_omdln")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
-position = Vector2(327.875, 748.25)
+position = Vector2(886.29254, 1040.1073)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_k2vi6")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(224.5, 341.5)
+position = Vector2(56.55737, 494.53458)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_a8kxi")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
 position = Vector2(508, 319.5)
 shape = SubResource("SegmentShape2D_lfliw")
 
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D" unique_id=2083346877]
+position = Vector2(395.16986, 530.667)
+scale = Vector2(1.0000002, 1.0000002)
+shape = SubResource("RectangleShape2D_ihn47")
+
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
-position = Vector2(1179.75, 130)
+position = Vector2(940.3421, 130)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_yon38")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
-position = Vector2(1294.375, 752.75)
+position = Vector2(867.0582, 884.445)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_68003")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
-position = Vector2(1386.5, 650)
+position = Vector2(1150.3597, 843.40686)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_pculv")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
-position = Vector2(1484.5, 405.5)
+position = Vector2(1804.2678, 535.50323)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_o0pav")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
@@ -88,7 +102,7 @@ scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_lfliw")
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=32384643]
-position = Vector2(1195.7461, 266.79572)
+position = Vector2(1154.7312, 307.07925)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
