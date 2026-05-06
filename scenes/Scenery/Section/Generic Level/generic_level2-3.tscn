@@ -38,6 +38,12 @@ size = Vector2(275.8287, 19.528374)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
 size = Vector2(67.9725, 66.60445)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_back_wall"]
+size = Vector2(700, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_front_wall"]
+size = Vector2(900, 60)
+
 [node name="Level1" type="Node2D" unique_id=1292648426]
 script = ExtResource("3_script_ctrl")
 
