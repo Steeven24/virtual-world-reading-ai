@@ -23,6 +23,9 @@ GameSession="*res://scripts/Global/game_session.gd"
 AchievementToast="*res://scripts/Global/achievement_toast.gd"
 NpcChatAPI="*res://scripts/Global/npc_chat_api.gd"
 LobbyReturnHandler="*res://scenes/Global/lobby_return_handler.tscn"
+MCPScreenshot="*res://addons/godot_mcp/mcp_screenshot_service.gd"
+MCPInputService="*res://addons/godot_mcp/mcp_input_service.gd"
+MCPGameInspector="*res://addons/godot_mcp/mcp_game_inspector_service.gd"
 
 [display]
 
@@ -32,6 +35,10 @@ window/size/initial_position_type=0
 window/size/resizable=false
 window/size/window_width_override=1280
 window/size/window_height_override=720
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
 
 [input]
 
