@@ -1,11 +1,20 @@
 extends Node2D
 
+## Señal emitida cuando el jugador interactúa con un punto marcado como
+## tutorial (is_tutorial_trigger = true). El listener decide qué mostrar.
+signal tutorial_triggered
+
 var player_in_range = false
 @export_file("*.tscn") var target_scene_path: String
 
 ## Tipología textual (ej: "Narrativo", "Expositivo"). Si tiene valor,
 ## configura GameSession antes de transicionar para el flujo dinámico.
 @export var typology: String = ""
+
+## Si es true, al presionar E no se muestra el ConfirmationDialog ni se
+## cambia de escena: en su lugar se emite "tutorial_triggered" para que
+## el lobby muestre el overlay del tutorial guiado.
+@export var is_tutorial_trigger: bool = false
 
 func _ready():
 	$Area2D/message.visible = false
@@ -33,6 +42,11 @@ func _on_body_exited(body):
 
 func _process(delta):
 	if player_in_range and Input.is_action_just_pressed("ui_accept"):
+		# Modo tutorial: notificamos al listener (lobby) y no abrimos el confirm.
+		if is_tutorial_trigger:
+			if not SceneManager.is_ui_open:
+				tutorial_triggered.emit()
+			return
 		show_dialogue()
 			
 
