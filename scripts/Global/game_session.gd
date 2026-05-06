@@ -160,6 +160,47 @@ func set_character(type: String) -> void:
 	print("[GameSession] Personaje seleccionado: %s (Sufijo: '%s')" % [selected_character, anim_suffix])
 
 
+# ─── Persistencia del tutorial ──────────────────────────────────────────────
+
+const _PROGRESS_FILE: String = "user://progress.cfg"
+const _PROGRESS_SECTION: String = "tutorial"
+const _PROGRESS_KEY: String = "completed"
+
+## True si el jugador ya vio el tutorial guiado del Lobby.
+## Se carga la primera vez que se consulta y se persiste al marcar como visto.
+var _tutorial_completed_cache: int = -1  # -1: no cargado, 0: false, 1: true
+
+## ¿El jugador ya completó (o saltó) el tutorial guiado?
+func is_tutorial_completed() -> bool:
+	if _tutorial_completed_cache == -1:
+		var cfg := ConfigFile.new()
+		var err := cfg.load(_PROGRESS_FILE)
+		if err == OK:
+			_tutorial_completed_cache = 1 if cfg.get_value(_PROGRESS_SECTION, _PROGRESS_KEY, false) else 0
+		else:
+			_tutorial_completed_cache = 0
+	return _tutorial_completed_cache == 1
+
+
+## Marca el tutorial como completado y lo persiste en disco.
+func mark_tutorial_completed() -> void:
+	_tutorial_completed_cache = 1
+	var cfg := ConfigFile.new()
+	# Cargamos para no sobrescribir otras secciones que existieran.
+	cfg.load(_PROGRESS_FILE)
+	cfg.set_value(_PROGRESS_SECTION, _PROGRESS_KEY, true)
+	cfg.save(_PROGRESS_FILE)
+
+
+## Reinicia el flag (útil para depuración / reset desde menú).
+func reset_tutorial() -> void:
+	_tutorial_completed_cache = 0
+	var cfg := ConfigFile.new()
+	cfg.load(_PROGRESS_FILE)
+	cfg.set_value(_PROGRESS_SECTION, _PROGRESS_KEY, false)
+	cfg.save(_PROGRESS_FILE)
+
+
 # ─── API Pública ─────────────────────────────────────────────────────────────
 
 ## Inicia una sesión de juego para la tipología dada.
