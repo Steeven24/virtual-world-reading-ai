@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://da2582vjmiqo3"]
+
+[ext_resource type="Texture2D" uid="uid://cnotqvk8wr0p8" path="res://assets/Buttons/Home/button-home.png" id="1_8b8vt"]
+[ext_resource type="Script" uid="uid://c5cxivmuo26si" path="res://scripts/UI/button_home.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dgw78x8a3eq7w" path="res://assets/Buttons/Home/button-home-over.png" id="2_iwefy"]
+
+[node name="ButtonHome" type="Control" unique_id=1743225368]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=991024795]
+layout_mode = 0
+offset_right = 55.0
+offset_bottom = 55.0
+texture_normal = ExtResource("1_8b8vt")
+texture_pressed = ExtResource("2_iwefy")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true

@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://1ava8ttaxqee"]
+
+[ext_resource type="Texture2D" uid="uid://bkdeljeysph1h" path="res://assets/Animations/zzz/zzz spritesheet.png" id="1_f53r6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amhpa"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(0, 0, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr6tw"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(63, 0, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50065"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(126, 0, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlvib"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(189, 0, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xhgj"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(0, 45, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32o87"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(63, 45, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vglr8"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(126, 45, 63, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28ex6"]
+atlas = ExtResource("1_f53r6")
+region = Rect2(189, 45, 63, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hhyw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amhpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr6tw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50065")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlvib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xhgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32o87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vglr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28ex6")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Zzz" type="Node2D" unique_id=115294721]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=384730132]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_1hhyw")
+autoplay = "default"
+frame_progress = 0.34046417

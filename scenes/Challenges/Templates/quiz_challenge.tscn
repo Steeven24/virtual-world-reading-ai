@@ -1,48 +1,70 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://djb0y1j7j580n"]
 
-[ext_resource type="Script" path="res://scripts/Challenges/challenge_quiz.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dudaslpd8a8j0" path="res://scripts/Challenges/challenge_quiz.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_font"]
-[ext_resource type="PackedScene" uid="uid://dw4dill5cd1sr" path="res://scenes/Animation/AI_assistant.tscn" id="3_assistant"]
+[ext_resource type="Texture2D" uid="uid://dltpqtnongrsv" path="res://assets/Characters/Teacher/character-spritesheet (3).png" id="3_teacher"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_question"]
-bg_color = Color(0.12, 0.12, 0.2, 0.9)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
 content_margin_left = 24.0
 content_margin_top = 20.0
 content_margin_right = 24.0
 content_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feedback"]
-bg_color = Color(0.1, 0.1, 0.18, 0.95)
+bg_color = Color(0.12, 0.12, 0.2, 0.9)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
-corner_radius_bottom_left = 12
 corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feedback"]
 content_margin_left = 20.0
 content_margin_top = 16.0
 content_margin_right = 20.0
 content_margin_bottom = 16.0
+bg_color = Color(0.1, 0.1, 0.18, 0.95)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.85, 0.75, 0.3, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5udsl"]
+atlas = ExtResource("3_teacher")
+region = Rect2(0, 1536, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8aaj"]
+atlas = ExtResource("3_teacher")
+region = Rect2(64, 1536, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_23cuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5udsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8aaj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_continue"]
-bg_color = Color(0.1, 0.55, 0.2, 1.0)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_left = 8
-corner_radius_bottom_right = 8
 content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
 content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.55, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[node name="QuizChallenge" type="Control"]
+[node name="QuizChallenge" type="Control" unique_id=235284052]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +73,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1703786539]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -61,16 +83,16 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 6
 
-[node name="ColorOverlay" type="ColorRect" parent="."]
+[node name="ColorOverlay" type="ColorRect" parent="." unique_id=1585162812]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.06, 0.06, 0.11, 1.0)
+color = Color(0.06, 0.06, 0.11, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1073508413]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,14 +104,14 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=550627509]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="HeaderHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HeaderHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1471005885]
 layout_mode = 2
 
-[node name="LevelBadge" type="Label" parent="MarginContainer/VBoxContainer/HeaderHBox"]
+[node name="LevelBadge" type="Label" parent="MarginContainer/VBoxContainer/HeaderHBox" unique_id=2140167066]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -98,7 +120,7 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 22
 text = "Nivel Literal • Pregunta 1/2"
 
-[node name="DebugLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderHBox"]
+[node name="DebugLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderHBox" unique_id=1258590806]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
@@ -107,84 +129,90 @@ theme_override_font_sizes/font_size = 16
 text = "DEBUG"
 horizontal_alignment = 2
 
-[node name="QuestionPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+[node name="QuestionPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=13767841]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_question")
 
-[node name="QuestionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/QuestionPanel"]
+[node name="QuestionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/QuestionPanel" unique_id=652681845]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 80)
-bbcode_enabled = true
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_font")
 theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
 text = "Cargando pregunta..."
 fit_content = true
 scroll_active = false
 
-[node name="OptionsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="OptionsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=858173784]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="FeedbackPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+[node name="FeedbackPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=824646927]
 unique_name_in_owner = true
 layout_mode = 2
-visible = false
 theme_override_styles/panel = SubResource("StyleBoxFlat_feedback")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel" unique_id=1062165189]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 20
+alignment = 1
 
-[node name="AssistantContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer"]
-layout_mode = 2
+[node name="AssistantContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer" unique_id=1882543913]
 custom_minimum_size = Vector2(90, 110)
+layout_mode = 2
 
-[node name="AssistantSprite" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/AssistantContainer" instance=ExtResource("3_assistant")]
+[node name="AssistantSprite" type="Sprite2D" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/AssistantContainer" unique_id=822468023]
 unique_name_in_owner = true
-position = Vector2(45, 55)
+visible = false
 scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_teacher")
+hframes = 4
+vframes = 4
 
-[node name="VBoxContent" type="VBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/AssistantContainer" unique_id=655983349]
+texture_filter = 1
+position = Vector2(50, 61.5)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_23cuj")
+autoplay = "default"
+
+[node name="VBoxContent" type="VBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer" unique_id=796718005]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ResultLabel" type="Label" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent"]
+[node name="ResultLabel" type="Label" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent" unique_id=1271722176]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 24
-text = ""
 
-[node name="JustificationLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent"]
+[node name="JustificationLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent" unique_id=813442979]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
-bbcode_enabled = true
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_font")
 theme_override_font_sizes/normal_font_size = 16
-text = ""
+bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent" unique_id=836406416]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent/ButtonsContainer"]
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/FeedbackPanel/HBoxContainer/VBoxContent/ButtonsContainer" unique_id=1314573587]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 45)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_continue")
-theme_override_styles/hover = SubResource("StyleBoxFlat_continue")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_continue")
+theme_override_styles/hover = SubResource("StyleBoxFlat_continue")
 text = "Siguiente"
-

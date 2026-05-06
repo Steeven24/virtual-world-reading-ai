@@ -7,6 +7,8 @@
 ##   precarga una lectura aleatoria desde la API al entrar a la escena.
 extends Control
 
+signal warning_accepted
+
 # ─── Enumeraciones ──────────────────────────────────────────────────────────────
 
 enum Herramienta {NINGUNA, RESALTAR, SUBRAYAR, BORRAR}
@@ -45,27 +47,28 @@ const DEVICE_ID_PATH: String = "user://device_id.txt"
 
 # ─── Nodos referenciados (@onready) ─────────────────────────────────────────────
 
-@onready var rtl: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel
-@onready var label_pagina: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/Label
-@onready var text_notas: TextEdit = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer/TextEdit
+@onready var rtl: RichTextLabel = %RichTextLabel
+@onready var label_pagina: Label = %LabelPagina
+@onready var text_notas: TextEdit = %TextEdit
 
-@onready var resaltar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton
-@onready var subrayar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton
-@onready var borrar_button: TextureButton = $PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton
+@onready var resaltar_button: TextureButton = %ResaltarButton
+@onready var subrayar_button: TextureButton = %SubrayarButton
+@onready var borrar_button: TextureButton = %BorrarButton
 
-@onready var panel_lectura: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer
-@onready var panel_notas: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/NotasContainer
-@onready var panel_compilatorio: PanelContainer = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer
-@onready var rtl_compilatorio: RichTextLabel = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/CompilatorioContainer/RichTextLabel
+@onready var panel_lectura: PanelContainer = %LecturaContainer
+@onready var panel_notas: PanelContainer = %NotasContainer
+@onready var panel_compilatorio: PanelContainer = %CompilatorioContainer
+@onready var rtl_compilatorio: RichTextLabel = %RichTextLabelCompilatorio
 
-@onready var boton_izq: TextureButton = $ButtonLeft
-@onready var boton_der: TextureButton = $ButtonRight
+@onready var boton_izq: TextureButton = %ButtonLeft
+@onready var boton_der: TextureButton = %ButtonRight
 
-@onready var boton_lectura: Button = $ButtonReading
-@onready var boton_notas: Button = $ButtonNotes
-@onready var boton_compilatorio: Button = $ButtonCompilatorio
-@onready var label_notas_guardadas: Label = $PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer2/LabelNotasGuardadas
+@onready var boton_lectura: Button = %ButtonReading
+@onready var boton_notas: Button = %ButtonNotes
+@onready var boton_compilatorio: Button = %ButtonCompilatorio
+@onready var label_notas_guardadas: Label = %LabelNotasGuardadas
 @onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
+@onready var label_title: Label = %LabelTitle
 
 # ─── Estado interno ─────────────────────────────────────────────────────────────
 
@@ -121,12 +124,32 @@ func _ready() -> void:
 
 func _load_from_file() -> void:
 	var file := FileAccess.open(ruta_texto, FileAccess.READ)
-	var texto_completo := file.get_as_text()
-
+	#var texto_completo := file.get_as_text()
+	
+	
+	
+	
+	var texto_completo
+	
+	if file == null:
+		texto_completo = "Loren ipsun"
+	else: 
+		texto_completo = file.get_as_text()
+	
+	
+	
+	
+	
+	
 	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
 	_inicializar_estilos()
 	_actualizar_estado_botones()
 	pagina_actual = 0
+	
+	# Establecer título basado en el nombre del archivo
+	if label_title:
+		_update_title_layout(ruta_texto.get_file().get_basename().capitalize())
+		
 	_cambiar_modo(ModoVista.LECTURA)
 
 # ─── Carga desde la API (precarga al entrar a la escena) ───────────────────────
@@ -149,6 +172,8 @@ func _preload_from_api() -> void:
 func _set_loading_state() -> void:
 	rtl.text = "[color=black][center]Cargando lectura...[/center][/color]"
 	label_pagina.text = "\n\tCargando..."
+	if label_title:
+		_update_title_layout("Cargando...")
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -159,6 +184,11 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	_current_reading_id = int(data.get("id", -1))
 
 	var content: String = str(data.get("content", ""))
+	var title: String = str(data.get("title", "Lectura sin título"))
+	
+	if label_title:
+		_update_title_layout(title)
+
 	if content.is_empty():
 		_show_error_state("La lectura no tiene contenido.")
 		return
@@ -192,6 +222,8 @@ func _on_api_request_failed(endpoint: String, error: String) -> void:
 func _show_error_state(message: String) -> void:
 	rtl.text = "[color=red][center]%s[/center][/color]" % _escapar_bbcode(message)
 	label_pagina.text = "\n\tError"
+	if label_title:
+		_update_title_layout("Error de carga")
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -258,7 +290,7 @@ func _show_confirm_dialog() -> void:
 	# Esperar a que Godot calcule el tamaño real
 	await get_tree().process_frame
 	dialog.reset_size()
-
+	
 	# Posición final: centrado horizontalmente, abajo con margen
 	var screen_size := get_viewport().get_visible_rect().size
 	var final_x: int = int((screen_size.x - dialog.size.x) / 2)
@@ -293,14 +325,10 @@ func _on_confirm_challenges() -> void:
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)
-	# Si hay sesión activa, ir al quiz dinámico
-	if GameSession.is_active:
-		if _uses_api:
-			_disconnect_api_signals()
-		SceneManager.is_ui_open = false
-		SceneManager.transition_to(GameSession.QUIZ_SCENE)
-	else:
-		_cambiar_escena()
+		
+	# Emitir señal para que el SceneManager maneje la transición
+	warning_accepted.emit()
+	_on_button_cerrar_pressed()
 
 # ─── Señales de entrada del RichTextLabel ────────────────────────────────────────
 
@@ -586,3 +614,30 @@ func _disconnect_api_signals() -> void:
 		ReadingAPI.full_reading_loaded.disconnect(_on_api_reading_received)
 	if ReadingAPI.request_failed.is_connected(_on_api_request_failed):
 		ReadingAPI.request_failed.disconnect(_on_api_request_failed)
+
+
+## Ajusta el tamaño del título dinámicamente hasta un máximo de 863px.
+## A partir de ese ancho, el texto comienza a envolverse (wrap) verticalmente.
+func _update_title_layout(title_text: String) -> void:
+	if not label_title:
+		return
+		
+	label_title.text = title_text
+	
+	# Resetear para calcular tamaño natural
+	label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
+	label_title.custom_minimum_size.x = 0
+	
+	# Forzar actualización de tamaño mínimo
+	var natural_width = label_title.get_combined_minimum_size().x
+	
+	if natural_width > 863:
+		# Si excede el máximo, fijar ancho y activar envoltura
+		label_title.custom_minimum_size.x = 863
+		label_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	else:
+		# Si es menor, dejar que el contenedor se ajuste al texto
+		label_title.custom_minimum_size.x = 0
+		label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
+		
+	# El PanelContainer padre se ajustará automáticamente gracias a grow_horizontal = 1 (si se configura en la escena)

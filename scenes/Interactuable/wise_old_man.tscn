@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://cm4amlrcyys1c"]
+
+[ext_resource type="Texture2D" uid="uid://0pl3fytquxaq" path="res://assets/Characters/Wise old man/character-spritesheet (1).png" id="1_ihhki"]
+[ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="2_ua33q"]
+[ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_gjfqi"]
+[ext_resource type="Script" uid="uid://c54dlh7se36e2" path="res://scripts/Interactions/wise_old_man.gd" id="4_script"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="5_theme"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvaxj"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(64, 1728, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tee3"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(64, 1856, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua33q"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(0, 2048, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihhki"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(192, 1728, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcf58"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(128, 2048, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjfqi"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(128, 2112, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofysu"]
+atlas = ExtResource("1_ihhki")
+region = Rect2(128, 1984, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7tee3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvaxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tee3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua33q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihhki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcf58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjfqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofysu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjfqi")
+}],
+"loop": true,
+"name": &"derecha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua33q")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofysu")
+}],
+"loop": true,
+"name": &"izquierda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjfqi")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofysu")
+}],
+"loop": true,
+"name": &"sit",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hwa"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(0, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd1hg"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(22, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnrq7"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(44, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nc5w"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(66, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxddg"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(88, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y2k1"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(0, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6ad"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(22, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o5gn"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(44, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbu57"]
+atlas = ExtResource("3_gjfqi")
+region = Rect2(66, 42, 22, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ofysu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd1hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnrq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nc5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxddg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y2k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o5gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbu57")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wom"]
+radius = 120.0
+
+[node name="WiseOldMan" type="Node2D" unique_id=1317610961]
+script = ExtResource("4_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1788035257]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7tee3")
+animation = &"izquierda"
+
+[node name="Speech bubble" type="Sprite2D" parent="." unique_id=565151310]
+texture_filter = 1
+position = Vector2(0, -100)
+scale = Vector2(0.9, 1)
+texture = ExtResource("2_ua33q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=2027974244]
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(1.6305552, 1.4674996)
+sprite_frames = SubResource("SpriteFrames_ofysu")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1347582274]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=836276431]
+shape = SubResource("CircleShape2D_wom")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=787800432]
+transparent_bg = true
+oversampling_override = 1.0
+title = "Sabio"
+initial_position = 3
+size = Vector2i(800, 152)
+current_screen = 0
+transparent = true
+theme = ExtResource("5_theme")
+dialog_text = "Consejo"
+dialog_autowrap = true

@@ -13,6 +13,11 @@ func _ready():
 	$Area2D.body_entered.connect(_on_body_entered)
 	$Area2D.body_exited.connect(_on_body_exited)
 	$Area2D/confirm.confirmed.connect(_on_dialog_confirmed)
+	$Area2D/confirm.canceled.connect(_on_dialog_closed)
+	# Por si se cierra con la X o de otra forma
+	$Area2D/confirm.visibility_changed.connect(
+		func(): if not $Area2D/confirm.visible: _on_dialog_closed()
+	)
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -32,6 +37,10 @@ func _process(delta):
 			
 
 func show_dialogue():
+	if SceneManager.is_ui_open:
+		return
+		
+	SceneManager.is_ui_open = true
 	var dialog = $Area2D/confirm
 	
 	# 1. Forzamos posicionamiento absoluto
@@ -97,10 +106,35 @@ func change_scene():
 	SceneManager.transition_to(target_scene_path)
 
 
+func _on_dialog_closed():
+	SceneManager.is_ui_open = false
+
+
 func _on_dialog_confirmed():
+	_on_dialog_closed()
 	# Si tiene tipología, configurar GameSession para el flujo dinámico
 	if not typology.is_empty():
-		GameSession.current_typology = typology
-		GameSession.configure_scenes(GENERIC_LEVEL23, GENERIC_LEVEL23, LOBBY)
-		GameSession.level_scenes["Literal"] = GENERIC_LEVEL1
+		var level1: String = GENERIC_LEVEL1
+		var level23: String = GENERIC_LEVEL23
+		
+		# Buscar si la tipología tiene escenas mapeadas, sino usa las genéricas (fallback)
+		if GameSession.TYPOLOGY_SCENES.has(typology):
+			var scenes: Dictionary = GameSession.TYPOLOGY_SCENES[typology]
+			level1 = scenes.get("level1", GENERIC_LEVEL1)
+			level23 = scenes.get("level23", GENERIC_LEVEL23)
+			
+		# Si hay una sesión activa de esta misma tipología, reanudamos en su nivel actual
+		if GameSession.is_active and GameSession.current_typology == typology:
+			var current_level_key = GameSession.get_current_level()
+			if GameSession.level_scenes.has(current_level_key) and not GameSession.level_scenes[current_level_key].is_empty():
+				target_scene_path = GameSession.level_scenes[current_level_key]
+			else:
+				target_scene_path = level1 # Fallback de seguridad
+		else:
+			# Nueva sesión (o cambió de tipología)
+			GameSession.current_typology = typology
+			GameSession.configure_scenes(level23, level23, LOBBY)
+			GameSession.level_scenes["Literal"] = level1
+			target_scene_path = level1
+		
 	change_scene()

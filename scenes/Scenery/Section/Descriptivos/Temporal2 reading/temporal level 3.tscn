@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cup2q311cpg6l"]
 
-[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png" id="1_t0p74"]
+[ext_resource type="Texture2D" uid="uid://b7ksa0ny7iqrs" path="res://assets/Scenery/Background/Descriptivos/Bannos.png" id="1_t0p74"]
 [ext_resource type="PackedScene" uid="uid://boybacuusj2om" path="res://scenes/Interactuable/book_Interaction.tscn" id="2_fseq8"]
 [ext_resource type="PackedScene" uid="uid://dr4semfrcai0y" path="res://scenes/Challenges/Descriptivos/Bannos/challenge3.tscn" id="3_8vvbs"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_5iaj3"]

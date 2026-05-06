@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7ksa0ny7iqrs"
-path="res://.godot/imported/Bannos.png-d4ec33b382d3f4d44a3af43367fa59cb.ctex"
+uid="uid://cgocfxdg21nd2"
+path="res://.godot/imported/walk.png-e47e46ebe9c5ec2c2d62e1abbbe75e5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/Background/Section/Descriptivos/Bannos.png"
-dest_files=["res://.godot/imported/Bannos.png-d4ec33b382d3f4d44a3af43367fa59cb.ctex"]
+source_file="res://assets/Characters/Player/Women/walk.png"
+dest_files=["res://.godot/imported/walk.png-e47e46ebe9c5ec2c2d62e1abbbe75e5b.ctex"]
 
 [params]
 

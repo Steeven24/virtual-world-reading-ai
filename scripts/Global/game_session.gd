@@ -58,6 +58,31 @@ const QUIZ_SCENE: String = "res://scenes/Challenges/Templates/quiz_challenge.tsc
 ## Escena de resultados al completar la sesión.
 const RESULTS_SCENE: String = "res://scenes/UI/session_results.tscn"
 
+## Mapeo de tipologías textuales a sus escenarios (backgrounds) correspondientes.
+## Las llaves deben coincidir exactamente con el valor devuelto por la API.
+const TYPOLOGY_SCENES: Dictionary = {
+	"Narrativo": {
+		"level1": "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn",
+		"level23": "res://scenes/Scenery/Section/Generic Level/generic_level2-3.tscn"
+	},
+	"Descriptivo": {
+		"level1": "res://scenes/Scenery/Section/Descriptivos/descriptivos_level1.tscn",
+		"level23": "res://scenes/Scenery/Section/Descriptivos/descriptivos_level2-3.tscn"
+	},
+	"Argumentativo": {
+		"level1": "res://scenes/Scenery/Section/Argumentativos/argumentativos_level1.tscn",
+		"level23": "res://scenes/Scenery/Section/Argumentativos/argumentativos_level2-3.tscn"
+	},
+	"Expositivo": {
+		"level1": "res://scenes/Scenery/Section/Expositivos/expositivos_level1.tscn",
+		"level23": "res://scenes/Scenery/Section/Expositivos/expositivos_level2-3.tscn"
+	},
+	"Instructivo": {
+		"level1": "res://scenes/Scenery/Section/Instructivos/instructivos_level1.tscn",
+		"level23": "res://scenes/Scenery/Section/Instructivos/instructivos_level2-3.tscn"
+	}
+}
+
 ## Escenas de niveles (escenarios intermedios).
 ## Estas se configuran al iniciar sesión según la lectura.
 var level_scenes: Dictionary = {
@@ -116,6 +141,24 @@ var score_data: Dictionary = {
 
 ## Puntaje acumulado solo en la sesión actual (para comparar con best).
 var _current_session_score: int = 0
+
+# ─── Sistema de personajes ──────────────────────────────────────────────────
+
+## Personaje seleccionado ("male" o "women").
+var selected_character: String = "male"
+
+## Sufijo para las animaciones (ej: "_women").
+var anim_suffix: String = ""
+
+## Cambia el personaje y actualiza el sufijo de animación.
+func set_character(type: String) -> void:
+	selected_character = type
+	if type == "women":
+		anim_suffix = "_women"
+	else:
+		anim_suffix = ""
+	print("[GameSession] Personaje seleccionado: %s (Sufijo: '%s')" % [selected_character, anim_suffix])
+
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
 

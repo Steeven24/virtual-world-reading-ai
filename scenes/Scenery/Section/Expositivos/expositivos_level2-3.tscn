@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://cktbp8aci3cjj"]
+
+[ext_resource type="Texture2D" uid="uid://cdp73l2bnmv3x" path="res://assets/Scenery/Background/Section/Expositivos.png" id="1_pljxl"]
+[ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="2_tmat0"]
+[ext_resource type="Script" uid="uid://ch870yoluxaul" path="res://scripts/Levels/level_controller.gd" id="3_script_ctrl"]
+[ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
+[ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="5_xk7sq"]
+[ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="6_8f8sy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
+size = Vector2(707.97095, 58.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
+size = Vector2(623.75, 92.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
+size = Vector2(469, 703)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
+a = Vector2(366, -93.5)
+b = Vector2(-77, 221.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
+size = Vector2(706.5, 188)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
+size = Vector2(491.25, 119.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
+size = Vector2(309, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0pav"]
+size = Vector2(119, 425)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfliw"]
+size = Vector2(275.8287, 19.528374)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
+size = Vector2(67.9725, 66.60445)
+
+[node name="Level1" type="Node2D" unique_id=1292648426]
+script = ExtResource("3_script_ctrl")
+
+[node name="GenericBackground" type="Sprite2D" parent="." unique_id=414023814]
+scale = Vector2(0.45454544, 0.46874997)
+texture = ExtResource("1_pljxl")
+centered = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
+scale = Vector2(0.70665795, 0.70665795)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
+position = Vector2(354.98557, 823.2502)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_omdln")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
+position = Vector2(327.875, 748.25)
+shape = SubResource("RectangleShape2D_k2vi6")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
+position = Vector2(224.5, 341.5)
+shape = SubResource("RectangleShape2D_a8kxi")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
+position = Vector2(508, 319.5)
+shape = SubResource("SegmentShape2D_lfliw")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
+position = Vector2(1179.75, 130)
+shape = SubResource("RectangleShape2D_yon38")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
+position = Vector2(1294.375, 752.75)
+shape = SubResource("RectangleShape2D_68003")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
+position = Vector2(1386.5, 650)
+shape = SubResource("RectangleShape2D_pculv")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
+position = Vector2(1484.5, 405.5)
+shape = SubResource("RectangleShape2D_o0pav")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
+position = Vector2(1200.7817, 227.9746)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_lfliw")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=32384643]
+position = Vector2(1195.7461, 266.79572)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_cirqj")
+
+[node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]
+position = Vector2(486, 271)
+
+[node name="Teacher" parent="." unique_id=682473698 instance=ExtResource("4_teacher")]
+position = Vector2(924.125, 353.1116)
+target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
+
+[node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("5_xk7sq")]
+offset_left = 1200.0
+offset_top = 640.0
+offset_right = 1200.0
+offset_bottom = 640.0
+
+[node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("6_8f8sy")]
+position = Vector2(640, 714)
