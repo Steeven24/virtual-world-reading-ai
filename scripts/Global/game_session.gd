@@ -5,6 +5,14 @@
 ## Registrar como Autoload: Project Settings → Autoload → "GameSession"
 extends Node
 
+func _ready() -> void:
+	# Para facilitar las pruebas en el editor, reseteamos el estado del tutorial
+	# en cada inicio, así aparece una vez por sesión de depuración.
+	if OS.has_feature("editor"):
+		print("[GameSession] Ejecución desde el editor: Forzando tutorial para esta sesión.")
+		_tutorial_completed_cache = 0
+
+
 # ─── Señales ─────────────────────────────────────────────────────────────────
 
 ## Emitida cuando la lectura completa se carga (con preguntas).

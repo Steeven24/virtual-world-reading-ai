@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5a23lntjd8sg"
-path="res://.godot/imported/Unarmed_Walk_with_shadow.png-70ab0250e336e4e3f523ccfe21f07520.ctex"
+path="res://.godot/imported/Unarmed_Walk_with_shadow.png-7c25e407adbe4e2453a2c1e831c89dcb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Player/Old sprites/Unarmed_Walk_with_shadow.png"
-dest_files=["res://.godot/imported/Unarmed_Walk_with_shadow.png-70ab0250e336e4e3f523ccfe21f07520.ctex"]
+source_file="res://assets/Characters/Player/Old sprites/Unarmed_Walk_with_shadow.png"
+dest_files=["res://.godot/imported/Unarmed_Walk_with_shadow.png-7c25e407adbe4e2453a2c1e831c89dcb.ctex"]
 
 [params]
 

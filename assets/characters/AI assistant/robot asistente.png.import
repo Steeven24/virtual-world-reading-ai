@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv4sxfshha1nj"
-path="res://.godot/imported/robot asistente.png-84ed15b64a59d891a5747359874fee21.ctex"
+path="res://.godot/imported/robot asistente.png-3207240825c248bf17636d0247e6d36f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/AI assistant/robot asistente.png"
-dest_files=["res://.godot/imported/robot asistente.png-84ed15b64a59d891a5747359874fee21.ctex"]
+source_file="res://assets/Characters/AI assistant/robot asistente.png"
+dest_files=["res://.godot/imported/robot asistente.png-3207240825c248bf17636d0247e6d36f.ctex"]
 
 [params]
 

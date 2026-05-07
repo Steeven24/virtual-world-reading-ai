@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5ahwdjjtv0u5"
-path="res://.godot/imported/Unarmed_Hurt_with_shadow.png-950292d5494d6db246566c41e540fd08.ctex"
+path="res://.godot/imported/Unarmed_Hurt_with_shadow.png-5d3fcef08d4e719751b2d9628e2e2068.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Player/Old sprites/Unarmed_Hurt_with_shadow.png"
-dest_files=["res://.godot/imported/Unarmed_Hurt_with_shadow.png-950292d5494d6db246566c41e540fd08.ctex"]
+source_file="res://assets/Characters/Player/Old sprites/Unarmed_Hurt_with_shadow.png"
+dest_files=["res://.godot/imported/Unarmed_Hurt_with_shadow.png-5d3fcef08d4e719751b2d9628e2e2068.ctex"]
 
 [params]
 

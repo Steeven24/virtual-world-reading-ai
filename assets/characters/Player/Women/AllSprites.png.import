@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dk3t7r44tr7ai"
-path="res://.godot/imported/AllSprites.png-bc276b9bc846c8b448c8a0b23bfe40b9.ctex"
+path="res://.godot/imported/AllSprites.png-11d35ef7830dd5befd450ecabb1d3af5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Player/Women/AllSprites.png"
-dest_files=["res://.godot/imported/AllSprites.png-bc276b9bc846c8b448c8a0b23bfe40b9.ctex"]
+source_file="res://assets/Characters/Player/Women/AllSprites.png"
+dest_files=["res://.godot/imported/AllSprites.png-11d35ef7830dd5befd450ecabb1d3af5.ctex"]
 
 [params]
 

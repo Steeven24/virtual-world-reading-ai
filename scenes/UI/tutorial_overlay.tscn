@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://ctd88srhbubr8"]
 
-[ext_resource type="Script" path="res://scripts/UI/tutorial_overlay.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cm7tjbmoqwkwp" path="res://scripts/UI/tutorial_overlay.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.06, 0.06, 0.12, 0.96)
@@ -32,93 +32,90 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="TutorialOverlay" type="CanvasLayer"]
+[node name="TutorialOverlay" type="CanvasLayer" unique_id=639130490]
 layer = 60
 script = ExtResource("1_script")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=307681579]
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 0.55)
-mouse_filter = 0
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=1831392394]
 offset_right = 760.0
 offset_bottom = 260.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="Margin" type="MarginContainer" parent="Panel"]
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=1230239429]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 18
 
-[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=1164413882]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Header" type="HBoxContainer" parent="Panel/Margin/VBox"]
+[node name="Header" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=105668216]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Panel/Margin/VBox/Header"]
+[node name="Title" type="Label" parent="Panel/Margin/VBox/Header" unique_id=1241464372]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
 theme_override_font_sizes/font_size = 24
 text = "Tutorial"
 
-[node name="Body" type="RichTextLabel" parent="Panel/Margin/VBox"]
+[node name="Body" type="RichTextLabel" parent="Panel/Margin/VBox" unique_id=1313156988]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-bbcode_enabled = true
-text = ""
-fit_content = true
-scroll_active = false
-autowrap_mode = 3
 theme_override_colors/default_color = Color(0.92, 0.94, 0.97, 1)
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
 
-[node name="Footer" type="HBoxContainer" parent="Panel/Margin/VBox"]
+[node name="Footer" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=548359936]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Counter" type="Label" parent="Panel/Margin/VBox/Footer"]
+[node name="Counter" type="Label" parent="Panel/Margin/VBox/Footer" unique_id=1122658703]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.7, 0.72, 0.8, 1)
 theme_override_font_sizes/font_size = 14
 text = "Paso 1 / 8"
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox/Footer"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox/Footer" unique_id=430727251]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="SkipButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons"]
+[node name="SkipButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons" unique_id=1084871090]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 text = "Saltar"
 
-[node name="PrevButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons"]
+[node name="PrevButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons" unique_id=1023236261]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 text = "◀ Anterior"
 
-[node name="NextButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons"]
+[node name="NextButton" type="Button" parent="Panel/Margin/VBox/Footer/Buttons" unique_id=2139351879]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 text = "Siguiente ▶"
