@@ -31,6 +31,7 @@ func _ready() -> void:
 	_update_score(GameSession.get_total_score())
 	GameSession.score_changed.connect(_update_score)
 	GameSession.achievement_unlocked.connect(_on_achievement_unlocked)
+	ProgressionManager.progression_changed.connect(_on_progression_changed)
 	toggle_button.pressed.connect(_toggle_achievements)
 	close_button.pressed.connect(_toggle_achievements)
 
@@ -76,10 +77,12 @@ func _populate_achievements() -> void:
 
 	var stats := Label.new()
 	var sd = GameSession.score_data
-	stats.text = "Sesiones: %d | Perfectas: %d\nTipologías: %d/5" % [
+	var unlocked_count: int = ProgressionManager.unlocked.size()
+	stats.text = "Sesiones: %d | Perfectas: %d\nTipologías: %d/5 | Desbloqueados: %d/5" % [
 		sd.get("sessions_completed", 0),
 		sd.get("perfect_sessions", 0),
 		sd.get("typologies_completed", []).size(),
+		unlocked_count,
 	]
 	stats.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8, 1.0))
 	if font:
@@ -91,5 +94,11 @@ func _populate_achievements() -> void:
 func _on_achievement_unlocked(_id: String, _display_name: String) -> void:
 	# La notificación visual la gestiona el Autoload AchievementToast.
 	# Aquí solo refrescamos la lista si está abierta.
+	if achievements_panel.visible:
+		_populate_achievements()
+
+
+func _on_progression_changed() -> void:
+	_update_score(ProgressionManager.get_total_score())
 	if achievements_panel.visible:
 		_populate_achievements()

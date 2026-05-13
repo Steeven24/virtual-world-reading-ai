@@ -16,6 +16,12 @@ var player_in_range = false
 ## el lobby muestre el overlay del tutorial guiado.
 @export var is_tutorial_trigger: bool = false
 
+## Referencia al sprite del candado (hijo de esta escena).
+var _padlock: Sprite2D = null
+
+## Referencia al diálogo de nivel bloqueado.
+var _locked_dialog: AcceptDialog = null
+
 func _ready():
 	$Area2D/message.visible = false
 	# Conectamos desde el nodo que tiene la señal ($Area2D)
@@ -27,6 +33,21 @@ func _ready():
 	$Area2D/confirm.visibility_changed.connect(
 		func(): if not $Area2D/confirm.visible: _on_dialog_closed()
 	)
+
+	# ─── Configurar candado y diálogo de bloqueo ───────────────────────────
+	_padlock = get_node_or_null("Padlock")
+	_locked_dialog = get_node_or_null("LockedDialog")
+
+	if _locked_dialog:
+		_locked_dialog.visibility_changed.connect(
+			func(): if not _locked_dialog.visible: _on_dialog_closed()
+		)
+
+	# Actualizar visibilidad del candado según estado de progresión
+	if not typology.is_empty():
+		_update_padlock_visibility()
+		# Escuchar desbloqueos dinámicos
+		ProgressionManager.level_unlocked.connect(_on_level_unlocked)
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -46,6 +67,10 @@ func _process(delta):
 		if is_tutorial_trigger:
 			if not SceneManager.is_ui_open:
 				tutorial_triggered.emit()
+			return
+		# Verificar si el nivel está bloqueado
+		if not typology.is_empty() and not ProgressionManager.is_unlocked(typology):
+			_show_locked_dialog()
 			return
 		show_dialogue()
 			
@@ -152,3 +177,74 @@ func _on_dialog_confirmed():
 			target_scene_path = level1
 		
 	change_scene()
+
+
+# ─── Sistema de candado y bloqueo ───────────────────────────────────────────
+
+## Actualiza la visibilidad del candado según el estado de progresión.
+func _update_padlock_visibility() -> void:
+	if _padlock and not typology.is_empty():
+		_padlock.visible = not ProgressionManager.is_unlocked(typology)
+
+
+## Muestra el diálogo de nivel bloqueado con animación slide-up.
+func _show_locked_dialog() -> void:
+	if SceneManager.is_ui_open:
+		return
+
+	if not _locked_dialog:
+		return
+
+	SceneManager.is_ui_open = true
+
+	# Obtener información del bloqueo para personalizar el mensaje
+	var lock_info: Dictionary = ProgressionManager.get_lock_info(typology)
+	if lock_info.get("locked", false):
+		var req_typology: String = lock_info.get("required_typology", "")
+		var req_score: int = lock_info.get("required_score", 0)
+		var current: int = lock_info.get("current_score", 0)
+		var difficulty: String = lock_info.get("difficulty_label", "")
+
+		_locked_dialog.dialog_text = "🔒 Este nivel (%s) está bloqueado.\n\nNecesitas obtener al menos %d puntos en %s para desbloquearlo.\nTu mejor puntaje actual en %s: %d pts.\n\n¡Usa todas las herramientas y responde correctamente para desbloquear!" % [
+			difficulty, req_score, req_typology, req_typology, current
+		]
+	else:
+		_locked_dialog.dialog_text = "🔒 Este nivel aún está bloqueado."
+
+	var dialog := _locked_dialog
+
+	# Animación slide-up (misma estética que los otros diálogos del proyecto)
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
+	dialog.transparent = true
+	dialog.position = Vector2i(-10000, -10000)
+
+	dialog.show()
+
+	await get_tree().process_frame
+	dialog.reset_size()
+	dialog.min_size = Vector2i(700, 200)
+
+	var screen_size := get_viewport().get_visible_rect().size
+	var final_x: int = int((screen_size.x - dialog.size.x) / 2)
+	var final_y: int = int(screen_size.y - dialog.size.y - 40)
+
+	var offset_y: int = 30
+	dialog.position = Vector2i(final_x, final_y + offset_y)
+
+	for child in dialog.get_children():
+		if child is Control:
+			child.modulate.a = 0.0
+
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.set_parallel(true)
+	tween.tween_method(func(y): dialog.position = Vector2i(final_x, y), final_y + offset_y, final_y, 0.3)
+
+	for child in dialog.get_children():
+		if child is Control:
+			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
+
+
+## Callback cuando ProgressionManager desbloquea una tipología.
+func _on_level_unlocked(unlocked_typology: String) -> void:
+	if unlocked_typology == typology:
+		_update_padlock_visibility()

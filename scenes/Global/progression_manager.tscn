@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/Global/progression_manager.gd" id="1_script"]
+
+[node name="ProgressionManager" type="Node"]
+script = ExtResource("1_script")
+threshold_descriptivo = 250
+threshold_argumentativo = 250
+threshold_instructivo = 250
+threshold_expositivo = 250
+tool_bonus_points = 20

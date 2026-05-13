@@ -133,6 +133,10 @@ func _populate_data() -> void:
 	var total_global: int = GameSession.get_total_score()
 	global_score_label.text = "Puntaje total acumulado: %d pts" % total_global
 
+	# Mostrar bonus de herramientas y progreso de desbloqueo
+	_show_tool_bonus_info()
+	_show_unlock_progress()
+
 	# Recomendación del asistente si no usó herramientas
 	_check_tools_usage()
 
@@ -194,6 +198,63 @@ func _create_label(text: String, font_size: int, color: Color) -> Label:
 	if _font_bold:
 		label.add_theme_font_override("font", _font_bold)
 	return label
+
+
+## Muestra el desglose de bonus por herramientas en la tabla de resultados.
+func _show_tool_bonus_info() -> void:
+	var tools := GameSession.tools_used
+	var tool_bonus: int = ProgressionManager.calculate_tool_bonus(tools)
+
+	# Añadir fila de herramientas a la tabla
+	var tool_label := _create_label("Herramientas", 18, COLOR_WHITE)
+	results_grid.add_child(tool_label)
+
+	var used_count: int = 0
+	if tools.get("highlight", false): used_count += 1
+	if tools.get("underline", false): used_count += 1
+	if tools.get("notes", false): used_count += 1
+
+	results_grid.add_child(_create_label("%d/3" % used_count, 18, COLOR_CORRECT if used_count == 3 else COLOR_DIM))
+	results_grid.add_child(_create_label("", 18, COLOR_DIM))  # Columna vacía (errores no aplica)
+	results_grid.add_child(_create_label("+%d pts" % tool_bonus, 18, COLOR_GOLD if tool_bonus > 0 else COLOR_DIM))
+
+
+## Muestra el progreso hacia el desbloqueo de la siguiente tipología.
+func _show_unlock_progress() -> void:
+	var progress: Dictionary = ProgressionManager.get_unlock_progress(GameSession.current_typology)
+
+	if progress.get("is_last", false):
+		# Es la última tipología, no hay nada más que desbloquear
+		return
+
+	var next_typology: String = progress.get("next", "")
+	var current_best: int = progress.get("current", 0)
+	var threshold: int = progress.get("threshold", 0)
+	var is_unlocked: bool = progress.get("unlocked", false)
+
+	if next_typology.is_empty():
+		return
+
+	# Crear etiqueta de progreso
+	var progress_label := Label.new()
+	if is_unlocked:
+		progress_label.text = "✅ %s desbloqueado" % next_typology
+		progress_label.add_theme_color_override("font_color", COLOR_CORRECT)
+	else:
+		var percent: float = (float(current_best) / float(threshold) * 100.0) if threshold > 0 else 0.0
+		progress_label.text = "🔓 Progreso hacia %s: %d/%d pts (%.0f%%)" % [next_typology, current_best, threshold, percent]
+		progress_label.add_theme_color_override("font_color", COLOR_GOLD)
+
+	progress_label.add_theme_font_size_override("font_size", 16)
+	if _font_bold:
+		progress_label.add_theme_font_override("font", _font_bold)
+
+	# Añadir después del global_score_label
+	var parent := global_score_label.get_parent()
+	if parent:
+		var idx: int = global_score_label.get_index() + 1
+		parent.add_child(progress_label)
+		parent.move_child(progress_label, idx)
 
 
 # ─── Diálogo de recomendación del asistente ──────────────────────────────────

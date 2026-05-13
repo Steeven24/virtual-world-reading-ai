@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="3_uogk4"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_i0rb6"]
 [ext_resource type="PackedScene" uid="uid://cb8m6kx16saci" path="res://scenes/Scenery/Lobby/score_hud.tscn" id="5_score"]
-[ext_resource type="Script" path="res://scripts/Lobby/lobby.gd" id="6_lobby_script"]
+[ext_resource type="Script" uid="uid://bdhcos0sp5xks" path="res://scripts/Lobby/lobby.gd" id="6_lobby_script"]
 
 [node name="Lobby" type="Node2D" unique_id=770369048]
 script = ExtResource("6_lobby_script")
@@ -20,17 +20,17 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Descriptivo"
 
 [node name="Textos Narrativos" parent="." unique_id=603618769 instance=ExtResource("3_uogk4")]
-position = Vector2(447, 523)
+position = Vector2(647, 528)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Narrativo"
 
 [node name="Textos Expositivos" parent="." unique_id=1701415898 instance=ExtResource("3_uogk4")]
-position = Vector2(1408, 305)
+position = Vector2(1232, 510)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Expositivo"
 
 [node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2371, 592)
+position = Vector2(2592, 766)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Instructivo"
 

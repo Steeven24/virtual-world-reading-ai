@@ -58,6 +58,9 @@ const SESSION_COMPLETE_BONUS: int = 50
 ## Bonus adicional por sesión perfecta (0 errores en toda la sesión).
 const SESSION_PERFECT_BONUS: int = 25
 
+## Señal emitida al completar una sesión con datos completos para progresión.
+signal session_completed_with_data(typology: String, session_score: int, tools: Dictionary)
+
 # ─── Rutas de escenas ────────────────────────────────────────────────────────
 
 ## Escena del quiz genérico.
@@ -286,22 +289,20 @@ func submit_answer(letter: String) -> Dictionary:
 		"correct_answer": correct_letter,
 	})
 
-	# Otorgar puntos o penalizar
+	# Otorgar puntos o penalizar (solo al puntaje de sesión)
 	var points_earned: int = 0
 	var penalty: int = 0
 	if is_correct:
 		points_earned = POINTS_BY_LEVEL.get(current_level, 10)
-		score_data["total_score"] += points_earned
 		_current_session_score += points_earned
 		score_data["correct_by_level"][current_level] += 1
 	else:
 		penalty = PENALTY_BY_LEVEL.get(current_level, 5)
-		score_data["total_score"] = maxi(0, score_data["total_score"] - penalty)
 		_current_session_score = maxi(0, _current_session_score - penalty)
 		_level_errors += 1
 		score_data["incorrect_by_level"][current_level] += 1
 
-	score_changed.emit(score_data["total_score"])
+	score_changed.emit(_current_session_score)
 
 	return {
 		"correct": is_correct,
@@ -328,9 +329,8 @@ func advance_to_next() -> String:
 	# Verificar bonus de nivel perfecto antes de avanzar
 	if _level_errors == 0:
 		var bonus := LEVEL_PERFECT_BONUS
-		score_data["total_score"] += bonus
 		_current_session_score += bonus
-		score_changed.emit(score_data["total_score"])
+		score_changed.emit(_current_session_score)
 	current_level_index += 1
 	current_question_index = 0
 	_level_errors = 0
@@ -372,13 +372,15 @@ func get_session_score() -> int:
 
 ## Retorna el mejor puntaje registrado para una tipología.
 func get_best_score(typology: String) -> int:
-	return score_data["best_scores_by_typology"].get(typology, 0)
+	return ProgressionManager.get_best_score(typology)
 
 
 ## Retorna true si la sesión actual superó el mejor puntaje previo.
 func is_new_record() -> bool:
-	var best: int = get_best_score(current_typology)
-	return _current_session_score > best
+	# Comparamos contra el best ANTES de registrar (el actual ya fue registrado)
+	# Usamos el score_data local que se actualiza después del registro
+	var best: int = score_data["best_scores_by_typology"].get(current_typology, 0)
+	return _current_session_score >= best and _current_session_score > 0
 
 
 ## Retorna un resumen de los resultados al final de la sesión.
@@ -394,9 +396,9 @@ func get_results_summary() -> Dictionary:
 	}
 
 
-## Retorna la puntuación total actual.
+## Retorna la puntuación total actual (suma de mejores puntajes).
 func get_total_score() -> int:
-	return score_data.get("total_score", 0)
+	return ProgressionManager.get_total_score()
 
 
 ## Retorna la lista de logros desbloqueados.
@@ -415,21 +417,29 @@ func _on_session_complete() -> void:
 		score_data["typologies_completed"].append(current_typology)
 
 	# Bonus por sesión completa
-	score_data["total_score"] += SESSION_COMPLETE_BONUS
 	_current_session_score += SESSION_COMPLETE_BONUS
 
 	# Verificar sesión perfecta (0 errores en toda la sesión)
 	var total_errors := results.filter(func(r): return not r["correct"]).size()
 	if total_errors == 0:
 		score_data["perfect_sessions"] += 1
-		score_data["total_score"] += SESSION_PERFECT_BONUS
 		_current_session_score += SESSION_PERFECT_BONUS
 
-	# Actualizar mejor puntaje por tipología
-	var best: int = score_data["best_scores_by_typology"].get(current_typology, 0)
-	if _current_session_score > best:
-		score_data["best_scores_by_typology"][current_typology] = _current_session_score
+	# Bonus por herramientas usadas
+	var tool_bonus: int = ProgressionManager.calculate_tool_bonus(tools_used)
+	_current_session_score += tool_bonus
+	if tool_bonus > 0:
+		print("[GameSession] Bonus herramientas: +%d pts" % tool_bonus)
 
+	# Registrar con el sistema de progresión (solo guarda si es mejor)
+	ProgressionManager.register_session_result(current_typology, _current_session_score)
+
+	# Actualizar score_data desde ProgressionManager
+	score_data["total_score"] = ProgressionManager.get_total_score()
+	score_data["best_scores_by_typology"][current_typology] = ProgressionManager.get_best_score(current_typology)
+
+	# Emitir señal con datos completos
+	session_completed_with_data.emit(current_typology, _current_session_score, tools_used)
 	score_changed.emit(score_data["total_score"])
 	_check_achievements()
 
