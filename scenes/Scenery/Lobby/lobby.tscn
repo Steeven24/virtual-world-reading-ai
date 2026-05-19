@@ -25,7 +25,7 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Narrativo"
 
 [node name="Textos Expositivos" parent="." unique_id=1701415898 instance=ExtResource("3_uogk4")]
-position = Vector2(1232, 510)
+position = Vector2(1637, 497)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Expositivo"
 
@@ -35,11 +35,12 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Instructivo"
 
 [node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
-position = Vector2(2371, 1255)
+position = Vector2(2371, 1279)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Argumentativo"
 
 [node name="Tutorial" parent="." unique_id=263230981 instance=ExtResource("3_uogk4")]
+visible = false
 position = Vector2(1402, 826)
 is_tutorial_trigger = true
 

@@ -38,12 +38,6 @@ size = Vector2(275.8287, 19.528374)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
 size = Vector2(67.9725, 66.60445)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_back_wall"]
-size = Vector2(700, 180)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_front_wall"]
-size = Vector2(900, 60)
-
 [node name="Level1" type="Node2D" unique_id=1292648426]
 script = ExtResource("3_script_ctrl")
 
@@ -53,7 +47,7 @@ texture = ExtResource("1_pljxl")
 centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
-scale = Vector2(0.70665795, 0.70665795)
+scale = Vector2(0.8272919, 0.8272919)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
 position = Vector2(321.73044, 823.2502)

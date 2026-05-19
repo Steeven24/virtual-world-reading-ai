@@ -124,7 +124,7 @@ character_pose = "derecha"
 position = Vector2(637, 179)
 
 [node name="RobotAssistant" parent="." unique_id=721379532 instance=ExtResource("8_robot")]
-position = Vector2(837, 179)
+position = Vector2(1054, 508)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("9_phys2")]
 offset_left = 1200.0

@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_n1o1d"]
 [ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_0esm7"]
 [ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="3_n1o1d"]
-[ext_resource type="Texture2D" path="res://assets/Scenery/Padlock/padlock.png" id="6_padlock"]
+[ext_resource type="Texture2D" uid="uid://bie7o6hgf8j7f" path="res://assets/Scenery/Padlock/padlock.png" id="6_padlock"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
 
@@ -147,10 +147,9 @@ sprite_frames = SubResource("SpriteFrames_n1o1d")
 autoplay = "default"
 
 [node name="Padlock" type="Sprite2D" parent="." unique_id=900100001]
-visible = false
 texture_filter = 1
-position = Vector2(0, -70)
-scale = Vector2(0.15, 0.15)
+position = Vector2(0, -17.999998)
+scale = Vector2(0.23000015, 0.23000015)
 texture = ExtResource("6_padlock")
 
 [node name="LockedDialog" type="AcceptDialog" parent="." unique_id=900100002]

@@ -126,10 +126,10 @@ position = Vector2(1079, 294)
 character_pose = "izquierda"
 
 [node name="Teacher" parent="." unique_id=611542146 instance=ExtResource("7_teacher")]
-position = Vector2(800, 261)
+position = Vector2(847, 320)
 
 [node name="RobotAssistant" parent="." unique_id=600248527 instance=ExtResource("8_robot")]
-position = Vector2(1036, 477)
+position = Vector2(1028, 501)
 
 [node name="Zzz" parent="." unique_id=115294721 instance=ExtResource("9_xvsyq")]
 position = Vector2(956, 622)

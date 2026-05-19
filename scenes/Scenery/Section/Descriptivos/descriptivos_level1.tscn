@@ -150,7 +150,7 @@ position = Vector2(187, 429)
 character_pose = "derecha"
 
 [node name="Teacher" parent="." unique_id=627261575 instance=ExtResource("7_teacher")]
-position = Vector2(371, 384)
+position = Vector2(591, 258)
 
 [node name="RobotAssistant" parent="." unique_id=828506274 instance=ExtResource("8_robot")]
 position = Vector2(571, 384)

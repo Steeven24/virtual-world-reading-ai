@@ -110,7 +110,7 @@ shape = SubResource("RectangleShape2D_cirqj")
 position = Vector2(486, 271)
 
 [node name="Teacher" parent="." unique_id=126238161 instance=ExtResource("4_teacher")]
-position = Vector2(924.125, 353.1116)
+position = Vector2(360, 457)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("5_dr04o")]

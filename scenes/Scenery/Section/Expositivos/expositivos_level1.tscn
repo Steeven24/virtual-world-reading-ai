@@ -18,7 +18,7 @@ size = Vector2(724.5622, 58.5)
 size = Vector2(623.75, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(469, 755.86975)
+size = Vector2(201.22906, 755.86975)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
 a = Vector2(360.88312, -174.89941)
@@ -69,7 +69,7 @@ position = Vector2(303.27734, 789.54474)
 shape = SubResource("RectangleShape2D_k2vi6")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(226.49826, 374.49997)
+position = Vector2(92.61279, 374.49997)
 shape = SubResource("RectangleShape2D_a8kxi")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
@@ -107,7 +107,7 @@ position = Vector2(971.2552, 213.70175)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
-position = Vector2(934, 200)
+position = Vector2(285, 403)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
@@ -124,7 +124,7 @@ character_pose = "izquierda"
 position = Vector2(800, 476)
 
 [node name="RobotAssistant" parent="." unique_id=1029502167 instance=ExtResource("8_robot")]
-position = Vector2(600, 476)
+position = Vector2(582, 302)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("9_ieviv")]
 offset_left = 1200.0
