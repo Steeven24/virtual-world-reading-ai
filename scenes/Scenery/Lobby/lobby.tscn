@@ -20,7 +20,7 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Descriptivo"
 
 [node name="Textos Narrativos" parent="." unique_id=603618769 instance=ExtResource("3_uogk4")]
-position = Vector2(647, 528)
+position = Vector2(652, 536)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Narrativo"
 
