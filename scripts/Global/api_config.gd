@@ -42,9 +42,9 @@ const SEEN_FILE_PATH: String = "user://cache/seen_readings.json"
 
 # ─── Autenticación (opcional) ────────────────────────────────────────────────
 
-## Token Bearer JWT. Dejar vacío para omitir autenticación.
-## En producción, cargar desde un archivo seguro o variable de entorno.
-const AUTH_TOKEN: String = ""
+## Token Bearer JWT. Se asigna dinámicamente al hacer login.
+## AuthManager lo actualiza automáticamente tras un login exitoso.
+static var AUTH_TOKEN: String = ""
 
 # ─── Paginación por defecto ──────────────────────────────────────────────────
 

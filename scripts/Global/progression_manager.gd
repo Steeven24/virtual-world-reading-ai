@@ -200,6 +200,26 @@ func reset_all() -> void:
 	print("[ProgressionManager] Progresión reiniciada.")
 
 
+## Carga la progresión desde datos de la API (GET /progress/me).
+## Llamar después de un login exitoso para restaurar el estado.
+func load_from_api(typology_progress: Array) -> void:
+	best_scores.clear()
+	unlocked = ["Narrativo"]  # Siempre desbloqueado
+
+	for tp in typology_progress:
+		var typology: String = str(tp.get("typology", ""))
+		var best: int = tp.get("best_score", 0)
+		var is_unlocked: bool = tp.get("is_unlocked", false)
+
+		if best > 0:
+			best_scores[typology] = best
+		if is_unlocked and typology not in unlocked:
+			unlocked.append(typology)
+
+	progression_changed.emit()
+	print("[ProgressionManager] Progresión cargada desde API: %s" % str(best_scores))
+
+
 # ─── Lógica interna de desbloqueo ───────────────────────────────────────────
 
 ## Verifica si al completar una tipología se desbloquea la siguiente.

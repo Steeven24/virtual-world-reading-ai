@@ -438,6 +438,9 @@ func _on_session_complete() -> void:
 	score_data["total_score"] = ProgressionManager.get_total_score()
 	score_data["best_scores_by_typology"][current_typology] = ProgressionManager.get_best_score(current_typology)
 
+	# ── Sincronizar con la API ────────────────────────────────────────────
+	_sync_session_to_api(tool_bonus, total_errors == 0)
+
 	# Emitir señal con datos completos
 	session_completed_with_data.emit(current_typology, _current_session_score, tools_used)
 	score_changed.emit(score_data["total_score"])
@@ -488,6 +491,91 @@ func _unlock(id: String, display_name: String) -> void:
 	score_data["achievements"].append(id)
 	achievement_unlocked.emit(id, display_name)
 	print("[GameSession] Logro desbloqueado: %s" % display_name)
+	# Sincronizar logro con la API
+	if AuthManager.is_authenticated:
+		AuthManager.save_achievement(id, display_name)
+
+
+# ─── Sincronización con API ──────────────────────────────────────────────────
+
+## Envía los datos de la sesión completada a la API.
+func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
+	if not AuthManager.is_authenticated:
+		return
+
+	# Construir datos de respuestas
+	var answers_data: Array = []
+	for r in results:
+		answers_data.append({
+			"question_id": r.get("question_id", 0),
+			"comprehension_level": r.get("level", ""),
+			"selected_answer": r.get("letter_selected", ""),
+			"correct_answer": r.get("correct_answer", ""),
+			"is_correct": r.get("correct", false),
+			"points_earned": POINTS_BY_LEVEL.get(r.get("level", ""), 0) if r.get("correct", false) else 0,
+			"penalty_applied": PENALTY_BY_LEVEL.get(r.get("level", ""), 0) if not r.get("correct", false) else 0,
+		})
+
+	# Construir datos de herramientas
+	var tools_data: Array = []
+	for tool_name in ["highlight", "underline", "notes"]:
+		tools_data.append({
+			"tool_name": tool_name,
+			"was_used": tools_used.get(tool_name, false),
+			"usage_count": 1 if tools_used.get(tool_name, false) else 0,
+		})
+
+	var correct_count: int = results.filter(func(r): return r["correct"]).size()
+	var incorrect_count: int = results.size() - correct_count
+
+	var session_data := {
+		"reading_id": current_reading.get("id", 0),
+		"typology": current_typology,
+		"session_score": _current_session_score,
+		"is_perfect": is_perfect,
+		"correct_count": correct_count,
+		"incorrect_count": incorrect_count,
+		"tool_bonus": tool_bonus,
+		"answers": answers_data,
+		"tools": tools_data,
+	}
+
+	AuthManager.save_session(session_data)
+	print("[GameSession] Sesión enviada a la API")
+
+
+## Carga datos de progreso desde la API y los aplica al estado local.
+func load_from_api(progress_data: Dictionary) -> void:
+	var user_data: Dictionary = progress_data.get("user", {})
+	var typologies: Array = progress_data.get("typology_progress", [])
+	var achievements: Array = progress_data.get("achievements", [])
+
+	# Restaurar score_data
+	score_data["total_score"] = progress_data.get("total_score", 0)
+	score_data["achievements"].clear()
+	for ach in achievements:
+		var aid: String = str(ach.get("achievement_id", ""))
+		if not aid.is_empty():
+			score_data["achievements"].append(aid)
+
+	# Restaurar best scores y tipologías completadas
+	score_data["typologies_completed"].clear()
+	score_data["best_scores_by_typology"].clear()
+	for tp in typologies:
+		var typ_name: String = str(tp.get("typology", ""))
+		var best: int = tp.get("best_score", 0)
+		score_data["best_scores_by_typology"][typ_name] = best
+		if best > 0:
+			score_data["typologies_completed"].append(typ_name)
+		score_data["sessions_completed"] += tp.get("total_sessions", 0)
+		score_data["perfect_sessions"] += tp.get("perfect_sessions", 0)
+
+	# Restaurar personaje
+	var character: String = str(user_data.get("character", "male"))
+	set_character(character)
+
+	score_changed.emit(score_data["total_score"])
+	print("[GameSession] Estado restaurado desde la API")
 
 
 # ─── Conexión con la API ─────────────────────────────────────────────────────

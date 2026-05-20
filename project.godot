@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://3hsd1gb4gr66"
 ReadingAPI="*res://scripts/Global/reading_api.gd"
+AuthManager="*res://scripts/Global/auth_manager.gd"
 GameSession="*res://scripts/Global/game_session.gd"
 AchievementToast="*res://scripts/Global/achievement_toast.gd"
 NpcChatAPI="*res://scripts/Global/npc_chat_api.gd"
