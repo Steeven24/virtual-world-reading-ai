@@ -1,3 +1,6 @@
+## Pantalla de selección de personaje.
+## Permite al jugador elegir entre el personaje masculino y femenino.
+## Persiste la selección en la API para que no vuelva a preguntar.
 extends Control
 
 @onready var anim_male = %AnimMale
@@ -22,4 +25,6 @@ func _on_female_selected():
 	_start_game()
 
 func _start_game():
+	# Persistir la selección del personaje en la API
+	AuthManager.update_character(GameSession.selected_character)
 	SceneManager.transition_to(LOBBY_SCENE)

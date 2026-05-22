@@ -1,7 +1,8 @@
 ## Pantalla de inicio de sesión.
 ## Permite al jugador ingresar con correo y contraseña.
-## Al autenticarse, carga el progreso desde la API y transiciona
-## a la selección de personaje.
+## Al autenticarse, carga el progreso desde la API y transiciona:
+##   - Si ya jugó antes → directo al Lobby (con personaje guardado).
+##   - Si es primera vez → selección de personaje.
 extends CanvasLayer
 
 # ─── Nodos de UI ─────────────────────────────────────────────────────────────
@@ -15,6 +16,7 @@ extends CanvasLayer
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
 const CHARACTER_SELECT_SCENE: String = "res://scenes/UI/character_select.tscn"
+const LOBBY_SCENE: String = "res://scenes/Scenery/Lobby/lobby.tscn"
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
@@ -85,16 +87,53 @@ func _on_progress_loaded(progress_data: Dictionary) -> void:
 	ProgressionManager.load_from_api(typology_progress)
 	GameSession.load_from_api(progress_data)
 	
-	print("[LoginScreen] Progreso cargado, transitando a selección de personaje")
 	_hide_loading()
-	get_tree().change_scene_to_file(CHARACTER_SELECT_SCENE)
+	
+	# Determinar si el usuario ya ha jugado antes.
+	# Si tiene sesiones completadas, ir directo al Lobby (ya tiene personaje).
+	var has_played := _has_previous_sessions(progress_data)
+	
+	if has_played:
+		print("[LoginScreen] Jugador con progreso previo, yendo al Lobby")
+		SceneManager.transition_to(LOBBY_SCENE)
+	else:
+		print("[LoginScreen] Jugador nuevo, mostrando selección de personaje")
+		get_tree().change_scene_to_file(CHARACTER_SELECT_SCENE)
 
 
 func _on_progress_load_failed(error: String) -> void:
-	# Si falla la carga de progreso, igual permitir continuar
+	# Si falla la carga de progreso, verificar si ya tenemos datos locales
 	push_warning("[LoginScreen] No se pudo cargar progreso: %s" % error)
 	_hide_loading()
-	get_tree().change_scene_to_file(CHARACTER_SELECT_SCENE)
+	
+	# Si ya hay datos del personaje guardados localmente y ha jugado, ir al Lobby
+	var character: String = AuthManager.get_character()
+	if character != "male" or GameSession.score_data.get("sessions_completed", 0) > 0:
+		GameSession.set_character(character)
+		SceneManager.transition_to(LOBBY_SCENE)
+	else:
+		get_tree().change_scene_to_file(CHARACTER_SELECT_SCENE)
+
+
+## Determina si el usuario tiene sesiones previas basándose en los datos del progreso.
+func _has_previous_sessions(progress_data: Dictionary) -> bool:
+	# Verificar si tiene sesiones o si tiene una puntuación total > 0
+	var total_score: int = progress_data.get("total_score", 0)
+	if total_score > 0:
+		return true
+	
+	# Verificar tipologías con sesiones
+	var typologies: Array = progress_data.get("typology_progress", [])
+	for tp in typologies:
+		if tp.get("total_sessions", 0) > 0:
+			return true
+	
+	# Verificar si tiene logros
+	var achievements: Array = progress_data.get("achievements", [])
+	if not achievements.is_empty():
+		return true
+	
+	return false
 
 
 # ─── Utilidades de UI ────────────────────────────────────────────────────────

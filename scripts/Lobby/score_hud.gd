@@ -1,5 +1,6 @@
 ## HUD de puntuación para el Lobby.
-## Muestra la puntuación total y botón para ver logros.
+## Muestra la puntuación total, botón para ver logros y botón de menú (⚙️)
+## con opción de cerrar sesión.
 ## Se conecta a GameSession.score_changed para actualizarse automáticamente.
 extends CanvasLayer
 
@@ -8,8 +9,15 @@ extends CanvasLayer
 @onready var achievements_list: VBoxContainer = %AchievementsList
 @onready var toggle_button: Button = %ToggleButton
 @onready var close_button: Button = %CloseButton
+@onready var menu_button: Button = %MenuButton
+@onready var menu_panel: PanelContainer = %MenuPanel
+@onready var user_name_label: Label = %UserNameLabel
+@onready var user_email_label: Label = %UserEmailLabel
+@onready var logout_button: Button = %LogoutButton
+@onready var close_menu_button: Button = %CloseMenuButton
 
 const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const LOGIN_SCENE := "res://scenes/UI/login_screen.tscn"
 
 ## Definición de logros con sus nombres para mostrar.
 const ACHIEVEMENT_NAMES: Dictionary = {
@@ -28,22 +36,69 @@ const ACHIEVEMENT_NAMES: Dictionary = {
 
 func _ready() -> void:
 	achievements_panel.visible = false
+	menu_panel.visible = false
 	_update_score(GameSession.get_total_score())
 	GameSession.score_changed.connect(_update_score)
 	GameSession.achievement_unlocked.connect(_on_achievement_unlocked)
 	ProgressionManager.progression_changed.connect(_on_progression_changed)
 	toggle_button.pressed.connect(_toggle_achievements)
 	close_button.pressed.connect(_toggle_achievements)
+	menu_button.pressed.connect(_toggle_menu)
+	close_menu_button.pressed.connect(_toggle_menu)
+	logout_button.pressed.connect(_on_logout_pressed)
+	
+	# Mostrar datos del usuario autenticado
+	_update_user_info()
 
 
 func _update_score(total: int) -> void:
 	score_label.text = "⭐ %d pts" % total
 
 
+func _update_user_info() -> void:
+	var display_name: String = AuthManager.get_display_name()
+	var email: String = AuthManager.current_user.get("email", "")
+	user_name_label.text = display_name
+	user_email_label.text = email
+
+
 func _toggle_achievements() -> void:
 	achievements_panel.visible = not achievements_panel.visible
 	if achievements_panel.visible:
+		menu_panel.visible = false  # Cerrar menú si está abierto
 		_populate_achievements()
+
+
+func _toggle_menu() -> void:
+	menu_panel.visible = not menu_panel.visible
+	if menu_panel.visible:
+		achievements_panel.visible = false  # Cerrar logros si están abiertos
+		_update_user_info()
+
+
+func _on_logout_pressed() -> void:
+	# Cerrar sesión en el AuthManager
+	AuthManager.logout()
+	
+	# Resetear estado local del juego
+	GameSession.score_data = {
+		"total_score": 0,
+		"sessions_completed": 0,
+		"correct_by_level": {"Literal": 0, "Inferencial": 0, "Critico": 0},
+		"incorrect_by_level": {"Literal": 0, "Inferencial": 0, "Critico": 0},
+		"typologies_completed": [],
+		"perfect_sessions": 0,
+		"achievements": [],
+		"best_scores_by_typology": {},
+	}
+	GameSession.set_character("male")
+	GameSession.reset_tutorial()
+	
+	# Resetear progresión
+	ProgressionManager.reset_all()
+	
+	print("[ScoreHUD] Sesión cerrada, volviendo al login")
+	get_tree().change_scene_to_file(LOGIN_SCENE)
 
 
 func _populate_achievements() -> void:

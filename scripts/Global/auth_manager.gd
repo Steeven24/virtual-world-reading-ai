@@ -168,6 +168,23 @@ func logout() -> void:
 	print("[AuthManager] Sesión cerrada")
 
 
+## Actualiza el personaje seleccionado en la API y localmente.
+func update_character(character: String) -> void:
+	if not is_authenticated:
+		return
+	current_user["character"] = character
+	_save_session_to_disk()
+	# Enviar actualización a la API (PUT /auth/me?character=...)
+	_enqueue_request(
+		"%s/auth/me?character=%s" % [ApiConfig.BASE_URL, character],
+		"update_character",
+		{},
+		HTTPClient.METHOD_PUT,
+		"",
+	)
+	print("[AuthManager] Personaje actualizado a: %s" % character)
+
+
 ## Retorna el ID del usuario autenticado.
 func get_user_id() -> int:
 	return current_user.get("id", 0)
@@ -292,6 +309,9 @@ func _dispatch_response(req: Dictionary, data) -> void:
 		
 		"save_note":
 			print("[AuthManager] Nota guardada en la API")
+
+		"update_character":
+			print("[AuthManager] Personaje actualizado en la API")
 
 
 func _handle_error(req: Dictionary, error: String) -> void:

@@ -35,6 +35,54 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_panel"]
+content_margin_left = 16.0
+content_margin_top = 14.0
+content_margin_right = 16.0
+content_margin_bottom = 14.0
+bg_color = Color(0.06, 0.06, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.45, 0.7, 0.5)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_logout_normal"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.15, 0.15, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.3, 0.3, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_logout_hover"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.75, 0.2, 0.2, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.4, 0.4, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="ScoreHUD" type="CanvasLayer" unique_id=591291104]
 layer = 10
 script = ExtResource("1_script")
@@ -43,12 +91,24 @@ script = ExtResource("1_script")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -250.0
+offset_left = -300.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 50.0
 grow_horizontal = 0
 theme_override_constants/separation = 8
+
+[node name="MenuButton" type="Button" parent="TopBar" unique_id=1400285703]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_hud")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hud")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hud")
+text = "⚙️"
 
 [node name="ScorePanel" type="PanelContainer" parent="TopBar" unique_id=365391127]
 layout_mode = 2
@@ -125,3 +185,73 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
+
+[node name="MenuPanel" type="PanelContainer" parent="." unique_id=880193244]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 60.0
+offset_right = -10.0
+offset_bottom = 210.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MenuPanel/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.65, 0.85, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "⚙️ Menú"
+
+[node name="CloseMenuButton" type="Button" parent="MenuPanel/VBoxContainer/Header" unique_id=880193250]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.5, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "✕"
+
+[node name="HSeparator" type="HSeparator" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="UserNameLabel" type="Label" parent="MenuPanel/VBoxContainer" unique_id=880193256]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Jugador"
+
+[node name="UserEmailLabel" type="Label" parent="MenuPanel/VBoxContainer" unique_id=880193260]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+text = "email@test.com"
+
+[node name="HSeparator2" type="HSeparator" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="LogoutButton" type="Button" parent="MenuPanel/VBoxContainer" unique_id=880193266]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_logout_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_logout_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_logout_hover")
+text = "🚪 Cerrar sesión"
