@@ -316,12 +316,27 @@ func _show_confirm_dialog() -> void:
 
 
 func _on_confirm_challenges() -> void:
+	# Asegurar el guardado de la nota de la página actual por si acaso no se guardó al cambiar de vista
+	_guardar_nota()
+
+	# Enviar notas a la API
+	if AuthManager.is_authenticated and _current_reading_id > 0:
+		for page_index in notas_por_pagina.keys():
+			var content: String = notas_por_pagina[page_index]
+			if not content.strip_edges().is_empty():
+				var page_label = "Pág. %d" % (page_index + 1)
+				AuthManager.save_note(_current_reading_id, content, -1, page_label)
+
 	# Reportar uso de herramientas a GameSession
 	GameSession.tools_used = {
 		"highlight": _used_highlight,
 		"underline": _used_underline,
 		"notes": _used_notes,
 	}
+	
+	# Registrar fin del tiempo de lectura
+	GameSession.end_reading()
+	
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)

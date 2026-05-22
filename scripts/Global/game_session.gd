@@ -107,6 +107,11 @@ var lobby_scene: String = ""
 
 # ─── Estado de la sesión ─────────────────────────────────────────────────────
 
+## Tiempos de seguimiento de la sesión (en segundos)
+var session_start_time: float = 0.0
+var reading_start_time: float = 0.0
+var reading_end_time: float = 0.0
+
 ## Lectura completa con preguntas (respuesta de /readings/{id}/full).
 var current_reading: Dictionary = {}
 
@@ -225,8 +230,20 @@ func start_session(typology: String) -> void:
 	results.clear()
 	_current_session_score = 0
 	is_active = true
+	
+	# Inicializar tiempos
+	session_start_time = Time.get_ticks_msec() / 1000.0
+	reading_start_time = session_start_time
+	reading_end_time = 0.0
+	
 	_connect_api()
 	ReadingAPI.get_random_reading_full(typology)
+
+
+## Registra el fin del tiempo de lectura.
+func end_reading() -> void:
+	reading_end_time = Time.get_ticks_msec() / 1000.0
+	print("[GameSession] Fin de lectura registrado. Tiempo de lectura: %d segundos" % int(reading_end_time - reading_start_time))
 
 
 ## Configura las rutas de escenas para los niveles intermedios y el lobby.
@@ -245,6 +262,12 @@ func start_session_with_data(data: Dictionary) -> void:
 	results.clear()
 	_current_session_score = 0
 	is_active = true
+	
+	# Inicializar tiempos
+	session_start_time = Time.get_ticks_msec() / 1000.0
+	reading_start_time = session_start_time
+	reading_end_time = 0.0
+	
 	_prepare_level_questions()
 	session_ready.emit()
 
@@ -361,6 +384,12 @@ func retry_with_new_reading() -> void:
 	_current_session_score = 0
 	_level_errors = 0
 	is_active = true
+	
+	# Inicializar tiempos
+	session_start_time = Time.get_ticks_msec() / 1000.0
+	reading_start_time = session_start_time
+	reading_end_time = 0.0
+	
 	_connect_api()
 	ReadingAPI.get_random_reading_full(typology)
 
@@ -528,10 +557,18 @@ func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
 	var correct_count: int = results.filter(func(r): return r["correct"]).size()
 	var incorrect_count: int = results.size() - correct_count
 
+	var reading_time: int = 0
+	if reading_end_time > reading_start_time:
+		reading_time = int(reading_end_time - reading_start_time)
+	
+	var total_time: int = int((Time.get_ticks_msec() / 1000.0) - session_start_time)
+
 	var session_data := {
 		"reading_id": current_reading.get("id", 0),
 		"typology": current_typology,
 		"session_score": _current_session_score,
+		"reading_time_seconds": reading_time,
+		"total_time_seconds": total_time,
 		"is_perfect": is_perfect,
 		"correct_count": correct_count,
 		"incorrect_count": incorrect_count,
