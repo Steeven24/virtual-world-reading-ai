@@ -28,6 +28,12 @@ signal progress_load_failed(error: String)
 ## Emitida al cerrar sesión.
 signal logged_out
 
+## Emitida tras cambiar la contraseña exitosamente.
+signal password_changed
+
+## Emitida si falla el cambio de contraseña.
+signal password_change_failed(error: String)
+
 # ─── Estado ──────────────────────────────────────────────────────────────────
 
 ## Token JWT activo (vacío = no autenticado).
@@ -168,6 +174,21 @@ func logout() -> void:
 	print("[AuthManager] Sesión cerrada")
 
 
+## Permite al usuario cambiar su contraseña (ej: tras un restablecimiento).
+func change_password(new_password: String) -> void:
+	if not is_authenticated:
+		password_change_failed.emit("No hay sesión activa")
+		return
+	var body := JSON.stringify({"new_password": new_password})
+	_enqueue_request(
+		"%s/auth/change-password" % ApiConfig.BASE_URL,
+		"change_password",
+		{},
+		HTTPClient.METHOD_POST,
+		body
+	)
+
+
 ## Actualiza el personaje seleccionado en la API y localmente.
 func update_character(character: String) -> void:
 	if not is_authenticated:
@@ -279,6 +300,8 @@ func _dispatch_response(req: Dictionary, data) -> void:
 			if data is Dictionary and data.has("access_token"):
 				auth_token = str(data["access_token"])
 				current_user = data.get("user", {})
+				if data.has("must_change_password"):
+					current_user["must_change_password"] = data["must_change_password"]
 				is_authenticated = true
 				ApiConfig.AUTH_TOKEN = auth_token
 				_save_session_to_disk()
@@ -313,6 +336,12 @@ func _dispatch_response(req: Dictionary, data) -> void:
 		"update_character":
 			print("[AuthManager] Personaje actualizado en la API")
 
+		"change_password":
+			current_user["must_change_password"] = false
+			_save_session_to_disk()
+			password_changed.emit()
+			print("[AuthManager] Contraseña cambiada exitosamente")
+
 
 func _handle_error(req: Dictionary, error: String) -> void:
 	match req["endpoint"]:
@@ -325,6 +354,9 @@ func _handle_error(req: Dictionary, error: String) -> void:
 		"load_progress":
 			progress_load_failed.emit(error)
 			print("[AuthManager] Error cargando progreso: %s" % error)
+		"change_password":
+			password_change_failed.emit(error)
+			print("[AuthManager] Error al cambiar contraseña: %s" % error)
 		_:
 			push_warning("[AuthManager] Error en %s: %s" % [req["endpoint"], error])
 
@@ -338,6 +370,7 @@ func _save_session_to_disk() -> void:
 	cfg.set_value("auth", "email", current_user.get("email", ""))
 	cfg.set_value("auth", "display_name", current_user.get("display_name", ""))
 	cfg.set_value("auth", "character", current_user.get("character", "male"))
+	cfg.set_value("auth", "must_change_password", current_user.get("must_change_password", false))
 	cfg.save(_SESSION_FILE)
 
 
@@ -356,6 +389,7 @@ func _load_saved_session() -> void:
 		"email": cfg.get_value("auth", "email", ""),
 		"display_name": cfg.get_value("auth", "display_name", ""),
 		"character": cfg.get_value("auth", "character", "male"),
+		"must_change_password": cfg.get_value("auth", "must_change_password", false),
 	}
 	is_authenticated = true
 	ApiConfig.AUTH_TOKEN = auth_token

@@ -17,6 +17,7 @@ extends CanvasLayer
 
 const CHARACTER_SELECT_SCENE: String = "res://scenes/UI/character_select.tscn"
 const LOBBY_SCENE: String = "res://scenes/Scenery/Lobby/lobby.tscn"
+const CHANGE_PASSWORD_SCENE: String = "res://scenes/UI/change_password_screen.tscn"
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
@@ -33,8 +34,11 @@ func _ready() -> void:
 	AuthManager.progress_loaded.connect(_on_progress_loaded)
 	AuthManager.progress_load_failed.connect(_on_progress_load_failed)
 	
-	# Si ya hay sesión guardada, intentar cargar progreso directamente
+	# Si ya hay sesión guardada, verificar si debe cambiar contraseña
 	if AuthManager.is_authenticated:
+		if AuthManager.current_user.get("must_change_password", false):
+			get_tree().change_scene_to_file(CHANGE_PASSWORD_SCENE)
+			return
 		_show_loading("Restaurando sesión...")
 		AuthManager.load_progress()
 
@@ -72,6 +76,11 @@ func _on_login_pressed() -> void:
 
 func _on_login_success(user_data: Dictionary) -> void:
 	print("[LoginScreen] Login exitoso: %s" % user_data.get("email", ""))
+	if user_data.get("must_change_password", false):
+		print("[LoginScreen] Cambio de contraseña obligatorio detectado. Redirigiendo...")
+		_hide_loading()
+		get_tree().change_scene_to_file(CHANGE_PASSWORD_SCENE)
+		return
 	_show_loading("Cargando progreso...")
 	AuthManager.load_progress()
 
