@@ -1,0 +1,122 @@
+## medal_image_loader.gd
+## Autoload que descarga y cachea imágenes de medallas desde la API.
+## Guarda los archivos en: user://cache/medals/
+extends Node
+
+const CACHE_DIR := "user://cache/medals/"
+
+# Diccionario para evitar descargas duplicadas de la misma medalla en paralelo
+# {"achievement_id": [callback1, callback2, ...]}
+var _pending_downloads: Dictionary = {}
+
+func _ready() -> void:
+	# Crear directorio de cache si no existe
+	var dir := DirAccess.open("user://")
+	if dir:
+		if not dir.dir_exists("cache"):
+			dir.make_dir("cache")
+		
+		dir = DirAccess.open("user://cache/")
+		if dir and not dir.dir_exists("medals"):
+			dir.make_dir("medals")
+	print("[MedalImageLoader] Inicializado. Cache en: %s" % CACHE_DIR)
+
+
+## Carga la imagen de una medalla. 
+## Si está en cache, ejecuta el callback inmediatamente con la textura.
+## Si no, la descarga de la API, la guarda en cache y luego ejecuta el callback.
+func load_medal_image(achievement_id: String, image_url: String, callback: Callable) -> void:
+	if image_url.is_empty():
+		callback.call(null)
+		return
+		
+	var cache_path := CACHE_DIR + achievement_id + ".png"
+	
+	# 1. Verificar si está en cache local
+	if FileAccess.file_exists(cache_path):
+		var texture = _load_texture_from_file(cache_path)
+		if texture:
+			callback.call(texture)
+			return
+	
+	# 2. Si no está en cache, descargar
+	var full_url = image_url
+	if not image_url.begins_with("http"):
+		# Es una ruta relativa de la API
+		var api_base = ApiConfig.BASE_URL
+		# Reemplazar /api o similares al final para obtener la raíz
+		if api_base.ends_with("/api"):
+			api_base = api_base.substr(0, api_base.length() - 4)
+		elif api_base.ends_with("/"):
+			api_base = api_base.substr(0, api_base.length() - 1)
+		
+		# Si la URL de la imagen comienza con /
+		if image_url.begins_with("/"):
+			full_url = "%s%s" % [api_base, image_url]
+		else:
+			full_url = "%s/%s" % [api_base, image_url]
+	
+	# Si ya hay una descarga en curso para esta medalla, encolar el callback
+	if _pending_downloads.has(achievement_id):
+		_pending_downloads[achievement_id].append(callback)
+		return
+		
+	_pending_downloads[achievement_id] = [callback]
+	
+	var http_req := HTTPRequest.new()
+	add_child(http_req)
+	http_req.request_completed.connect(func(result, response_code, headers, body):
+		_on_download_completed(result, response_code, body, achievement_id, cache_path, http_req)
+	)
+	
+	# Agregar token de autorización si es necesario
+	var headers := PackedStringArray()
+	if not AuthManager.auth_token.is_empty():
+		headers.append("Authorization: Bearer %s" % AuthManager.auth_token)
+		
+	var err := http_req.request(full_url, headers, HTTPClient.METHOD_GET)
+	if err != OK:
+		push_error("[MedalImageLoader] Error al solicitar descarga de medalla: %s" % achievement_id)
+		_trigger_callbacks(achievement_id, null)
+		http_req.queue_free()
+
+
+func _on_download_completed(result: int, response_code: int, body: PackedByteArray, achievement_id: String, cache_path: String, http_req: HTTPRequest) -> void:
+	http_req.queue_free()
+	
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		push_error("[MedalImageLoader] Falló descarga de medalla: %s (HTTP %d)" % [achievement_id, response_code])
+		_trigger_callbacks(achievement_id, null)
+		return
+		
+	# Guardar en archivo local cache
+	var file := FileAccess.open(cache_path, FileAccess.WRITE)
+	if file:
+		file.store_buffer(body)
+		file.close()
+		
+		# Cargar textura
+		var texture = _load_texture_from_file(cache_path)
+		_trigger_callbacks(achievement_id, texture)
+	else:
+		push_error("[MedalImageLoader] No se pudo escribir archivo de cache para medalla: %s" % achievement_id)
+		_trigger_callbacks(achievement_id, null)
+
+
+func _load_texture_from_file(file_path: String) -> ImageTexture:
+	var image := Image.new()
+	var err := image.load_png_from_buffer(FileAccess.get_file_as_bytes(file_path))
+	if err == OK:
+		return ImageTexture.create_from_image(image)
+	else:
+		push_error("[MedalImageLoader] Error cargando imagen a textura: %s" % file_path)
+		return null
+
+
+func _trigger_callbacks(achievement_id: String, texture: Texture2D) -> void:
+	if _pending_downloads.has(achievement_id):
+		var callbacks: Array = _pending_downloads[achievement_id]
+		_pending_downloads.erase(achievement_id)
+		for callback in callbacks:
+			if callback.is_valid():
+				callback.call(texture)

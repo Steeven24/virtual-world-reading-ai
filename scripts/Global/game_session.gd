@@ -11,6 +11,22 @@ func _ready() -> void:
 	if OS.has_feature("editor"):
 		print("[GameSession] Ejecución desde el editor: Forzando tutorial para esta sesión.")
 		_tutorial_completed_cache = 0
+		
+	# Escuchar evento de sesión invalidada
+	if AuthManager.has_signal("session_invalidated"):
+		AuthManager.session_invalidated.connect(_on_session_invalidated)
+
+
+func _on_session_invalidated() -> void:
+	is_active = false
+	current_reading.clear()
+	current_typology = ""
+	current_level_index = 0
+	current_question_index = 0
+	level_questions.clear()
+	results.clear()
+	_current_session_score = 0
+	print("[GameSession] Sesión de juego abortada por sesión invalidada")
 
 
 # ─── Señales ─────────────────────────────────────────────────────────────────

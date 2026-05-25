@@ -64,6 +64,15 @@ func _ready() -> void:
 	if OS.has_feature("editor"):
 		print("[ProgressionManager] Ejecución desde editor: Reiniciando progresión.")
 		reset_all()
+	
+	# Escuchar evento de sesión invalidada
+	if AuthManager.has_signal("session_invalidated"):
+		AuthManager.session_invalidated.connect(_on_session_invalidated)
+
+
+func _on_session_invalidated() -> void:
+	reset_all()
+	print("[ProgressionManager] Progresión borrada por sesión invalidada")
 
 
 # ─── API Pública ─────────────────────────────────────────────────────────────

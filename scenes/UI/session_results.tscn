@@ -177,16 +177,25 @@ alignment = 1
 
 [node name="RetryButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=1589749336]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 50)
+custom_minimum_size = Vector2(180, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font_bold")
 theme_override_font_sizes/font_size = 18
 text = "🔄 Intentar con otra lectura"
 
+[node name="AchievementsButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=987654321]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 18
+text = "🏆 Ver Logros"
+
 [node name="LobbyButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=1351769508]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 50)
+custom_minimum_size = Vector2(180, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font_bold")

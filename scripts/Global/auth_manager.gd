@@ -34,10 +34,16 @@ signal password_changed
 ## Emitida si falla el cambio de contraseña.
 signal password_change_failed(error: String)
 
+## Emitida cuando el administrador invalida o cambia la sesión/slot del jugador.
+signal session_invalidated
+
 # ─── Estado ──────────────────────────────────────────────────────────────────
 
 ## Token JWT activo (vacío = no autenticado).
 var auth_token: String = ""
+
+## Slot de sesión activo actual del jugador.
+var current_slot_id: int = 0
 
 ## Datos del usuario autenticado.
 var current_user: Dictionary = {}
@@ -54,6 +60,9 @@ var _http: HTTPRequest
 var _request_queue: Array[Dictionary] = []
 var _is_requesting: bool = false
 
+var _polling_timer: Timer
+var _overlay_instance: Node = null
+
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
 func _ready() -> void:
@@ -62,8 +71,17 @@ func _ready() -> void:
 	add_child(_http)
 	_http.request_completed.connect(_on_request_completed)
 	
+	# Configurar timer de polling de validación de slot
+	_polling_timer = Timer.new()
+	_polling_timer.wait_time = 60.0
+	_polling_timer.one_shot = false
+	_polling_timer.timeout.connect(_on_polling_timeout)
+	add_child(_polling_timer)
+	
 	# Intentar restaurar sesión guardada
 	_load_saved_session()
+	if is_authenticated:
+		_start_polling()
 
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
@@ -167,9 +185,11 @@ func save_note(reading_id: int, note_content: String, session_id: int = -1, note
 func logout() -> void:
 	auth_token = ""
 	current_user = {}
+	current_slot_id = 0
 	is_authenticated = false
 	ApiConfig.AUTH_TOKEN = ""
 	_clear_saved_session()
+	_stop_polling()
 	logged_out.emit()
 	print("[AuthManager] Sesión cerrada")
 
@@ -245,6 +265,10 @@ func _process_queue() -> void:
 	# Agregar token si existe
 	if not auth_token.is_empty():
 		headers.append("Authorization: Bearer %s" % auth_token)
+		
+	# Agregar slot actual si existe
+	if current_slot_id > 0:
+		headers.append("X-Slot-Id: %d" % current_slot_id)
 	
 	var err: int
 	if req["body"].is_empty():
@@ -272,6 +296,17 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 		_handle_error(req, "Error de red")
 		_process_queue()
 		return
+	
+	# Capturar sesión invalidada en tiempo real (409)
+	if response_code == 409:
+		var json := JSON.new()
+		if json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary:
+			var error_detail = str(json.data.get("detail", ""))
+			if error_detail == "SESSION_INVALIDATED":
+				_handle_session_invalidated()
+				_request_queue.clear()
+				_is_requesting = false
+				return
 	
 	if response_code < 200 or response_code >= 300:
 		var error_detail := "HTTP %d" % response_code
@@ -305,6 +340,7 @@ func _dispatch_response(req: Dictionary, data) -> void:
 				is_authenticated = true
 				ApiConfig.AUTH_TOKEN = auth_token
 				_save_session_to_disk()
+				_start_polling()
 				login_success.emit(current_user)
 				print("[AuthManager] Login exitoso: %s" % current_user.get("email", ""))
 			else:
@@ -319,8 +355,10 @@ func _dispatch_response(req: Dictionary, data) -> void:
 		
 		"load_progress":
 			if data is Dictionary:
+				current_slot_id = int(data.get("active_slot_id", 0))
+				_save_session_to_disk()
 				progress_loaded.emit(data)
-				print("[AuthManager] Progreso cargado")
+				print("[AuthManager] Progreso cargado, slot activo: %d" % current_slot_id)
 			else:
 				progress_load_failed.emit("Datos de progreso inválidos")
 		
@@ -341,6 +379,10 @@ func _dispatch_response(req: Dictionary, data) -> void:
 			_save_session_to_disk()
 			password_changed.emit()
 			print("[AuthManager] Contraseña cambiada exitosamente")
+		
+		"validate_session":
+			# Validación exitosa periódica
+			pass
 
 
 func _handle_error(req: Dictionary, error: String) -> void:
@@ -371,6 +413,7 @@ func _save_session_to_disk() -> void:
 	cfg.set_value("auth", "display_name", current_user.get("display_name", ""))
 	cfg.set_value("auth", "character", current_user.get("character", "male"))
 	cfg.set_value("auth", "must_change_password", current_user.get("must_change_password", false))
+	cfg.set_value("auth", "current_slot_id", current_slot_id)
 	cfg.save(_SESSION_FILE)
 
 
@@ -384,6 +427,7 @@ func _load_saved_session() -> void:
 		return
 	
 	auth_token = saved_token
+	current_slot_id = cfg.get_value("auth", "current_slot_id", 0)
 	current_user = {
 		"id": cfg.get_value("auth", "user_id", 0),
 		"email": cfg.get_value("auth", "email", ""),
@@ -393,7 +437,7 @@ func _load_saved_session() -> void:
 	}
 	is_authenticated = true
 	ApiConfig.AUTH_TOKEN = auth_token
-	print("[AuthManager] Sesión restaurada: %s" % current_user.get("email", ""))
+	print("[AuthManager] Sesión restaurada: %s, slot: %d" % [current_user.get("email", ""), current_slot_id])
 
 
 func _clear_saved_session() -> void:
@@ -428,3 +472,44 @@ func _load_pending_sync() -> Array:
 	if json.parse(content) == OK and json.data is Array:
 		return json.data
 	return []
+
+
+# ─── Heartbeat de Polling y Cierre Forzado ───────────────────────────────────
+
+func _on_polling_timeout() -> void:
+	if not is_authenticated or current_slot_id == 0:
+		return
+	
+	_enqueue_request(
+		"%s/progress/validate-session" % ApiConfig.BASE_URL,
+		"validate_session",
+		{},
+		HTTPClient.METHOD_GET
+	)
+
+
+func _start_polling() -> void:
+	if _polling_timer:
+		_polling_timer.start()
+		print("[AuthManager] Polling de validación iniciado (60s)")
+
+
+func _stop_polling() -> void:
+	if _polling_timer:
+		_polling_timer.stop()
+		print("[AuthManager] Polling de validación detenido")
+
+
+func _handle_session_invalidated() -> void:
+	session_invalidated.emit()
+	print("[AuthManager] ¡Sesión invalidada por el administrador!")
+	_stop_polling()
+	
+	# Si ya existe el overlay, no crear otro
+	if _overlay_instance and is_instance_valid(_overlay_instance):
+		return
+		
+	var overlay_scene = load("res://scenes/UI/session_invalidated_overlay.tscn")
+	if overlay_scene:
+		_overlay_instance = overlay_scene.instantiate()
+		get_tree().root.add_child(_overlay_instance)

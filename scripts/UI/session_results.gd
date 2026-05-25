@@ -28,6 +28,7 @@ const LEVELS: Array[String] = ["Literal", "Inferencial", "Critico"]
 @onready var global_score_label: Label = %GlobalScoreLabel
 @onready var retry_button: Button = %RetryButton
 @onready var lobby_button: Button = %LobbyButton
+@onready var achievements_button: Button = %AchievementsButton
 @onready var assistant_tip_dialog: AcceptDialog = %AssistantTipDialog
 @onready var tip_label: Label = %TipLabel
 @onready var assistant_sprite: Sprite2D = %AssistantSprite
@@ -42,6 +43,8 @@ func _ready() -> void:
 	_apply_button_styles()
 	_populate_data()
 	_animate_entry()
+	if achievements_button:
+		achievements_button.pressed.connect(_on_achievements_pressed)
 
 
 # ─── Estilo del panel principal ──────────────────────────────────────────────
@@ -68,6 +71,8 @@ func _apply_panel_style() -> void:
 func _apply_button_styles() -> void:
 	_style_button(retry_button, Color(0.15, 0.45, 0.2, 1.0))
 	_style_button(lobby_button, Color(0.2, 0.2, 0.35, 1.0))
+	if achievements_button:
+		_style_button(achievements_button, Color(0.65, 0.45, 0.15, 1.0))
 
 
 func _style_button(button: Button, bg_color: Color) -> void:
@@ -327,3 +332,10 @@ func _on_lobby_pressed() -> void:
 		push_error("[SessionResults] No hay escena de lobby configurada")
 		return
 	SceneManager.transition_to(lobby)
+
+
+func _on_achievements_pressed() -> void:
+	var panel_scene = load("res://scenes/UI/achievements_medals_panel.tscn")
+	if panel_scene:
+		var instance = panel_scene.instantiate()
+		get_tree().root.add_child(instance)

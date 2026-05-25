@@ -63,10 +63,10 @@ func _update_user_info() -> void:
 
 
 func _toggle_achievements() -> void:
-	achievements_panel.visible = not achievements_panel.visible
-	if achievements_panel.visible:
-		menu_panel.visible = false  # Cerrar menú si está abierto
-		_populate_achievements()
+	var panel_scene = load("res://scenes/UI/achievements_medals_panel.tscn")
+	if panel_scene:
+		var instance = panel_scene.instantiate()
+		get_tree().root.add_child(instance)
 
 
 func _toggle_menu() -> void:
