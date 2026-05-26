@@ -45,6 +45,9 @@ var auth_token: String = ""
 ## Slot de sesión activo actual del jugador.
 var current_slot_id: int = 0
 
+## Versión de la sesión activa para detectar reinicios en tiempo real.
+var current_session_version: int = 1
+
 ## Datos del usuario autenticado.
 var current_user: Dictionary = {}
 
@@ -186,6 +189,7 @@ func logout() -> void:
 	auth_token = ""
 	current_user = {}
 	current_slot_id = 0
+	current_session_version = 1
 	is_authenticated = false
 	ApiConfig.AUTH_TOKEN = ""
 	_clear_saved_session()
@@ -273,6 +277,10 @@ func _process_queue() -> void:
 	# Agregar slot actual si existe
 	if current_slot_id > 0:
 		headers.append("X-Slot-Id: %d" % current_slot_id)
+		
+	# Agregar versión de sesión si existe
+	if current_session_version > 0:
+		headers.append("X-Session-Version: %d" % current_session_version)
 	
 	var err: int
 	if req["body"].is_empty():
@@ -339,6 +347,8 @@ func _dispatch_response(req: Dictionary, data) -> void:
 			if data is Dictionary and data.has("access_token"):
 				auth_token = str(data["access_token"])
 				current_user = data.get("user", {})
+				if current_user is Dictionary:
+					current_session_version = int(current_user.get("session_version", 1))
 				if data.has("must_change_password"):
 					current_user["must_change_password"] = data["must_change_password"]
 				is_authenticated = true
@@ -346,7 +356,7 @@ func _dispatch_response(req: Dictionary, data) -> void:
 				_save_session_to_disk()
 				_start_polling()
 				login_success.emit(current_user)
-				print("[AuthManager] Login exitoso: %s" % current_user.get("email", ""))
+				print("[AuthManager] Login exitoso: %s, versión: %d" % [current_user.get("email", ""), current_session_version])
 			else:
 				login_failed.emit("Respuesta inesperada del servidor")
 		
@@ -360,9 +370,13 @@ func _dispatch_response(req: Dictionary, data) -> void:
 		"load_progress":
 			if data is Dictionary:
 				current_slot_id = int(data.get("active_slot_id", 0))
+				if data.has("user") and data["user"] is Dictionary:
+					current_session_version = int(data["user"].get("session_version", 1))
+				elif data.has("user_data") and data["user_data"] is Dictionary:
+					current_session_version = int(data["user_data"].get("session_version", 1))
 				_save_session_to_disk()
 				progress_loaded.emit(data)
-				print("[AuthManager] Progreso cargado, slot activo: %d" % current_slot_id)
+				print("[AuthManager] Progreso cargado, slot activo: %d, versión: %d" % [current_slot_id, current_session_version])
 			else:
 				progress_load_failed.emit("Datos de progreso inválidos")
 		
@@ -418,6 +432,7 @@ func _save_session_to_disk() -> void:
 	cfg.set_value("auth", "character", current_user.get("character", "male"))
 	cfg.set_value("auth", "must_change_password", current_user.get("must_change_password", false))
 	cfg.set_value("auth", "current_slot_id", current_slot_id)
+	cfg.set_value("auth", "current_session_version", current_session_version)
 	cfg.save(_SESSION_FILE)
 
 
@@ -432,6 +447,7 @@ func _load_saved_session() -> void:
 	
 	auth_token = saved_token
 	current_slot_id = cfg.get_value("auth", "current_slot_id", 0)
+	current_session_version = cfg.get_value("auth", "current_session_version", 1)
 	current_user = {
 		"id": cfg.get_value("auth", "user_id", 0),
 		"email": cfg.get_value("auth", "email", ""),
@@ -441,7 +457,7 @@ func _load_saved_session() -> void:
 	}
 	is_authenticated = true
 	ApiConfig.AUTH_TOKEN = auth_token
-	print("[AuthManager] Sesión restaurada: %s, slot: %d" % [current_user.get("email", ""), current_slot_id])
+	print("[AuthManager] Sesión restaurada: %s, slot: %d, versión: %d" % [current_user.get("email", ""), current_slot_id, current_session_version])
 
 
 func _clear_saved_session() -> void:
