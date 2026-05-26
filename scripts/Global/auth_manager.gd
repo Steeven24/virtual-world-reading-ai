@@ -190,6 +190,10 @@ func logout() -> void:
 	ApiConfig.AUTH_TOKEN = ""
 	_clear_saved_session()
 	_stop_polling()
+	
+	# Asegurar que el estado del movimiento y UI se reinicien al cerrar sesión
+	SceneManager.is_ui_open = false
+	
 	logged_out.emit()
 	print("[AuthManager] Sesión cerrada")
 

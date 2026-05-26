@@ -13,8 +13,8 @@ func _ready() -> void:
 	if _close_button:
 		_close_button.pressed.connect(_on_logout_button_pressed)
 	
-	# Pausar el juego si se desea para que el jugador no pueda mover su personaje
-	get_tree().paused = false # No pausar el SceneTree, pero el popup es bloqueante
+	# Bloquear movimiento e interacciones de inmediato
+	SceneManager.is_ui_open = true
 
 
 func _on_logout_button_pressed() -> void:
