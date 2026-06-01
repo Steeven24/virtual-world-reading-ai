@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://scripts/UI/achievements_medals_panel.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/UI/achievements_medals_panel.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="2_font_bold"]
+[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="3_font"]
 
 [node name="AchievementsMedalsPanel" type="CanvasLayer"]
-script = ExtResource("1")
+script = ExtResource("1_script")
 
 [node name="BackgroundDim" type="ColorRect" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.06, 0.09, 0.75)
+color = Color(0.02, 0.02, 0.05, 0)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -20,59 +23,105 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(450, 260)
+[node name="MainPanel" type="PanelContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainPanel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 
-[node name="Header" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Tabs" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Header"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.93, 0.79, 0.28, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 20
+text = "🏆  LOGROS Y MEDALLAS"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "✕"
+
+[node name="TabsRow" type="HBoxContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LogrosTabBtn" type="Button" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 14
+text = "🏆 Logros"
+
+[node name="MedallasTabBtn" type="Button" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 14
+text = "🎖 Medallas"
+
+[node name="Spacer" type="Control" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/TabsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TotalLabel" type="Label" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/TabsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 0.28, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 13
+text = "Completado: 0 / 0"
+
+[node name="ProgressBarContainer" type="MarginContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ProgressBarContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="ContentArea" type="Control" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LogrosScroll" type="ScrollContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AchievementsContainer" type="VBoxContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea/LogrosScroll"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="LogrosTabBtn" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Header/Tabs"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 28)
-layout_mode = 2
-text = "🏆 Logros"
-
-[node name="MedallasTabBtn" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Header/Tabs"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 28)
-layout_mode = 2
-text = "🎖 Medallas"
-
-[node name="TotalLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Header"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.65, 0.13, 1)
-theme_override_font_sizes/font_size = 11
-text = "Completado: 0 / 0"
-
-[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Header"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 2
-text = "✕"
-
-[node name="ContentArea" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="LogrosScroll" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentArea"]
+[node name="MedalsScroll" type="ScrollContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -81,28 +130,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AchievementsContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentArea/LogrosScroll"]
+[node name="MedalsGrid" type="GridContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea/MedalsScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 5
 
-[node name="MedalsScroll" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentArea"]
+[node name="LoadingLabel" type="Label" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MedalsGrid" type="GridContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentArea/MedalsScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
-columns = 4
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 14
+text = "⏳ Cargando logros..."
+horizontal_alignment = 1
 
 [node name="MedalDetailPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -112,23 +166,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -90.0
-offset_right = 150.0
-offset_bottom = 90.0
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MedalDetailPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MedalDetailPanel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 
 [node name="Header" type="HBoxContainer" parent="MedalDetailPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -137,28 +191,31 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 16
 text = "Nombre Medalla"
 
 [node name="DetailCloseBtn" type="Button" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
 text = "✕"
+
+[node name="HSeparator" type="HSeparator" parent="MedalDetailPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="Body" type="HBoxContainer" parent="MedalDetailPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
 [node name="ImageContainer" type="CenterContainer" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body"]
-custom_minimum_size = Vector2(60, 60)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 
 [node name="DetailMedalImage" type="TextureRect" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/ImageContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -166,25 +223,28 @@ stretch_mode = 5
 [node name="DetailMedalEmoji" type="Label" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/ImageContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 44
 text = "🏅"
 
 [node name="Info" type="VBoxContainer" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
 [node name="DetailMedalTier" type="Label" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/Info"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.65, 0.13, 1)
-theme_override_font_sizes/font_size = 10
-text = "Rareza: ORO"
+theme_override_colors/font_color = Color(0.93, 0.79, 0.28, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 12
+text = "✦ Rareza: ORO"
 
 [node name="DetailMedalDesc" type="Label" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/Info"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.8, 0.82, 0.85, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 12
 text = "Descripción de la medalla..."
 autowrap_mode = 2
