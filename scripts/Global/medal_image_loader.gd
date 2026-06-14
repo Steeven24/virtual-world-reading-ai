@@ -120,3 +120,37 @@ func _trigger_callbacks(achievement_id: String, texture: Texture2D) -> void:
 		for callback in callbacks:
 			if callback.is_valid():
 				callback.call(texture)
+
+
+## Invalida la imagen cacheada de una medalla específica.
+## La próxima vez que se llame load_medal_image, se descargará de nuevo.
+func invalidate_cache(achievement_id: String) -> void:
+	var cache_path := CACHE_DIR + achievement_id + ".png"
+	if FileAccess.file_exists(cache_path):
+		var dir := DirAccess.open(CACHE_DIR)
+		if dir:
+			dir.remove(achievement_id + ".png")
+			print("[MedalImageLoader] Cache invalidado para medalla: %s" % achievement_id)
+
+
+## Invalida todo el cache de medallas.
+## Útil cuando se detecta un cambio de session_version desde el dashboard.
+func invalidate_all_cache() -> void:
+	var dir := DirAccess.open(CACHE_DIR)
+	if dir:
+		dir.list_dir_begin()
+		var file_name := dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".png"):
+				dir.remove(file_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+		print("[MedalImageLoader] Todo el cache de medallas invalidado")
+
+
+## Invalida el cache de una medalla y la recarga inmediatamente.
+## callback recibe la nueva textura (o null si falla).
+func clear_and_reload(achievement_id: String, image_url: String, callback: Callable) -> void:
+	invalidate_cache(achievement_id)
+	load_medal_image(achievement_id, image_url, callback)
+
