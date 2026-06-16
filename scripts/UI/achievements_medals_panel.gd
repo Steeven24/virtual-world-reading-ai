@@ -456,14 +456,17 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	# Cargar imagen real si existe y está desbloqueada
 	var image_url: String = str(item.get("medal_image_path", ""))
 	if is_unlocked and not image_url.is_empty():
+		# IMPORTANTE: ocultar textura y mostrar emoji ANTES de llamar al loader,
+		# porque si la imagen ya está cacheada, el callback se ejecuta de forma
+		# sincrónica y las líneas posteriores revertirían los cambios del callback.
+		texture_rect.hide()
+		emoji_lbl.show()
 		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
 			if tex:
 				texture_rect.texture = tex
 				emoji_lbl.hide()
 				texture_rect.show()
 		)
-		texture_rect.hide()
-		emoji_lbl.show()
 	else:
 		texture_rect.hide()
 		emoji_lbl.show()
