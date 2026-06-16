@@ -313,16 +313,16 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	var is_unlocked: bool = item.get("is_unlocked", false)
 
 	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(0, 62)
+	panel.custom_minimum_size = Vector2(0, 72)
 
 	# Estilo premium con glow
 	var style := StyleBoxFlat.new()
 	style.bg_color = COLOR_BG_ITEM if is_unlocked else COLOR_BG_ITEM_LOCKED
-	style.set_corner_radius_all(8)
+	style.set_corner_radius_all(10)
 	style.border_width_left = 4
 	style.border_color = COLOR_GOLD if is_unlocked else Color(0.25, 0.25, 0.30)
-	style.set_content_margin_all(10)
-	style.content_margin_left = 14
+	style.set_content_margin_all(12)
+	style.content_margin_left = 16
 
 	# Glow dorado para desbloqueados
 	if is_unlocked:
@@ -333,27 +333,27 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	panel.add_theme_stylebox_override("panel", style)
 
 	var hbox := HBoxContainer.new()
-	hbox.add_theme_constant_override("separation", 14)
+	hbox.add_theme_constant_override("separation", 16)
 	panel.add_child(hbox)
 
 	# Ícono grande
 	var icon_lbl := Label.new()
 	icon_lbl.text = "✅" if is_unlocked else "🔒"
-	icon_lbl.add_theme_font_size_override("font_size", 22)
+	icon_lbl.add_theme_font_size_override("font_size", 26)
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
 
 	# Contenedor de texto
 	var vbox := VBoxContainer.new()
 	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vbox.add_theme_constant_override("separation", 3)
+	vbox.add_theme_constant_override("separation", 4)
 	hbox.add_child(vbox)
 
 	# Título del logro
 	var title_lbl := Label.new()
 	title_lbl.text = str(item.get("name", ""))
 	title_lbl.add_theme_color_override("font_color", COLOR_TEXT_PRIMARY if is_unlocked else COLOR_TEXT_DISABLED)
-	title_lbl.add_theme_font_size_override("font_size", 14)
+	title_lbl.add_theme_font_size_override("font_size", 16)
 	if _font_bold:
 		title_lbl.add_theme_font_override("font", _font_bold)
 	vbox.add_child(title_lbl)
@@ -362,7 +362,7 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	var desc_lbl := Label.new()
 	desc_lbl.text = str(item.get("description", ""))
 	desc_lbl.add_theme_color_override("font_color", COLOR_TEXT_SECONDARY if is_unlocked else Color(0.4, 0.4, 0.45))
-	desc_lbl.add_theme_font_size_override("font_size", 11)
+	desc_lbl.add_theme_font_size_override("font_size", 12)
 	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
 	if _font_regular:
 		desc_lbl.add_theme_font_override("font", _font_regular)
@@ -373,7 +373,7 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 		var hint_lbl := Label.new()
 		hint_lbl.text = "💡 " + str(item.get("how_to_unlock", ""))
 		hint_lbl.add_theme_color_override("font_color", COLOR_HINT)
-		hint_lbl.add_theme_font_size_override("font_size", 10)
+		hint_lbl.add_theme_font_size_override("font_size", 11)
 		hint_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
 		if _font_regular:
 			hint_lbl.add_theme_font_override("font", _font_regular)
@@ -396,7 +396,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	var glow_color := _get_tier_glow_color(tier)
 
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(100, 110)
+	card.custom_minimum_size = Vector2(160, 160)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	# Estilo de la carta con glow por tier
@@ -413,8 +413,8 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 		style_normal.set_border_width_all(1)
 		style_normal.border_color = Color(0.15, 0.15, 0.20, 0.6)
 
-	style_normal.set_corner_radius_all(10)
-	style_normal.set_content_margin_all(6)
+	style_normal.set_corner_radius_all(12)
+	style_normal.set_content_margin_all(10)
 
 	# Estilo hover — más brillante
 	var style_hover := style_normal.duplicate()
@@ -433,7 +433,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	# Layout interno
 	var vbox := VBoxContainer.new()
 	vbox.anchors_preset = Control.PRESET_FULL_RECT
-	vbox.add_theme_constant_override("separation", 5)
+	vbox.add_theme_constant_override("separation", 6)
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	card.add_child(vbox)
 
@@ -442,14 +442,14 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	vbox.add_child(img_container)
 
 	var texture_rect := TextureRect.new()
-	texture_rect.custom_minimum_size = Vector2(44, 44)
+	texture_rect.custom_minimum_size = Vector2(72, 72)
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	img_container.add_child(texture_rect)
 
 	var emoji_lbl := Label.new()
 	emoji_lbl.text = str(item.get("medal_placeholder_emoji", "🏅"))
-	emoji_lbl.add_theme_font_size_override("font_size", 32)
+	emoji_lbl.add_theme_font_size_override("font_size", 48)
 	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	img_container.add_child(emoji_lbl)
 
@@ -479,7 +479,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	var name_lbl := Label.new()
 	name_lbl.text = "???" if not is_unlocked else str(item.get("medal_name", ""))
 	name_lbl.add_theme_color_override("font_color", COLOR_TEXT_PRIMARY if is_unlocked else COLOR_TEXT_DISABLED)
-	name_lbl.add_theme_font_size_override("font_size", 10)
+	name_lbl.add_theme_font_size_override("font_size", 12)
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
 	if _font_bold:
@@ -491,7 +491,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 		var tier_lbl := Label.new()
 		tier_lbl.text = tier.to_upper()
 		tier_lbl.add_theme_color_override("font_color", tier_color)
-		tier_lbl.add_theme_font_size_override("font_size", 8)
+		tier_lbl.add_theme_font_size_override("font_size", 9)
 		tier_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		if _font_bold:
 			tier_lbl.add_theme_font_override("font", _font_bold)
@@ -569,7 +569,7 @@ func _show_medal_detail(item: Dictionary) -> void:
 
 	# Animación de entrada
 	_medal_detail_panel.show()
-	_medal_detail_panel.pivot_offset = Vector2(200, 120)
+	_medal_detail_panel.pivot_offset = Vector2(280, 180)
 	_medal_detail_panel.scale = Vector2(0.9, 0.9)
 	_medal_detail_panel.modulate.a = 0.0
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
