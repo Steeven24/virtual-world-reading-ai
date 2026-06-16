@@ -23,21 +23,31 @@ func _ready() -> void:
 
 
 ## Carga la imagen de una medalla. 
-## Si está en cache, ejecuta el callback inmediatamente con la textura.
-## Si no, la descarga de la API, la guarda en cache y luego ejecuta el callback.
+## Si está en cache Y la URL no cambió, ejecuta el callback inmediatamente.
+## Si la URL cambió o no hay cache, la descarga de la API y actualiza el cache.
 func load_medal_image(achievement_id: String, image_url: String, callback: Callable) -> void:
 	if image_url.is_empty():
 		callback.call(null)
 		return
 		
 	var cache_path := CACHE_DIR + achievement_id + ".png"
+	var version_path := CACHE_DIR + achievement_id + ".ver"
 	
-	# 1. Verificar si está en cache local
-	if FileAccess.file_exists(cache_path):
-		var texture = _load_texture_from_file(cache_path)
-		if texture:
-			callback.call(texture)
-			return
+	# Generar un hash simple de la URL para detectar cambios (ej. ?v=timestamp)
+	var url_hash := str(image_url.hash())
+	
+	# 1. Verificar si está en cache local Y si la versión coincide
+	if FileAccess.file_exists(cache_path) and FileAccess.file_exists(version_path):
+		var stored_hash := FileAccess.get_file_as_string(version_path).strip_edges()
+		if stored_hash == url_hash:
+			var texture = _load_texture_from_file(cache_path)
+			if texture:
+				callback.call(texture)
+				return
+		else:
+			# URL cambió — invalidar cache para forzar re-descarga
+			print("[MedalImageLoader] URL cambió para medalla: %s — re-descargando" % achievement_id)
+			invalidate_cache(achievement_id)
 	
 	# 2. Si no está en cache, descargar
 	var full_url = image_url
@@ -65,8 +75,9 @@ func load_medal_image(achievement_id: String, image_url: String, callback: Calla
 	
 	var http_req := HTTPRequest.new()
 	add_child(http_req)
+	var url_hash_to_save := str(image_url.hash())
 	http_req.request_completed.connect(func(result, response_code, headers, body):
-		_on_download_completed(result, response_code, body, achievement_id, cache_path, http_req)
+		_on_download_completed(result, response_code, body, achievement_id, cache_path, url_hash_to_save, http_req)
 	)
 	
 	# Agregar token de autorización si es necesario
@@ -81,7 +92,7 @@ func load_medal_image(achievement_id: String, image_url: String, callback: Calla
 		http_req.queue_free()
 
 
-func _on_download_completed(result: int, response_code: int, body: PackedByteArray, achievement_id: String, cache_path: String, http_req: HTTPRequest) -> void:
+func _on_download_completed(result: int, response_code: int, body: PackedByteArray, achievement_id: String, cache_path: String, url_hash: String, http_req: HTTPRequest) -> void:
 	http_req.queue_free()
 	
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
@@ -95,9 +106,17 @@ func _on_download_completed(result: int, response_code: int, body: PackedByteArr
 		file.store_buffer(body)
 		file.close()
 		
+		# Guardar marcador de versión para detectar cambios futuros
+		var version_path := CACHE_DIR + achievement_id + ".ver"
+		var ver_file := FileAccess.open(version_path, FileAccess.WRITE)
+		if ver_file:
+			ver_file.store_string(url_hash)
+			ver_file.close()
+		
 		# Cargar textura
 		var texture = _load_texture_from_file(cache_path)
 		_trigger_callbacks(achievement_id, texture)
+		print("[MedalImageLoader] Medalla descargada y cacheada: %s" % achievement_id)
 	else:
 		push_error("[MedalImageLoader] No se pudo escribir archivo de cache para medalla: %s" % achievement_id)
 		_trigger_callbacks(achievement_id, null)
@@ -126,11 +145,14 @@ func _trigger_callbacks(achievement_id: String, texture: Texture2D) -> void:
 ## La próxima vez que se llame load_medal_image, se descargará de nuevo.
 func invalidate_cache(achievement_id: String) -> void:
 	var cache_path := CACHE_DIR + achievement_id + ".png"
-	if FileAccess.file_exists(cache_path):
-		var dir := DirAccess.open(CACHE_DIR)
-		if dir:
+	var version_path := CACHE_DIR + achievement_id + ".ver"
+	var dir := DirAccess.open(CACHE_DIR)
+	if dir:
+		if FileAccess.file_exists(cache_path):
 			dir.remove(achievement_id + ".png")
-			print("[MedalImageLoader] Cache invalidado para medalla: %s" % achievement_id)
+		if FileAccess.file_exists(version_path):
+			dir.remove(achievement_id + ".ver")
+		print("[MedalImageLoader] Cache invalidado para medalla: %s" % achievement_id)
 
 
 ## Invalida todo el cache de medallas.
@@ -141,7 +163,7 @@ func invalidate_all_cache() -> void:
 		dir.list_dir_begin()
 		var file_name := dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and file_name.ends_with(".png"):
+			if not dir.current_is_dir() and (file_name.ends_with(".png") or file_name.ends_with(".ver")):
 				dir.remove(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
