@@ -49,6 +49,9 @@ size = Vector2(67.9725, 66.60445)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by13k"]
 size = Vector2(918.67096, 351.9041)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7aaoc"]
+size = Vector2(107.43141, 40.83023)
+
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
 script = ExtResource("6_script_ctrl")
@@ -133,7 +136,7 @@ y_sort_enabled = true
 position = Vector2(547, 321)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
-position = Vector2(556, 455)
+position = Vector2(591, 496)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("9_gx8g8")]
 offset_left = 1200.0
@@ -154,10 +157,17 @@ offset = Vector2(0, -598)
 
 [node name="Books1" type="Sprite2D" parent="." unique_id=1680889723]
 texture_filter = 1
-position = Vector2(457.00003, 440)
+position = Vector2(456, 391.00003)
 scale = Vector2(0.4594698, 0.4594698)
 texture = ExtResource("12_3q12q")
-offset = Vector2(0, -82.5)
+offset = Vector2(0, 25)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Books1" unique_id=890191526]
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Books1/StaticBody2D" unique_id=2029187708]
+position = Vector2(2.1764, 65.29256)
+scale = Vector2(1.7007929, 1.7007929)
+shape = SubResource("RectangleShape2D_7aaoc")
 
 [node name="Books3" type="Sprite2D" parent="." unique_id=95577340]
 texture_filter = 1
