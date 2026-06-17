@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="1_omdln"]
 [ext_resource type="Texture2D" uid="uid://ccdrqht0dnxvn" path="res://assets/Scenery/Background/Section/Argumentativos.png" id="2_k2vi6"]
+[ext_resource type="Texture2D" uid="uid://bxu2m44osofdj" path="res://assets/Scenery/Background/Flowerpot/flowerpot2.png" id="3_7aaoc"]
 [ext_resource type="PackedScene" uid="uid://b7ctvbpcer5og" path="res://scenes/Interactuable/book_Interaction_invisible.tscn" id="3_k2vi6"]
 [ext_resource type="PackedScene" uid="uid://b8dg7m2oxjlo8" path="res://scenes/Book and Tools/book and tools.tscn" id="4_a8kxi"]
 [ext_resource type="PackedScene" uid="uid://cm4amlrcyys1c" path="res://scenes/Interactuable/wise_old_man.tscn" id="5_p71tj"]
@@ -10,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 [ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="9_gx8g8"]
 [ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="10_k5ok7"]
+[ext_resource type="Texture2D" uid="uid://cto6g0femigiw" path="res://assets/Scenery/Background/Books/books2.png" id="11_6relh"]
+[ext_resource type="Texture2D" uid="uid://crqfbac5vlex0" path="res://assets/Scenery/Background/Books/books1.png" id="12_3q12q"]
+[ext_resource type="Texture2D" uid="uid://tg6j8s0130ip" path="res://assets/Scenery/Background/Books/books3.png" id="14_flrkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
 size = Vector2(1095.5212, 58.5)
@@ -46,6 +50,7 @@ size = Vector2(67.9725, 66.60445)
 size = Vector2(918.67096, 351.9041)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
+y_sort_enabled = true
 script = ExtResource("6_script_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=414023814]
@@ -104,6 +109,7 @@ position = Vector2(477.2506, 188.74857)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
+y_sort_enabled = true
 position = Vector2(252, 319)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
@@ -114,13 +120,16 @@ visible = false
 ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_p71tj")]
+y_sort_enabled = true
 position = Vector2(1074, 348)
 character_pose = "izquierda"
 
 [node name="Teacher" parent="." unique_id=1696507402 instance=ExtResource("7_teacher")]
+y_sort_enabled = true
 position = Vector2(827, 324)
 
 [node name="RobotAssistant" parent="." unique_id=1221218627 instance=ExtResource("8_robot")]
+y_sort_enabled = true
 position = Vector2(547, 321)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
@@ -131,6 +140,35 @@ offset_left = 1200.0
 offset_top = 640.0
 offset_right = 1200.0
 offset_bottom = 640.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("10_k5ok7")]
 position = Vector2(311, 714)
+
+[node name="Books2" type="Sprite2D" parent="." unique_id=1266573111]
+texture_filter = 1
+position = Vector2(902.49994, 669.4)
+scale = Vector2(0.114772625, 0.11477263)
+texture = ExtResource("11_6relh")
+offset = Vector2(0, -598)
+
+[node name="Books1" type="Sprite2D" parent="." unique_id=1680889723]
+texture_filter = 1
+position = Vector2(457.00003, 440)
+scale = Vector2(0.4594698, 0.4594698)
+texture = ExtResource("12_3q12q")
+offset = Vector2(0, -82.5)
+
+[node name="Books3" type="Sprite2D" parent="." unique_id=95577340]
+texture_filter = 1
+position = Vector2(570.06805, 671)
+scale = Vector2(0.4492508, 0.44925076)
+texture = ExtResource("14_flrkr")
+offset = Vector2(0, -183.5)
+
+[node name="Flowerpot2" type="Sprite2D" parent="." unique_id=1059870902]
+texture_filter = 1
+position = Vector2(735, 670)
+scale = Vector2(0.48520753, 0.41854668)
+texture = ExtResource("3_7aaoc")
+offset = Vector2(0, -183.5)

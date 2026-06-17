@@ -43,6 +43,7 @@ size = Vector2(275.8287, 19.528374)
 size = Vector2(67.9725, 66.60445)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
+y_sort_enabled = true
 script = ExtResource("3_script_ctrl")
 
 [node name="GenericBackground" type="Sprite2D" parent="." unique_id=414023814]
@@ -111,6 +112,7 @@ shape = SubResource("RectangleShape2D_cirqj")
 position = Vector2(486, 271)
 
 [node name="Teacher" parent="." unique_id=1176271566 instance=ExtResource("4_teacher")]
+y_sort_enabled = true
 position = Vector2(924.125, 353.1116)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 

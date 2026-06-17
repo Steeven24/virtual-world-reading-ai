@@ -178,10 +178,12 @@ animations = [{
 radius = 120.0
 
 [node name="WiseOldMan" type="Node2D" unique_id=1317610961]
+y_sort_enabled = true
 script = ExtResource("4_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1788035257]
 texture_filter = 1
+position = Vector2(0, -32)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7tee3")
 animation = &"izquierda"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tg6j8s0130ip"
-path="res://.godot/imported/books3.png-4da4373ae9d3a217c15795ba23177e76.ctex"
+uid="uid://bxu2m44osofdj"
+path="res://.godot/imported/flowerpot2.png-def34ca8a1d2f70dfa820c6fc4b70a3d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Scenery/Background/Books/books3.png"
-dest_files=["res://.godot/imported/books3.png-4da4373ae9d3a217c15795ba23177e76.ctex"]
+source_file="res://assets/Scenery/Background/Flowerpot/flowerpot2.png"
+dest_files=["res://.godot/imported/flowerpot2.png-def34ca8a1d2f70dfa820c6fc4b70a3d.ctex"]
 
 [params]
 

@@ -82,6 +82,7 @@ animations = [{
 }]
 
 [node name="Book" type="Node2D" unique_id=278619741]
+y_sort_enabled = true
 script = ExtResource("1_5y0vv")
 
 [node name="Book" type="Sprite2D" parent="." unique_id=891650979]

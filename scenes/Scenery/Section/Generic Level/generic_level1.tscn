@@ -46,6 +46,7 @@ size = Vector2(67.9725, 66.60445)
 size = Vector2(224.98145, 108.53314)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
+y_sort_enabled = true
 script = ExtResource("6_script_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=414023814]
@@ -107,6 +108,7 @@ position = Vector2(1016.043, 102.37209)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
+y_sort_enabled = true
 position = Vector2(934, 200)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
@@ -117,13 +119,16 @@ visible = false
 ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_yj0pt")]
+y_sort_enabled = true
 position = Vector2(472, 205)
 character_pose = "derecha"
 
 [node name="Teacher" parent="." unique_id=1155322486 instance=ExtResource("7_teacher")]
+y_sort_enabled = true
 position = Vector2(637, 179)
 
 [node name="RobotAssistant" parent="." unique_id=721379532 instance=ExtResource("8_robot")]
+y_sort_enabled = true
 position = Vector2(1054, 508)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("9_phys2")]

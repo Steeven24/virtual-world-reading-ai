@@ -705,21 +705,23 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(24, 39)
 
-[node name="Main" type="Node2D" unique_id=2101976399]
-
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1471923057]
+[node name="Player" type="CharacterBody2D" unique_id=2101976399]
+y_sort_enabled = true
 texture_filter = 1
-position = Vector2(96, 54)
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=377981558]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=377981558]
+position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_770dr")
 animation = &"idle_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=270371656]
-position = Vector2(0, 9)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=270371656]
+position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_qhqgy")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=857107356]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=857107356]
+position = Vector2(0, -32)
 position_smoothing_enabled = true
+
+[node name="PivotFeet" type="Marker2D" parent="." unique_id=11223344]

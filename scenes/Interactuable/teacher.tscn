@@ -209,11 +209,13 @@ animations = [{
 radius = 70.0
 
 [node name="Teacher" type="Node2D" unique_id=1346007177]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=714753353]
 texture_filter = 1
+position = Vector2(0, -32)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bja3s")
 animation = &"frente"

@@ -81,6 +81,7 @@ animations = [{
 radius = 70.0
 
 [node name="RobotAssistant" type="Node2D" unique_id=473462007]
+y_sort_enabled = true
 script = ExtResource("2_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1658796489]
@@ -108,3 +109,4 @@ autoplay = "default"
 shape = SubResource("CircleShape2D_robot")
 
 [node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("4_4vn1n")]
+position = Vector2(0, -58)
