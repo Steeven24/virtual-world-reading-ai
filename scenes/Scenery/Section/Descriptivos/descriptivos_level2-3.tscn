@@ -6,40 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://dga7wnqkw3egn" path="res://scenes/Interactuable/teacher.tscn" id="4_teacher"]
 [ext_resource type="PackedScene" uid="uid://1ava8ttaxqee" path="res://scenes/Animation/zzz.tscn" id="5_hrb0w"]
 [ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="6_5non3"]
+[ext_resource type="Texture2D" uid="uid://8fbfy4ws0d10" path="res://assets/Scenery/Background/Books/books6.png" id="6_isj3c"]
 [ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="7_aml51"]
+[ext_resource type="Texture2D" uid="uid://bsb2m7qtl1j7o" path="res://assets/Scenery/Background/Books/books5.png" id="7_ej0gl"]
+[ext_resource type="Texture2D" uid="uid://b6bqm8604eu73" path="res://assets/Scenery/Background/Books/books4.png" id="8_i2fsd"]
+[ext_resource type="Texture2D" uid="uid://bcu76nsasq7hd" path="res://assets/Scenery/Background/Furniture/furniture2.png" id="9_q46xt"]
+[ext_resource type="Texture2D" uid="uid://dg144ws4hlv7x" path="res://assets/Scenery/Background/Furniture/furniture3.png" id="10_0vfh5"]
+[ext_resource type="Texture2D" uid="uid://dsrpv3rbn5evr" path="res://assets/Scenery/Background/Flowerpot/flowerpot3.png" id="11_x3yks"]
+[ext_resource type="Texture2D" uid="uid://dev21btgwmc56" path="res://assets/Scenery/Background/Animals/dog.png" id="12_44r6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aml51"]
-size = Vector2(1837.272, 50.913307)
+size = Vector2(850.9625, 276.9901)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
-size = Vector2(852.8122, 308.433)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbja3"]
+size = Vector2(125.405846, 51.186005)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
-size = Vector2(220.75743, 236.32355)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yyah"]
+size = Vector2(127.28508, 116.44827)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(84.49814, 1027.9233)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
-a = Vector2(366, -93.5)
-b = Vector2(-77, 221.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
-size = Vector2(842.87866, 188)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
-size = Vector2(348.9281, 93.712524)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
-size = Vector2(148.8396, 105.68005)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0pav"]
-size = Vector2(119, 991.9933)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfliw"]
-size = Vector2(275.8287, 19.528374)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cc3x"]
 size = Vector2(67.9725, 66.60445)
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
@@ -51,80 +36,103 @@ scale = Vector2(0.4545455, 0.46875)
 texture = ExtResource("1_pljxl")
 centered = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
-scale = Vector2(0.70665795, 0.70665795)
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2054631006]
+scale = Vector2(0.78146297, 0.78146297)
 
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D" unique_id=2115710499]
-position = Vector2(902.6128, 1035.8773)
-scale = Vector2(1.0000004, 1.0000004)
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="StaticBody2D" unique_id=336124758]
+position = Vector2(426.76648, 134.07063)
 shape = SubResource("RectangleShape2D_aml51")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(520.30365, 151.44766)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_omdln")
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="StaticBody2D" unique_id=525980626]
+position = Vector2(902.15405, 845.8494)
+shape = SubResource("RectangleShape2D_lbja3")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
-position = Vector2(251.88998, 602.1301)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_k2vi6")
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="StaticBody2D" unique_id=1101619591]
+position = Vector2(384.83496, 552.1695)
+shape = SubResource("RectangleShape2D_0yyah")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(53.97852, 506.33398)
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=1622187488]
+position = Vector2(-150.99866, 333.98895)
 scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_a8kxi")
+shape = SubResource("RectangleShape2D_2cc3x")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
-position = Vector2(508, 319.5)
-shape = SubResource("SegmentShape2D_lfliw")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1681279638]
+polygon = PackedVector2Array(300.71802, 921.3488, 300.71802, 889.35754, 157.3971, 888.0779, 157.3971, 844.56976, 88.29593, 845.8494, 88.29593, 633.4273, 109.92321, 633.6044, 107.4907, 268.72675, 867.6035, 270.0064, 867.6035, 304.55698, 920.0692, 304.55698, 920.0692, 271.28604, 1046.7546, 271.28604, 1046.7546, 223.93895, 1117.1355, 223.93895, 1117.1355, 359.58197, 1215.6686, 359.58197, 1215.6686, 423.56454, 1241.2616, 424.84418, 1241.2616, 394.13257, 1280.9308, 394.13257, 1280.9308, 428.68314, 1305.2441, 427.4035, 1305.2441, 359.58197, 1399.9384, 359.58197, 1399.9384, 218.82034, 1549.6576, 218.82034, 1549.6576, 455.55582, 1479.2767, 455.55582, 1479.2767, 509.30118, 1469.0396, 509.30118, 1466.4802, 758.8331, 1603.403, 758.8331, 1603.403, 817.6971, 1547.0983, 817.6971, 1548.3779, 847.1291, 1488.2343, 847.1291, 1488.2343, 893.19653, 1296.2866, 893.19653, 1296.2866, 857.3663, 1239.9819, 857.3663, 1239.9819, 890.6372, 1239.9819, 890.6372, 1201.5924, 890.6372, 1201.5924, 848.40875, 1050.5936, 847.1291, 1050.5936, 890.6372, 474.75058, 891.9169, 474.75058, 922.6285, 1637.9535, 921.3488, 1637.9535, 0, 0, 0, 0, 921.3488)
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
-position = Vector2(1376.9038, 93.397385)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_yon38")
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=316317344]
+polygon = PackedVector2Array(284.08255, 738.3587, 226.49826, 770.35, 231.61687, 781.8669, 217.5407, 790.8244, 235.45581, 829.2139, 250.81163, 820.2564, 270.0064, 843.2901, 340.3872, 795.94305)
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
-position = Vector2(1249.1387, 938.0617)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_68003")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
-position = Vector2(1719.942, 935.8699)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_pculv")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
-position = Vector2(1778.7958, 497.41187)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_o0pav")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
-position = Vector2(1389.6398, 212.26678)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_lfliw")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=32384643]
-position = Vector2(1388.2247, 268.87125)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_cirqj")
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=416743588]
+polygon = PackedVector2Array(257.20987, 488.82675, 138.20233, 557.9279, 136.92267, 634.707, 214.9814, 688.45233, 317.3535, 620.6308, 317.3535, 531.05524)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]
 position = Vector2(486, 271)
 
 [node name="Teacher" parent="." unique_id=1176271566 instance=ExtResource("4_teacher")]
-y_sort_enabled = true
 position = Vector2(924.125, 353.1116)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
+[node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("7_aml51")]
+position = Vector2(303, 714)
+
+[node name="Books6" type="Sprite2D" parent="." unique_id=481345772]
+position = Vector2(867.92456, 665)
+scale = Vector2(0.11596678, 0.11040595)
+texture = ExtResource("6_isj3c")
+hframes = 2
+
+[node name="Books7" type="Sprite2D" parent="." unique_id=1350165693]
+position = Vector2(976.5522, 665.0639)
+scale = Vector2(0.121617496, 0.10786069)
+texture = ExtResource("6_isj3c")
+hframes = 2
+frame = 1
+
+[node name="Books5" type="Sprite2D" parent="." unique_id=389895398]
+position = Vector2(1214.8248, 657.625)
+scale = Vector2(0.4866802, 0.4866802)
+texture = ExtResource("7_ej0gl")
+
+[node name="Books4" type="Sprite2D" parent="." unique_id=479000217]
+texture_filter = 1
+position = Vector2(1181.75, 368.1038)
+scale = Vector2(0.601064, 0.60106415)
+texture = ExtResource("8_i2fsd")
+
+[node name="Furniture2" type="Sprite2D" parent="." unique_id=1773905333]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(112, 546.00006)
+scale = Vector2(0.553819, 0.5538192)
+texture = ExtResource("9_q46xt")
+centered = false
+
+[node name="Furniture3" type="Sprite2D" parent="." unique_id=542234376]
+texture_filter = 1
+position = Vector2(214.50002, 426.8125)
+scale = Vector2(0.25196165, 0.25918314)
+texture = ExtResource("10_0vfh5")
+
+[node name="Flowerpot3" type="Sprite2D" parent="." unique_id=2040652373]
+texture_filter = 1
+position = Vector2(76.00001, 651)
+scale = Vector2(0.40170947, 0.4017095)
+texture = ExtResource("11_x3yks")
+
+[node name="Dog" type="Sprite2D" parent="." unique_id=886409727]
+position = Vector2(696.50635, 654)
+scale = Vector2(0.43589726, 0.43589726)
+texture = ExtResource("12_44r6q")
+
 [node name="Zzz" parent="." unique_id=115294721 instance=ExtResource("5_hrb0w")]
+z_index = 1
+z_as_relative = false
 position = Vector2(714, 632)
 scale = Vector2(0.6, 0.6)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("6_5non3")]
+z_index = 1
 offset_left = 1200.0
 offset_top = 640.0
 offset_right = 1200.0
 offset_bottom = 640.0
-
-[node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("7_aml51")]
-position = Vector2(303, 714)
