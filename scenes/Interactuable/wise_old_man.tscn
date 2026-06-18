@@ -178,7 +178,6 @@ animations = [{
 radius = 120.0
 
 [node name="WiseOldMan" type="Node2D" unique_id=1317610961]
-y_sort_enabled = true
 script = ExtResource("4_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1788035257]
@@ -190,7 +189,7 @@ animation = &"izquierda"
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=565151310]
 texture_filter = 1
-position = Vector2(0, -100)
+position = Vector2(-6, -130)
 scale = Vector2(0.9, 1)
 texture = ExtResource("2_ua33q")
 
