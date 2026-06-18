@@ -42,7 +42,7 @@ texture = ExtResource("2_k2vi6")
 centered = false
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
-position = Vector2(598, 514)
+position = Vector2(317, 670)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
 scale = Vector2(0.78146297, 0.78146297)

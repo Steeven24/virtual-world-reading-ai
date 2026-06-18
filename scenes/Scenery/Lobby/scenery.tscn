@@ -36,7 +36,7 @@ size = Vector2(700, 180)
 size = Vector2(397, 246)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjiar"]
-size = Vector2(405, 228)
+size = Vector2(413, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6yc7"]
 size = Vector2(668, 148.875)
@@ -68,14 +68,14 @@ size = Vector2(181.75, 174)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpaed"]
 size = Vector2(206.625, 144)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvta1"]
-size = Vector2(206.625, 144)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjjyl"]
 size = Vector2(288, 188)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpjau"]
 size = Vector2(434.5, 262)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvta1"]
+size = Vector2(241.5, 155)
 
 [node name="Main" type="Node2D" unique_id=1579165362]
 
@@ -125,6 +125,7 @@ position = Vector2(2747, 785)
 shape = SubResource("RectangleShape2D_npuw6")
 
 [node name="Descriptivo" type="Sprite2D" parent="." unique_id=590942569]
+z_index = 1
 position = Vector2(446.99997, 1126)
 scale = Vector2(0.5943627, 0.5943627)
 texture = ExtResource("2_yph88")
@@ -168,7 +169,7 @@ position = Vector2(732.5, 975)
 shape = SubResource("RectangleShape2D_wall_bot_lr")
 
 [node name="front_bot_left2" type="CollisionShape2D" parent="Room walls" unique_id=2017523283]
-position = Vector2(243.5, 962)
+position = Vector2(247.5, 1066)
 shape = SubResource("RectangleShape2D_xjiar")
 
 [node name="front_bot_left" type="CollisionShape2D" parent="Room walls" unique_id=618530041]
@@ -211,10 +212,6 @@ shape = SubResource("RectangleShape2D_v1aj6")
 position = Vector2(1748, 1057)
 shape = SubResource("RectangleShape2D_xpaed")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Room walls" unique_id=2103281024]
-position = Vector2(1081.6875, 1056)
-shape = SubResource("RectangleShape2D_uvta1")
-
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Room walls" unique_id=1755276357]
 position = Vector2(2369, 498)
 shape = SubResource("RectangleShape2D_wjjyl")
@@ -222,3 +219,7 @@ shape = SubResource("RectangleShape2D_wjjyl")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Room walls" unique_id=914000830]
 position = Vector2(2162.75, 982)
 shape = SubResource("RectangleShape2D_hpjau")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room walls" unique_id=1235371661]
+position = Vector2(217.75, 919.5)
+shape = SubResource("RectangleShape2D_uvta1")

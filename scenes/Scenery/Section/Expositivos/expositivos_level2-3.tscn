@@ -45,10 +45,10 @@ polygon = PackedVector2Array(763.9517, 900.8744, 763.9517, 870.1628, 112.6093, 8
 polygon = PackedVector2Array(1402.4977, 628.3087, 1337.2355, 661.57965, 1315.4814, 662.8593, 1314.2018, 615.5122, 1196.4739, 615.5122, 1196.4739, 738.3587, 1318.0406, 738.3587, 1437.0482, 804.9006, 1513.8273, 751.1552, 1515.1069, 696.13025)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]
-position = Vector2(632, 599)
+position = Vector2(676, 524)
 
 [node name="Teacher" parent="." unique_id=682473698 instance=ExtResource("4_teacher")]
-position = Vector2(669, 239)
+position = Vector2(670, 252)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("5_xk7sq")]

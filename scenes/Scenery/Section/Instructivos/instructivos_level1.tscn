@@ -57,7 +57,7 @@ texture = ExtResource("1_x6rtf")
 centered = false
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_ioeiv")]
-position = Vector2(556, 455)
+position = Vector2(703, 594)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
 scale = Vector2(0.78146297, 0.78146297)
@@ -109,7 +109,6 @@ position = Vector2(949.3825, 119.528786)
 shape = SubResource("RectangleShape2D_by13k")
 
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_jqijx")]
-y_sort_enabled = true
 position = Vector2(536, 417)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
@@ -125,12 +124,12 @@ ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_i17dr")]
 y_sort_enabled = true
-position = Vector2(1079, 294)
+position = Vector2(1078, 325)
 character_pose = "izquierda"
 
 [node name="Teacher" parent="." unique_id=611542146 instance=ExtResource("7_teacher")]
 y_sort_enabled = true
-position = Vector2(847, 320)
+position = Vector2(863, 364)
 
 [node name="RobotAssistant" parent="." unique_id=600248527 instance=ExtResource("8_robot")]
 y_sort_enabled = true

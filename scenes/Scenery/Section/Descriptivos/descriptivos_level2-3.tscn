@@ -66,7 +66,7 @@ polygon = PackedVector2Array(284.08255, 738.3587, 226.49826, 770.35, 231.61687, 
 polygon = PackedVector2Array(257.20987, 488.82675, 138.20233, 557.9279, 136.92267, 634.707, 214.9814, 688.45233, 317.3535, 620.6308, 317.3535, 531.05524)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_tmat0")]
-position = Vector2(486, 271)
+position = Vector2(547, 502)
 
 [node name="Teacher" parent="." unique_id=1176271566 instance=ExtResource("4_teacher")]
 position = Vector2(924.125, 353.1116)

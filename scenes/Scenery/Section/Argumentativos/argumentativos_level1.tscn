@@ -124,10 +124,10 @@ visible = false
 ruta_texto = ""
 
 [node name="Teacher" parent="." unique_id=1696507402 instance=ExtResource("7_teacher")]
-position = Vector2(494, 508)
+position = Vector2(656, 416)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
-position = Vector2(615, 502)
+position = Vector2(312, 677)
 
 [node name="RobotAssistant" parent="." unique_id=1221218627 instance=ExtResource("8_robot")]
 position = Vector2(269, 468)

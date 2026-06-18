@@ -112,7 +112,7 @@ polygon = PackedVector2Array(1251.4988, 529.7756, 1408.8959, 591.19885, 1493.352
 position = Vector2(654, 428)
 
 [node name="Teacher" parent="." unique_id=126238161 instance=ExtResource("4_teacher")]
-position = Vector2(641, 459)
+position = Vector2(1029, 505)
 target_scene_path = "res://scenes/Challenges/Templates/quiz_challenge.tscn"
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("5_dr04o")]
