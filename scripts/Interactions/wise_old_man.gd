@@ -21,6 +21,8 @@ var consejos = [
 ]
 
 func _ready():
+	visibility_changed.connect(_on_visibility_changed)
+
 	# Configurar pose inicial
 	if has_node("AnimatedSprite2D"):
 		$AnimatedSprite2D.play(character_pose)
@@ -33,6 +35,9 @@ func _ready():
 	if has_node("Area2D"):
 		$Area2D.body_entered.connect(_on_body_entered)
 		$Area2D.body_exited.connect(_on_body_exited)
+		
+	# Alinear colisiones al estado inicial
+	_on_visibility_changed()
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -80,3 +85,16 @@ func show_dialogue():
 
 func _on_dialog_closed():
 	SceneManager.is_ui_open = false
+
+func _on_visibility_changed():
+	if not visible:
+		player_in_range = false
+		if has_node("Speech bubble"):
+			$"Speech bubble".visible = false
+	_set_collision_shapes_disabled(self, not visible)
+
+func _set_collision_shapes_disabled(node: Node, should_disable: bool):
+	if node is CollisionShape2D:
+		node.set_deferred("disabled", should_disable)
+	for child in node.get_children():
+		_set_collision_shapes_disabled(child, should_disable)

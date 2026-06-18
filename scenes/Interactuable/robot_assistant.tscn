@@ -110,6 +110,7 @@ autoplay = "default"
 shape = SubResource("CircleShape2D_robot")
 
 [node name="Assistant" parent="." unique_id=2128936607 instance=ExtResource("4_4vn1n")]
+texture_filter = 1
 position = Vector2(0, -3)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=570556057]

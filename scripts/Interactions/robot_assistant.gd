@@ -60,6 +60,8 @@ var _chat_open: bool = false
 
 
 func _ready():
+	visibility_changed.connect(_on_visibility_changed)
+
 	if prompt_bubble:
 		prompt_bubble.visible = false
 		if prompt_sprite_resource:
@@ -73,6 +75,9 @@ func _ready():
 	_font_regular = load(FONT_REGULAR_PATH) if ResourceLoader.exists(FONT_REGULAR_PATH) else null
 
 	_create_ui()
+	
+	# Alinear colisiones al estado inicial
+	_on_visibility_changed()
 
 	# Conectar señales del NpcChatAPI
 	NpcChatAPI.chat_response_received.connect(_on_chat_response)
@@ -512,3 +517,16 @@ func _on_text_submitted(_text: String):
 
 func _on_btn_cerrar_pressed():
 	hide_ui()
+
+func _on_visibility_changed():
+	if not visible:
+		player_in_range = false
+		if prompt_bubble:
+			prompt_bubble.visible = false
+	_set_collision_shapes_disabled(self, not visible)
+
+func _set_collision_shapes_disabled(node: Node, should_disable: bool):
+	if node is CollisionShape2D:
+		node.set_deferred("disabled", should_disable)
+	for child in node.get_children():
+		_set_collision_shapes_disabled(child, should_disable)

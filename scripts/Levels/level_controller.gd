@@ -12,14 +12,8 @@ func _ready():
 	if teacher:
 		if lectura_y_libro or book_interaction:
 			teacher.visible = false
-			var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
-			if teacher_area:
-				teacher_area.set_deferred("disabled", true)
 		else:
 			teacher.visible = true
-			var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
-			if teacher_area:
-				teacher_area.set_deferred("disabled", false)
 		
 		# Conectar señal del teacher para cargar el desafío
 		if not teacher.request_challenge.is_connected(_on_teacher_request_challenge):
@@ -34,29 +28,17 @@ func _on_book_warning_accepted():
 	# Ocultar NPCs de lectura
 	if wise_old_man:
 		wise_old_man.visible = false
-		var wom_area = wise_old_man.get_node_or_null("Area2D/CollisionShape2D")
-		if wom_area:
-			wom_area.set_deferred("disabled", true)
 			
 	if robot_assistant:
 		robot_assistant.visible = false
-		var robot_area = robot_assistant.get_node_or_null("Area2D/CollisionShape2D")
-		if robot_area:
-			robot_area.set_deferred("disabled", true)
 	
 	# Si existe el Book Interaction (el sprite del libro en el suelo), ocultarlo también
 	if book_interaction:
 		book_interaction.visible = false
-		var book_area = book_interaction.get_node_or_null("Area2D/CollisionShape2D")
-		if book_area:
-			book_area.set_deferred("disabled", true)
 			
 	# Activar el Teacher
 	if teacher:
 		teacher.visible = true
-		var teacher_area = teacher.get_node_or_null("Area2D/CollisionShape2D")
-		if teacher_area:
-			teacher_area.set_deferred("disabled", false)
 
 func _on_teacher_request_challenge(context):
 	# En el futuro, inyectar el texture_teacher al GameSession o pasarlo al SceneManager

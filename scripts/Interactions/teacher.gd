@@ -16,6 +16,8 @@ var player_in_range = false
 @onready var area_2d = $Area2D if has_node("Area2D") else null
 
 func _ready():
+	visibility_changed.connect(_on_visibility_changed)
+	
 	if anim_sprite:
 		anim_sprite.play(character_pose)
 			
@@ -33,6 +35,9 @@ func _ready():
 	if area_2d:
 		area_2d.body_entered.connect(_on_body_entered)
 		area_2d.body_exited.connect(_on_body_exited)
+		
+	# Alinear colisiones al estado inicial
+	_on_visibility_changed()
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -71,3 +76,16 @@ func _on_dialog_confirmed():
 
 func _on_dialog_canceled():
 	SceneManager.is_ui_open = false
+
+func _on_visibility_changed():
+	if not visible:
+		player_in_range = false
+		if prompt_bubble:
+			prompt_bubble.visible = false
+	_set_collision_shapes_disabled(self, not visible)
+
+func _set_collision_shapes_disabled(node: Node, should_disable: bool):
+	if node is CollisionShape2D:
+		node.set_deferred("disabled", should_disable)
+	for child in node.get_children():
+		_set_collision_shapes_disabled(child, should_disable)

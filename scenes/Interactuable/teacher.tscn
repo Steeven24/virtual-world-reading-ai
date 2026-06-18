@@ -208,12 +208,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_teacher"]
 radius = 70.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_japff"]
+size = Vector2(68, 34)
+
 [node name="Teacher" type="Node2D" unique_id=1346007177]
-y_sort_enabled = true
+z_as_relative = false
 texture_filter = 1
 script = ExtResource("2_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=714753353]
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, -32)
 scale = Vector2(2, 2)
@@ -223,6 +227,7 @@ frame_progress = 0.88072014
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=1196192990]
 visible = false
+z_as_relative = false
 texture_filter = 1
 position = Vector2(0, -100)
 scale = Vector2(0.9, 1)
@@ -236,8 +241,11 @@ sprite_frames = SubResource("SpriteFrames_udwgv")
 autoplay = "default"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1680839064]
+position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2131278126]
+y_sort_enabled = true
+position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_teacher")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1231486270]
@@ -253,3 +261,10 @@ ok_button_text = "Sí"
 dialog_text = "¿Estás seguro de que deseas empezar el desafío?"
 dialog_autowrap = true
 cancel_button_text = "No"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2125058120]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2029446633]
+position = Vector2(0, 31)
+shape = SubResource("RectangleShape2D_japff")

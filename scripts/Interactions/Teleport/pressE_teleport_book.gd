@@ -11,6 +11,8 @@ func change_scene():
 	SceneManager.transition_to(target_scene_path)
 
 func _ready():
+	visibility_changed.connect(_on_visibility_changed)
+	
 	$Book/Area2D/message.visible = false
 	# Conectamos desde el nodo que tiene la señal ($Area2D)
 	$Book/Area2D.body_entered.connect(_on_body_entered)
@@ -21,6 +23,9 @@ func _ready():
 	$Book/Area2D/confirm.visibility_changed.connect(
 		func(): if not $Book/Area2D/confirm.visible: _on_dialog_closed()
 	)
+	
+	# Alinear colisiones al estado inicial
+	_on_visibility_changed()
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -109,6 +114,21 @@ func _on_dialog_closed():
 func _on_dialog_confirmed():
 		_on_dialog_closed()
 		change_scene()
+
+func _on_visibility_changed():
+	if not visible:
+		player_in_range = false
+		if has_node("Book/Area2D/message"):
+			$Book/Area2D/message.visible = false
+		if has_node("Speech bubble"):
+			$"Speech bubble".visible = false
+	_set_collision_shapes_disabled(self, not visible)
+
+func _set_collision_shapes_disabled(node: Node, should_disable: bool):
+	if node is CollisionShape2D:
+		node.set_deferred("disabled", should_disable)
+	for child in node.get_children():
+		_set_collision_shapes_disabled(child, should_disable)
 	
 		
 

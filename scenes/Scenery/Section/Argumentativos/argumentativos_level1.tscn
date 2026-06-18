@@ -97,7 +97,7 @@ scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("RectangleShape2D_cirqj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=229991541]
-polygon = PackedVector2Array(42.22849, 676.9355, 108.77035, 676.9355, 108.77035, 353.18372, 174.03256, 353.18372, 174.03256, 563.0465, 531.05524, 563.0465, 531.05524, 368.53955, 1530.4628, 368.53955, 1530.4628, 281.52325, 44.787792, 278.96396)
+polygon = PackedVector2Array(42.22849, 676.9355, 108.77035, 676.9355, 108.77035, 353.18372, 174.03256, 353.18372, 174.03256, 563.0465, 537.4535, 563.0465, 537.4535, 368.53955, 1530.4628, 368.53955, 1530.4628, 281.52325, 44.787792, 278.96396)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=202623376]
 position = Vector2(555.36865, 56.30465)
@@ -124,7 +124,7 @@ visible = false
 ruta_texto = ""
 
 [node name="Teacher" parent="." unique_id=1696507402 instance=ExtResource("7_teacher")]
-position = Vector2(612, 391)
+position = Vector2(494, 508)
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("1_omdln")]
 position = Vector2(615, 502)
