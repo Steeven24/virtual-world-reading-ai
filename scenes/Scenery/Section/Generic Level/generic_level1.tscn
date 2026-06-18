@@ -10,37 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://dx1omrgl125if" path="res://scenes/Interactuable/robot_assistant.tscn" id="8_robot"]
 [ext_resource type="PackedScene" uid="uid://da2582vjmiqo3" path="res://scenes/Button/button_home.tscn" id="9_phys2"]
 [ext_resource type="PackedScene" uid="uid://2pfpyxswjbob" path="res://scenes/Area/return_lobby_area.tscn" id="10_i2itl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_omdln"]
-size = Vector2(651.6221, 58.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2vi6"]
-size = Vector2(623.75, 92.5)
+[ext_resource type="Texture2D" uid="uid://beq5dpqhvxhei" path="res://assets/Scenery/Background/Books/books7.png" id="11_3s056"]
+[ext_resource type="Texture2D" uid="uid://ccu2j655cljus" path="res://assets/Scenery/Background/Flowerpot/flowerpot4.png" id="12_3wpdv"]
+[ext_resource type="Texture2D" uid="uid://ehhr1f0ud7xb" path="res://assets/Scenery/Background/Flowerpot/flowerpot5.png" id="13_qb2sr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
 size = Vector2(469, 703)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
-a = Vector2(360.88312, -174.89941)
-b = Vector2(-77, 221.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
-size = Vector2(470.88953, 188)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
-size = Vector2(491.25, 119.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
-size = Vector2(309, 84)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0pav"]
-size = Vector2(119, 425)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfliw"]
-size = Vector2(275.8287, 19.528374)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cirqj"]
-size = Vector2(67.9725, 66.60445)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by13k"]
 size = Vector2(224.98145, 108.53314)
@@ -61,55 +36,19 @@ position = Vector2(556, 455)
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
 scale = Vector2(0.78146297, 0.78146297)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(326.81107, 823.25006)
-shape = SubResource("RectangleShape2D_omdln")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
-position = Vector2(327.875, 748.25)
-shape = SubResource("RectangleShape2D_k2vi6")
-
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
 position = Vector2(224.5, 341.5)
 shape = SubResource("RectangleShape2D_a8kxi")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
-position = Vector2(508, 319.5)
-shape = SubResource("SegmentShape2D_lfliw")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
-position = Vector2(1376.9047, 126.68546)
-shape = SubResource("RectangleShape2D_yon38")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
-position = Vector2(1367.9471, 811.2988)
-shape = SubResource("RectangleShape2D_68003")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
-position = Vector2(1474.1581, 699.9692)
-shape = SubResource("RectangleShape2D_pculv")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
-position = Vector2(1559.8948, 446.59827)
-shape = SubResource("RectangleShape2D_o0pav")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
-position = Vector2(1200.7817, 227.9746)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_lfliw")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=32384643]
-position = Vector2(1195.7461, 266.79572)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_cirqj")
-
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D" unique_id=279967999]
-position = Vector2(1016.043, 102.37209)
+position = Vector2(-148.43951, 227.77791)
 shape = SubResource("RectangleShape2D_by13k")
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=726922087]
+polygon = PackedVector2Array(776.7482, 920.0692, 776.7482, 875.2814, 687.17267, 875.2814, 687.17267, 810.01917, 53.74535, 810.01917, 53.74535, 740.918, 464.51337, 739.63837, 464.51337, 650.0628, 464.51337, 433.80176, 532.3349, 433.80176, 532.3349, 474.75058, 561.76685, 490.10638, 598.8768, 470.91162, 598.8768, 438.92035, 565.60583, 427.4035, 579.682, 392.8529, 702.5285, 326.31104, 723.0029, 346.78546, 788.26514, 319.91278, 810.01917, 258.48953, 820.2564, 221.37965, 911.11163, 221.37965, 935.425, 235.45581, 1092.8221, 235.45581, 1092.8221, 184.26978, 1128.6523, 184.26978, 1128.6523, 322.4721, 1149.1267, 365.98022, 1167.0419, 365.98022, 1167.0419, 351.90408, 1243.8209, 351.90408, 1245.1006, 418.44592, 1312.9221, 419.7256, 1312.9221, 350.62442, 1396.0994, 350.62442, 1397.379, 364.7006, 1430.65, 364.7006, 1430.65, 264.8878, 1526.6238, 264.8878, 1526.6238, 392.8529, 1507.4291, 392.8529, 1508.7087, 798.5023, 1315.4814, 798.5023, 1315.4814, 816.4174, 1126.093, 817.6971, 1126.093, 877.8407, 1013.4837, 877.8407, 1013.4837, 921.3488, 1640.5128, 921.3488, 1639.2332, -1.2796512, 1.2796512, 0, 1.2796512, 921.3488)
+
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_k2vi6")]
-y_sort_enabled = true
-position = Vector2(934, 200)
+position = Vector2(995, 200)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
@@ -120,16 +59,16 @@ ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_yj0pt")]
 y_sort_enabled = true
-position = Vector2(472, 205)
+position = Vector2(486, 231)
 character_pose = "derecha"
 
 [node name="Teacher" parent="." unique_id=1155322486 instance=ExtResource("7_teacher")]
 y_sort_enabled = true
-position = Vector2(637, 179)
+position = Vector2(800, 295)
 
 [node name="RobotAssistant" parent="." unique_id=721379532 instance=ExtResource("8_robot")]
 y_sort_enabled = true
-position = Vector2(1054, 508)
+position = Vector2(900, 455)
 
 [node name="ButtonHome" parent="." unique_id=1743225368 instance=ExtResource("9_phys2")]
 offset_left = 1200.0
@@ -139,3 +78,42 @@ offset_bottom = 640.0
 
 [node name="ReturnLobbyArea" parent="." unique_id=758289689 instance=ExtResource("10_i2itl")]
 position = Vector2(696, 713)
+
+[node name="Books7" type="Sprite2D" parent="." unique_id=439945429]
+texture_filter = 1
+position = Vector2(1073.7169, 608.62494)
+scale = Vector2(0.85902613, 0.90639794)
+texture = ExtResource("11_3s056")
+
+[node name="Flowerpot5" type="Sprite2D" parent="." unique_id=1973078021]
+texture_filter = 1
+position = Vector2(380.6952, 638.5)
+scale = Vector2(0.9195375, 0.9789472)
+texture = ExtResource("12_3wpdv")
+region_enabled = true
+region_rect = Rect2(191.56584, 70.987915, 384.43414, 95.09108)
+
+[node name="Flowerpot4" type="Sprite2D" parent="." unique_id=1811535884]
+texture_filter = 1
+position = Vector2(116.57295, 607.74994)
+scale = Vector2(0.92458737, 0.95398796)
+texture = ExtResource("12_3wpdv")
+hframes = 3
+
+[node name="Flowerpot6" type="Sprite2D" parent="." unique_id=956879684]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(402, 305)
+scale = Vector2(0.2457627, 0.24576272)
+texture = ExtResource("13_qb2sr")
+centered = false
+region_enabled = true
+region_rect = Rect2(615.6013, 0, 328.39868, 353.50208)
+
+[node name="Flowerpot7" type="Sprite2D" parent="." unique_id=1772210534]
+texture_filter = 1
+position = Vector2(330.5, 489.3568)
+scale = Vector2(0.24744377, 0.2472143)
+texture = ExtResource("13_qb2sr")
+region_enabled = true
+region_rect = Rect2(67.14258, 387.17847, 489.5951, 731.25415)
