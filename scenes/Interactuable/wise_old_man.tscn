@@ -188,6 +188,7 @@ sprite_frames = SubResource("SpriteFrames_7tee3")
 animation = &"izquierda"
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=565151310]
+z_index = 1
 texture_filter = 1
 position = Vector2(-6, -130)
 scale = Vector2(0.9, 1)
