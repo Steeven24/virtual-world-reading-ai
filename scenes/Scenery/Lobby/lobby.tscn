@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bttvygib4xf5n" path="res://assets/Scenery/Background/Lobby/table2.png" id="6_usxdn"]
 [ext_resource type="Texture2D" uid="uid://cx030a2etrec" path="res://assets/Scenery/Background/Lobby/box.png" id="7_6ukcv"]
 [ext_resource type="Texture2D" uid="uid://b5bt8njqvogpn" path="res://assets/Scenery/Background/Lobby/door.png" id="8_3axdl"]
+[ext_resource type="Texture2D" uid="uid://boh884dxsuuiq" path="res://assets/Scenery/Background/Lobby/desk.png" id="9_b7erw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -25,37 +26,7 @@ script = ExtResource("6_lobby_script")
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
-position = Vector2(494, 1061)
-
-[node name="Textos Descriptivos" parent="." unique_id=1672341599 instance=ExtResource("3_uogk4")]
-position = Vector2(448, 1257)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Descriptivo"
-
-[node name="Textos Narrativos" parent="." unique_id=603618769 instance=ExtResource("3_uogk4")]
-position = Vector2(652, 536)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Narrativo"
-
-[node name="Textos Expositivos" parent="." unique_id=1701415898 instance=ExtResource("3_uogk4")]
-position = Vector2(1637, 497)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Expositivo"
-
-[node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2592, 766)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Instructivo"
-
-[node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
-position = Vector2(2371, 1279)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Argumentativo"
-
-[node name="Tutorial" parent="." unique_id=263230981 instance=ExtResource("3_uogk4")]
-visible = false
-position = Vector2(1402, 826)
-is_tutorial_trigger = true
+position = Vector2(2248, 1065)
 
 [node name="ScoreHUD" parent="." unique_id=1793516881 instance=ExtResource("5_score")]
 
@@ -78,6 +49,9 @@ shape = SubResource("RectangleShape2D_3axdl")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Room things" unique_id=1974272106]
 position = Vector2(-1560.0762, 45.94995)
 shape = SubResource("RectangleShape2D_b7erw")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Room things" unique_id=123850782]
+polygon = PackedVector2Array(3197.2288, 915.7405, 3232.6194, 1038.2461, 3450.407, 1038.2461, 3485.7976, 915.7405)
 
 [node name="Table2" type="Sprite2D" parent="." unique_id=1250136528]
 y_sort_enabled = true
@@ -111,3 +85,48 @@ scale = Vector2(0.28074604, 0.28074604)
 texture = ExtResource("8_3axdl")
 region_enabled = true
 region_rect = Rect2(0, 35.81841, 1071, 1219.7881)
+
+[node name="Door2" type="Sprite2D" parent="." unique_id=163722926]
+y_sort_enabled = true
+position = Vector2(2378.0002, 997.00006)
+scale = Vector2(0.28074604, 0.28074604)
+texture = ExtResource("8_3axdl")
+region_enabled = true
+region_rect = Rect2(0, 35.81841, 1071, 1219.7881)
+
+[node name="Desk" type="Sprite2D" parent="." unique_id=655018771]
+texture_filter = 1
+position = Vector2(2374.0476, 1300)
+scale = Vector2(0.655, 0.6549999)
+texture = ExtResource("9_b7erw")
+
+[node name="Textos Descriptivos" parent="." unique_id=1672341599 instance=ExtResource("3_uogk4")]
+position = Vector2(448, 1257)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Descriptivo"
+
+[node name="Textos Narrativos" parent="." unique_id=603618769 instance=ExtResource("3_uogk4")]
+position = Vector2(652, 536)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Narrativo"
+
+[node name="Textos Expositivos" parent="." unique_id=1701415898 instance=ExtResource("3_uogk4")]
+position = Vector2(1637, 497)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Expositivo"
+
+[node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
+position = Vector2(2592, 766)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Instructivo"
+
+[node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
+z_index = 1
+position = Vector2(2371, 1281)
+target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
+typology = "Argumentativo"
+
+[node name="Tutorial" parent="." unique_id=263230981 instance=ExtResource("3_uogk4")]
+visible = false
+position = Vector2(1402, 826)
+is_tutorial_trigger = true
