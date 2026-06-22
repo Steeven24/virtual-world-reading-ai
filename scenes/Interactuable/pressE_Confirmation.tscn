@@ -131,6 +131,7 @@ cancel_button_text = "No"
 position = Vector2(0.119628906, -93.86597)
 scale = Vector2(11.9226675, 11.9226675)
 shape = SubResource("RectangleShape2D_qqvbj")
+disabled = true
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=2141102064]
 visible = false

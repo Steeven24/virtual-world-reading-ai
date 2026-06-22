@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dnu525gld5vcf" path="res://scenes/Scenery/Lobby/scenery.tscn" id="1_htkf2"]
 [ext_resource type="PackedScene" uid="uid://b8g1p0kfql5y2" path="res://scenes/Interactuable/pressE_Confirmation.tscn" id="3_uogk4"]
 [ext_resource type="PackedScene" uid="uid://2jcqrt4rs32n" path="res://scenes/Player/player.tscn" id="4_i0rb6"]
+[ext_resource type="Texture2D" uid="uid://bgxn8lrhtyk4m" path="res://assets/Scenery/Background/Lobby/table4.png" id="5_770n0"]
 [ext_resource type="PackedScene" uid="uid://cb8m6kx16saci" path="res://scenes/Scenery/Lobby/score_hud.tscn" id="5_score"]
 [ext_resource type="Script" uid="uid://bdhcos0sp5xks" path="res://scripts/Lobby/lobby.gd" id="6_lobby_script"]
 [ext_resource type="Texture2D" uid="uid://bttvygib4xf5n" path="res://assets/Scenery/Background/Lobby/table2.png" id="6_usxdn"]
@@ -12,6 +13,20 @@
 [ext_resource type="Texture2D" uid="uid://boh884dxsuuiq" path="res://assets/Scenery/Background/Lobby/desk.png" id="9_b7erw"]
 [ext_resource type="Texture2D" uid="uid://mg6oxswoh5e6" path="res://assets/Scenery/Background/Lobby/chair.png" id="10_ux4is"]
 [ext_resource type="Texture2D" uid="uid://wxnayw2w4w13" path="res://assets/Scenery/Background/Lobby/library.png" id="12_u7wr6"]
+[ext_resource type="Texture2D" uid="uid://jan7r0jheah5" path="res://assets/Scenery/Background/Lobby/panel.png" id="13_egttk"]
+[ext_resource type="Texture2D" uid="uid://cyih3dku3jndc" path="res://assets/Scenery/Background/Lobby/para la estrella.png" id="14_ti0at"]
+[ext_resource type="Texture2D" uid="uid://cnyomogr1s14y" path="res://assets/Scenery/Background/lobby.png" id="15_tj1g6"]
+[ext_resource type="Texture2D" uid="uid://b7qjhfjxxhdql" path="res://assets/Scenery/Background/Lobby/printer2.png" id="16_tj1g6"]
+[ext_resource type="Texture2D" uid="uid://dv4gj8q3b0ckh" path="res://assets/Scenery/Background/Lobby/table1.png" id="17_atkks"]
+[ext_resource type="Texture2D" uid="uid://dr4woflxfbh3r" path="res://assets/Scenery/Background/Lobby/table3.png" id="18_8xtu8"]
+[ext_resource type="Texture2D" uid="uid://do43540xuqoko" path="res://assets/Scenery/Background/Lobby/table5.png" id="20_vid1l"]
+[ext_resource type="Texture2D" uid="uid://eajc5od6mpn4" path="res://assets/Scenery/Background/Lobby/table6.png" id="21_te3hi"]
+[ext_resource type="Texture2D" uid="uid://qy4mxgd025w7" path="res://assets/Scenery/Background/Lobby/table7.png" id="22_ermok"]
+[ext_resource type="Texture2D" uid="uid://bb25ngpbf30fu" path="res://assets/Scenery/Background/Lobby/table8.png" id="23_28otw"]
+[ext_resource type="Texture2D" uid="uid://cfkmmcouk7g36" path="res://assets/Scenery/Background/Lobby/table9.png" id="24_8enix"]
+[ext_resource type="Texture2D" uid="uid://cdjlpgf1l2o5j" path="res://assets/Scenery/Background/Lobby/table10.png" id="25_se8iq"]
+[ext_resource type="Texture2D" uid="uid://ds0ept47lsdm2" path="res://assets/Scenery/Background/Lobby/table11.png" id="26_d13sj"]
+[ext_resource type="Texture2D" uid="uid://iuvpgyi53w2m" path="res://assets/Scenery/Background/Lobby/telescope.png" id="27_on5rs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -22,6 +37,15 @@ size = Vector2(192.3982, 171.50851)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7erw"]
 size = Vector2(280.40213, 35.3907)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on5rs"]
+size = Vector2(582.1384, 277.67944)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ye3i6"]
+size = Vector2(284.46198, 106.860596)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jj841"]
+size = Vector2(71.35698, 1.8330078)
+
 [node name="Lobby" type="Node2D" unique_id=770369048]
 y_sort_enabled = true
 script = ExtResource("6_lobby_script")
@@ -29,7 +53,7 @@ script = ExtResource("6_lobby_script")
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
-position = Vector2(2373, 666)
+position = Vector2(1811.124, 1286)
 
 [node name="ScoreHUD" parent="." unique_id=1793516881 instance=ExtResource("5_score")]
 
@@ -55,6 +79,48 @@ shape = SubResource("RectangleShape2D_b7erw")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Room things" unique_id=123850782]
 polygon = PackedVector2Array(3197.2288, 915.7405, 3232.6194, 1038.2461, 3450.407, 1038.2461, 3485.7976, 915.7405)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Room things" unique_id=1853538422]
+z_index = 1
+polygon = PackedVector2Array(1337.8645, -61.582764, 1337.8645, 224.26392, 1650.9343, 224.26392, 1650.9343, 338.60254, 1816.9978, 338.60254, 1816.9978, 226.98608, 1917.7249, 226.98608, 1917.7249, -86.083984, 1852.3884, -86.083984, 1852.3884, -211.31201, 1743.4944, -211.31201, 1743.4944, -61.582764)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Room things" unique_id=707414801]
+position = Vector2(532.0491, -126.919205)
+polygon = PackedVector2Array(498.18994, -364.79468, 591.9407, -314.76123, 672.4199, -381.12866, 672.4199, -484.57813, 626.14014, -484.57813, 604.3613, -528.1355, 628.8623, -675.14246, 593.47217, -732.31177, 511.80176, -827.594, 438.2981, -882.0409, 364.79468, -931.0432, 269.51245, -960.989, 258.62305, -1023.603, 247.73364, -1094.3842, 190.56445, -1110.7183, 138.83984, -1091.6617, 127.95044, -1029.0477, 78.948, -960.989, -57.169434, -879.3186, -166.06323, -773.147, -234.12207, -661.53076, -234.12207, -555.35913, -130.67285, -424.68628, -8.166992, -332.12646, 73.50342, -310.34766, 182.39722, -291.29126, 343.01587, -313.07007, 424.68628, -340.29346, 498.18994, -435.57568)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Room things" unique_id=1946097993]
+polygon = PackedVector2Array(47.470947, -1194.0798, 235.31299, -1194.0798, 235.31299, -1346.5314, 360.54102, -1346.5314, 360.54102, -1618.7662, 229.86816, -1618.7662, 229.86816, -1741.2719, 138.3754, -1763.0507, 47.470947, -1735.8271, 47.470947, -1618.7662, -61.423096, -1618.7662, -61.423096, -1346.5314, 47.470947, -1346.5314)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Room things" unique_id=930842985]
+position = Vector2(1177.2457, 0)
+polygon = PackedVector2Array(235.31299, -1346.5314, 360.54102, -1346.5314, 360.54102, -1618.7662, 229.86816, -1618.7662, 229.86816, -1741.2719, 138.3754, -1763.0507, 47.470947, -1735.8271, 47.470947, -1618.7662, -89.83789, -1618.7662, -89.83789, -1346.5314, 47.470947, -1346.5314)
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="Room things" unique_id=1589632835]
+position = Vector2(-16.29322, 3.7252903e-08)
+polygon = PackedVector2Array(1767.9954, -1106.9646, 1615.5437, -1106.9646, 1615.5437, -1891.0011, 1767.9954, -1891.0011)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Room things" unique_id=440330107]
+position = Vector2(-2614.9863, 368.05142)
+polygon = PackedVector2Array(73.50345, -1140.1672, 212.34323, -1140.1672, 253.17847, -1229.9111, 253.17844, -1317.12, 419.24173, -1317.12, 419.24173, -1586.6324, 250.45609, -1586.6324, 250.45609, -1643.8018, 138.83981, -1714.5829, 47.470947, -1643.8018, 47.470947, -1586.6324, -130.67273, -1586.6324, -130.67273, -1317.12, 24.50113, -1317.12, 24.50113, -1229.8616)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Room things" unique_id=1394395445]
+polygon = PackedVector2Array(-1286.4801, -1098.7976, -1428.0422, -1175.0234, -1428.0422, -1188.6351, -1359.9835, -1194.0798, -1289.2024, -1248.5267, -1289.2024, -1332.9196, -1501.5457, -1436.3689, -1637.6631, -1436.3689, -1637.6631, -1507.1499, -1506.9904, -1507.1499, -1354.5388, -1635.1003, -1264.7013, -1572.4863, -1177.586, -1534.3734, -1199.3649, -1420.0348, -1199.3649, -1175.0234)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Room things" unique_id=1675776487]
+z_index = 1
+position = Vector2(3926.5955, -693.1677)
+shape = SubResource("RectangleShape2D_on5rs")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Room things" unique_id=1029809035]
+position = Vector2(-1892.3134, 747.8716)
+shape = SubResource("RectangleShape2D_ye3i6")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Room things" unique_id=591087179]
+position = Vector2(-2070.8047, 704.3137)
+shape = SubResource("RectangleShape2D_jj841")
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Room things" unique_id=1128486188]
+polygon = PackedVector2Array(-987.0217, 1098.1377, -1142.1956, 1098.1377, -1142.1956, 937.5193, -2917.167, 937.5193, -2917.167, 1133.5283, -987.0217, 1133.5283)
 
 [node name="Table2" type="Sprite2D" parent="." unique_id=1250136528]
 y_sort_enabled = true
@@ -109,6 +175,7 @@ scale = Vector2(0.39150953, 0.39150953)
 texture = ExtResource("9_5hofe")
 
 [node name="Textos Descriptivos" parent="." unique_id=1672341599 instance=ExtResource("3_uogk4")]
+z_index = 1
 position = Vector2(448, 1257)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Descriptivo"
@@ -124,7 +191,7 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Expositivo"
 
 [node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2592, 766)
+position = Vector2(2592, 768)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Instructivo"
 
@@ -135,8 +202,7 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Argumentativo"
 
 [node name="Tutorial" parent="." unique_id=263230981 instance=ExtResource("3_uogk4")]
-visible = false
-position = Vector2(1402, 826)
+position = Vector2(1409, 821)
 is_tutorial_trigger = true
 
 [node name="Chair" type="Sprite2D" parent="." unique_id=1596693916]
@@ -153,3 +219,286 @@ texture = ExtResource("12_u7wr6")
 position = Vector2(2372.6458, 481.75)
 scale = Vector2(0.7108051, 0.7108051)
 texture = ExtResource("12_u7wr6")
+
+[node name="Panel" type="Sprite2D" parent="." unique_id=1679457539]
+position = Vector2(207.98729, 1367.2148)
+scale = Vector2(0.28677967, 0.2867797)
+texture = ExtResource("13_egttk")
+region_enabled = true
+region_rect = Rect2(0, 485, 794, 671)
+
+[node name="ParaLaEstrella" type="Sprite2D" parent="." unique_id=1218298656]
+top_level = true
+position = Vector2(2708.9998, 1395)
+scale = Vector2(0.38957623, 0.48203036)
+texture = ExtResource("14_ti0at")
+
+[node name="Parche2" type="Sprite2D" parent="." unique_id=1337549684]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(2742.5, 1295)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(35, 1405, 77, 80)
+
+[node name="Parche" type="Sprite2D" parent="." unique_id=206467003]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(2410, 838)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+region_enabled = true
+region_rect = Rect2(433, 887, 110, 205)
+
+[node name="Parche3" type="Sprite2D" parent="." unique_id=1010865039]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(2676, 1310)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(2404, 1436, 112, 48)
+
+[node name="Box2" type="Sprite2D" parent="." unique_id=54600011]
+position = Vector2(2665, 1419.0001)
+scale = Vector2(0.19027244, 0.19027245)
+texture = ExtResource("7_6ukcv")
+
+[node name="Printer2" type="Sprite2D" parent="." unique_id=916889077]
+texture_filter = 1
+position = Vector2(2000.2228, 1370.0001)
+scale = Vector2(0.18359365, 0.18359365)
+texture = ExtResource("16_tj1g6")
+
+[node name="Table4" type="Sprite2D" parent="." unique_id=29897972]
+position = Vector2(645.62177, 1363.2471)
+scale = Vector2(0.39352617, 0.40021)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(602, 266, 364, 461)
+
+[node name="Table1" type="Sprite2D" parent="." unique_id=523056761]
+position = Vector2(449.79654, 1398.625)
+scale = Vector2(0.4008472, 0.4042369)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(53, 439, 480, 295)
+
+[node name="Parche4" type="Sprite2D" parent="." unique_id=1569807640]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(650, 1148)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(497, 1246, 89, 58)
+
+[node name="Parche5" type="Sprite2D" parent="." unique_id=620539015]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(606, 1181)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(497, 1246, 89, 58)
+
+[node name="Parche6" type="Sprite2D" parent="." unique_id=1507399548]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(617, 1152)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(497, 1246, 89, 58)
+
+[node name="Parche7" type="Sprite2D" parent="." unique_id=1885231793]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(672, 1181)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(497, 1246, 89, 58)
+
+[node name="Table5" type="Sprite2D" parent="." unique_id=2105156047]
+texture_filter = 1
+position = Vector2(823.32367, 1373.4509)
+scale = Vector2(0.41676304, 0.4238415)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1131, 340, 200, 385)
+
+[node name="Parche" type="Sprite2D" parent="Table5" unique_id=1714969481]
+texture_filter = 1
+position = Vector2(-7.3851514, 63.091217)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche2" type="Sprite2D" parent="Table5" unique_id=679756374]
+texture_filter = 1
+position = Vector2(-7.385151, 83.87341)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche3" type="Sprite2D" parent="Table5" unique_id=211316225]
+texture_filter = 1
+position = Vector2(-7.3851514, 104.65557)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche4" type="Sprite2D" parent="Table5" unique_id=1525246702]
+texture_filter = 1
+position = Vector2(-7.385151, 125.43777)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche5" type="Sprite2D" parent="Table5" unique_id=722049285]
+texture_filter = 1
+position = Vector2(-7.3851514, 147.12427)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche6" type="Sprite2D" parent="Table5" unique_id=2026207058]
+texture_filter = 1
+position = Vector2(-7.385151, 167.90646)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Parche7" type="Sprite2D" parent="Table5" unique_id=1497151853]
+texture_filter = 1
+position = Vector2(-7.385151, 175.88893)
+scale = Vector2(1.0214169, 1.2605277)
+texture = ExtResource("17_atkks")
+region_enabled = true
+region_rect = Rect2(1163, 584, 121, 18)
+
+[node name="Table6" type="Sprite2D" parent="." unique_id=1469425096]
+position = Vector2(1733.0001, 1052.0001)
+scale = Vector2(0.54200816, 0.54200816)
+texture = ExtResource("18_8xtu8")
+
+[node name="Table7" type="Sprite2D" parent="." unique_id=1866365728]
+position = Vector2(1137.9775, 1397.917)
+scale = Vector2(0.4059806, 0.3941909)
+texture = ExtResource("5_770n0")
+
+[node name="Table8" type="Sprite2D" parent="." unique_id=2040722944]
+position = Vector2(1690.1726, 1388.4758)
+scale = Vector2(0.42797387, 0.42797393)
+texture = ExtResource("20_vid1l")
+
+[node name="Table10" type="Sprite2D" parent="." unique_id=405973817]
+texture_filter = 1
+position = Vector2(1690, 809.00006)
+scale = Vector2(0.78379315, 0.78283894)
+texture = ExtResource("21_te3hi")
+offset = Vector2(-181.13232, -85.2666)
+region_enabled = true
+region_rect = Rect2(368, 0, 105, 470)
+
+[node name="Table9" type="Sprite2D" parent="." unique_id=1506504472]
+texture_filter = 1
+position = Vector2(1376, 711)
+scale = Vector2(0.78379315, 0.782839)
+texture = ExtResource("21_te3hi")
+offset = Vector2(0.037841797, 39.918823)
+region_enabled = true
+region_rect = Rect2(34, 0, 334, 470)
+
+[node name="Table11" type="Sprite2D" parent="." unique_id=1733461506]
+texture_filter = 1
+position = Vector2(1194.1874, 489.76657)
+scale = Vector2(0.24175665, 0.24175668)
+texture = ExtResource("22_ermok")
+
+[node name="Table12" type="Sprite2D" parent="." unique_id=492104098]
+position = Vector2(1632, 459)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_28otw")
+region_enabled = true
+region_rect = Rect2(0, 0, 464, 419)
+
+[node name="Table13" type="Sprite2D" parent="." unique_id=1313063073]
+position = Vector2(1710.375, 598.4476)
+scale = Vector2(0.5080645, 0.50806457)
+texture = ExtResource("23_28otw")
+region_enabled = true
+region_rect = Rect2(344, 422, 93, 137)
+
+[node name="Table14" type="Sprite2D" parent="." unique_id=480943797]
+position = Vector2(235.88477, 632.8802)
+scale = Vector2(0.48340628, 0.48340636)
+texture = ExtResource("24_8enix")
+
+[node name="Table15" type="Sprite2D" parent="." unique_id=1823939296]
+position = Vector2(668, 474.99997)
+scale = Vector2(0.5058548, 0.5058547)
+texture = ExtResource("25_se8iq")
+offset = Vector2(0.72094727, 27.676086)
+region_enabled = true
+region_rect = Rect2(116, 0, 311, 327)
+
+[node name="Table17" type="Sprite2D" parent="." unique_id=996597326]
+position = Vector2(566.8256, 475.29727)
+scale = Vector2(0.5058548, 0.5058547)
+texture = ExtResource("25_se8iq")
+offset = Vector2(0, 53.5)
+region_enabled = true
+region_rect = Rect2(29, 141, 85, 107)
+
+[node name="Table16" type="Sprite2D" parent="." unique_id=1164695415]
+position = Vector2(618, 572)
+scale = Vector2(0.5058548, 0.5058547)
+texture = ExtResource("25_se8iq")
+offset = Vector2(41.513916, 85.00476)
+region_enabled = true
+region_rect = Rect2(0, 327, 427, 171)
+
+[node name="Table18" type="Sprite2D" parent="." unique_id=1592232070]
+position = Vector2(2595.907, 752.82837)
+scale = Vector2(0.4267203, 0.42672032)
+texture = ExtResource("26_d13sj")
+
+[node name="Telescope" type="Sprite2D" parent="." unique_id=636377207]
+position = Vector2(447.3186, 1259.6139)
+scale = Vector2(0.8324869, 0.8324869)
+texture = ExtResource("27_on5rs")
+
+[node name="Parche9" type="Sprite2D" parent="." unique_id=1785038708]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(1917.9952, 1008.75)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(1863, 1118, 38, 82)
+
+[node name="Parche8" type="Sprite2D" parent="." unique_id=1625069702]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(1919.4161, 1116.5146)
+texture = ExtResource("15_tj1g6")
+offset = Vector2(0, 150)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(879, 1190, 31, 153)
