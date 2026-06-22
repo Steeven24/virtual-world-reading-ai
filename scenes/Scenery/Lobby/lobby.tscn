@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://bttvygib4xf5n" path="res://assets/Scenery/Background/Lobby/table2.png" id="6_usxdn"]
 [ext_resource type="Texture2D" uid="uid://cx030a2etrec" path="res://assets/Scenery/Background/Lobby/box.png" id="7_6ukcv"]
 [ext_resource type="Texture2D" uid="uid://b5bt8njqvogpn" path="res://assets/Scenery/Background/Lobby/door.png" id="8_3axdl"]
+[ext_resource type="Texture2D" uid="uid://cporv2mwpr1rx" path="res://assets/Scenery/Background/Lobby/exhibition.png" id="9_5hofe"]
 [ext_resource type="Texture2D" uid="uid://boh884dxsuuiq" path="res://assets/Scenery/Background/Lobby/desk.png" id="9_b7erw"]
+[ext_resource type="Texture2D" uid="uid://mg6oxswoh5e6" path="res://assets/Scenery/Background/Lobby/chair.png" id="10_ux4is"]
+[ext_resource type="Texture2D" uid="uid://wxnayw2w4w13" path="res://assets/Scenery/Background/Lobby/library.png" id="12_u7wr6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -26,7 +29,7 @@ script = ExtResource("6_lobby_script")
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
-position = Vector2(2248, 1065)
+position = Vector2(2373, 666)
 
 [node name="ScoreHUD" parent="." unique_id=1793516881 instance=ExtResource("5_score")]
 
@@ -100,6 +103,11 @@ position = Vector2(2374.0476, 1300)
 scale = Vector2(0.655, 0.6549999)
 texture = ExtResource("9_b7erw")
 
+[node name="Exhibition" type="Sprite2D" parent="." unique_id=896600647]
+position = Vector2(249.66505, 424)
+scale = Vector2(0.39150953, 0.39150953)
+texture = ExtResource("9_5hofe")
+
 [node name="Textos Descriptivos" parent="." unique_id=1672341599 instance=ExtResource("3_uogk4")]
 position = Vector2(448, 1257)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
@@ -122,7 +130,7 @@ typology = "Instructivo"
 
 [node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
 z_index = 1
-position = Vector2(2371, 1281)
+position = Vector2(2371, 1286)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Argumentativo"
 
@@ -130,3 +138,18 @@ typology = "Argumentativo"
 visible = false
 position = Vector2(1402, 826)
 is_tutorial_trigger = true
+
+[node name="Chair" type="Sprite2D" parent="." unique_id=1596693916]
+position = Vector2(2373.5002, 1355.8098)
+scale = Vector2(0.13831949, 0.1383195)
+texture = ExtResource("10_ux4is")
+
+[node name="Library2" type="Sprite2D" parent="." unique_id=2054055771]
+position = Vector2(2379.7131, 472.61877)
+scale = Vector2(0.7060116, 0.7060116)
+texture = ExtResource("12_u7wr6")
+
+[node name="Library" type="Sprite2D" parent="." unique_id=778598826]
+position = Vector2(2372.6458, 481.75)
+scale = Vector2(0.7108051, 0.7108051)
+texture = ExtResource("12_u7wr6")
