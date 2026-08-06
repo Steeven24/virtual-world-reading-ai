@@ -31,6 +31,10 @@ var chat_history: Array[Dictionary] = []
 ## Máximo de mensajes en el historial local (para no sobrecargar la UI).
 const MAX_LOCAL_HISTORY: int = 20
 
+## Tipo de NPC para rastreo de interacciones ("robot" o "sabio").
+## Debe configurarse antes de enviar mensajes según el NPC activo.
+var active_npc_type: String = "robot"
+
 var _http: HTTPRequest
 var _is_requesting: bool = false
 
@@ -48,6 +52,12 @@ func _ready() -> void:
 
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
+
+## Configura el tipo de NPC activo para el rastreo de interacciones.
+func set_npc_type(npc_type: String) -> void:
+	if npc_type in ["robot", "sabio"]:
+		active_npc_type = npc_type
+		print("[NpcChatAPI] Tipo de NPC activo: %s" % active_npc_type)
 
 ## Envía un mensaje al tutor NPC. Los datos de lectura se obtienen de GameSession.
 ## Si no hay lectura activa, emite chat_request_failed.
@@ -161,6 +171,9 @@ func _on_request_completed(
 		current_session_id = session_id
 		_add_to_history("assistant", response_text)
 		chat_response_received.emit(session_id, response_text)
+		# Registrar la interacción con el NPC para métricas del dashboard
+		var reading_id: int = _get_reading_id()
+		AuthManager.save_npc_interaction(active_npc_type, reading_id)
 	else:
 		chat_request_failed.emit("Respuesta inesperada del servidor.")
 

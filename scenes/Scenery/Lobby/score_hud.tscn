@@ -124,6 +124,18 @@ theme_override_font_sizes/font_size = 18
 text = "⭐ 0 pts"
 horizontal_alignment = 1
 
+[node name="LeaderboardButton" type="Button" parent="TopBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_hud")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hud")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hud")
+text = "🏅"
+
 [node name="ToggleButton" type="Button" parent="TopBar" unique_id=1774638827]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)

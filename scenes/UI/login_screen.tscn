@@ -11,7 +11,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.06, 0.09, 1)
+color = Color(0.04, 0.045, 0.07, 1)
+
+[node name="GradientOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15, 0.1, 0.3, 0.15)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -20,58 +28,123 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(400, 0)
+[node name="MainVBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(420, 0)
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="WelcomeLabel" type="Label" parent="CenterContainer/MainVBox"]
+unique_name_in_owner = true
+horizontal_alignment = 1
+text = "¡Bienvenido al Mundo Virtual!"
+
+[node name="TitleSpacer" type="Control" parent="CenterContainer/MainVBox"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="LoginPanel" type="PanelContainer" parent="CenterContainer/MainVBox"]
+unique_name_in_owner = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/LoginPanel"]
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer"]
+theme_override_constants/separation = 6
+
+[node name="TitleIcon" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+horizontal_alignment = 1
+text = "📖"
+
+[node name="Title" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 horizontal_alignment = 1
 text = "Mundo Virtual de Lectura"
 
-[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 horizontal_alignment = 1
-text = "Inicia sesion para continuar"
+text = "Inicia sesión para continuar"
 
-[node name="Spacer1" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="Spacer1" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 14)
 
-[node name="EmailLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-text = "Correo electronico"
+[node name="EmailLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+text = "✉️ Correo electrónico"
 
-[node name="EmailInput" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+[node name="EmailInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
-placeholder_text = "alumno1@test.com"
+custom_minimum_size = Vector2(0, 42)
+placeholder_text = "alumno@ejemplo.com"
 
-[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+[node name="Spacer2" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 6)
 
-[node name="PasswordLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-text = "Contrasena"
+[node name="PasswordLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+text = "🔒 Contraseña"
 
-[node name="PasswordInput" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+[node name="PasswordInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
-placeholder_text = "........"
+custom_minimum_size = Vector2(0, 42)
+placeholder_text = "Tu contraseña"
 secret = true
 
-[node name="Spacer3" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+[node name="Spacer3" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
 
-[node name="ErrorLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="ErrorLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 horizontal_alignment = 1
 text = ""
 
-[node name="LoadingIndicator" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="LoadingIndicator" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 horizontal_alignment = 1
 text = "Cargando..."
 
-[node name="Spacer4" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+[node name="Spacer4" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 6)
 
-[node name="LoginButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="LoginButton" type="Button" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 45)
-text = "Iniciar sesion"
+custom_minimum_size = Vector2(0, 48)
+text = "🚀 Iniciar sesión"
+
+[node name="ReturnPanel" type="PanelContainer" parent="CenterContainer/MainVBox"]
+unique_name_in_owner = true
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/ReturnPanel"]
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer"]
+theme_override_constants/separation = 10
+
+[node name="ReturnIcon" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+horizontal_alignment = 1
+text = "👋"
+
+[node name="ReturnNameLabel" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+horizontal_alignment = 1
+text = "¡Hola de nuevo, Jugador!"
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="ReturnContinueButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+text = "▶ Continuar aventura"
+
+[node name="ReturnSwitchButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+text = "Usar otra cuenta"
+
+[node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox"]
+horizontal_alignment = 1
+text = "v1.0 — Mundo Virtual de Lectura"

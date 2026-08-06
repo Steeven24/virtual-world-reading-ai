@@ -234,6 +234,23 @@ func update_character(character: String) -> void:
 	print("[AuthManager] Personaje actualizado a: %s" % character)
 
 
+## Registra una interacción con un NPC (robot o sabio).
+func save_npc_interaction(npc_type: String, reading_id: int = -1) -> void:
+	if not is_authenticated:
+		return
+	var data := {"npc_type": npc_type}
+	if reading_id > 0:
+		data["reading_id"] = reading_id
+	var body := JSON.stringify(data)
+	_enqueue_request(
+		"%s/progress/npc-interaction" % ApiConfig.BASE_URL,
+		"save_npc_interaction",
+		{},
+		HTTPClient.METHOD_POST,
+		body
+	)
+
+
 ## Retorna el ID del usuario autenticado.
 func get_user_id() -> int:
 	return current_user.get("id", 0)
@@ -401,6 +418,9 @@ func _dispatch_response(req: Dictionary, data) -> void:
 		"validate_session":
 			# Validación exitosa periódica
 			pass
+
+		"save_npc_interaction":
+			print("[AuthManager] Interacción NPC registrada en la API")
 
 
 func _handle_error(req: Dictionary, error: String) -> void:

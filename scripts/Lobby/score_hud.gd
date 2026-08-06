@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var achievements_list: VBoxContainer = %AchievementsList
 @onready var toggle_button: Button = %ToggleButton
 @onready var close_button: Button = %CloseButton
+@onready var leaderboard_button: Button = %LeaderboardButton
 @onready var menu_button: Button = %MenuButton
 @onready var menu_panel: PanelContainer = %MenuPanel
 @onready var user_name_label: Label = %UserNameLabel
@@ -43,6 +44,7 @@ func _ready() -> void:
 	ProgressionManager.progression_changed.connect(_on_progression_changed)
 	toggle_button.pressed.connect(_toggle_achievements)
 	close_button.pressed.connect(_toggle_achievements)
+	leaderboard_button.pressed.connect(_show_leaderboard)
 	menu_button.pressed.connect(_toggle_menu)
 	close_menu_button.pressed.connect(_toggle_menu)
 	logout_button.pressed.connect(_on_logout_pressed)
@@ -66,6 +68,13 @@ func _toggle_achievements() -> void:
 	var panel_scene = load("res://scenes/UI/achievements_medals_panel.tscn")
 	if panel_scene:
 		var instance = panel_scene.instantiate()
+		get_tree().root.add_child(instance)
+
+
+func _show_leaderboard() -> void:
+	var lb_scene = load("res://scenes/UI/leaderboard_panel.tscn")
+	if lb_scene:
+		var instance = lb_scene.instantiate()
 		get_tree().root.add_child(instance)
 
 
