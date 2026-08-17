@@ -451,11 +451,74 @@ func get_achievements() -> Array:
 	return score_data.get("achievements", [])
 
 
+# ─── Serialización / Restauración de estado ──────────────────────────────────
+
+## Serializa el estado actual de la sesión para persistencia.
+## Usado por ReadingProgressManager para guardar al abandonar escenario.
+func serialize_state() -> Dictionary:
+	return {
+		"reading_id": current_reading.get("id", 0),
+		"typology": current_typology,
+		"current_level_index": current_level_index,
+		"current_question_index": current_question_index,
+		"reading_completed": reading_end_time > 0,
+		"session_score": _current_session_score,
+		"results": results.duplicate(true),
+		"tools_used": tools_used.duplicate(),
+		"reading_start_time": reading_start_time,
+	}
+
+
+## Restaura el estado de la sesión desde datos persistidos.
+## Usado por ReadingProgressManager al regresar a un escenario con lectura pendiente.
+## No re-solicita la lectura: asume que current_reading ya fue cargado.
+func restore_state(data: Dictionary) -> void:
+	current_level_index = int(data.get("current_level_index", 0))
+	current_question_index = int(data.get("current_question_index", 0))
+	_current_session_score = int(data.get("session_score", 0))
+	_level_errors = 0
+
+	# Restaurar resultados
+	var saved_results = data.get("results", [])
+	results.clear()
+	if saved_results is Array:
+		for r in saved_results:
+			results.append(r)
+
+	# Restaurar herramientas
+	var saved_tools = data.get("tools_used", {})
+	if saved_tools is Dictionary:
+		tools_used = saved_tools.duplicate()
+	else:
+		tools_used = {"highlight": false, "underline": false, "notes": false}
+
+	# Restaurar tiempos
+	var saved_start = data.get("reading_start_time", 0)
+	reading_start_time = float(saved_start) if saved_start is float or saved_start is int else Time.get_ticks_msec() / 1000.0
+	session_start_time = reading_start_time
+
+	if data.get("reading_completed", false):
+		reading_end_time = Time.get_ticks_msec() / 1000.0
+	else:
+		reading_end_time = 0.0
+
+	is_active = true
+	_prepare_level_questions()
+	score_changed.emit(_current_session_score)
+	print("[GameSession] Estado restaurado: nivel=%d, pregunta=%d, score=%d" % [
+		current_level_index, current_question_index, _current_session_score
+	])
+
+
 # ─── Lógica de sesión completada ───────────────────────────────────────
 
 func _on_session_complete() -> void:
 	is_active = false
 	score_data["sessions_completed"] += 1
+
+	# Limpiar lectura activa en la API
+	if ReadingProgressManager:
+		ReadingProgressManager.clear_active_reading()
 
 	# Registrar tipología completada
 	if not current_typology.is_empty() and current_typology not in score_data["typologies_completed"]:

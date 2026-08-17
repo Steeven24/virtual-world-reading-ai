@@ -54,7 +54,7 @@ func _on_dialog_closed():
 func _on_dialog_confirmed():
 	_on_dialog_closed()
 	
-	# Aquí en el futuro se llamará a MCPClientNode.save_progress(data)
-	# Por ahora, simplemente regresamos al lobby. El progreso local (cache)
-	# se mantiene en GameSession hasta que el juego se cierre.
+	# Persistir lectura activa antes de regresar al lobby
+	if GameSession.is_active:
+		ReadingProgressManager.save_active_reading()
 	SceneManager.transition_to(LOBBY_SCENE)

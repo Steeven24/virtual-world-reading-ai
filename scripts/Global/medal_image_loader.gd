@@ -175,4 +175,3 @@ func invalidate_all_cache() -> void:
 func clear_and_reload(achievement_id: String, image_url: String, callback: Callable) -> void:
 	invalidate_cache(achievement_id)
 	load_medal_image(achievement_id, image_url, callback)
-
