@@ -62,6 +62,10 @@ func _ready() -> void:
 	_font_bold = load("res://fonts/PixelifySans-SemiBold.ttf") if ResourceLoader.exists("res://fonts/PixelifySans-SemiBold.ttf") else null
 	_font_regular = load("res://fonts/PixelifySans-VariableFont_wght.ttf") if ResourceLoader.exists("res://fonts/PixelifySans-VariableFont_wght.ttf") else null
 
+	if SceneManager:
+		SceneManager.ensure_fallbacks(_font_bold)
+		SceneManager.ensure_fallbacks(_font_regular)
+
 	# Conectar señales
 	_logros_tab_btn.pressed.connect(_on_logros_tab_pressed)
 	_medallas_tab_btn.pressed.connect(_on_medallas_tab_pressed)
@@ -340,6 +344,8 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	var icon_lbl := Label.new()
 	icon_lbl.text = "✅" if is_unlocked else "🔒"
 	icon_lbl.add_theme_font_size_override("font_size", 26)
+	if _font_bold:
+		icon_lbl.add_theme_font_override("font", _font_bold)
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
 
@@ -450,6 +456,8 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	var emoji_lbl := Label.new()
 	emoji_lbl.text = str(item.get("medal_placeholder_emoji", "🏅"))
 	emoji_lbl.add_theme_font_size_override("font_size", 48)
+	if _font_bold:
+		emoji_lbl.add_theme_font_override("font", _font_bold)
 	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	img_container.add_child(emoji_lbl)
 
@@ -544,6 +552,8 @@ func _show_medal_detail(item: Dictionary) -> void:
 
 	# Emoji / Imagen
 	_detail_medal_emoji.text = str(item.get("medal_placeholder_emoji", "🏅"))
+	if _font_bold:
+		_detail_medal_emoji.add_theme_font_override("font", _font_bold)
 	_detail_medal_emoji.show()
 	_detail_medal_image.hide()
 

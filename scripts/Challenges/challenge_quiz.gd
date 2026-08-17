@@ -43,6 +43,8 @@ var _font: Font = null
 func _ready() -> void:
 	# Precargar la fuente del proyecto
 	_font = load(FONT_PATH)
+	if SceneManager and _font:
+		SceneManager.ensure_fallbacks(_font)
 
 	feedback_panel.visible = false
 	continue_button.visible = false

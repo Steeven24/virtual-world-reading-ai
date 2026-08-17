@@ -1,0 +1,5 @@
+{
+  "_comment": "Copia este archivo como server_config.json en res:// o en user:// para cambiar la IP del servidor sin recompilar",
+  "base_url": "http://localhost:8001",
+  "npc_chat_base_url": "http://localhost:8000"
+}

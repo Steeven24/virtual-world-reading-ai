@@ -73,6 +73,9 @@ func _ready():
 
 	_font_bold = load(FONT_BOLD_PATH) if ResourceLoader.exists(FONT_BOLD_PATH) else null
 	_font_regular = load(FONT_REGULAR_PATH) if ResourceLoader.exists(FONT_REGULAR_PATH) else null
+	if SceneManager:
+		SceneManager.ensure_fallbacks(_font_bold)
+		SceneManager.ensure_fallbacks(_font_regular)
 
 	_create_ui()
 	

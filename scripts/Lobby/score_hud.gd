@@ -117,6 +117,8 @@ func _populate_achievements() -> void:
 
 	var unlocked: Array = GameSession.get_achievements()
 	var font = load(FONT_PATH)
+	if SceneManager and font:
+		SceneManager.ensure_fallbacks(font)
 
 	for achievement_id in ACHIEVEMENT_NAMES:
 		var display_name: String = ACHIEVEMENT_NAMES[achievement_id]

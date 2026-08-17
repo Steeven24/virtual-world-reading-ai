@@ -39,6 +39,8 @@ var _font_bold: Font = null
 
 func _ready() -> void:
 	_font_bold = load(FONT_PATH) if ResourceLoader.exists(FONT_PATH) else null
+	if SceneManager and _font_bold:
+		SceneManager.ensure_fallbacks(_font_bold)
 	_apply_panel_style()
 	_apply_button_styles()
 	_populate_data()

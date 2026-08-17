@@ -53,7 +53,7 @@ script = ExtResource("6_lobby_script")
 [node name="Scenery" parent="." unique_id=1579165362 instance=ExtResource("1_htkf2")]
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("4_i0rb6")]
-position = Vector2(1811.124, 1286)
+position = Vector2(1409, 1305.3367)
 
 [node name="ScoreHUD" parent="." unique_id=1793516881 instance=ExtResource("5_score")]
 

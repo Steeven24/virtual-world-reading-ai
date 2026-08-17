@@ -45,6 +45,9 @@ func _ready() -> void:
 	follow_viewport_enabled = false
 	_font_bold = load(FONT_PATH) if ResourceLoader.exists(FONT_PATH) else null
 	_font_regular = load(FONT_REGULAR_PATH) if ResourceLoader.exists(FONT_REGULAR_PATH) else null
+	if SceneManager:
+		SceneManager.ensure_fallbacks(_font_bold)
+		SceneManager.ensure_fallbacks(_font_regular)
 	GameSession.achievement_unlocked.connect(_on_achievement_unlocked)
 
 

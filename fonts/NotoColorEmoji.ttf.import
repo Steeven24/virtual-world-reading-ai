@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bumyilx2rusxa"
-path="res://.godot/imported/PixelifySans-VariableFont_wght.ttf-b4586e9d511f20f639f726e445631446.fontdata"
+uid="uid://djmejaec25gxe"
+path="res://.godot/imported/NotoColorEmoji.ttf-d170c6b8c19be4f44ee3b3c03f299301.fontdata"
 
 [deps]
 
-source_file="res://fonts/PixelifySans-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/PixelifySans-VariableFont_wght.ttf-b4586e9d511f20f639f726e445631446.fontdata"]
+source_file="res://fonts/NotoColorEmoji.ttf"
+dest_files=["res://.godot/imported/NotoColorEmoji.ttf-d170c6b8c19be4f44ee3b3c03f299301.fontdata"]
 
 [params]
 
@@ -27,7 +27,7 @@ subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
-fallbacks=["res://fonts/NotoColorEmoji.ttf"]
+fallbacks=[]
 Compress=null
 compress=true
 preload=[]

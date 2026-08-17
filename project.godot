@@ -44,6 +44,10 @@ window/size/window_height_override=720
 
 enabled=PackedStringArray()
 
+[gui]
+
+theme/default_font="res://fonts/PixelifySans-SemiBold.ttf"
+
 [input]
 
 ui_accept={

@@ -35,6 +35,8 @@ var _font: Font
 
 func _ready() -> void:
 	_font = load(FONT_PATH)
+	if SceneManager and _font:
+		SceneManager.ensure_fallbacks(_font)
 	
 	_http = HTTPRequest.new()
 	_http.timeout = 10.0

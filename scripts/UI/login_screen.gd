@@ -235,6 +235,13 @@ func _apply_styles() -> void:
 	var font = load(FONT_PATH)
 	if not font:
 		return
+	if SceneManager:
+		SceneManager.ensure_fallbacks(font)
+	
+	# Aplicar fuente a todos los Labels del LoginScreen
+	for child in find_children("*", "Label", true, false):
+		if child is Label:
+			child.add_theme_font_override("font", font)
 	
 	# Estilizar campos de entrada
 	for input in [email_input, password_input]:
