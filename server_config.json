@@ -1,4 +1,4 @@
 {
-  "base_url": "http://10.79.20.212:8001",
-  "npc_chat_base_url": "http://10.79.20.212:8000"
+  "base_url": "http://localhost:8001",
+  "npc_chat_base_url": "http://localhost:8000"
 }

@@ -35,18 +35,17 @@ static func _static_init() -> void:
 
 ## Carga la configuración desde archivos JSON o argumentos de línea de comandos.
 static func load_config() -> void:
-	# 1. Si corre en navegador Web (HTML5), usar el origen actual del navegador por defecto
+	# En web el origen del navegador manda: juego y API comparten origen
+	# detrás del proxy inverso. Ningún archivo empaquetado lo sobrescribe.
 	if OS.has_feature("web"):
 		var origin = JavaScriptBridge.eval("window.location.origin")
 		if origin and typeof(origin) == TYPE_STRING and not origin.is_empty():
 			BASE_URL = origin
 			NPC_CHAT_BASE_URL = origin
+			return
 
-	# 2. Intentar cargar desde res://server_config.json
 	_load_from_json_path("res://server_config.json")
-	# 3. Intentar cargar desde user://server_config.json (permite override por usuario sin recompilar)
 	_load_from_json_path("user://server_config.json")
-	# 4. Revisar argumentos de línea de comandos (e.g. --server-url=http://192.168.1.50:8001)
 	_load_from_cmdline()
 
 static func _load_from_json_path(path: String) -> void:
