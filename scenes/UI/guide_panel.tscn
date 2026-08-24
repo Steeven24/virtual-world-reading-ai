@@ -1,0 +1,92 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://2t8ar1mla1nw" path="res://scripts/UI/guide_panel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.06, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.75, 0.3, 0.7)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.12, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.75, 0.3, 0.45)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="GuidePanel" type="CanvasLayer" unique_id=393818831]
+layer = 60
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="." unique_id=562450118]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.55)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=979479605]
+offset_right = 760.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=1133829133]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=421872762]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox" unique_id=1139398912]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
+text = "Guía"
+
+[node name="Body" type="RichTextLabel" parent="Panel/Margin/VBox" unique_id=1105891858]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 18
+theme_override_colors/default_color = Color(0.92, 0.94, 0.97, 1)
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Footer" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=282556140]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/Footer" unique_id=1425556414]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionButton" type="Button" parent="Panel/Margin/VBox/Footer" unique_id=464305527]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 14
+text = "¡Entendido! ✓"
