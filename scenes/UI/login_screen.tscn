@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://b48gg7qn86crj"]
 
-[ext_resource type="Script" path="res://scripts/UI/login_screen.gd" id="1"]
+[ext_resource type="Script" uid="uid://cyo6ynqtfjby0" path="res://scripts/UI/login_screen.gd" id="1"]
 
-[node name="LoginScreen" type="CanvasLayer"]
+[node name="LoginScreen" type="CanvasLayer" unique_id=1490014881]
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=362145956]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.04, 0.045, 0.07, 1)
 
-[node name="GradientOverlay" type="ColorRect" parent="."]
+[node name="GradientOverlay" type="ColorRect" parent="." unique_id=1051507641]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,130 +21,158 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.15, 0.1, 0.3, 0.15)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=2009053178]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainVBox" type="VBoxContainer" parent="CenterContainer"]
+[node name="MainVBox" type="VBoxContainer" parent="CenterContainer" unique_id=1323485008]
 custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
 
-[node name="WelcomeLabel" type="Label" parent="CenterContainer/MainVBox"]
+[node name="WelcomeLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=362481791]
 unique_name_in_owner = true
-horizontal_alignment = 1
+layout_mode = 2
 text = "¡Bienvenido al Mundo Virtual!"
+horizontal_alignment = 1
 
-[node name="TitleSpacer" type="Control" parent="CenterContainer/MainVBox"]
+[node name="TitleSpacer" type="Control" parent="CenterContainer/MainVBox" unique_id=1186550361]
 custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 
-[node name="LoginPanel" type="PanelContainer" parent="CenterContainer/MainVBox"]
+[node name="LoginPanel" type="PanelContainer" parent="CenterContainer/MainVBox" unique_id=1589521864]
 unique_name_in_owner = true
+layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/LoginPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/LoginPanel" unique_id=837278969]
+layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 28
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 28
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer" unique_id=640556388]
+layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TitleIcon" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
-horizontal_alignment = 1
+[node name="TitleIcon" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1145516201]
+layout_mode = 2
 text = "📖"
-
-[node name="Title" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
 horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1554822627]
+layout_mode = 2
 text = "Mundo Virtual de Lectura"
-
-[node name="Subtitle" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
 horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1506522847]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Inicia sesión para continuar"
+horizontal_alignment = 1
 
-[node name="Spacer1" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="Spacer1" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=884379088]
 custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
 
-[node name="EmailLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="EmailLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1639828144]
+layout_mode = 2
 text = "✉️ Correo electrónico"
 
-[node name="EmailInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="EmailInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=938613503]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
 placeholder_text = "alumno@ejemplo.com"
 
-[node name="Spacer2" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1826241304]
 custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
 
-[node name="PasswordLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="PasswordLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=705713998]
+layout_mode = 2
 text = "🔒 Contraseña"
 
-[node name="PasswordInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="PasswordInput" type="LineEdit" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=2056645462]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
 placeholder_text = "Tu contraseña"
 secret = true
 
-[node name="Spacer3" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="Spacer3" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1526422364]
 custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 
-[node name="ErrorLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="ErrorLabel" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=984298825]
 unique_name_in_owner = true
+layout_mode = 2
 horizontal_alignment = 1
-text = ""
 
-[node name="LoadingIndicator" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="LoadingIndicator" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1214340644]
 unique_name_in_owner = true
 visible = false
-horizontal_alignment = 1
+layout_mode = 2
 text = "Cargando..."
+horizontal_alignment = 1
 
-[node name="Spacer4" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="Spacer4" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=681962134]
 custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
 
-[node name="LoginButton" type="Button" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer"]
+[node name="LoginButton" type="Button" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=766168514]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
 text = "🚀 Iniciar sesión"
 
-[node name="ReturnPanel" type="PanelContainer" parent="CenterContainer/MainVBox"]
+[node name="ReturnPanel" type="PanelContainer" parent="CenterContainer/MainVBox" unique_id=407883273]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/ReturnPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MainVBox/ReturnPanel" unique_id=1614744709]
+layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer" unique_id=409731173]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ReturnIcon" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
-horizontal_alignment = 1
+[node name="ReturnIcon" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer" unique_id=755377876]
+layout_mode = 2
 text = "👋"
-
-[node name="ReturnNameLabel" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
 horizontal_alignment = 1
+
+[node name="ReturnNameLabel" type="Label" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer" unique_id=457428793]
+unique_name_in_owner = true
+layout_mode = 2
 text = "¡Hola de nuevo, Jugador!"
+horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Spacer" type="Control" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer" unique_id=1578746901]
 custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 
-[node name="ReturnContinueButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+[node name="ReturnContinueButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer" unique_id=542447049]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
 text = "▶ Continuar aventura"
 
-[node name="ReturnSwitchButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer"]
+[node name="ReturnSwitchButton" type="Button" parent="CenterContainer/MainVBox/ReturnPanel/MarginContainer/VBoxContainer" unique_id=1429398749]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
 text = "Usar otra cuenta"
 
-[node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox"]
+[node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=2084709435]
+layout_mode = 2
+text = "Beta v1.0 — Mundo Virtual de Lectura"
 horizontal_alignment = 1
-text = "v1.0 — Mundo Virtual de Lectura"
