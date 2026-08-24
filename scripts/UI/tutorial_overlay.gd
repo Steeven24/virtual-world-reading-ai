@@ -12,43 +12,51 @@ const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
 const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
 
 const PANEL_WIDTH: int = 760
+## Alto mínimo: los pasos que presentan a los personajes crecen por encima.
 const PANEL_HEIGHT: int = 260
 const MARGIN_BOTTOM: int = 40
 const ANIM_DURATION: float = 0.35
 
 ## Pasos del tutorial. Cada uno define título y cuerpo (con BBCode).
+##
+## El detalle de las herramientas del libro no está aquí a propósito: se
+## explica dentro del libro la primera vez que se abre, que es donde se usa.
 const STEPS: Array = [
 	{
 		"title": "👋 ¡Bienvenido al Mundo Virtual de Lectura!",
-		"body": "Soy tu guía. Te mostraré en pocos pasos cómo explorar el lobby y empezar tus desafíos de lectura.",
+		"body": "Soy tu guía. En unos pocos pasos te enseño cómo moverte, quién es quién y qué tienes que hacer para completar una lectura.",
 	},
 	{
 		"title": "🎮 Movimiento",
-		"body": "Usa las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color] del teclado para mover a tu personaje por el escenario.",
+		"body": "Muévete con las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color].\n\nCuando te acerques a algo con lo que puedas interactuar, aparecerá el icono [color=#f0c050][b]E[/b][/color] sobre tu personaje. Púlsalo para hablar, leer o empezar.",
 	},
 	{
-		"title": "⭐ Puntuación",
-		"body": "En la esquina superior derecha verás tu [color=#f0c050][b]puntuación total[/b][/color]. Cada respuesta correcta te dará puntos según el nivel de dificultad.",
-	},
-	{
-		"title": "🏆 Logros",
-		"body": "Pulsa el icono [color=#f0c050][b]🏆[/b][/color] de la esquina superior para ver tus logros desbloqueados, como leer tu primera lectura o completar las 5 tipologías.",
+		"title": "⭐ Tu progreso",
+		"body": "Arriba a la derecha tienes tu [color=#f0c050][b]puntuación[/b][/color]: cada respuesta correcta suma según el nivel de dificultad.\n\nEn el icono [color=#f0c050][b]🏆[/b][/color] están tus logros, como leer tu primera lectura o completar las 5 tipologías.",
 	},
 	{
 		"title": "📚 Las 5 tipologías textuales",
-		"body": "En el lobby hay [color=#f0c050][b]5 estaciones[/b][/color], una por cada tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Expositivo[/b], [b]Instructivo[/b] y [b]Argumentativo[/b]. Visítalas todas para convertirte en Explorador.",
+		"body": "En el lobby hay [color=#f0c050][b]5 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Expositivo[/b], [b]Instructivo[/b] y [b]Argumentativo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en Explorador.",
 	},
 	{
-		"title": "🅴 Cómo iniciar un desafío",
-		"body": "Acércate al cartel de una tipología. Cuando aparezca el icono [color=#f0c050][b]E[/b][/color] sobre tu personaje, presiona la tecla [b]E[/b] para comenzar la lectura.",
+		"title": "📖 La sala de lectura",
+		"body": "Dentro encontrarás un [color=#f0c050][b]libro[/b][/color]. Acércate y pulsa [b]E[/b] para abrirlo.\n\nNo es solo texto: trae herramientas para [b]resaltar[/b], [b]subrayar[/b] y [b]tomar notas[/b] mientras lees. Te las explico cuando lo abras.",
 	},
 	{
-		"title": "🧠 Niveles de comprensión",
-		"body": "Cada lectura tiene 3 niveles: [color=#f0c050][b]Literal[/b][/color] (lo que dice el texto), [color=#f0c050][b]Inferencial[/b][/color] (lo que se deduce) y [color=#f0c050][b]Crítico[/b][/color] (tu opinión razonada). Responde con atención para ganar más puntos.",
+		"title": "🧙 El Sabio",
+		"body": "Está sentado en la sala de lectura. Te da [color=#f0c050][b]consejos de comprensión lectora[/b][/color]: técnicas que te sirven para cualquier texto.\n\n[color=#f0c050][b]➜ Acércate y pulsa E[/b][/color] antes de abrir el libro. Cada vez que hables con él te dará un consejo distinto.",
 	},
 	{
-		"title": "🚀 ¡A explorar!",
-		"body": "¡Eso es todo! Si quieres repasar este tutorial, acércate al [color=#f0c050][b]icono central[/b][/color] del lobby y presiona E. ¡Buena suerte, lector!",
+		"title": "🤖 El Robot Asistente",
+		"body": "También está en la sala de lectura. Responde a [color=#f0c050][b]tus preguntas concretas[/b][/color] sobre el texto y te orienta si te pierdes con el juego.\n\n[color=#f0c050][b]➜ Pulsa E y escribe tu duda.[/b][/color] Te dará pistas para que llegues tú a la respuesta, nunca la respuesta directa.",
+	},
+	{
+		"title": "🧑‍🏫 El Profesor",
+		"body": "Aparece [color=#f0c050][b]cuando terminas la lectura[/b][/color]. Es quien te pone a prueba, con desafíos adaptados a la tipología del texto.\n\n[color=#f0c050][b]➜ Acércate y pulsa E[/b][/color] para empezar. Hay 3 niveles: [b]Literal[/b] (lo que el texto dice), [b]Inferencial[/b] (lo que deja entender) y [b]Crítico[/b] (lo que tú opinas y por qué).",
+	},
+	{
+		"title": "🗺️ Tu recorrido",
+		"body": "Cartel de una tipología ➜ sabio y robot ➜ libro ➜ profesor.\n\nY con el profesor, tres desafíos seguidos: [b]Literal[/b] ➜ [b]Inferencial[/b] ➜ [b]Crítico[/b].\n\n¿Quieres repasar esto? Vuelve al [color=#f0c050][b]icono central[/b][/color] del lobby y pulsa [b]E[/b]. ¡Buena suerte, lector!",
 	},
 ]
 
@@ -96,9 +104,14 @@ func _ready() -> void:
 	_was_ui_open = SceneManager.is_ui_open
 	SceneManager.is_ui_open = true
 
+	# Transparente antes de medir: ajustar el alto al contenido necesita un
+	# frame en pantalla, y sin esto ese frame se vería como un parpadeo.
+	_dim.modulate.a = 0.0
+	_panel.modulate.a = 0.0
+
 	get_window().size_changed.connect(_layout)
 	_layout()
-	_render_step()
+	await _render_step()
 	_animate_in()
 
 
@@ -117,10 +130,16 @@ func _layout() -> void:
 	var win := _get_window_size()
 	_dim.size = win
 	_dim.position = Vector2.ZERO
-	_panel.size = Vector2(PANEL_WIDTH, PANEL_HEIGHT)
+
+	# Alto según el contenido: los pasos que presentan a los personajes son
+	# más largos y con un alto fijo se cortarían. El ancho se aplica primero
+	# porque el alto del cuerpo depende de cómo envuelva el texto a ese ancho.
+	_panel.size.x = PANEL_WIDTH
+	var height: float = maxf(float(PANEL_HEIGHT), _panel.get_combined_minimum_size().y)
+	_panel.size = Vector2(PANEL_WIDTH, height)
 	_panel.position = Vector2(
 		(win.x - PANEL_WIDTH) / 2.0,
-		win.y - PANEL_HEIGHT - MARGIN_BOTTOM
+		win.y - height - MARGIN_BOTTOM
 	)
 
 
@@ -147,6 +166,12 @@ func _render_step() -> void:
 		_next_button.text = "¡Empezar! ✓"
 	else:
 		_next_button.text = "Siguiente ▶"
+
+	# Dos pases: el primero aplica el ancho, y solo tras un frame el cuerpo
+	# sabe cuánto alto necesita para ese ancho.
+	_layout()
+	await get_tree().process_frame
+	_layout()
 
 
 func _on_next_pressed() -> void:
