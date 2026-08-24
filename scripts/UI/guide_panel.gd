@@ -79,12 +79,19 @@ func show_message(title: String, body: String, button_text: String = "¡Entendid
 	_body_label.text = body
 	_action_button.text = button_text
 
+	# Visible pero transparente: el panel necesita un frame en pantalla para
+	# que el RichTextLabel calcule su alto envuelto, y sin esto ese frame se
+	# vería como un parpadeo.
 	visible = true
+	_dim.modulate.a = 0.0
+	_panel.modulate.a = 0.0
 
 	# Bloquear movimiento del jugador y otras interacciones mientras dure.
 	_was_ui_open = SceneManager.is_ui_open
 	SceneManager.is_ui_open = true
 
+	_layout()
+	await get_tree().process_frame
 	_layout()
 	_animate_in()
 
@@ -116,10 +123,10 @@ func _layout() -> void:
 	_dim.position = Vector2.ZERO
 
 	# Alto según el contenido: los mensajes de guía varían mucho de longitud y
-	# un alto fijo recortaría los más largos.
-	_panel.size = Vector2(PANEL_WIDTH, 0)
-	var content_height: float = _panel.get_combined_minimum_size().y
-	var height: float = maxf(float(PANEL_MIN_HEIGHT), content_height)
+	# un alto fijo recortaría los más largos. El ancho se fija primero porque
+	# el alto del cuerpo depende de cómo envuelva el texto a ese ancho.
+	_panel.size.x = PANEL_WIDTH
+	var height: float = maxf(float(PANEL_MIN_HEIGHT), _panel.get_combined_minimum_size().y)
 	_panel.size = Vector2(PANEL_WIDTH, height)
 	_panel.position = Vector2(
 		(win.x - PANEL_WIDTH) / 2.0,

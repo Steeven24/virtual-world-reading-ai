@@ -24,6 +24,21 @@ const PROPORCION_MINIMA_PAGINA: float = 0.6
 ## Ruta del archivo que almacena el UUID del dispositivo.
 const DEVICE_ID_PATH: String = "user://device_id.txt"
 
+## Panel de guía que se muestra al abrir el libro por primera vez.
+const GUIDE_PANEL_SCENE: String = "res://scenes/UI/guide_panel.tscn"
+
+const TOOLS_GUIDE_TITLE: String = "🖍️ Las herramientas del libro"
+
+const TOOLS_GUIDE_BODY: String = """Este libro no es solo para leer: puedes trabajar el texto mientras avanzas.
+
+[color=#f0c050][b]Resaltar[/b][/color] — las frases que resumen la idea del autor.
+[color=#f0c050][b]Subrayar[/b][/color] — los nombres, fechas y datos concretos.
+[color=#f0c050][b]Notas[/b][/color] — tus dudas y lo que vas entendiendo. Cada página guarda las suyas, y el [b]Compilatorio[/b] las reúne todas.
+
+[b]Para marcar:[/b] pulsa la herramienta, arrastra el ratón sobre el texto y suelta. Con [b]Borrar[/b] quitas lo que hayas marcado.
+
+Dejar el texto marcado te ahorrará releerlo entero cuando llegue el desafío."""
+
 # ─── Exports ────────────────────────────────────────────────────────────────────
 
 @export_file("*.tscn") var target_scene_path: String
@@ -119,6 +134,34 @@ func _ready() -> void:
 		_preload_from_api()
 	else:
 		_load_from_file()
+
+# ─── Guía de herramientas ───────────────────────────────────────────────────────
+
+## Muestra la guía de herramientas la primera vez que el jugador abre el libro.
+## La llama pressE_teleport_book.gd justo después de hacer visible el libro:
+## el libro se precarga en _ready() mucho antes de verse, así que no se puede
+## disparar desde aquí.
+##
+## Hasta ahora nadie explicaba estas herramientas y la pantalla de resultados
+## reprochaba al final las que no se habían usado.
+func show_tools_guide_if_needed() -> void:
+	if GameSession.is_hint_seen(GameSession.HINT_BOOK_TOOLS):
+		return
+	GameSession.mark_hint_seen(GameSession.HINT_BOOK_TOOLS)
+
+	var packed: PackedScene = load(GUIDE_PANEL_SCENE)
+	if packed == null:
+		push_warning("[BookAndTools] No se pudo cargar el panel de guía.")
+		return
+
+	var panel := packed.instantiate()
+	# Colgado de la escena y no del libro: el CanvasLayer del libro se oculta
+	# al cerrarlo y se llevaría el panel por delante.
+	var host: Node = get_tree().current_scene
+	if host == null:
+		host = self
+	host.add_child(panel)
+	panel.show_message(TOOLS_GUIDE_TITLE, TOOLS_GUIDE_BODY, "¡A leer! ✓")
 
 # ─── Carga desde archivo local (comportamiento original) ───────────────────────
 

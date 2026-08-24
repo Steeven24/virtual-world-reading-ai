@@ -49,8 +49,17 @@ func show_dialogue():
 		return
 		
 	var dialog = $Book/Area2D/confirm
-	$"../CanvasLayer".visible = true
+	var canvas := $"../CanvasLayer"
+	canvas.visible = true
 	SceneManager.is_ui_open = true
+
+	# Primera vez que se abre el libro: explicar sus herramientas antes de que
+	# el alumno empiece a leer. El libro se precarga en su _ready(), mucho antes
+	# de verse, así que este es el único momento en que sabemos que está en
+	# pantalla de verdad.
+	var book := canvas.get_node_or_null("LecturaYLibro")
+	if book and book.has_method("show_tools_guide_if_needed"):
+		book.show_tools_guide_if_needed()
 	
 	
 	
