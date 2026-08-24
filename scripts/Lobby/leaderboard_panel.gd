@@ -178,9 +178,12 @@ func _add_player_row(rank: int, name: String, score: int, achievements: int, cha
 	
 	# Icono de personaje
 	var char_label := Label.new()
-	char_label.text = "👩" if character == "women" else "👨"
+	var is_female: bool = character.to_lower() in ["women", "female", "woman", "girl", "f", "mujer"]
+	char_label.text = "👩" if is_female else "👨"
 	char_label.custom_minimum_size.x = 24
 	char_label.add_theme_font_size_override("font_size", 14)
+	if _font:
+		char_label.add_theme_font_override("font", _font)
 	row.add_child(char_label)
 	
 	# Nombre

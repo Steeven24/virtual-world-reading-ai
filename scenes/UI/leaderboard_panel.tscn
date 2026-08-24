@@ -39,7 +39,7 @@ text = "🏆 Leaderboard"
 [node name="LeaderboardCloseButton" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
-text = "✕"
+text = "✖"
 
 [node name="TabContainer" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
 theme_override_constants/separation = 6

@@ -169,6 +169,8 @@ func _style_close_button() -> void:
 	_close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	_close_button.add_theme_color_override("font_color", Color(0.8, 0.4, 0.4))
 	_close_button.add_theme_color_override("font_hover_color", Color(1.0, 0.5, 0.5))
+	if _font_bold:
+		_close_button.add_theme_font_override("font", _font_bold)
 	_close_button.add_theme_font_size_override("font_size", 16)
 
 
@@ -204,6 +206,8 @@ func _style_detail_close_btn() -> void:
 	_detail_close_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	_detail_close_btn.add_theme_color_override("font_color", Color(0.8, 0.4, 0.4))
 	_detail_close_btn.add_theme_color_override("font_hover_color", Color(1.0, 0.5, 0.5))
+	if _font_bold:
+		_detail_close_btn.add_theme_font_override("font", _font_bold)
 	_detail_close_btn.add_theme_font_size_override("font_size", 12)
 
 
