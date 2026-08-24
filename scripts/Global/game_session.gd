@@ -201,7 +201,6 @@ const _PROGRESS_KEY: String = "completed"
 ## Claves de las guías que solo se muestran una vez por jugador.
 const HINT_BOOK_TOOLS: String = "book_tools_guide"
 const HINT_INTRO_SAGE: String = "intro_sage"
-const HINT_INTRO_ROBOT: String = "intro_robot"
 const HINT_INTRO_TEACHER: String = "intro_teacher"
 
 ## Caché en memoria de los flags leídos de disco: clave -> bool.
@@ -240,7 +239,6 @@ func _reset_hints_for_editor() -> void:
 		_PROGRESS_KEY,
 		HINT_BOOK_TOOLS,
 		HINT_INTRO_SAGE,
-		HINT_INTRO_ROBOT,
 		HINT_INTRO_TEACHER,
 	]:
 		_hints_seen_cache[key] = false

@@ -526,8 +526,9 @@ func _render_welcome():
 	var reading_title: String = str(GameSession.current_reading.get("title", "la lectura"))
 	chat_display.append_text(
 		"[color=%s][b]🤖 Tutor:[/b][/color]  ¡Hola! Soy tu tutor virtual. " % HEX_ASSISTANT
-		+ "Estoy aquí para ayudarte a comprender [b]\"" + reading_title + "\"[/b].\n"
-		+ "[color=%s]Puedo darte pistas y orientarte, pero no te daré las respuestas directas. ¡Pregúntame lo que necesites!\n[/color]" % HEX_NOTICE
+		+ "Resuelvo [b]tus dudas concretas[/b] sobre [b]\"" + reading_title + "\"[/b] y te oriento con el juego si te pierdes.\n"
+		+ "[color=%s]Pregúntame cosas como «¿qué significa esta palabra?», «¿de qué trata el tercer párrafo?» o «¿cómo uso las herramientas del libro?».\n" % HEX_NOTICE
+		+ "Te doy pistas para que llegues tú a la respuesta, nunca la respuesta directa. Para consejos generales de lectura habla con el sabio, y quien te evalúa es el profesor.\n[/color]"
 	)
 
 
