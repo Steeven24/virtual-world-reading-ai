@@ -145,7 +145,7 @@ texture = ExtResource("6_1u6js")
 [node name="Room walls" type="StaticBody2D" parent="." unique_id=1181195424]
 
 [node name="back_top_left" type="CollisionShape2D" parent="Room walls" unique_id=1568625801]
-position = Vector2(430, 130)
+position = Vector2(430, 248)
 shape = SubResource("RectangleShape2D_y0yj0")
 
 [node name="back_top_middle" type="CollisionShape2D" parent="Room walls" unique_id=1697640154]
