@@ -85,6 +85,13 @@ func _ready():
 	# Conectar señales del NpcChatAPI
 	NpcChatAPI.chat_response_received.connect(_on_chat_response)
 	NpcChatAPI.chat_request_failed.connect(_on_chat_error)
+	NpcChatAPI.history_loaded.connect(_on_history_loaded)
+	NpcChatAPI.history_load_failed.connect(_on_history_load_failed)
+
+	# Entrar a este escenario descarta la conversación del anterior.
+	# El robot se instancia junto con el nivel, así que esto corre una vez
+	# por escenario aunque el jugador nunca llegue a abrir el diálogo.
+	NpcChatAPI.begin_scenario(_get_reading_id())
 
 
 # ─── Creación de la UI ──────────────────────────────────────────────────────
@@ -133,7 +140,7 @@ func _create_ui():
 	header.add_child(title)
 
 	btn_cerrar = Button.new()
-	btn_cerrar.text = "✕"
+	btn_cerrar.text = "✖"
 	btn_cerrar.tooltip_text = "Cerrar chat"
 	btn_cerrar.add_theme_color_override("font_color", COLOR_RED)
 	btn_cerrar.add_theme_color_override("font_hover_color", Color(1.0, 0.7, 0.7, 1.0))
@@ -367,16 +374,30 @@ func show_ui():
 	SceneManager.is_ui_open = true
 	_chat_open = true
 	canvas_layer.visible = true
-	lbl_status.text = ""
-	_set_input_enabled(true)
-
-	# Si no hay historial, mostrar saludo inicial
-	if NpcChatAPI.chat_history.is_empty():
-		_render_welcome()
-	else:
-		_render_full_history()
-
 	line_edit.text = ""
+
+	# Este NPC es el activo para el registro de interacciones.
+	NpcChatAPI.set_npc_type("robot")
+
+	# El panel SIEMPRE arranca en blanco: nunca se ven aquí los mensajes
+	# de un escenario anterior, aunque el autoload siga vivo.
+	chat_display.clear()
+
+	var reading_id: int = _get_reading_id()
+	NpcChatAPI.begin_scenario(reading_id)
+
+	if reading_id > 0:
+		# El servidor manda: pedimos la conversación de ESTA lectura y la
+		# pintamos cuando llegue (_on_history_loaded).
+		_set_input_enabled(false)
+		lbl_status.text = "⏳  Recuperando tu conversación..."
+		NpcChatAPI.fetch_history(reading_id)
+	else:
+		# Sin lectura activa no hay conversación que recuperar.
+		lbl_status.text = ""
+		_set_input_enabled(true)
+		_render_welcome()
+
 	_animate_in()
 
 
@@ -441,7 +462,7 @@ func _send_message():
 
 # ─── Callbacks de NpcChatAPI ────────────────────────────────────────────────
 
-func _on_chat_response(_session_id: int, response_text: String):
+func _on_chat_response(_conversation_id: String, response_text: String):
 	if not _chat_open:
 		return
 
@@ -460,7 +481,45 @@ func _on_chat_error(error: String):
 	line_edit.grab_focus()
 
 
+## Llega la conversación de esta lectura desde /npc/history.
+func _on_history_loaded(_reading_id: int, messages: Array):
+	if not _chat_open:
+		return
+
+	lbl_status.text = ""
+	_set_input_enabled(true)
+
+	# Repintar desde cero con lo que diga el servidor.
+	chat_display.clear()
+	if messages.is_empty():
+		_render_welcome()
+	else:
+		_render_full_history()
+
+	line_edit.grab_focus()
+
+
+## No se pudo recuperar el historial: se puede chatear igual, en limpio.
+func _on_history_load_failed(error: String):
+	if not _chat_open:
+		return
+
+	chat_display.clear()
+	_render_welcome()
+	lbl_status.text = "⚠️  No se pudo recuperar la conversación anterior (%s)" % error
+	_set_input_enabled(true)
+	line_edit.grab_focus()
+
+
 # ─── Renderizado del chat ───────────────────────────────────────────────────
+
+## reading_id de la lectura activa (-1 si no hay ninguna).
+func _get_reading_id() -> int:
+	var reading: Dictionary = GameSession.current_reading
+	if reading.is_empty():
+		return -1
+	return int(reading.get("id", -1))
+
 
 func _render_welcome():
 	chat_display.clear()
