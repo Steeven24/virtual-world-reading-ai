@@ -6,11 +6,11 @@
 extends Node
 
 func _ready() -> void:
-	# Para facilitar las pruebas en el editor, reseteamos el estado del tutorial
-	# en cada inicio, así aparece una vez por sesión de depuración.
+	# Para facilitar las pruebas en el editor, reseteamos el tutorial y todas
+	# las guías en cada inicio, así aparecen una vez por sesión de depuración.
 	if OS.has_feature("editor"):
-		print("[GameSession] Ejecución desde el editor: Forzando tutorial para esta sesión.")
-		_tutorial_completed_cache = 0
+		print("[GameSession] Ejecución desde el editor: Forzando tutorial y guías para esta sesión.")
+		_reset_hints_for_editor()
 		
 	# Escuchar evento de sesión invalidada
 	if AuthManager.has_signal("session_invalidated"):
@@ -192,41 +192,73 @@ func set_character(type: String) -> void:
 	print("[GameSession] Personaje seleccionado: %s (Sufijo: '%s')" % [selected_character, anim_suffix])
 
 
-# ─── Persistencia del tutorial ──────────────────────────────────────────────
+# ─── Persistencia de guías vistas ────────────────────────────────────────────
 
 const _PROGRESS_FILE: String = "user://progress.cfg"
 const _PROGRESS_SECTION: String = "tutorial"
 const _PROGRESS_KEY: String = "completed"
 
-## True si el jugador ya vio el tutorial guiado del Lobby.
-## Se carga la primera vez que se consulta y se persiste al marcar como visto.
-var _tutorial_completed_cache: int = -1  # -1: no cargado, 0: false, 1: true
+## Claves de las guías que solo se muestran una vez por jugador.
+const HINT_BOOK_TOOLS: String = "book_tools_guide"
+const HINT_INTRO_SAGE: String = "intro_sage"
+const HINT_INTRO_ROBOT: String = "intro_robot"
+const HINT_INTRO_TEACHER: String = "intro_teacher"
 
-## ¿El jugador ya completó (o saltó) el tutorial guiado?
+## Caché en memoria de los flags leídos de disco: clave -> bool.
+## Evita releer progress.cfg cada vez que un NPC comprueba si ya se presentó.
+var _hints_seen_cache: Dictionary = {}
+
+
+## ¿El jugador ya vio la guía identificada por "key"?
+## Se carga de disco la primera vez que se consulta y se cachea.
+func is_hint_seen(key: String) -> bool:
+	if _hints_seen_cache.has(key):
+		return bool(_hints_seen_cache[key])
+
+	var seen := false
+	var cfg := ConfigFile.new()
+	if cfg.load(_PROGRESS_FILE) == OK:
+		seen = bool(cfg.get_value(_PROGRESS_SECTION, key, false))
+	_hints_seen_cache[key] = seen
+	return seen
+
+
+## Marca la guía "key" como vista y lo persiste en disco.
+func mark_hint_seen(key: String) -> void:
+	_hints_seen_cache[key] = true
+	var cfg := ConfigFile.new()
+	# Cargamos antes de escribir para no perder las otras claves ya guardadas.
+	cfg.load(_PROGRESS_FILE)
+	cfg.set_value(_PROGRESS_SECTION, key, true)
+	cfg.save(_PROGRESS_FILE)
+
+
+## En ejecuciones desde el editor todas las guías vuelven a mostrarse una vez,
+## para poder probarlas sin borrar user://progress.cfg a mano.
+func _reset_hints_for_editor() -> void:
+	for key: String in [
+		_PROGRESS_KEY,
+		HINT_BOOK_TOOLS,
+		HINT_INTRO_SAGE,
+		HINT_INTRO_ROBOT,
+		HINT_INTRO_TEACHER,
+	]:
+		_hints_seen_cache[key] = false
+
+
+## ¿El jugador ya completó (o saltó) el tutorial guiado del Lobby?
 func is_tutorial_completed() -> bool:
-	if _tutorial_completed_cache == -1:
-		var cfg := ConfigFile.new()
-		var err := cfg.load(_PROGRESS_FILE)
-		if err == OK:
-			_tutorial_completed_cache = 1 if cfg.get_value(_PROGRESS_SECTION, _PROGRESS_KEY, false) else 0
-		else:
-			_tutorial_completed_cache = 0
-	return _tutorial_completed_cache == 1
+	return is_hint_seen(_PROGRESS_KEY)
 
 
 ## Marca el tutorial como completado y lo persiste en disco.
 func mark_tutorial_completed() -> void:
-	_tutorial_completed_cache = 1
-	var cfg := ConfigFile.new()
-	# Cargamos para no sobrescribir otras secciones que existieran.
-	cfg.load(_PROGRESS_FILE)
-	cfg.set_value(_PROGRESS_SECTION, _PROGRESS_KEY, true)
-	cfg.save(_PROGRESS_FILE)
+	mark_hint_seen(_PROGRESS_KEY)
 
 
-## Reinicia el flag (útil para depuración / reset desde menú).
+## Reinicia el flag del tutorial (útil para depuración / reset desde menú).
 func reset_tutorial() -> void:
-	_tutorial_completed_cache = 0
+	_hints_seen_cache[_PROGRESS_KEY] = false
 	var cfg := ConfigFile.new()
 	cfg.load(_PROGRESS_FILE)
 	cfg.set_value(_PROGRESS_SECTION, _PROGRESS_KEY, false)
