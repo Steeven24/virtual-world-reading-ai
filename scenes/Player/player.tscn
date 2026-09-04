@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bpq11kv1tsmhb" path="res://scripts/Player/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://dk3t7r44tr7ai" path="res://assets/Characters/Player/Women/AllSprites.png" id="3_c4h5g"]
-[ext_resource type="Texture2D" uid="uid://behgfuc585dfy" path="res://assets/Characters/Player/New sprites/idle.png" id="3_dqkch"]
-[ext_resource type="Texture2D" uid="uid://dd6b6c8angvbn" path="res://assets/Characters/Player/New sprites/walk.png" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://behgfuc585dfy" path="res://assets/Characters/Player/Man/idle.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dd6b6c8angvbn" path="res://assets/Characters/Player/Man/walk.png" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("3_dqkch")

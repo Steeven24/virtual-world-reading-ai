@@ -14,6 +14,7 @@ extends CanvasLayer
 
 @onready var email_input: LineEdit = %EmailInput
 @onready var password_input: LineEdit = %PasswordInput
+@onready var toggle_password_button: Button = %TogglePasswordButton
 @onready var login_button: Button = %LoginButton
 @onready var error_label: Label = %ErrorLabel
 @onready var loading_indicator: Label = %LoadingIndicator
@@ -63,6 +64,7 @@ func _ready() -> void:
 	
 	login_button.pressed.connect(_on_login_pressed)
 	password_input.text_submitted.connect(func(_t): _on_login_pressed())
+	toggle_password_button.toggled.connect(_on_toggle_password)
 	return_continue_button.pressed.connect(_on_continue_pressed)
 	return_switch_button.pressed.connect(_on_switch_account_pressed)
 	
@@ -143,6 +145,14 @@ func _on_login_pressed() -> void:
 	
 	_show_loading("Iniciando sesión...")
 	AuthManager.login(email, password)
+
+
+## Muestra u oculta la contraseña escrita, para que el jugador pueda
+## comprobar lo que ha tecleado antes de enviar.
+func _on_toggle_password(mostrar: bool) -> void:
+	password_input.secret = not mostrar
+	toggle_password_button.text = "🙈" if mostrar else "👁"
+	toggle_password_button.tooltip_text = "Ocultar contraseña" if mostrar else "Mostrar contraseña"
 
 
 func _on_continue_pressed() -> void:
@@ -271,6 +281,24 @@ func _apply_styles() -> void:
 		input.add_theme_font_override("font", font)
 		input.add_theme_font_size_override("font_size", 16)
 	
+	# Estilizar el botón del ojo igual que los campos, para que se lea como
+	# parte del mismo control y no como un botón suelto.
+	var eye_normal := StyleBoxFlat.new()
+	eye_normal.bg_color = Color(0.12, 0.13, 0.18, 0.9)
+	eye_normal.set_corner_radius_all(8)
+	eye_normal.set_border_width_all(2)
+	eye_normal.border_color = Color(0.25, 0.27, 0.35, 0.6)
+	var eye_hover := eye_normal.duplicate()
+	eye_hover.border_color = Color(0.39, 0.4, 0.95, 0.8)
+	toggle_password_button.add_theme_stylebox_override("normal", eye_normal)
+	toggle_password_button.add_theme_stylebox_override("hover", eye_hover)
+	toggle_password_button.add_theme_stylebox_override("pressed", eye_hover)
+	toggle_password_button.add_theme_color_override("font_color", Color(0.75, 0.77, 0.85))
+	toggle_password_button.add_theme_color_override("font_hover_color", Color.WHITE)
+	toggle_password_button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	toggle_password_button.add_theme_font_override("font", font)
+	toggle_password_button.add_theme_font_size_override("font_size", 18)
+
 	# Estilizar botón de login
 	var btn_normal := StyleBoxFlat.new()
 	btn_normal.bg_color = Color(0.39, 0.4, 0.95, 1.0)

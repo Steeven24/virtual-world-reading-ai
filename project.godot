@@ -27,6 +27,8 @@ LobbyReturnHandler="*res://scenes/Global/lobby_return_handler.tscn"
 ProgressionManager="*res://scenes/Global/progression_manager.tscn"
 ReadingProgressManager="*res://scripts/Global/reading_progress_manager.gd"
 MedalImageLoader="*res://scripts/Global/medal_image_loader.gd"
+ObjectivesHUD="*res://scripts/UI/objectives_hud.gd"
+SessionGuard="*res://scripts/Global/session_guard.gd"
 
 [display]
 

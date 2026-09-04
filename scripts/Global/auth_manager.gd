@@ -74,9 +74,12 @@ func _ready() -> void:
 	add_child(_http)
 	_http.request_completed.connect(_on_request_completed)
 	
-	# Configurar timer de polling de validación de slot
+	# Configurar timer de polling de validación de slot.
+	# 25 s en lugar de 60: es lo que tarda en enterarse una ventana a la que han
+	# echado por iniciar sesión desde otro navegador, y un minuto entero jugando
+	# con una sesión ya invalidada daba lugar a progreso que se perdía al enviar.
 	_polling_timer = Timer.new()
-	_polling_timer.wait_time = 60.0
+	_polling_timer.wait_time = 25.0
 	_polling_timer.one_shot = false
 	_polling_timer.timeout.connect(_on_polling_timeout)
 	add_child(_polling_timer)
@@ -531,7 +534,7 @@ func _on_polling_timeout() -> void:
 func _start_polling() -> void:
 	if _polling_timer:
 		_polling_timer.start()
-		print("[AuthManager] Polling de validación iniciado (60s)")
+		print("[AuthManager] Polling de validación iniciado (25s)")
 
 
 func _stop_polling() -> void:

@@ -21,8 +21,18 @@ const CARACTERES_POR_PAGINA: int = 700
 ## Proporción mínima de llenado de una página al fragmentar texto.
 const PROPORCION_MINIMA_PAGINA: float = 0.6
 
+## Índice reservado para la portada: no es una página numerada, solo el título.
+## El libro abre aquí y "Pag 1" sigue siendo la primera página con texto real.
+const PAGINA_PORTADA: int = -1
+
 ## Ruta del archivo que almacena el UUID del dispositivo.
 const DEVICE_ID_PATH: String = "user://device_id.txt"
+
+## Archivo donde se persisten resaltados, subrayados y notas entre escenas.
+const MARCAS_PATH: String = "user://reading_marks.cfg"
+
+## Número máximo de lecturas cuyas marcas se conservan en disco.
+const MAX_LECTURAS_GUARDADAS: int = 10
 
 ## Panel de guía que se muestra al abrir el libro por primera vez.
 const GUIDE_PANEL_SCENE: String = "res://scenes/UI/guide_panel.tscn"
@@ -35,7 +45,7 @@ const TOOLS_GUIDE_BODY: String = """Este libro no es solo para leer: puedes trab
 [color=#f0c050][b]Subrayar[/b][/color] — los nombres, fechas y datos concretos.
 [color=#f0c050][b]Notas[/b][/color] — tus dudas y lo que vas entendiendo. Cada página guarda las suyas, y el [b]Compilatorio[/b] las reúne todas.
 
-[b]Para marcar:[/b] pulsa la herramienta, arrastra el ratón sobre el texto y suelta. Con [b]Borrar[/b] quitas lo que hayas marcado.
+[b]Para marcar:[/b] pulsa la herramienta —o las teclas [color=#f0c050][b]1[/b][/color], [color=#f0c050][b]2[/b][/color] y [color=#f0c050][b]3[/b][/color]—, arrastra el ratón sobre el texto y suelta. Con [b]Borrar[/b] quitas lo que hayas marcado.
 
 Dejar el texto marcado te ahorrará releerlo entero cuando llegue el desafío."""
 
@@ -83,16 +93,19 @@ Dejar el texto marcado te ahorrará releerlo entero cuando llegue el desafío.""
 @onready var boton_compilatorio: Button = %ButtonCompilatorio
 @onready var label_notas_guardadas: Label = %LabelNotasGuardadas
 @onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
-@onready var label_title: Label = %LabelTitle
+@onready var boton_cerrar: Button = %ButtonCerrar
 
 # ─── Estado interno ─────────────────────────────────────────────────────────────
 
 var modo_actual: ModoVista = ModoVista.LECTURA
 var herramienta_actual: Herramienta = Herramienta.NINGUNA
-var pagina_actual: int = 0
+var pagina_actual: int = PAGINA_PORTADA
 var paginas: Array[String] = []
 var estilos_por_pagina: Array[Array] = []
 var notas_por_pagina: Dictionary = {}
+
+## Título de la lectura. Se muestra en la portada del libro.
+var _titulo_lectura: String = ""
 
 ## ID de la lectura actualmente cargada desde la API (-1 si es archivo local).
 var _current_reading_id: int = -1
@@ -101,7 +114,6 @@ var _current_reading_id: int = -1
 var _is_loading: bool = false
 
 ## UUID del dispositivo, usado para marcar lecturas como vistas.
-## Será reemplazado por el ID del usuario cuando se implemente el login.
 var _user_id: String = ""
 
 ## True si el contenido se carga desde la API en lugar de un archivo local.
@@ -112,6 +124,9 @@ var _used_highlight: bool = false
 var _used_underline: bool = false
 var _used_notes: bool = false
 
+## True cuando ya hay contenido paginado: antes de eso no hay marcas que guardar.
+var _contenido_listo: bool = false
+
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────────
 
 func _ready() -> void:
@@ -121,6 +136,7 @@ func _ready() -> void:
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
 	_configurar_botones_herramientas()
+	_estilizar_boton_cerrar()
 
 	# Determinar modo de carga
 	# Si no tiene typology_filter propio, usar el de GameSession (configurado desde el Lobby)
@@ -134,6 +150,13 @@ func _ready() -> void:
 		_preload_from_api()
 	else:
 		_load_from_file()
+
+
+func _exit_tree() -> void:
+	# Al abandonar el escenario el libro se destruye: es el último momento para
+	# conservar lo resaltado, subrayado y anotado.
+	_guardar_nota()
+	_guardar_marcas()
 
 # ─── Guía de herramientas ───────────────────────────────────────────────────────
 
@@ -167,33 +190,15 @@ func show_tools_guide_if_needed() -> void:
 
 func _load_from_file() -> void:
 	var file := FileAccess.open(ruta_texto, FileAccess.READ)
-	#var texto_completo := file.get_as_text()
-	
-	
-	
-	
-	var texto_completo
-	
+	var texto_completo: String
+
 	if file == null:
 		texto_completo = "Loren ipsun"
-	else: 
+	else:
 		texto_completo = file.get_as_text()
-	
-	
-	
-	
-	
-	
-	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
-	_inicializar_estilos()
-	_actualizar_estado_botones()
-	pagina_actual = 0
-	
-	# Establecer título basado en el nombre del archivo
-	if label_title:
-		_update_title_layout(ruta_texto.get_file().get_basename().capitalize())
-		
-	_cambiar_modo(ModoVista.LECTURA)
+
+	_titulo_lectura = ruta_texto.get_file().get_basename().capitalize()
+	_preparar_contenido(texto_completo)
 
 # ─── Carga desde la API (precarga al entrar a la escena) ───────────────────────
 
@@ -230,8 +235,6 @@ func _preload_from_api() -> void:
 func _set_loading_state() -> void:
 	rtl.text = "[color=black][center]Cargando lectura...[/center][/color]"
 	label_pagina.text = "\n\tCargando..."
-	if label_title:
-		_update_title_layout("Cargando...")
 	boton_izq.visible = false
 	boton_der.visible = false
 
@@ -242,10 +245,7 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	_current_reading_id = int(data.get("id", -1))
 
 	var content: String = str(data.get("content", ""))
-	var title: String = str(data.get("title", "Lectura sin título"))
-	
-	if label_title:
-		_update_title_layout(title)
+	_titulo_lectura = str(data.get("title", "Lectura sin título"))
 
 	if content.is_empty():
 		_show_error_state("La lectura no tiene contenido.")
@@ -261,11 +261,7 @@ func _on_api_reading_received(data: Dictionary) -> void:
 		GameSession.configure_scenes(level2_scene_path, level3_scene_path, lobby_scene_path)
 		GameSession.level_scenes["Literal"] = level1_scene_path
 
-	paginas = _fragmentar_texto(content, CARACTERES_POR_PAGINA)
-	_inicializar_estilos()
-	pagina_actual = 0
-	_actualizar_estado_botones()
-	_cambiar_modo(ModoVista.LECTURA)
+	_preparar_contenido(content)
 
 
 ## Callback cuando la API falla (red, timeout, etc.).
@@ -282,17 +278,24 @@ func _on_api_request_failed(endpoint: String, error: String) -> void:
 func _show_error_state(message: String) -> void:
 	rtl.text = "[color=red][center]%s[/center][/color]" % _escapar_bbcode(message)
 	label_pagina.text = "\n\tError"
-	if label_title:
-		_update_title_layout("Error de carga")
 	boton_izq.visible = false
 	boton_der.visible = false
 
 
+## Pasos comunes tras obtener el texto: paginar, recuperar las marcas guardadas
+## y abrir el libro por la portada.
+func _preparar_contenido(texto_completo: String) -> void:
+	paginas = _fragmentar_texto(texto_completo, CARACTERES_POR_PAGINA)
+	_inicializar_estilos()
+	_contenido_listo = true
+	_restaurar_marcas()
+	pagina_actual = PAGINA_PORTADA
+	_actualizar_estado_botones()
+	_cambiar_modo(ModoVista.LECTURA)
+
 # ─── Identificador de usuario (UUID de dispositivo) ─────────────────────────────
 
 ## Obtiene o genera un UUID único por dispositivo, almacenado en user://.
-## Cuando se implemente el sistema de login, este valor será reemplazado
-## por el ID del usuario autenticado.
 func _get_or_create_user_id() -> String:
 	if FileAccess.file_exists(DEVICE_ID_PATH):
 		var file := FileAccess.open(DEVICE_ID_PATH, FileAccess.READ)
@@ -350,7 +353,7 @@ func _show_confirm_dialog() -> void:
 	# Esperar a que Godot calcule el tamaño real
 	await get_tree().process_frame
 	dialog.reset_size()
-	
+
 	# Posición final: centrado horizontalmente, abajo con margen
 	var screen_size := get_viewport().get_visible_rect().size
 	var final_x: int = int((screen_size.x - dialog.size.x) / 2)
@@ -374,10 +377,15 @@ func _show_confirm_dialog() -> void:
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
 
+	# Dejar el foco puesto en "Sí, empezar": show() no dispara el POST_POPUP que
+	# normalmente lo coloca, y sin foco el diálogo solo responde al ratón.
+	DialogFocus.preparar(dialog)
+
 
 func _on_confirm_challenges() -> void:
 	# Asegurar el guardado de la nota de la página actual por si acaso no se guardó al cambiar de vista
 	_guardar_nota()
+	_guardar_marcas()
 
 	# Enviar notas a la API
 	if AuthManager.is_authenticated and _current_reading_id > 0:
@@ -393,14 +401,14 @@ func _on_confirm_challenges() -> void:
 		"underline": _used_underline,
 		"notes": _used_notes,
 	}
-	
+
 	# Registrar fin del tiempo de lectura
 	GameSession.end_reading()
-	
+
 	# Marcar como vista si se cargó desde la API
 	if _uses_api and _current_reading_id > 0:
 		ReadingAPI.mark_seen(_user_id, _current_reading_id)
-		
+
 	# Emitir señal para que el SceneManager maneje la transición
 	warning_accepted.emit()
 	_on_button_cerrar_pressed()
@@ -415,6 +423,41 @@ func _on_rich_text_label_gui_input(event: InputEvent) -> void:
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and not mouse_event.pressed:
 			_aplicar_formato()
 
+
+## Atajos 1 / 2 / 3 para activar Resaltar, Subrayar y Borrar sin ir al ratón.
+## Solo en modo lectura: en Notas el TextEdit se queda las teclas antes de que
+## lleguen aquí, pero se comprueba el modo igual por si no tiene el foco.
+func _unhandled_key_input(event: InputEvent) -> void:
+	if modo_actual != ModoVista.LECTURA or not _libro_visible():
+		return
+
+	var key_event := event as InputEventKey
+	if key_event == null or not key_event.pressed or key_event.echo:
+		return
+
+	match key_event.keycode:
+		KEY_1, KEY_KP_1:
+			_toggle_herramienta(Herramienta.RESALTAR)
+		KEY_2, KEY_KP_2:
+			_toggle_herramienta(Herramienta.SUBRAYAR)
+		KEY_3, KEY_KP_3:
+			_toggle_herramienta(Herramienta.BORRAR)
+		_:
+			return
+
+	get_viewport().set_input_as_handled()
+
+
+## ¿Está el libro realmente en pantalla? El CanvasLayer que lo contiene se
+## oculta al cerrarlo, y eso no detiene la entrada de teclado del libro.
+func _libro_visible() -> bool:
+	if not visible:
+		return false
+	var canvas := get_parent() as CanvasLayer
+	if canvas and not canvas.visible:
+		return false
+	return true
+
 # ─── Señales de navegación ──────────────────────────────────────────────────────
 
 func _on_button_right_pressed() -> void:
@@ -424,7 +467,7 @@ func _on_button_right_pressed() -> void:
 
 
 func _on_button_left_pressed() -> void:
-	if pagina_actual > 0:
+	if pagina_actual > PAGINA_PORTADA:
 		pagina_actual -= 1
 		_mostrar_pagina()
 
@@ -436,6 +479,10 @@ func _on_button_reading_pressed() -> void:
 
 
 func _on_button_notes_pressed() -> void:
+	# La portada no es una página anotable: si se piden notas desde ella se pasa
+	# a la primera página real, en lugar de abrir un cuaderno sin dueño.
+	if pagina_actual == PAGINA_PORTADA and not paginas.is_empty():
+		pagina_actual = 0
 	_cambiar_modo(ModoVista.NOTAS)
 	_cargar_nota()
 
@@ -462,21 +509,28 @@ func _cambiar_modo(nuevo_modo: ModoVista) -> void:
 	boton_notas.disabled = (nuevo_modo == ModoVista.NOTAS)
 	boton_compilatorio.disabled = (nuevo_modo == ModoVista.COMPILATORIO)
 
-	# Flechas de navegación solo visibles en modo lectura
-	var mostrar_flechas := (nuevo_modo == ModoVista.LECTURA)
-	boton_izq.visible = mostrar_flechas
-	boton_der.visible = mostrar_flechas
+	# Las herramientas de marcado solo actúan sobre el texto: en Notas y
+	# Compilatorio se ocultan y se suelta la que estuviera activa, para que al
+	# volver a Lectura no quede una selección fantasma.
+	var en_lectura := (nuevo_modo == ModoVista.LECTURA)
+	resaltar_button.visible = en_lectura
+	subrayar_button.visible = en_lectura
+	borrar_button.visible = en_lectura
+	if not en_lectura and herramienta_actual != Herramienta.NINGUNA:
+		herramienta_actual = Herramienta.NINGUNA
+		_actualizar_estado_botones()
 
 	# Actualizar encabezado según el modo
 	_refrescar_texto_actual()
 	match nuevo_modo:
 		ModoVista.LECTURA:
-			label_pagina.text = "\n\tPag %d de %d" % [pagina_actual + 1, paginas.size()]
+			label_pagina.text = _texto_encabezado_pagina()
 		ModoVista.NOTAS:
 			label_pagina.text = "\n\tNotas - Pag %d" % [pagina_actual + 1]
 		ModoVista.COMPILATORIO:
 			label_pagina.text = "\n\tAgrupación de todas las notas"
 
+	_actualizar_flechas()
 	_actualizar_indicador_notas()
 
 # ─── Herramientas de formato ────────────────────────────────────────────────────
@@ -485,6 +539,84 @@ func _configurar_botones_herramientas() -> void:
 	resaltar_button.toggle_mode = true
 	subrayar_button.toggle_mode = true
 	borrar_button.toggle_mode = true
+
+	resaltar_button.tooltip_text = "Resaltar (tecla 1)"
+	subrayar_button.tooltip_text = "Subrayar (tecla 2)"
+	borrar_button.tooltip_text = "Borrar marcas (tecla 3)"
+
+	# Distintivo con el atajo de teclado sobre cada herramienta.
+	_anadir_distintivo_atajo(resaltar_button, "1")
+	_anadir_distintivo_atajo(subrayar_button, "2")
+	_anadir_distintivo_atajo(borrar_button, "3")
+
+
+## Dibuja un número pequeño en la esquina del botón para anunciar su atajo.
+func _anadir_distintivo_atajo(boton: TextureButton, tecla: String) -> void:
+	if boton == null or boton.has_node("AtajoBadge"):
+		return
+
+	var badge := Label.new()
+	badge.name = "AtajoBadge"
+	badge.text = tecla
+	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	badge.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	badge.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	badge.offset_left = 3.0
+	badge.offset_top = 3.0
+	badge.offset_right = 21.0
+	badge.offset_bottom = 21.0
+	badge.add_theme_font_size_override("font_size", 12)
+	badge.add_theme_color_override("font_color", Color(1, 1, 1))
+
+	var estilo := StyleBoxFlat.new()
+	estilo.bg_color = Color(0.10, 0.10, 0.16, 0.85)
+	estilo.set_corner_radius_all(5)
+	estilo.set_border_width_all(1)
+	estilo.border_color = Color(0.93, 0.79, 0.28, 0.85)
+	badge.add_theme_stylebox_override("normal", estilo)
+
+	boton.add_child(badge)
+
+
+## Le da al botón de cerrar el mismo lenguaje visual (rojo, redondeado, con
+## borde y hover) que la ✖ de los paneles de logros y marcador.
+func _estilizar_boton_cerrar() -> void:
+	if boton_cerrar == null:
+		return
+
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = Color(0.15, 0.08, 0.08, 0.85)
+	normal.set_corner_radius_all(10)
+	normal.set_border_width_all(2)
+	normal.border_color = Color(0.75, 0.28, 0.28, 0.9)
+
+	var hover := StyleBoxFlat.new()
+	hover.bg_color = Color(0.45, 0.13, 0.13, 0.95)
+	hover.set_corner_radius_all(10)
+	hover.set_border_width_all(2)
+	hover.border_color = Color(1.0, 0.4, 0.4, 1.0)
+
+	boton_cerrar.add_theme_stylebox_override("normal", normal)
+	boton_cerrar.add_theme_stylebox_override("hover", hover)
+	boton_cerrar.add_theme_stylebox_override("pressed", hover)
+	boton_cerrar.add_theme_stylebox_override("focus", hover)
+	boton_cerrar.add_theme_color_override("font_color", Color(0.95, 0.6, 0.6))
+	boton_cerrar.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	boton_cerrar.add_theme_color_override("font_pressed_color", Color(1, 1, 1))
+	boton_cerrar.add_theme_font_size_override("font_size", 18)
+	boton_cerrar.tooltip_text = "Cerrar el libro"
+
+
+## Vuelca el uso de herramientas en GameSession en cuanto ocurre, y no solo al
+## confirmar los desafíos: la lista de objetivos lee de ahí para ir marcando
+## los pasos completados mientras el jugador lee.
+func _reportar_herramientas() -> void:
+	GameSession.tools_used = {
+		"highlight": _used_highlight,
+		"underline": _used_underline,
+		"notes": _used_notes,
+	}
 
 
 func _toggle_herramienta(herramienta: Herramienta) -> void:
@@ -502,6 +634,10 @@ func _actualizar_estado_botones() -> void:
 
 
 func _aplicar_formato() -> void:
+	# La portada no tiene texto marcable.
+	if pagina_actual < 0 or pagina_actual >= estilos_por_pagina.size():
+		return
+
 	var desde: int = rtl.get_selection_from()
 	var hasta: int = rtl.get_selection_to()
 
@@ -532,6 +668,7 @@ func _aplicar_formato() -> void:
 				return
 
 	rtl.deselect()
+	_reportar_herramientas()
 	_refrescar_texto_actual()
 
 # ─── Paginación y renderizado ────────────────────────────────────────────────────
@@ -573,13 +710,38 @@ func _inicializar_estilos() -> void:
 
 func _mostrar_pagina() -> void:
 	_refrescar_texto_actual()
-	label_pagina.text = "\n\tPag %d de %d" % [pagina_actual + 1, paginas.size()]
+	label_pagina.text = _texto_encabezado_pagina()
+	_actualizar_flechas()
 	_actualizar_indicador_notas()
+
+
+## Encabezado del libro. La portada se anuncia como título y no consume número,
+## así que la primera página con texto sigue siendo "Pag 1".
+func _texto_encabezado_pagina() -> String:
+	if pagina_actual == PAGINA_PORTADA:
+		return "\n\tTítulo"
+	return "\n\tPag %d de %d" % [pagina_actual + 1, paginas.size()]
+
+
+## Muestra u oculta las flechas según dónde esté el lector: en la portada no
+## hay nada a la izquierda, y en la última página nada a la derecha.
+func _actualizar_flechas() -> void:
+	if _is_loading or paginas.is_empty() or modo_actual != ModoVista.LECTURA:
+		boton_izq.visible = false
+		boton_der.visible = false
+		return
+
+	boton_izq.visible = pagina_actual > PAGINA_PORTADA
+	boton_der.visible = pagina_actual < paginas.size() - 1
 
 
 func _refrescar_texto_actual() -> void:
 	# Si estamos cargando o no hay páginas, no refrescar
 	if _is_loading or paginas.is_empty():
+		return
+
+	if pagina_actual == PAGINA_PORTADA:
+		rtl.text = _construir_portada()
 		return
 
 	var texto_base: String = paginas[pagina_actual]
@@ -626,21 +788,49 @@ func _refrescar_texto_actual() -> void:
 	rtl.text = bbcode
 
 
+## Portada del libro: título centrado, tipología y número de páginas.
+## Es una hoja de cortesía, por eso no entra en la numeración.
+func _construir_portada() -> String:
+	var titulo := _escapar_bbcode(_titulo_lectura.strip_edges())
+	if titulo.is_empty():
+		titulo = "Lectura sin título"
+
+	var lineas: Array[String] = []
+	lineas.append("[color=black][center]")
+	lineas.append("")
+	lineas.append("")
+	lineas.append("[font_size=32][b]%s[/b][/font_size]" % titulo)
+	lineas.append("")
+	lineas.append("[color=#8a7455]─────────────[/color]")
+	lineas.append("")
+
+	if not typology_filter.is_empty():
+		lineas.append("[font_size=17]Texto %s[/font_size]" % _escapar_bbcode(typology_filter))
+	lineas.append("[font_size=17]%d páginas[/font_size]" % paginas.size())
+	lineas.append("")
+	lineas.append("")
+	lineas.append("[color=#7a6a4e][font_size=15][i]Pulsa ▶ para empezar a leer[/i][/font_size][/color]")
+	lineas.append("[/center][/color]")
+
+	return "\n".join(lineas)
+
+
 func _escapar_bbcode(texto: String) -> String:
 	return texto.replace("[", "[lb]").replace("]", "[rb]")
 
 # ─── Sistema de notas ───────────────────────────────────────────────────────────
 
 func _guardar_nota() -> void:
-	if modo_actual == ModoVista.NOTAS:
+	if modo_actual == ModoVista.NOTAS and pagina_actual >= 0:
 		notas_por_pagina[pagina_actual] = text_notas.text
 		if not text_notas.text.strip_edges().is_empty():
 			_used_notes = true
+		_reportar_herramientas()
 		_actualizar_indicador_notas()
 
 
-## Muestra u oculta el indicador "📝 Notas guardadas" según si la página
-## actual tiene notas escritas por el jugador.
+## Muestra u oculta el indicador "📝 Notas" según si la página actual tiene
+## notas escritas por el jugador.
 func _actualizar_indicador_notas() -> void:
 	var nota: String = notas_por_pagina.get(pagina_actual, "")
 	var tiene_notas := not nota.strip_edges().is_empty()
@@ -665,6 +855,178 @@ func _generar_compilatorio() -> void:
 	rtl_compilatorio.bbcode_enabled = true
 	rtl_compilatorio.text = texto
 
+# ─── Persistencia de marcas y notas ─────────────────────────────────────────────
+
+## Clave con la que se guardan las marcas de esta lectura. Lleva el id del
+## jugador para que dos cuentas del mismo equipo no se pisen entre sí.
+func _clave_marcas() -> String:
+	if _uses_api:
+		if _current_reading_id <= 0:
+			return ""
+		return "u%d_r%d" % [AuthManager.get_user_id(), _current_reading_id]
+	if ruta_texto.is_empty():
+		return ""
+	return "u%d_f%d" % [AuthManager.get_user_id(), abs(ruta_texto.hash())]
+
+
+## Guarda resaltados, subrayados y notas en disco. Se llama al cerrar el libro
+## y al salir del escenario, que es justo donde antes se perdía todo.
+func _guardar_marcas() -> void:
+	if not _contenido_listo:
+		return
+	var clave := _clave_marcas()
+	if clave.is_empty():
+		return
+
+	var cfg := ConfigFile.new()
+	cfg.load(MARCAS_PATH)
+
+	var tramos := _serializar_estilos()
+	var notas := _notas_serializables()
+
+	if tramos.is_empty() and notas.is_empty():
+		# Nada que conservar: no dejamos una entrada vacía ocupando sitio.
+		if cfg.has_section(clave):
+			cfg.erase_section(clave)
+			cfg.save(MARCAS_PATH)
+		return
+
+	cfg.set_value(clave, "paginas", paginas.size())
+	cfg.set_value(clave, "longitud", _longitud_total())
+	cfg.set_value(clave, "tramos", JSON.stringify(tramos))
+	cfg.set_value(clave, "notas", JSON.stringify(notas))
+	cfg.set_value(clave, "guardado", int(Time.get_unix_time_from_system()))
+
+	_podar_marcas(cfg, clave)
+	cfg.save(MARCAS_PATH)
+
+
+## Restaura las marcas guardadas si corresponden exactamente a este texto.
+## Si la lectura cambió en el servidor la paginación ya no coincide, y entonces
+## se descartan en vez de pintar tramos en sitios equivocados.
+func _restaurar_marcas() -> void:
+	var clave := _clave_marcas()
+	if clave.is_empty():
+		return
+
+	var cfg := ConfigFile.new()
+	if cfg.load(MARCAS_PATH) != OK or not cfg.has_section(clave):
+		return
+
+	var mismas_paginas := int(cfg.get_value(clave, "paginas", -1)) == paginas.size()
+	var misma_longitud := int(cfg.get_value(clave, "longitud", -1)) == _longitud_total()
+	if not mismas_paginas or not misma_longitud:
+		cfg.erase_section(clave)
+		cfg.save(MARCAS_PATH)
+		return
+
+	_aplicar_tramos(str(cfg.get_value(clave, "tramos", "[]")))
+	_aplicar_notas(str(cfg.get_value(clave, "notas", "{}")))
+	_reportar_herramientas()
+	print("[BookAndTools] Marcas restauradas para %s" % clave)
+
+
+func _longitud_total() -> int:
+	var total := 0
+	for texto in paginas:
+		total += texto.length()
+	return total
+
+
+## Comprime los estilos por carácter en tramos [pagina, inicio, fin, banderas],
+## donde banderas es 1 = resaltado, 2 = subrayado, 3 = ambos.
+func _serializar_estilos() -> Array:
+	var tramos: Array = []
+
+	for pagina_idx in estilos_por_pagina.size():
+		var estilos: Array = estilos_por_pagina[pagina_idx]
+		var inicio := -1
+		var banderas_actuales := 0
+
+		for i in estilos.size():
+			var estado: Dictionary = estilos[i]
+			var banderas := (1 if estado["resaltar"] else 0) | (2 if estado["subrayar"] else 0)
+			if banderas != banderas_actuales:
+				if banderas_actuales != 0 and inicio >= 0:
+					tramos.append([pagina_idx, inicio, i, banderas_actuales])
+				inicio = i if banderas != 0 else -1
+				banderas_actuales = banderas
+
+		if banderas_actuales != 0 and inicio >= 0:
+			tramos.append([pagina_idx, inicio, estilos.size(), banderas_actuales])
+
+	return tramos
+
+
+func _aplicar_tramos(json_tramos: String) -> void:
+	var parseado = JSON.parse_string(json_tramos)
+	if not (parseado is Array):
+		return
+
+	for tramo in parseado:
+		if not (tramo is Array) or tramo.size() < 4:
+			continue
+		var pagina_idx := int(tramo[0])
+		if pagina_idx < 0 or pagina_idx >= estilos_por_pagina.size():
+			continue
+
+		var estilos: Array = estilos_por_pagina[pagina_idx]
+		var inicio: int = clampi(int(tramo[1]), 0, estilos.size())
+		var fin: int = clampi(int(tramo[2]), 0, estilos.size())
+		var banderas := int(tramo[3])
+
+		for i in range(inicio, fin):
+			var estado: Dictionary = estilos[i]
+			if banderas & 1:
+				estado["resaltar"] = true
+				_used_highlight = true
+			if banderas & 2:
+				estado["subrayar"] = true
+				_used_underline = true
+
+
+func _notas_serializables() -> Dictionary:
+	var salida: Dictionary = {}
+	for pagina in notas_por_pagina.keys():
+		var contenido: String = str(notas_por_pagina[pagina])
+		if not contenido.strip_edges().is_empty():
+			salida[str(pagina)] = contenido
+	return salida
+
+
+func _aplicar_notas(json_notas: String) -> void:
+	var parseado = JSON.parse_string(json_notas)
+	if not (parseado is Dictionary):
+		return
+
+	for clave in parseado.keys():
+		var pagina := int(str(clave))
+		if pagina < 0 or pagina >= paginas.size():
+			continue
+		var contenido: String = str(parseado[clave])
+		notas_por_pagina[pagina] = contenido
+		if not contenido.strip_edges().is_empty():
+			_used_notes = true
+
+
+## Conserva solo las MAX_LECTURAS_GUARDADAS entradas más recientes, para que el
+## archivo no crezca sin límite a lo largo del curso.
+func _podar_marcas(cfg: ConfigFile, clave_actual: String) -> void:
+	var secciones := cfg.get_sections()
+	if secciones.size() <= MAX_LECTURAS_GUARDADAS:
+		return
+
+	var ordenadas: Array = []
+	for seccion in secciones:
+		if seccion == clave_actual:
+			continue
+		ordenadas.append({"nombre": seccion, "ts": int(cfg.get_value(seccion, "guardado", 0))})
+	ordenadas.sort_custom(func(a, b): return a["ts"] < b["ts"])
+
+	var sobrantes := secciones.size() - MAX_LECTURAS_GUARDADAS
+	for i in range(mini(sobrantes, ordenadas.size())):
+		cfg.erase_section(ordenadas[i]["nombre"])
+
 # ─── Navegación de escenas ──────────────────────────────────────────────────────
 
 func _cambiar_escena() -> void:
@@ -674,7 +1036,11 @@ func _cambiar_escena() -> void:
 	SceneManager.is_ui_open = false
 	SceneManager.transition_to(target_scene_path)
 
+
 func _on_button_cerrar_pressed() -> void:
+	_guardar_nota()
+	_guardar_marcas()
+
 	var canvas := get_parent() as CanvasLayer
 	if canvas:
 		canvas.visible = false
@@ -689,30 +1055,3 @@ func _disconnect_api_signals() -> void:
 		ReadingAPI.full_reading_loaded.disconnect(_on_api_reading_received)
 	if ReadingAPI.request_failed.is_connected(_on_api_request_failed):
 		ReadingAPI.request_failed.disconnect(_on_api_request_failed)
-
-
-## Ajusta el tamaño del título dinámicamente hasta un máximo de 863px.
-## A partir de ese ancho, el texto comienza a envolverse (wrap) verticalmente.
-func _update_title_layout(title_text: String) -> void:
-	if not label_title:
-		return
-		
-	label_title.text = title_text
-	
-	# Resetear para calcular tamaño natural
-	label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
-	label_title.custom_minimum_size.x = 0
-	
-	# Forzar actualización de tamaño mínimo
-	var natural_width = label_title.get_combined_minimum_size().x
-	
-	if natural_width > 863:
-		# Si excede el máximo, fijar ancho y activar envoltura
-		label_title.custom_minimum_size.x = 863
-		label_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	else:
-		# Si es menor, dejar que el contenedor se ajuste al texto
-		label_title.custom_minimum_size.x = 0
-		label_title.autowrap_mode = TextServer.AUTOWRAP_OFF
-		
-	# El PanelContainer padre se ajustará automáticamente gracias a grow_horizontal = 1 (si se configura en la escena)

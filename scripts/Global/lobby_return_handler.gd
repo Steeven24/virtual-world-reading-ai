@@ -47,6 +47,9 @@ func request_return():
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
 
+	# Foco en "Si, regresar" para poder responder con flechas y Enter/E.
+	DialogFocus.preparar(confirm_dialog)
+
 
 func _on_dialog_closed():
 	SceneManager.is_ui_open = false

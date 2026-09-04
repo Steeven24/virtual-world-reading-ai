@@ -95,6 +95,11 @@ func show_message(title: String, body: String, button_text: String = "¡Entendid
 	_layout()
 	_animate_in()
 
+	# Foco en el único botón: así Enter, Espacio o E lo pulsan igual que el
+	# ratón, y se ve cuál está seleccionado.
+	DialogFocus.marcar(_action_button)
+	DialogFocus.enfocar(_action_button)
+
 
 # ─── Entrada ─────────────────────────────────────────────────────────────────
 

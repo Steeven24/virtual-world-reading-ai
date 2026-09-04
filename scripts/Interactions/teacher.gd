@@ -95,6 +95,7 @@ func show_dialogue():
 	SceneManager.is_ui_open = true
 	confirm_dialog.dialog_text = _build_dialog_text()
 	confirm_dialog.popup_centered()
+	DialogFocus.preparar(confirm_dialog)
 
 
 ## La primera vez el profesor se presenta; después anuncia el nivel que toca

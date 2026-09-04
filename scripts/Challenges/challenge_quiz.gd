@@ -142,6 +142,17 @@ func _create_option_buttons() -> void:
 		button.pressed.connect(_on_option_pressed.bind(letter))
 		options_container.add_child(button)
 
+	# Manejable con teclado: las flechas recorren las opciones y Enter, Espacio
+	# o E eligen la que esté enfocada. Antes solo respondía al ratón, porque
+	# ningún botón llegaba a tener el foco.
+	var opciones: Array[Button] = []
+	for child in options_container.get_children():
+		if child is Button:
+			opciones.append(child)
+	DialogFocus.encadenar(opciones, true)
+	if not opciones.is_empty():
+		DialogFocus.enfocar(opciones[0])
+
 
 # ─── Interacción ─────────────────────────────────────────────────────────────
 
@@ -230,6 +241,11 @@ func _show_feedback(correct: bool, justification: String, points: int = 0, penal
 	feedback_panel.modulate.a = 0.0
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(feedback_panel, "modulate:a", 1.0, 0.4)
+
+	# Las opciones quedan deshabilitadas: el foco pasa a Continuar para poder
+	# seguir con Enter sin tocar el ratón.
+	DialogFocus.marcar(continue_button)
+	DialogFocus.enfocar(continue_button)
 
 
 func _show_error(message: String) -> void:

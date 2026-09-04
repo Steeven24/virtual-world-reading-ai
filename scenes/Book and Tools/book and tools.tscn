@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://d1127u8csvxrh" path="res://assets/Buttons/Book Tools/BaseButton/button-right-over.png" id="20_8nksb"]
 [ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/nota.png" id="20_56ivi"]
 [ext_resource type="Texture2D" uid="uid://carl2uuuk1m4v" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png" id="20_gntck"]
-[ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="29_stylebox"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="theme_confirm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
@@ -305,14 +304,15 @@ theme_override_fonts/font = ExtResource("4_gntck")
 theme_override_font_sizes/font_size = 14
 text = "📝 Notas"
 
-[node name="PanelContainer" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer" unique_id=1409438583]
+[node name="HerramientasPanel" type="PanelContainer" parent="UIAnchor/PanelContainer/HBoxContainer" unique_id=1409438583]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Herramientas" type="VBoxContainer" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer" unique_id=1404167789]
+[node name="Herramientas" type="VBoxContainer" parent="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel" unique_id=1404167789]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ResaltarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=788527595]
+[node name="ResaltarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas" unique_id=788527595]
 unique_name_in_owner = true
 layout_mode = 2
 action_mode = 0
@@ -322,7 +322,7 @@ texture_pressed = ExtResource("4_488jl")
 texture_hover = ExtResource("5_to0nk")
 texture_focused = ExtResource("4_488jl")
 
-[node name="SubrayarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1822586112]
+[node name="SubrayarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas" unique_id=1822586112]
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("2_2ergs")
@@ -330,7 +330,7 @@ texture_pressed = ExtResource("7_q0t4q")
 texture_hover = ExtResource("8_imnac")
 texture_focused = ExtResource("7_q0t4q")
 
-[node name="BorrarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1515756510]
+[node name="BorrarButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas" unique_id=1515756510]
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("3_x4e7g")
@@ -338,39 +338,13 @@ texture_pressed = ExtResource("10_joms6")
 texture_hover = ExtResource("11_xlxhx")
 texture_focused = ExtResource("10_joms6")
 
-[node name="HechoButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas" unique_id=1898175171]
+[node name="HechoButton" type="TextureButton" parent="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas" unique_id=1898175171]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("4_m617q")
 texture_pressed = ExtResource("13_jb4w5")
 texture_hover = ExtResource("14_bm4mi")
 texture_focused = ExtResource("13_jb4w5")
-
-[node name="MetadataContainer" type="PanelContainer" parent="UIAnchor" unique_id=1122334455]
-texture_filter = 1
-layout_mode = 0
-offset_left = 22.0
-offset_top = 541.0
-offset_right = 364.0
-offset_bottom = 625.0
-theme_override_styles/panel = ExtResource("29_stylebox")
-
-[node name="MarginContainer" type="MarginContainer" parent="UIAnchor/MetadataContainer" unique_id=289518930]
-layout_mode = 2
-
-[node name="VBoxMetadata" type="VBoxContainer" parent="UIAnchor/MetadataContainer/MarginContainer" unique_id=-2061521730]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="LabelTitle" type="Label" parent="UIAnchor/MetadataContainer/MarginContainer/VBoxMetadata" unique_id=-950410619]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0)
-theme_override_fonts/font = ExtResource("4_gntck")
-theme_override_font_sizes/font_size = 19
-text = "Título "
-vertical_alignment = 1
-autowrap_mode = 3
 
 [node name="ButtonLeft" type="TextureButton" parent="UIAnchor" unique_id=1190728367]
 unique_name_in_owner = true
@@ -460,13 +434,15 @@ scale = Vector2(0.15113121, 0.15113121)
 texture = ExtResource("20_gntck")
 
 [node name="ButtonCerrar" type="Button" parent="UIAnchor" unique_id=1234567890]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(38, 38)
 layout_mode = 0
-offset_left = 900.0
+offset_left = 897.0
+offset_top = -4.0
 offset_right = 935.0
-offset_bottom = 35.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+offset_bottom = 34.0
 theme_override_fonts/font = ExtResource("4_gntck")
-text = "X"
+text = "✖"
 
 [node name="ConfirmDesafios" type="ConfirmationDialog" parent="." unique_id=501246328]
 unique_name_in_owner = true
@@ -484,10 +460,10 @@ Recuerda que ya no podrás acceder a la lectura ni a las notas tomadas."
 cancel_button_text = "Cancelar"
 
 [connection signal="gui_input" from="UIAnchor/PanelContainer/HBoxContainer/Libro/PanelContainer/MarginContainer/LecturaContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]
-[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
-[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
-[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
-[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/PanelContainer/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas/ResaltarButton" to="." method="_on_resaltar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas/SubrayarButton" to="." method="_on_subrayar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas/BorrarButton" to="." method="_on_borrar_button_pressed"]
+[connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonLeft" to="." method="_on_button_left_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonRight" to="." method="_on_button_right_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonReading" to="." method="_on_button_reading_pressed"]

@@ -316,6 +316,8 @@ func _show_assistant_tip(missing_tools: Array[String]) -> void:
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
 
+	DialogFocus.preparar(dialog)
+
 
 # ─── Navegación ──────────────────────────────────────────────────────────────
 

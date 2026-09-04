@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bks82f8qwe6v8"
-path="res://.godot/imported/Unarmed_Idle_with_shadow.png-19225f4146ca0ba169a3c414bf859948.ctex"
+uid="uid://dd6b6c8angvbn"
+path="res://.godot/imported/walk.png-60f92b544700925c5529bb65c1c8bfcd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Characters/Player/Old sprites/Unarmed_Idle_with_shadow.png"
-dest_files=["res://.godot/imported/Unarmed_Idle_with_shadow.png-19225f4146ca0ba169a3c414bf859948.ctex"]
+source_file="res://assets/Characters/Player/Man/walk.png"
+dest_files=["res://.godot/imported/walk.png-60f92b544700925c5529bb65c1c8bfcd.ctex"]
 
 [params]
 

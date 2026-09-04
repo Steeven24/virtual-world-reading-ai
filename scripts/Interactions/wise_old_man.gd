@@ -93,6 +93,7 @@ func show_dialogue():
 	
 	# Mostrar diálogo en el centro
 	dialog.popup_centered()
+	DialogFocus.preparar(dialog)
 
 	# Conectar señal de cerrado para restaurar el estado
 	if not dialog.confirmed.is_connected(_on_dialog_closed):

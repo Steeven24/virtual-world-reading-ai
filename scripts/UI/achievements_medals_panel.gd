@@ -219,13 +219,21 @@ func _animate_open() -> void:
 	var bg_tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	bg_tween.tween_property(_bg_dim, "color:a", 0.8, OPEN_ANIM_DURATION)
 
-	# Panel: escala + fade
-	_main_panel.pivot_offset = _main_panel.custom_minimum_size / 2.0
+	# Panel: escala + fade.
+	# El pivote se toma del tamaño real y no del mínimo: el panel crece con el
+	# contenido, y escalar sobre un centro equivocado lo desplazaba al abrirse.
+	_main_panel.pivot_offset = _main_panel.size / 2.0
+	if not _main_panel.resized.is_connected(_on_main_panel_resized):
+		_main_panel.resized.connect(_on_main_panel_resized)
 	_main_panel.scale = Vector2(0.92, 0.92)
 	_main_panel.modulate.a = 0.0
 	var panel_tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	panel_tween.tween_property(_main_panel, "scale", Vector2.ONE, OPEN_ANIM_DURATION)
 	panel_tween.parallel().tween_property(_main_panel, "modulate:a", 1.0, OPEN_ANIM_DURATION * 0.7)
+
+
+func _on_main_panel_resized() -> void:
+	_main_panel.pivot_offset = _main_panel.size / 2.0
 
 
 func _animate_loading() -> void:
@@ -321,7 +329,10 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	var is_unlocked: bool = item.get("is_unlocked", false)
 
 	var panel := PanelContainer.new()
+	# Alto mínimo, no fijo: los logros con pista de desbloqueo larga necesitan
+	# más de 72 px y antes el texto se salía por debajo del recuadro.
 	panel.custom_minimum_size = Vector2(0, 72)
+	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	# Estilo premium con glow
 	var style := StyleBoxFlat.new()
@@ -406,8 +417,11 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	var glow_color := _get_tier_glow_color(tier)
 
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(160, 160)
+	card.custom_minimum_size = Vector2(150, 172)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# Red de seguridad: nada de lo que haya dentro puede pintarse fuera del
+	# marco redondeado de la carta.
+	card.clip_contents = true
 
 	# Estilo de la carta con glow por tier
 	var style_normal := StyleBoxFlat.new()
@@ -440,12 +454,23 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	card.add_theme_stylebox_override("pressed", style_normal)
 	card.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
-	# Layout interno
+	# Layout interno.
+	# El margen del StyleBox de un Button no afecta a sus hijos, así que hace
+	# falta un MarginContainer propio: sin él el emoji y el nombre quedaban
+	# pegados al borde de la carta.
+	var margen := MarginContainer.new()
+	margen.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margen.add_theme_constant_override("margin_left", 10)
+	margen.add_theme_constant_override("margin_right", 10)
+	margen.add_theme_constant_override("margin_top", 10)
+	margen.add_theme_constant_override("margin_bottom", 10)
+	card.add_child(margen)
+
 	var vbox := VBoxContainer.new()
-	vbox.anchors_preset = Control.PRESET_FULL_RECT
 	vbox.add_theme_constant_override("separation", 6)
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	card.add_child(vbox)
+	margen.add_child(vbox)
 
 	# Emoji / Imagen
 	var img_container := CenterContainer.new()
@@ -487,16 +512,22 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	if not is_unlocked:
 		emoji_lbl.modulate = Color(0.2, 0.2, 0.2, 0.6)
 
-	# Nombre de la medalla
+	# Nombre de la medalla.
+	# Con nombres largos el texto crecía más que la carta y se salía por abajo;
+	# ahora se corta en dos líneas y el nombre completo queda en el tooltip.
+	var nombre_completo: String = "???" if not is_unlocked else str(item.get("medal_name", ""))
 	var name_lbl := Label.new()
-	name_lbl.text = "???" if not is_unlocked else str(item.get("medal_name", ""))
+	name_lbl.text = nombre_completo
 	name_lbl.add_theme_color_override("font_color", COLOR_TEXT_PRIMARY if is_unlocked else COLOR_TEXT_DISABLED)
 	name_lbl.add_theme_font_size_override("font_size", 12)
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
+	name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	name_lbl.max_lines_visible = 2
+	name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	if _font_bold:
 		name_lbl.add_theme_font_override("font", _font_bold)
 	vbox.add_child(name_lbl)
+	card.tooltip_text = nombre_completo
 
 	# Etiqueta de tier (solo desbloqueada)
 	if is_unlocked:
@@ -512,8 +543,12 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	# Click
 	card.pressed.connect(func(): _show_medal_detail(item))
 
-	# Hover: escala suave
+	# Hover: escala suave.
+	# El pivote se recalcula con el tamaño real de la carta: la rejilla las
+	# estira más allá del mínimo, y con el pivote fijo crecían hacia un lado y
+	# se montaban sobre la carta vecina.
 	card.pivot_offset = card.custom_minimum_size / 2.0
+	card.resized.connect(func(): card.pivot_offset = card.size / 2.0)
 	card.mouse_entered.connect(func():
 		var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		t.tween_property(card, "scale", Vector2(1.07, 1.07), 0.15)
@@ -583,7 +618,7 @@ func _show_medal_detail(item: Dictionary) -> void:
 
 	# Animación de entrada
 	_medal_detail_panel.show()
-	_medal_detail_panel.pivot_offset = Vector2(280, 180)
+	_medal_detail_panel.pivot_offset = _medal_detail_panel.size / 2.0
 	_medal_detail_panel.scale = Vector2(0.9, 0.9)
 	_medal_detail_panel.modulate.a = 0.0
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

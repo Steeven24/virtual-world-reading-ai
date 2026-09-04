@@ -114,6 +114,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="AchievementsContainer" type="VBoxContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea/LogrosScroll"]
 unique_name_in_owner = true
@@ -129,6 +130,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="MedalsGrid" type="GridContainer" parent="CenterContainer/MainPanel/MarginContainer/VBoxContainer/ContentArea/MedalsScroll"]
 unique_name_in_owner = true
@@ -146,10 +148,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -15.0
-offset_right = 100.0
-offset_bottom = 15.0
+offset_left = -230.0
+offset_top = -20.0
+offset_right = 230.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
@@ -239,9 +241,16 @@ theme_override_fonts/font = ExtResource("2_font_bold")
 theme_override_font_sizes/font_size = 14
 text = "✦ Rareza: ORO"
 
-[node name="DetailMedalDesc" type="Label" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/Info"]
+[node name="DescScroll" type="ScrollContainer" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="DetailMedalDesc" type="Label" parent="MedalDetailPanel/MarginContainer/VBoxContainer/Body/Info/DescScroll"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.8, 0.82, 0.85, 1)
 theme_override_fonts/font = ExtResource("3_font")

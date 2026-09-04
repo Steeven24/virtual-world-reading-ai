@@ -22,6 +22,9 @@ var _padlock: Sprite2D = null
 ## Referencia al diálogo de nivel bloqueado.
 var _locked_dialog: AcceptDialog = null
 
+## Tema compartido por todos los diálogos del juego (marco con texturas).
+const DIALOG_THEME_PATH: String = "res://Themes and Styles/confirmation_Dialogue.tres"
+
 func _ready():
 	$Area2D/message.visible = false
 	# Conectamos desde el nodo que tiene la señal ($Area2D)
@@ -125,7 +128,10 @@ func show_dialogue():
 	for child in dialog.get_children():
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
-	
+
+	# Foco en el boton de aceptar para poder responder con flechas y Enter/E.
+	DialogFocus.preparar(dialog)
+
 
 #func change_scene():
 	#get_tree().change_scene_to_file(next_scene_path)
@@ -368,6 +374,17 @@ func _create_pending_dialog() -> void:
 	_pending_dialog = AcceptDialog.new()
 	_pending_dialog.title = "Lectura pendiente"
 	_pending_dialog.ok_button_text = "Aceptar"
+
+	# Mismo marco de madera que el resto de dialogos: al crearse por codigo se
+	# quedaba con el tema por defecto de Godot y desentonaba con todo lo demas.
+	var tema: Theme = load(DIALOG_THEME_PATH)
+	if tema:
+		_pending_dialog.theme = tema
+	_pending_dialog.borderless = true
+	_pending_dialog.transparent = true
+	_pending_dialog.transparent_bg = true
+	_pending_dialog.dialog_autowrap = true
+
 	add_child(_pending_dialog)
 	_pending_dialog.confirmed.connect(_on_pending_dialog_accepted)
 	_pending_dialog.visibility_changed.connect(
@@ -414,6 +431,8 @@ func _show_pending_reading_warning(pending_typology: String) -> void:
 	for child in dialog.get_children():
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
+
+	DialogFocus.preparar(dialog)
 
 
 func _on_pending_dialog_accepted() -> void:
@@ -486,6 +505,8 @@ func _show_locked_dialog() -> void:
 	for child in dialog.get_children():
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
+
+	DialogFocus.preparar(dialog)
 
 
 ## Callback cuando ProgressionManager desbloquea una tipología.

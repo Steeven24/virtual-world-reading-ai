@@ -109,10 +109,15 @@ func _ready() -> void:
 	_dim.modulate.a = 0.0
 	_panel.modulate.a = 0.0
 
+	# Navegable con teclado: flechas entre Saltar / Anterior / Siguiente y
+	# Enter o E para pulsar el que esté enfocado. Sin esto solo valía el ratón.
+	DialogFocus.encadenar([_skip_button, _prev_button, _next_button])
+
 	get_window().size_changed.connect(_layout)
 	_layout()
 	await _render_step()
 	_animate_in()
+	DialogFocus.enfocar(_next_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -161,6 +166,11 @@ func _render_step() -> void:
 
 	_prev_button.disabled = _step_index == 0
 	_prev_button.modulate.a = 0.4 if _prev_button.disabled else 1.0
+	# Deshabilitado también significa no enfocable: así las flechas lo saltan
+	# en lugar de dejar el foco en un botón que no hace nada.
+	_prev_button.focus_mode = Control.FOCUS_NONE if _prev_button.disabled else Control.FOCUS_ALL
+	if _prev_button.disabled and _prev_button.has_focus():
+		DialogFocus.enfocar(_next_button)
 
 	if _step_index == STEPS.size() - 1:
 		_next_button.text = "¡Empezar! ✓"
