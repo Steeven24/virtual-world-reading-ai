@@ -65,6 +65,9 @@ var _font_regular: Font = null
 var _step_index: int = 0
 var _was_ui_open: bool = false
 
+## True desde que arranca el cierre, para no dispararlo dos veces.
+var _closing: bool = false
+
 @onready var _dim: ColorRect = $Dim
 @onready var _panel: PanelContainer = $Panel
 @onready var _title_label: Label = $Panel/Margin/VBox/Header/Title
@@ -121,14 +124,34 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Permitir saltar al siguiente paso con Enter / Space / E,
-	# y cerrar con Escape.
 	if event.is_action_pressed("ui_cancel"):
 		_on_skip_pressed()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("ui_accept"):
-		_on_next_pressed()
-		get_viewport().set_input_as_handled()
+		return
+
+	if not event.is_action_pressed("ui_accept"):
+		return
+
+	# Enter / Espacio / E ya los gestiona el botón enfocado, y además lo hace al
+	# SOLTAR la tecla. Atenderlos también aquí contaba cada pulsación dos veces:
+	# Siguiente saltaba dos pasos, y Anterior retrocedía uno para volver a
+	# avanzar otro, quedándose en el mismo sitio.
+	#
+	# Solo se atiende si ningún botón tiene el foco, para que el tutorial nunca
+	# se quede sin respuesta al teclado.
+	if _boton_enfocado() != null:
+		return
+
+	_on_next_pressed()
+	get_viewport().set_input_as_handled()
+
+
+## Botón del pie que tiene el foco, o null si no lo tiene ninguno.
+func _boton_enfocado() -> Button:
+	for boton: Button in [_next_button, _prev_button, _skip_button]:
+		if is_instance_valid(boton) and boton.has_focus():
+			return boton
+	return null
 
 
 func _layout() -> void:
@@ -205,6 +228,12 @@ func _on_skip_pressed() -> void:
 
 
 func _close() -> void:
+	# Un segundo Escape mientras corre la animación de salida no debe volver a
+	# entrar aquí: emitiría "finished" dos veces.
+	if _closing:
+		return
+	_closing = true
+
 	# Restaurar estado de UI previo (si ya estaba abierto, no lo cerramos).
 	SceneManager.is_ui_open = _was_ui_open
 

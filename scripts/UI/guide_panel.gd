@@ -108,7 +108,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	# Un único mensaje que solo se puede aceptar: Enter / Space / E y Escape
 	# hacen lo mismo, cerrarlo.
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
+		_close()
+		get_viewport().set_input_as_handled()
+		return
+
+	# ui_accept lo gestiona ya el botón enfocado al soltar la tecla; atenderlo
+	# también aquí duplicaba la pulsación. Queda solo como respaldo por si el
+	# botón se quedara sin foco.
+	if event.is_action_pressed("ui_accept") and not _action_button.has_focus():
 		_close()
 		get_viewport().set_input_as_handled()
 
