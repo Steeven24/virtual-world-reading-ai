@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bxu2m44osofdj" path="res://assets/Scenery/Background/Flowerpot/flowerpot2.png" id="10_aipcj"]
 [ext_resource type="Texture2D" uid="uid://d2lfd58bajjrg" path="res://assets/Scenery/Background/Furniture/furniture1.png" id="11_5euco"]
 [ext_resource type="Texture2D" uid="uid://ctny6nkgooo3t" path="res://assets/Scenery/Background/Flowerpot/flowerpot1.png" id="12_8hxfv"]
+[ext_resource type="Texture2D" uid="uid://ck0wqo0tblrbw" path="res://assets/Animations/Fireplace/fireplace2 spritesheet.png" id="13_no04x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihn47"]
 size = Vector2(1115.8558, 58.5)
@@ -49,6 +50,70 @@ size = Vector2(111.299995, 56.245255)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr5xf"]
 size = Vector2(1052.6176, 365.05188)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgdpu"]
+atlas = ExtResource("13_no04x")
+region = Rect2(0, 0, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aipcj"]
+atlas = ExtResource("13_no04x")
+region = Rect2(344, 0, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5euco"]
+atlas = ExtResource("13_no04x")
+region = Rect2(688, 0, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hxfv"]
+atlas = ExtResource("13_no04x")
+region = Rect2(1032, 0, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbbj7"]
+atlas = ExtResource("13_no04x")
+region = Rect2(0, 192, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rc2h"]
+atlas = ExtResource("13_no04x")
+region = Rect2(344, 192, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cr5xf"]
+atlas = ExtResource("13_no04x")
+region = Rect2(688, 192, 344, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kiv6"]
+atlas = ExtResource("13_no04x")
+region = Rect2(1032, 192, 344, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nf232"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgdpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aipcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5euco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hxfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbbj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rc2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cr5xf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kiv6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
@@ -181,3 +246,12 @@ texture = ExtResource("12_8hxfv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flowerpot1/StaticBody2D" unique_id=753830008]
 position = Vector2(-12.92749, 293.10132)
 shape = SubResource("RectangleShape2D_cr5xf")
+
+[node name="Fireplace" type="AnimatedSprite2D" parent="." unique_id=723751270]
+texture_filter = 1
+position = Vector2(539.99994, 179)
+scale = Vector2(0.57848865, 0.60416675)
+sprite_frames = SubResource("SpriteFrames_nf232")
+autoplay = "default"
+frame_progress = 0.31850722
+centered = false

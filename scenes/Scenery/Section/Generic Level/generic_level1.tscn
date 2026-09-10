@@ -13,12 +13,77 @@
 [ext_resource type="Texture2D" uid="uid://beq5dpqhvxhei" path="res://assets/Scenery/Background/Books/books7.png" id="11_3s056"]
 [ext_resource type="Texture2D" uid="uid://ccu2j655cljus" path="res://assets/Scenery/Background/Flowerpot/flowerpot4.png" id="12_3wpdv"]
 [ext_resource type="Texture2D" uid="uid://ehhr1f0ud7xb" path="res://assets/Scenery/Background/Flowerpot/flowerpot5.png" id="13_qb2sr"]
+[ext_resource type="Texture2D" uid="uid://bdy4acleokukl" path="res://assets/Animations/Fireplace/fireplace3 spritesheet.png" id="14_3wpdv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
 size = Vector2(469, 703)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by13k"]
 size = Vector2(224.98145, 108.53314)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb2sr"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(0, 0, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0txk"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(128, 0, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtyk5"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(256, 0, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxt6l"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(384, 0, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4tkv"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(0, 72, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdo2n"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(128, 72, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grvuh"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(256, 72, 128, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmtc8"]
+atlas = ExtResource("14_3wpdv")
+region = Rect2(384, 72, 128, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lyey4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb2sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0txk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtyk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxt6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4tkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdo2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grvuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmtc8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
@@ -59,8 +124,8 @@ ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_yj0pt")]
 y_sort_enabled = true
-position = Vector2(486, 231)
-character_pose = "derecha"
+position = Vector2(484, 216)
+character_pose = "right"
 
 [node name="Teacher" parent="." unique_id=1155322486 instance=ExtResource("7_teacher")]
 y_sort_enabled = true
@@ -117,3 +182,11 @@ scale = Vector2(0.24744377, 0.2472143)
 texture = ExtResource("13_qb2sr")
 region_enabled = true
 region_rect = Rect2(67.14258, 387.17847, 489.5951, 731.25415)
+
+[node name="Fireplace" type="AnimatedSprite2D" parent="." unique_id=1340328686]
+texture_filter = 1
+position = Vector2(725, 114.00001)
+scale = Vector2(1.0468752, 1.0555556)
+sprite_frames = SubResource("SpriteFrames_lyey4")
+autoplay = "default"
+centered = false

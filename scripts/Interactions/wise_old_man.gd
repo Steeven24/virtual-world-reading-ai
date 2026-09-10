@@ -8,7 +8,7 @@
 ## BBCode.
 extends Node2D
 
-@export_enum("default", "front", "sit", "izquierda", "derecha") var character_pose: String = "sit"
+@export_enum("default", "front", "sit", "izquierda", "derecha", "left", "right") var character_pose: String = "left"
 
 var player_in_range = false
 

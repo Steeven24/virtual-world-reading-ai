@@ -2,8 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://0pl3fytquxaq" path="res://assets/Characters/Wise old man/character-spritesheet (1).png" id="1_ihhki"]
 [ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="2_ua33q"]
+[ext_resource type="Texture2D" uid="uid://cfwmm2bq42ra3" path="res://assets/Characters/Wise old man/Wise old man left.png" id="3_7tee3"]
 [ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_gjfqi"]
 [ext_resource type="Script" uid="uid://c54dlh7se36e2" path="res://scripts/Interactions/wise_old_man.gd" id="4_script"]
+[ext_resource type="Texture2D" uid="uid://bt65lvj00o0fr" path="res://assets/Characters/Wise old man/Wise old man right.png" id="4_tvaxj"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="5_theme"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tvaxj"]
@@ -33,6 +35,38 @@ region = Rect2(128, 2112, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ofysu"]
 atlas = ExtResource("1_ihhki")
 region = Rect2(128, 1984, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_turjp"]
+atlas = ExtResource("3_7tee3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxcxl"]
+atlas = ExtResource("3_7tee3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvhr7"]
+atlas = ExtResource("3_7tee3")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fd34"]
+atlas = ExtResource("3_7tee3")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qokir"]
+atlas = ExtResource("4_tvaxj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18sk3"]
+atlas = ExtResource("4_tvaxj")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etg85"]
+atlas = ExtResource("4_tvaxj")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g5vu"]
+atlas = ExtResource("4_tvaxj")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7tee3"]
 animations = [{
@@ -88,11 +122,45 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_turjp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxcxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvhr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fd34")
+}],
+"loop": true,
+"name": &"left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gjfqi")
 }],
 "loop": true,
 "name": &"new_animation",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qokir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18sk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etg85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6g5vu")
+}],
+"loop": true,
+"name": &"right",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -182,15 +250,15 @@ script = ExtResource("4_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1788035257]
 texture_filter = 1
-position = Vector2(0, -32)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7tee3")
-animation = &"izquierda"
+animation = &"left"
+autoplay = "left"
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=565151310]
 z_index = 1
 texture_filter = 1
-position = Vector2(-6, -130)
+position = Vector2(0, -103)
 scale = Vector2(0.9, 1)
 texture = ExtResource("2_ua33q")
 

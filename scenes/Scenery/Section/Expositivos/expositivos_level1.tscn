@@ -64,8 +64,7 @@ ruta_texto = ""
 
 [node name="WiseOldMan" parent="." unique_id=1317610961 instance=ExtResource("5_el3fn")]
 y_sort_enabled = true
-position = Vector2(1106, 563)
-character_pose = "izquierda"
+position = Vector2(1096, 540)
 
 [node name="Teacher" parent="." unique_id=756089758 instance=ExtResource("7_teacher")]
 position = Vector2(781, 476)

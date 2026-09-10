@@ -92,12 +92,17 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_sprite")
 
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=2084718341]
+z_index = 1
+z_as_relative = false
 texture_filter = 1
 position = Vector2(0, -101)
 scale = Vector2(0.9, 1)
 texture = ExtResource("3_bubble")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=1911793991]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, -6)
 scale = Vector2(1.6305552, 1.4674996)

@@ -111,8 +111,8 @@ secret = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 42)
 layout_mode = 2
-toggle_mode = true
 tooltip_text = "Mostrar contraseña"
+toggle_mode = true
 text = "👁"
 
 [node name="Spacer3" type="Control" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1526422364]
@@ -187,5 +187,5 @@ text = "Usar otra cuenta"
 
 [node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=2084709435]
 layout_mode = 2
-text = "Beta v1.0 — Mundo Virtual de Lectura"
+text = "Beta v1.6 — Mundo Virtual de Lectura"
 horizontal_alignment = 1
