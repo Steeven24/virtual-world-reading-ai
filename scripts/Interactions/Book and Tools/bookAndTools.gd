@@ -34,6 +34,9 @@ const MARCAS_PATH: String = "user://reading_marks.cfg"
 ## Número máximo de lecturas cuyas marcas se conservan en disco.
 const MAX_LECTURAS_GUARDADAS: int = 10
 
+## Nombre del nodo que dibuja el contorno dorado sobre el botón activo.
+const NOMBRE_CONTORNO: String = "ContornoSeleccion"
+
 ## Panel de guía que se muestra al abrir el libro por primera vez.
 const GUIDE_PANEL_SCENE: String = "res://scenes/UI/guide_panel.tscn"
 
@@ -136,6 +139,7 @@ func _ready() -> void:
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
 	_configurar_botones_herramientas()
+	_configurar_contornos_seleccion()
 	_estilizar_boton_cerrar()
 
 	# Determinar modo de carga
@@ -509,6 +513,10 @@ func _cambiar_modo(nuevo_modo: ModoVista) -> void:
 	boton_notas.disabled = (nuevo_modo == ModoVista.NOTAS)
 	boton_compilatorio.disabled = (nuevo_modo == ModoVista.COMPILATORIO)
 
+	_marcar_seleccion(boton_lectura, nuevo_modo == ModoVista.LECTURA)
+	_marcar_seleccion(boton_notas, nuevo_modo == ModoVista.NOTAS)
+	_marcar_seleccion(boton_compilatorio, nuevo_modo == ModoVista.COMPILATORIO)
+
 	# Las herramientas de marcado solo actúan sobre el texto: en Notas y
 	# Compilatorio se ocultan y se suelta la que estuviera activa, para que al
 	# volver a Lectura no quede una selección fantasma.
@@ -579,6 +587,62 @@ func _anadir_distintivo_atajo(boton: TextureButton, tecla: String) -> void:
 	boton.add_child(badge)
 
 
+## Prepara el contorno dorado en los botones que tienen estado activo: las tres
+## herramientas de marcado y las tres vistas del libro. Hecho, las flechas de
+## página y la ✖ de cerrar son acciones puntuales y no tienen nada que marcar.
+func _configurar_contornos_seleccion() -> void:
+	for boton in [resaltar_button, subrayar_button, borrar_button,
+			boton_lectura, boton_notas, boton_compilatorio]:
+		_anadir_contorno_seleccion(boton)
+
+
+## Añade a un botón el contorno que lo señala como activo. Reutiliza el dorado
+## de DialogFocus para que el libro hable el mismo idioma visual que los
+## diálogos, pero lo dibuja como nodo hijo: un TextureButton solo cambia de
+## textura y no pinta styleboxes de tema, así que un override de "focus" no se
+## vería. La textura pulsada ya distingue la herramienta activa, pero es sutil.
+func _anadir_contorno_seleccion(boton: BaseButton) -> void:
+	if boton == null or boton.has_node(NOMBRE_CONTORNO):
+		return
+
+	var contorno := Panel.new()
+	contorno.name = NOMBRE_CONTORNO
+	contorno.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	contorno.visible = false
+
+	var estilo := StyleBoxFlat.new()
+	estilo.bg_color = Color(DialogFocus.COLOR_FOCO, 0.13)
+	estilo.set_border_width_all(3)
+	estilo.border_color = DialogFocus.COLOR_FOCO
+	estilo.set_corner_radius_all(8)
+	estilo.set_expand_margin_all(2.0)
+	contorno.add_theme_stylebox_override("panel", estilo)
+
+	boton.add_child(contorno)
+	contorno.set_anchors_preset(Control.PRESET_FULL_RECT)
+	contorno.offset_left = 0.0
+	contorno.offset_top = 0.0
+	contorno.offset_right = 0.0
+	contorno.offset_bottom = 0.0
+
+	# Los hermanos se dibujan en orden de lista, y los botones de vista llevan
+	# dentro un sprite que cubre todo el botón. Si el contorno fuera primero, ese
+	# sprite lo taparía, así que va el último. El distintivo del atajo se
+	# devuelve al final para que siga leyéndose por encima del contorno.
+	var badge := boton.get_node_or_null("AtajoBadge")
+	if badge != null:
+		boton.move_child(badge, -1)
+
+
+## Enciende o apaga el contorno dorado de un botón.
+func _marcar_seleccion(boton: BaseButton, activo: bool) -> void:
+	if boton == null:
+		return
+	var contorno := boton.get_node_or_null(NOMBRE_CONTORNO)
+	if contorno is Control:
+		(contorno as Control).visible = activo
+
+
 ## Le da al botón de cerrar el mismo lenguaje visual (rojo, redondeado, con
 ## borde y hover) que la ✖ de los paneles de logros y marcador.
 func _estilizar_boton_cerrar() -> void:
@@ -631,6 +695,10 @@ func _actualizar_estado_botones() -> void:
 	resaltar_button.button_pressed = (herramienta_actual == Herramienta.RESALTAR)
 	subrayar_button.button_pressed = (herramienta_actual == Herramienta.SUBRAYAR)
 	borrar_button.button_pressed = (herramienta_actual == Herramienta.BORRAR)
+
+	_marcar_seleccion(resaltar_button, herramienta_actual == Herramienta.RESALTAR)
+	_marcar_seleccion(subrayar_button, herramienta_actual == Herramienta.SUBRAYAR)
+	_marcar_seleccion(borrar_button, herramienta_actual == Herramienta.BORRAR)
 
 
 func _aplicar_formato() -> void:
