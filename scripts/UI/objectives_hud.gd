@@ -5,6 +5,9 @@
 ## panel se queda en la esquina superior izquierda y va marcando los pasos de la
 ## fase en la que está el jugador (lobby, lectura o desafíos).
 ##
+## Queda justo debajo de la tarjeta de perfil (ProfileHUD), que ocupa la
+## esquina; si la tarjeta no se ve, sube hasta el margen superior.
+##
 ## Se pliega con TAB o pulsando su cabecera, y se esconde solo mientras hay un
 ## cuadro de diálogo, el libro o el tutorial abiertos, para no taparlos.
 ##
@@ -230,6 +233,8 @@ func _refrescar() -> void:
 	if not mostrar:
 		return
 
+	_colocar()
+
 	var datos := _calcular_objetivos()
 	var pasos: Array = datos.get("pasos", [])
 	var pie: String = str(datos.get("pie", ""))
@@ -251,6 +256,19 @@ func _debe_mostrarse() -> bool:
 	if escena == null:
 		return false
 	return not (escena.scene_file_path in ESCENAS_OCULTAS)
+
+
+## Separación entre la tarjeta de perfil y este panel.
+const SEPARACION_PERFIL: int = 8
+
+func _colocar() -> void:
+	var y := float(MARGEN)
+	var perfil := get_node_or_null("/root/ProfileHUD")
+	if perfil and perfil.has_method("get_bottom_edge"):
+		var borde: float = perfil.get_bottom_edge()
+		if borde >= 0.0:
+			y = borde + SEPARACION_PERFIL
+	_panel.position = Vector2(MARGEN, y)
 
 
 func _animar_visibilidad(mostrar: bool) -> void:
