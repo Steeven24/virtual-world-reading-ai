@@ -707,6 +707,11 @@ func load_from_api(progress_data: Dictionary) -> void:
 	# Restaurar best scores y tipologías completadas
 	score_data["typologies_completed"].clear()
 	score_data["best_scores_by_typology"].clear()
+	# Los contadores se suman tipología a tipología: sin ponerlos a cero, cada
+	# recarga del progreso (login, cambio de contraseña) los inflaba y los alias
+	# que dependen de las lecturas completadas se desbloqueaban antes de tiempo.
+	score_data["sessions_completed"] = 0
+	score_data["perfect_sessions"] = 0
 	for tp in typologies:
 		var typ_name: String = str(tp.get("typology", ""))
 		var best: int = tp.get("best_score", 0)

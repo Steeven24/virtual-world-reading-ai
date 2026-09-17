@@ -59,6 +59,14 @@ func _on_achievement_unlocked(_id: String, display_name: String) -> void:
 		_show_next()
 
 
+## Encola un aviso con otro título e icono (por ejemplo, un alias nuevo).
+## Comparte cola con los logros para que nunca se pisen dos avisos.
+func show_notice(title: String, text: String, icon: String = "🏆") -> void:
+	_queue.append({"id": "", "name": text, "title": title, "icon": icon})
+	if not _is_showing:
+		_show_next()
+
+
 # ─── Lógica de presentación ─────────────────────────────────────────────────
 
 func _show_next() -> void:
@@ -68,7 +76,7 @@ func _show_next() -> void:
 
 	_is_showing = true
 	var data: Dictionary = _queue.pop_front()
-	_create_toast(data["name"])
+	_create_toast(data["name"], str(data.get("title", "¡Logro desbloqueado!")), str(data.get("icon", "🏆")))
 
 
 ## Obtiene el tamaño real de la ventana (no el viewport del juego).
@@ -83,7 +91,7 @@ func _get_window_size() -> Vector2:
 	)
 
 
-func _create_toast(achievement_name: String) -> void:
+func _create_toast(achievement_name: String, title: String = "¡Logro desbloqueado!", icon: String = "🏆") -> void:
 	var win_size := _get_window_size()
 
 	# Panel principal
@@ -118,7 +126,7 @@ func _create_toast(achievement_name: String) -> void:
 
 	# Ícono de trofeo grande
 	var icon_lbl := Label.new()
-	icon_lbl.text = "🏆"
+	icon_lbl.text = icon
 	icon_lbl.add_theme_font_size_override("font_size", 30)
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
@@ -131,7 +139,7 @@ func _create_toast(achievement_name: String) -> void:
 
 	# Título "¡Logro desbloqueado!"
 	var title_label := Label.new()
-	title_label.text = "¡Logro desbloqueado!"
+	title_label.text = title
 	title_label.add_theme_color_override("font_color", COLOR_GOLD)
 	title_label.add_theme_font_size_override("font_size", 14)
 	if _font_bold:
