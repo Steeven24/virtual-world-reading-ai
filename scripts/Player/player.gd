@@ -2,11 +2,12 @@ extends CharacterBody2D
 
 
 #@export var speed: float = 800.0
-@export var speed: float = 200.0
+## Múltiplo de los 60 tics de física: 3 px por tic, sin resto fraccionario.
+@export var speed: float = 180.0
 
 ## Velocidad al correr (Shift). El mundo es pequeño y andar de punta a punta se
 ## hacía lento, sobre todo al volver al lobby.
-@export var run_speed: float = 340.0
+@export var run_speed: float = 360.0
 
 @onready var anim = $AnimatedSprite2D
 @onready var camera = $Camera2D

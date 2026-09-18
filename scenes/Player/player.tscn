@@ -1237,5 +1237,6 @@ shape = SubResource("RectangleShape2D_qhqgy")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=857107356]
 position = Vector2(0, -32)
 position_smoothing_enabled = true
+position_smoothing_speed = 15.0
 
 [node name="PivotFeet" type="Marker2D" parent="." unique_id=11223344]
