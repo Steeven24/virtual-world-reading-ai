@@ -17,8 +17,33 @@ var last_direction = "down"
 ## True mientras el jugador mantiene Shift y se está moviendo.
 var is_running = false
 
+## Distancia de la cámara al jugador, leída de la escena al arrancar.
+var _desfase_camara: Vector2 = Vector2.ZERO
+
 func _ready():
+	_anclar_camara()
 	setup_camera_limits()
+
+
+## La cámara deja de colgar del jugador y pasa a colocarse a mano en píxeles
+## enteros. Con el suavizado de Godot la cámara se quedaba en posiciones
+## fraccionarias, y al redondear cada elemento por separado el personaje
+## bailaba dentro de la pantalla mientras la vista se desplazaba.
+func _anclar_camara() -> void:
+	_desfase_camara = camera.global_position - global_position
+	camera.position_smoothing_enabled = false
+	camera.top_level = true
+	_colocar_camara()
+
+
+func _colocar_camara() -> void:
+	camera.global_position = (global_position + _desfase_camara).round()
+
+
+## Se recoloca cada fotograma dibujado, no solo en cada paso de física, para
+## que la vista acompañe al jugador en pantallas de más de 60 Hz.
+func _process(_delta):
+	_colocar_camara()
 
 func setup_camera_limits():
 	# Esperar un frame para asegurar que la escena esté lista
