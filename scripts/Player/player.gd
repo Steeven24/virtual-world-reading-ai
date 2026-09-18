@@ -3,10 +3,18 @@ extends CharacterBody2D
 
 #@export var speed: float = 800.0
 @export var speed: float = 200.0
+
+## Velocidad al correr (Shift). El mundo es pequeño y andar de punta a punta se
+## hacía lento, sobre todo al volver al lobby.
+@export var run_speed: float = 340.0
+
 @onready var anim = $AnimatedSprite2D
 @onready var camera = $Camera2D
 
 var last_direction = "down"
+
+## True mientras el jugador mantiene Shift y se está moviendo.
+var is_running = false
 
 func _ready():
 	setup_camera_limits()
@@ -79,7 +87,10 @@ func _physics_process(delta):
 			direction.x += 1
 
 	direction = direction.normalized()
-	velocity = direction * speed
+	# Correr solo cuenta si de verdad hay movimiento: con Shift quieto se sigue
+	# usando la animación de reposo.
+	is_running = direction != Vector2.ZERO and not SceneManager.is_ui_open and Input.is_action_pressed("run")
+	velocity = direction * (run_speed if is_running else speed)
 	move_and_slide()
 
 	update_animation(direction)
@@ -100,4 +111,18 @@ func update_animation(direction):
 		else:
 			last_direction = "up"
 	
-	anim.play("walk_" + last_direction + GameSession.anim_suffix)
+	if is_running:
+		anim.play(_animacion_movimiento("run"))
+	else:
+		anim.play(_animacion_movimiento("walk"))
+
+
+## Devuelve la animación del prefijo pedido para la dirección y el personaje
+## actuales. Si el personaje todavía no tiene las de correr, se usan las de
+## andar en vez de dejar al jugador congelado.
+func _animacion_movimiento(prefijo: String) -> String:
+	var nombre = prefijo + "_" + last_direction + GameSession.anim_suffix
+	var frames = anim.sprite_frames
+	if frames and frames.has_animation(nombre) and frames.get_frame_count(nombre) > 0:
+		return nombre
+	return "walk_" + last_direction + GameSession.anim_suffix
