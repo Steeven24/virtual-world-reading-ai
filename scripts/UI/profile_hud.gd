@@ -55,14 +55,14 @@ const ESCENAS_OCULTAS: Array[String] = [
 ## Alias disponibles, ordenados por lecturas completadas necesarias.
 ## El primero siempre está desbloqueado y es el que se usa por defecto.
 const ALIAS: Array[Dictionary] = [
-	{"id": "novato", "nombre": "Lector novato", "lecturas": 0},
-	{"id": "pasapaginas", "nombre": "Pasapáginas", "lecturas": 1},
-	{"id": "buscador", "nombre": "Buscador de pistas", "lecturas": 3},
-	{"id": "detective", "nombre": "Detective de palabras", "lecturas": 5},
-	{"id": "guardian", "nombre": "Guardián de historias", "lecturas": 8},
-	{"id": "sabio", "nombre": "Sabio de la biblioteca", "lecturas": 12},
-	{"id": "maestro", "nombre": "Maestro lector", "lecturas": 16},
-	{"id": "leyenda", "nombre": "Leyenda de las letras", "lecturas": 20},
+	{"id": "intuicion", "nombre": "Intuición", "lecturas": 0},
+	{"id": "interes", "nombre": "Interés", "lecturas": 1},
+	{"id": "curiosidad", "nombre": "Curiosidad", "lecturas": 3},
+	{"id": "comprension", "nombre": "Comprensión", "lecturas": 5},
+	{"id": "perspectiva", "nombre": "Perspectiva", "lecturas": 8},
+	{"id": "perspicacia", "nombre": "Perspicacia", "lecturas": 12},
+	{"id": "sabiduria", "nombre": "Sabiduría", "lecturas": 16},
+	{"id": "conocimiento", "nombre": "Conocimiento", "lecturas": 20},
 ]
 
 const CONFIG_PATH := "user://progress.cfg"
