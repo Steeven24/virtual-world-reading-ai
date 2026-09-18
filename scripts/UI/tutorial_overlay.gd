@@ -28,7 +28,7 @@ const STEPS: Array = [
 	},
 	{
 		"title": "🎮 Movimiento",
-		"body": "Muévete con las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color].\n\nCuando te acerques a algo con lo que puedas interactuar, aparecerá el icono [color=#f0c050][b]E[/b][/color] sobre tu personaje. Púlsalo para hablar, leer o empezar.",
+		"body": "Muévete con las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color], y mantén [color=#f0c050][b]Shift[/b][/color] para correr.\n\nCuando te acerques a algo con lo que puedas interactuar, aparecerá el icono [color=#f0c050][b]E[/b][/color] sobre tu personaje. Púlsalo para hablar, leer o empezar.",
 	},
 	{
 		"title": "⭐ Tu progreso",
