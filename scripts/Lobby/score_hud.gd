@@ -144,11 +144,14 @@ func _populate_achievements() -> void:
 	var stats := Label.new()
 	var sd = GameSession.score_data
 	var unlocked_count: int = ProgressionManager.unlocked.size()
-	stats.text = "Sesiones: %d | Perfectas: %d\nTipologías: %d/5 | Desbloqueados: %d/5" % [
+	var total_tipologias: int = ProgressionManager.DIFFICULTY_ORDER.size()
+	stats.text = "Sesiones: %d | Perfectas: %d\nTipologías: %d/%d | Desbloqueados: %d/%d" % [
 		sd.get("sessions_completed", 0),
 		sd.get("perfect_sessions", 0),
 		sd.get("typologies_completed", []).size(),
+		total_tipologias,
 		unlocked_count,
+		total_tipologias,
 	]
 	stats.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8, 1.0))
 	if font:

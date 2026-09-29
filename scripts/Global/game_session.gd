@@ -103,10 +103,6 @@ const TYPOLOGY_SCENES: Dictionary = {
 	"Expositivo": {
 		"level1": "res://scenes/Scenery/Section/Expositivos/expositivos_level1.tscn",
 		"level23": "res://scenes/Scenery/Section/Expositivos/expositivos_level2-3.tscn"
-	},
-	"Instructivo": {
-		"level1": "res://scenes/Scenery/Section/Instructivos/instructivos_level1.tscn",
-		"level23": "res://scenes/Scenery/Section/Instructivos/instructivos_level2-3.tscn"
 	}
 }
 
@@ -592,8 +588,8 @@ func _check_achievements() -> void:
 	if score_data["sessions_completed"] >= 1 and "first_reading" not in unlocked:
 		_unlock("first_reading", "📖 Primera lectura")
 
-	# Explorador: 1 sesión de cada tipología (5 tipologías)
-	if score_data["typologies_completed"].size() >= 5 and "explorer" not in unlocked:
+	# Explorador: 1 sesión de cada tipología de la progresión
+	if score_data["typologies_completed"].size() >= ProgressionManager.DIFFICULTY_ORDER.size() and "explorer" not in unlocked:
 		_unlock("explorer", "🏅 Explorador")
 
 	# Perfeccionista: 1 sesión sin errores

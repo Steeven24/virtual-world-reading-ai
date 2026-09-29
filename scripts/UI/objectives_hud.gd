@@ -379,7 +379,9 @@ func _objetivos_lobby() -> Dictionary:
 	pasos.append({"texto": "Supera los 3 desafíos con el Profesor", "hecho": false})
 
 	var completadas: int = GameSession.score_data.get("typologies_completed", []).size()
-	var pie := "Tipologías completadas: %d/5  ·  %d pts" % [completadas, GameSession.get_total_score()]
+	var pie := "Tipologías completadas: %d/%d  ·  %d pts" % [
+		completadas, ProgressionManager.DIFFICULTY_ORDER.size(), GameSession.get_total_score()
+	]
 	return {"pasos": pasos, "pie": pie}
 
 

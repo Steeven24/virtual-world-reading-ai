@@ -32,11 +32,11 @@ const STEPS: Array = [
 	},
 	{
 		"title": "⭐ Tu progreso",
-		"body": "Arriba a la derecha tienes tu [color=#f0c050][b]puntuación[/b][/color]: cada respuesta correcta suma según el nivel de dificultad.\n\nEn el icono [color=#f0c050][b]🏆[/b][/color] están tus logros, como leer tu primera lectura o completar las 5 tipologías.",
+		"body": "Arriba a la derecha tienes tu [color=#f0c050][b]puntuación[/b][/color]: cada respuesta correcta suma según el nivel de dificultad.\n\nEn el icono [color=#f0c050][b]🏆[/b][/color] están tus logros, como leer tu primera lectura o completar las 4 tipologías.",
 	},
 	{
-		"title": "📚 Las 5 tipologías textuales",
-		"body": "En el lobby hay [color=#f0c050][b]5 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Expositivo[/b], [b]Instructivo[/b] y [b]Argumentativo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en Explorador.",
+		"title": "📚 Las 4 tipologías textuales",
+		"body": "En el lobby hay [color=#f0c050][b]4 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Argumentativo[/b] y [b]Expositivo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en Explorador.\n\nY si quieres ensayar sin que cuente, usa la [color=#f0c050][b]Herramienta de práctica[/b][/color]: ahí puedes practicar cualquier tipología.",
 	},
 	{
 		"title": "📖 La sala de lectura",

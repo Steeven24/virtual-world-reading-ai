@@ -3,7 +3,7 @@
 ## El juego no tiene salud que mostrar, así que la esquina superior izquierda se
 ## aprovecha para dar identidad y sensación de avance: retrato del personaje,
 ## nombre, un alias que se gana leyendo y una barra con el recorrido completo
-## (cinco tipologías, cada una con su lectura y sus tres niveles).
+## (las tipologías de la progresión, cada una con su lectura y sus tres niveles).
 ##
 ## El alias se cambia pulsando sobre él. Los alias bloqueados se ven en la lista
 ## con lo que falta para conseguirlos, para que sirvan de meta.

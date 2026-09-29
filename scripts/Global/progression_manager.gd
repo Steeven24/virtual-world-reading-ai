@@ -19,16 +19,18 @@ signal progression_changed
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
 ## Orden de dificultad de las tipologías (de más fácil a más difícil).
+## Instructivo ya no forma parte de la progresión: su escenario es ahora la
+## zona de práctica (GameSession.PRACTICE_SCENES).
+## Debe coincidir con DIFFICULTY_ORDER de la API (api/game_rules.py).
 const DIFFICULTY_ORDER: Array[String] = [
-	"Narrativo", "Descriptivo", "Argumentativo", "Instructivo", "Expositivo"
+	"Narrativo", "Descriptivo", "Argumentativo", "Expositivo"
 ]
 
 ## Nombre legible de cada dificultad (para UI).
 const DIFFICULTY_LABELS: Dictionary = {
-	"Narrativo": "Muy fácil",
-	"Descriptivo": "Fácil",
-	"Argumentativo": "Normal",
-	"Instructivo": "Difícil",
+	"Narrativo": "Fácil",
+	"Descriptivo": "Normal",
+	"Argumentativo": "Difícil",
 	"Expositivo": "Muy difícil",
 }
 
@@ -40,10 +42,7 @@ const DIFFICULTY_LABELS: Dictionary = {
 ## Puntaje mínimo en Descriptivo para desbloquear Argumentativo.
 @export var threshold_argumentativo: int = 250
 
-## Puntaje mínimo en Argumentativo para desbloquear Instructivo.
-@export var threshold_instructivo: int = 250
-
-## Puntaje mínimo en Instructivo para desbloquear Expositivo.
+## Puntaje mínimo en Argumentativo para desbloquear Expositivo.
 @export var threshold_expositivo: int = 250
 
 ## Puntos bonus otorgados por cada herramienta utilizada durante la lectura.
@@ -83,7 +82,6 @@ func get_unlock_thresholds() -> Dictionary:
 		"Narrativo": 0,
 		"Descriptivo": threshold_descriptivo,
 		"Argumentativo": threshold_argumentativo,
-		"Instructivo": threshold_instructivo,
 		"Expositivo": threshold_expositivo,
 	}
 
