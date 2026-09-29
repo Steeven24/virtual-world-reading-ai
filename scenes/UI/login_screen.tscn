@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b48gg7qn86crj"]
 
 [ext_resource type="Script" uid="uid://cyo6ynqtfjby0" path="res://scripts/UI/login_screen.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://y5ecwwiecqf" path="res://assets/Login/LoginBackground.jpg" id="2_pbf7n"]
+[ext_resource type="Texture2D" uid="uid://coid3t5pbeca7" path="res://assets/Login/LoginBackground.png" id="2_pbf7n"]
 
 [node name="LoginScreen" type="CanvasLayer" unique_id=1490014881]
 script = ExtResource("1")
@@ -15,7 +15,9 @@ grow_vertical = 2
 color = Color(0.04, 0.045, 0.07, 1)
 
 [node name="LoginBackground" type="Sprite2D" parent="Background" unique_id=971140509]
-position = Vector2(622, 419)
+texture_filter = 1
+position = Vector2(639, 396.5)
+scale = Vector2(1.0272436, 0.94591343)
 texture = ExtResource("2_pbf7n")
 
 [node name="GradientOverlay" type="ColorRect" parent="." unique_id=1051507641]

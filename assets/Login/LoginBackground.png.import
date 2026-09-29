@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mbmg5aoj6a5e"
-path="res://.godot/imported/lluvia.png-c9464828c69c69d8cc6d5a25dc8f3ed4.ctex"
+uid="uid://coid3t5pbeca7"
+path="res://.godot/imported/LoginBackground.png-33dae34b92244d78b456a537a4a2436b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Temporal sprites/lluvia.png"
-dest_files=["res://.godot/imported/lluvia.png-c9464828c69c69d8cc6d5a25dc8f3ed4.ctex"]
+source_file="res://assets/Login/LoginBackground.png"
+dest_files=["res://.godot/imported/LoginBackground.png-33dae34b92244d78b456a537a4a2436b.ctex"]
 
 [params]
 

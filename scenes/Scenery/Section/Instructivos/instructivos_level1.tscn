@@ -19,17 +19,13 @@ size = Vector2(1538, 58.5)
 size = Vector2(479.225, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
-size = Vector2(469, 790.5872)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_lfliw"]
-a = Vector2(360.88312, -174.89941)
-b = Vector2(-77, 221.5)
+size = Vector2(90.61804, 790.5872)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yon38"]
 size = Vector2(470.88953, 188)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68003"]
-size = Vector2(491.25, 119.5)
+size = Vector2(422.21704, 72.54639)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pculv"]
 size = Vector2(309, 84)
@@ -57,41 +53,37 @@ texture = ExtResource("1_x6rtf")
 centered = false
 
 [node name="Player" parent="." unique_id=2101976399 instance=ExtResource("2_ioeiv")]
-position = Vector2(703, 594)
+position = Vector2(472, 656)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1967980058]
 scale = Vector2(0.78146297, 0.78146297)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1263401525]
-position = Vector2(774.18896, 939.2639)
+position = Vector2(795.94305, 1048.0343)
 shape = SubResource("RectangleShape2D_omdln")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=409257026]
-position = Vector2(243.13371, 842.01044)
+position = Vector2(-94.69418, 967.41626)
 shape = SubResource("RectangleShape2D_k2vi6")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1382093186]
-position = Vector2(224.49998, 385.2936)
+position = Vector2(-103.65175, 378.77676)
 shape = SubResource("RectangleShape2D_a8kxi")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=162043604]
-position = Vector2(508, 319.5)
-shape = SubResource("SegmentShape2D_lfliw")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=621429297]
 position = Vector2(1297.5552, 130)
 shape = SubResource("RectangleShape2D_yon38")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=1659405437]
-position = Vector2(1333.3966, 801.0616)
+position = Vector2(1367.9132, 824.5383)
 shape = SubResource("RectangleShape2D_68003")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1009949943]
-position = Vector2(1415.2942, 710.2064)
+position = Vector2(1842.6978, 716.6047)
 shape = SubResource("RectangleShape2D_pculv")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1811909161]
-position = Vector2(1533.0221, 451.71686)
+position = Vector2(1832.4604, 440.2)
 shape = SubResource("RectangleShape2D_o0pav")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=542933846]
@@ -108,8 +100,14 @@ shape = SubResource("RectangleShape2D_cirqj")
 position = Vector2(949.3825, 119.528786)
 shape = SubResource("RectangleShape2D_by13k")
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2001941634]
+polygon = PackedVector2Array(481.14883, 880.4, 419.7256, 798.5023, 358.30234, 798.5023, 358.30234, 880.4, 214.9814, 880.4, 214.9814, 788.26514, 163.79535, 788.26514, 163.79535, 747.3163, 235.45581, 747.3163, 255.93024, 614.23254, 174.03256, 614.23254, 174.03256, 583.52094, 112.6093, 583.52094, 163.79535, 440.2, 296.87906, 440.2, 307.11627, 358.30234, 982.7721, 358.30234, 982.7721, 419.7256, 1105.6187, 419.7256, 1105.6187, 348.06512, 1197.7535, 348.06512, 1197.7535, 440.2, 1310.3628, 440.2, 1463.9209, 552.8093, 1515.1069, 552.8093, 1515.1069, 665.4186, 1576.5303, 665.4186, 1576.5303, 808.73956, 1330.8372, 808.73956, 1330.8372, 859.9256, 911.11163, 859.9256, 911.11163, 778.0279, 706.36743, 778.0279, 706.36743, 911.11163, 1637.9535, 911.11163, 1637.9535, 235.45581, 0, 235.45581, 0, 921.3488, 481.14883, 921.3488)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1314448069]
+polygon = PackedVector2Array(778.0279, 603.99536, 778.0279, 532.3349, 941.82324, 614.23254, 993.0093, 563.0465, 962.29767, 532.3349, 962.29767, 399.25116, 798.5023, 337.8279, 798.5023, 450.4372, 470.91162, 450.4372, 470.91162, 563.0465, 429.9628, 563.0465, 429.9628, 634.707, 491.38605, 634.707, 491.38605, 655.1814, 511.86047, 655.1814, 511.86047, 614.23254, 675.6558, 614.23254, 675.6558, 696.13025, 737.0791, 696.13025, 737.0791, 644.9442, 778.0279, 644.9442)
+
 [node name="Book" parent="." unique_id=278619741 instance=ExtResource("3_jqijx")]
-position = Vector2(536, 417)
+position = Vector2(571, 453)
 target_scene_path = "uid://b8dg7m2oxjlo8"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=916718507]
@@ -128,11 +126,11 @@ position = Vector2(1069, 305)
 
 [node name="Teacher" parent="." unique_id=611542146 instance=ExtResource("7_teacher")]
 y_sort_enabled = true
-position = Vector2(863, 364)
+position = Vector2(824, 384)
 
 [node name="RobotAssistant" parent="." unique_id=600248527 instance=ExtResource("8_robot")]
 y_sort_enabled = true
-position = Vector2(960, 545)
+position = Vector2(984, 552)
 
 [node name="Zzz" parent="." unique_id=115294721 instance=ExtResource("9_xvsyq")]
 position = Vector2(956, 622)

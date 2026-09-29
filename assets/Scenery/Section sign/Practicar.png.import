@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://odbrkl157gth"
-path="res://.godot/imported/baston-de-caramelo.png-76214042f1836df6fad60301cef0640f.ctex"
+uid="uid://bg8ttsoh0gn6r"
+path="res://.godot/imported/Practicar.png-a8c5a4b3d7e7242fdd652de09295990f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Temporal sprites/baston-de-caramelo.png"
-dest_files=["res://.godot/imported/baston-de-caramelo.png-76214042f1836df6fad60301cef0640f.ctex"]
+source_file="res://assets/Scenery/Section sign/Practicar.png"
+dest_files=["res://.godot/imported/Practicar.png-a8c5a4b3d7e7242fdd652de09295990f.ctex"]
 
 [params]
 
