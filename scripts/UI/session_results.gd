@@ -108,7 +108,26 @@ func _populate_data() -> void:
 	var details: Array = summary.get("details", [])
 	_populate_grid(details)
 
-	# Puntaje de sesión
+	# Estadísticas resumen
+	var total_correct: int = summary.get("correct", 0)
+	var total_q: int = summary.get("total", 0)
+	var percent: float = summary.get("score_percent", 0.0)
+	stats_label.text = "Respuestas: %d/%d correctas (%.0f%%)" % [total_correct, total_q, percent]
+
+	# Fila de bonus por herramientas en la tabla
+	_show_tool_bonus_info()
+
+	if GameSession.is_practice:
+		_populate_practice_summary()
+	else:
+		_populate_progression_summary(typology)
+
+	# Recomendación del asistente si no usó herramientas
+	_check_tools_usage()
+
+
+## Puntaje, récord, total acumulado y progreso de desbloqueo: lo que cuenta.
+func _populate_progression_summary(typology: String) -> void:
 	var session_score: int = GameSession.get_session_score()
 	session_score_label.text = "⭐ Puntaje de sesión: %d pts" % session_score
 
@@ -130,22 +149,23 @@ func _populate_data() -> void:
 		else:
 			best_score_label.visible = false
 
-	# Estadísticas resumen
-	var total_correct: int = summary.get("correct", 0)
-	var total_q: int = summary.get("total", 0)
-	var percent: float = summary.get("score_percent", 0.0)
-	stats_label.text = "Respuestas: %d/%d correctas (%.0f%%)" % [total_correct, total_q, percent]
-
 	# Puntaje total global
 	var total_global: int = GameSession.get_total_score()
 	global_score_label.text = "Puntaje total acumulado: %d pts" % total_global
 
-	# Mostrar bonus de herramientas y progreso de desbloqueo
-	_show_tool_bonus_info()
 	_show_unlock_progress()
 
-	# Recomendación del asistente si no usó herramientas
-	_check_tools_usage()
+
+## La práctica no bate récords ni suma al total: se dice claramente.
+func _populate_practice_summary() -> void:
+	title_label.text = "📝 ¡Práctica completada!"
+	session_score_label.text = "⭐ Puntaje de la práctica: %d pts" % GameSession.get_session_score()
+	record_label.visible = false
+	best_score_label.visible = false
+	global_score_label.text = "Esta práctica no cuenta para tu progreso."
+	retry_button.text = "🔄 Otra lectura de práctica"
+	if achievements_button:
+		achievements_button.visible = false
 
 
 func _populate_grid(details: Array) -> void:
@@ -335,6 +355,8 @@ func _on_lobby_pressed() -> void:
 	if lobby.is_empty():
 		push_error("[SessionResults] No hay escena de lobby configurada")
 		return
+	# Una práctica terminada no deja nada en memoria al volver.
+	GameSession.end_practice()
 	SceneManager.transition_to(lobby)
 
 

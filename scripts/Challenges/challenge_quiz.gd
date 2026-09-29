@@ -64,10 +64,11 @@ func _load_question() -> void:
 		_show_error("No hay preguntas disponibles para este nivel.")
 		return
 
-	# Header
+	# Header. En la práctica se avisa: el HUD de objetivos no se ve en el quiz.
 	var level_name: String = GameSession.get_current_level()
 	var progress: String = GameSession.get_progress_text()
-	level_badge.text = "Nivel %s • %s" % [level_name, progress]
+	var prefijo := "Práctica · " if GameSession.is_practice else ""
+	level_badge.text = "%sNivel %s • %s" % [prefijo, level_name, progress]
 
 	# Debug: mostrar respuesta correcta
 	if GameSession.DEBUG_SHOW_ANSWER:

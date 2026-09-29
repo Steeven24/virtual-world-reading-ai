@@ -367,8 +367,8 @@ func _objetivos_lobby() -> Dictionary:
 	var pendiente := ""
 	if ReadingProgressManager.has_active_reading():
 		pendiente = ReadingProgressManager.get_active_typology()
-	elif GameSession.is_active and not GameSession.current_typology.is_empty():
-		pendiente = GameSession.current_typology
+	else:
+		pendiente = GameSession.current_progression_typology()
 
 	if pendiente.is_empty():
 		pasos.append({"texto": "Acércate al cartel de una tipología y pulsa E", "hecho": false})
@@ -405,7 +405,10 @@ func _objetivos_lectura() -> Dictionary:
 
 	var pie := ""
 	if not GameSession.current_typology.is_empty():
-		pie = "Texto %s  ·  3 desafíos por delante" % GameSession.current_typology
+		if GameSession.is_practice:
+			pie = "Práctica · Texto %s · no cuenta para tu progreso" % GameSession.current_typology
+		else:
+			pie = "Texto %s  ·  3 desafíos por delante" % GameSession.current_typology
 	return {"pasos": pasos, "pie": pie}
 
 
@@ -428,8 +431,9 @@ func _objetivos_desafio() -> Dictionary:
 		var superado: String = str(NOMBRES_NIVEL.get(GameSession.LEVELS[i], GameSession.LEVELS[i]))
 		pasos.insert(1 + i, {"texto": "Nivel %s superado" % superado, "hecho": true})
 
-	var pie := "Nivel %d de %d  ·  %d pts en esta sesión" % [
-		indice + 1, GameSession.LEVELS.size(), GameSession.get_session_score()
+	var pie := "Nivel %d de %d  ·  %d pts en esta %s" % [
+		indice + 1, GameSession.LEVELS.size(), GameSession.get_session_score(),
+		"práctica" if GameSession.is_practice else "sesión",
 	]
 	return {"pasos": pasos, "pie": pie}
 
