@@ -223,7 +223,11 @@ func _has_previous_sessions(progress_data: Dictionary) -> bool:
 	var total_score: int = progress_data.get("total_score", 0)
 	if total_score > 0:
 		return true
-	
+
+	# Quien solo ha practicado también ha jugado: ya eligió personaje.
+	if int(progress_data.get("practice_sessions", 0)) > 0:
+		return true
+
 	# Verificar tipologías con sesiones
 	var typologies: Array = progress_data.get("typology_progress", [])
 	for tp in typologies:

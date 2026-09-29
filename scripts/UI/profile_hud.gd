@@ -414,8 +414,9 @@ func _calcular_progreso() -> Dictionary:
 	var en_curso := ""
 	var nivel := 0
 	var lectura_hecha := false
-	if GameSession.is_active and not GameSession.current_typology.is_empty():
-		en_curso = GameSession.current_typology
+	var en_progresion := GameSession.current_progression_typology()
+	if not en_progresion.is_empty():
+		en_curso = en_progresion
 		nivel = GameSession.current_level_index
 		lectura_hecha = GameSession.reading_end_time > 0.0
 	elif ReadingProgressManager.has_active_reading():

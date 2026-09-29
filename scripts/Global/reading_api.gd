@@ -91,20 +91,27 @@ func get_reading(reading_id: int) -> void:
 	_enqueue_request(url, "get_reading", {"reading_id": reading_id})
 
 
-## Obtiene una lectura aleatoria, opcionalmente filtrada por tipología.
-func get_random_reading(typology: String = "") -> void:
-	var url := "%s/readings/random" % ApiConfig.BASE_URL
+## Parámetros de consulta de la lectura aleatoria. Con practice = true la API
+## solo devuelve lecturas de la zona de práctica; sin él, solo de progresión.
+func build_random_query(typology: String, practice: bool) -> String:
+	var params: PackedStringArray = []
 	if not typology.is_empty():
-		url += "?typology=%s" % typology.uri_encode()
+		params.append("typology=%s" % typology.uri_encode())
+	if practice:
+		params.append("practice=true")
+	return "" if params.is_empty() else "?" + "&".join(params)
+
+
+## Obtiene una lectura aleatoria, opcionalmente filtrada por tipología.
+func get_random_reading(typology: String = "", practice: bool = false) -> void:
+	var url := "%s/readings/random%s" % [ApiConfig.BASE_URL, build_random_query(typology, practice)]
 	_enqueue_request(url, "random_reading", {})
 
 
 ## Obtiene una lectura aleatoria COMPLETA con preguntas y respuestas.
 ## Ideal para poblar los desafíos dinámicos.
-func get_random_reading_full(typology: String = "") -> void:
-	var url := "%s/readings/random/full" % ApiConfig.BASE_URL
-	if not typology.is_empty():
-		url += "?typology=%s" % typology.uri_encode()
+func get_random_reading_full(typology: String = "", practice: bool = false) -> void:
+	var url := "%s/readings/random/full%s" % [ApiConfig.BASE_URL, build_random_query(typology, practice)]
 	_enqueue_request(url, "full_reading", {})
 
 

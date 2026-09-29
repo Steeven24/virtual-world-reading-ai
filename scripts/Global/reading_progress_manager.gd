@@ -132,6 +132,9 @@ func save_active_reading() -> void:
 	if not GameSession.is_active:
 		print("[ReadingProgressManager] No hay sesión activa para guardar")
 		return
+	# La práctica nunca deja lectura pendiente.
+	if GameSession.is_practice:
+		return
 	if _is_busy:
 		return
 

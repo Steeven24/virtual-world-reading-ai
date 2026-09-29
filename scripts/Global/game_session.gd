@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func _on_session_invalidated() -> void:
 	is_active = false
+	is_practice = false
 	current_reading.clear()
 	current_typology = ""
 	current_level_index = 0
@@ -106,6 +107,13 @@ const TYPOLOGY_SCENES: Dictionary = {
 	}
 }
 
+## Escenarios de la zona de práctica: los del antiguo escenario de textos
+## instructivos, que ahora sirve para practicar cualquier tipología.
+const PRACTICE_SCENES: Dictionary = {
+	"level1": "res://scenes/Scenery/Section/Instructivos/instructivos_level1.tscn",
+	"level23": "res://scenes/Scenery/Section/Instructivos/instructivos_level2-3.tscn",
+}
+
 ## Escenas de niveles (escenarios intermedios).
 ## Estas se configuran al iniciar sesión según la lectura.
 var level_scenes: Dictionary = {
@@ -144,6 +152,11 @@ var results: Array = []
 
 ## True si hay una sesión activa.
 var is_active: bool = false
+
+## True si la sesión en curso es de la zona de práctica. La práctica usa el
+## mismo recorrido (lectura y 3 niveles), pero no cuenta para nada: ni puntaje,
+## ni desbloqueos, ni logros, ni alias, ni lectura pendiente.
+var is_practice: bool = false
 
 ## Contador de errores en el nivel actual (para bonus perfecto).
 var _level_errors: int = 0
@@ -261,6 +274,38 @@ func reset_tutorial() -> void:
 
 # ─── API Pública ─────────────────────────────────────────────────────────────
 
+## Deja la sesión lista para empezar una lectura nueva de la tipología dada.
+## La lectura se pide después, al entrar en la sala (bookAndTools).
+## Con practice = true la lectura será de la zona de práctica.
+func reset_for_new_reading(typology: String, practice: bool) -> void:
+	is_active = false
+	is_practice = practice
+	current_reading = {}
+	current_typology = typology
+	current_level_index = 0
+	current_question_index = 0
+	results.clear()
+	_current_session_score = 0
+	_level_errors = 0
+	reading_end_time = 0.0
+	tools_used = {"highlight": false, "underline": false, "notes": false}
+
+
+## Descarta la práctica en curso sin guardar nada: la práctica nunca deja una
+## lectura pendiente. No hace nada si la sesión es de progresión.
+func end_practice() -> void:
+	if is_practice:
+		reset_for_new_reading("", false)
+
+
+## Tipología de la lectura de progresión que hay en memoria, o "" si no hay
+## ninguna. La práctica nunca cuenta como lectura en curso ni pendiente.
+func current_progression_typology() -> String:
+	if is_active and not is_practice:
+		return current_typology
+	return ""
+
+
 ## Inicia una sesión de juego para la tipología dada.
 ## Llama a la API para obtener una lectura completa con preguntas.
 ## Configurar level_scenes y lobby_scene ANTES de llamar a esto,
@@ -279,7 +324,7 @@ func start_session(typology: String) -> void:
 	reading_end_time = 0.0
 	
 	_connect_api()
-	ReadingAPI.get_random_reading_full(typology)
+	ReadingAPI.get_random_reading_full(typology, is_practice)
 
 
 ## Registra el fin del tiempo de lectura.
@@ -360,12 +405,14 @@ func submit_answer(letter: String) -> Dictionary:
 	if is_correct:
 		points_earned = POINTS_BY_LEVEL.get(current_level, 10)
 		_current_session_score += points_earned
-		score_data["correct_by_level"][current_level] += 1
+		if not is_practice:
+			score_data["correct_by_level"][current_level] += 1
 	else:
 		penalty = PENALTY_BY_LEVEL.get(current_level, 5)
 		_current_session_score = maxi(0, _current_session_score - penalty)
 		_level_errors += 1
-		score_data["incorrect_by_level"][current_level] += 1
+		if not is_practice:
+			score_data["incorrect_by_level"][current_level] += 1
 
 	score_changed.emit(_current_session_score)
 
@@ -433,7 +480,7 @@ func retry_with_new_reading() -> void:
 	reading_end_time = 0.0
 	
 	_connect_api()
-	ReadingAPI.get_random_reading_full(typology)
+	ReadingAPI.get_random_reading_full(typology, is_practice)
 
 
 ## Retorna el puntaje obtenido solo en la sesión actual.
@@ -448,6 +495,9 @@ func get_best_score(typology: String) -> int:
 
 ## Retorna true si la sesión actual superó el mejor puntaje previo.
 func is_new_record() -> bool:
+	# La práctica no bate récords: no cuenta para el progreso.
+	if is_practice:
+		return false
 	# Comparamos contra el best ANTES de registrar (el actual ya fue registrado)
 	# Usamos el score_data local que se actualiza después del registro
 	var best: int = score_data["best_scores_by_typology"].get(current_typology, 0)
@@ -540,6 +590,26 @@ func restore_state(data: Dictionary) -> void:
 
 func _on_session_complete() -> void:
 	is_active = false
+
+	# Los bonus se calculan igual en la práctica: el alumno ve el puntaje que
+	# habría obtenido, aunque no cuente.
+	_current_session_score += SESSION_COMPLETE_BONUS
+	var total_errors := results.filter(func(r): return not r["correct"]).size()
+	var is_perfect := total_errors == 0
+	if is_perfect:
+		_current_session_score += SESSION_PERFECT_BONUS
+	var tool_bonus: int = ProgressionManager.calculate_tool_bonus(tools_used)
+	_current_session_score += tool_bonus
+	if tool_bonus > 0:
+		print("[GameSession] Bonus herramientas: +%d pts" % tool_bonus)
+
+	if is_practice:
+		# Se envía para que el docente la vea, y nada más: ni progreso, ni
+		# lectura pendiente, ni logros, ni alias (session_completed_with_data
+		# es lo que dispara los avisos de alias y la limpieza de la pendiente).
+		_sync_session_to_api(tool_bonus, is_perfect)
+		return
+
 	score_data["sessions_completed"] += 1
 
 	# Limpiar lectura activa en la API
@@ -550,20 +620,8 @@ func _on_session_complete() -> void:
 	if not current_typology.is_empty() and current_typology not in score_data["typologies_completed"]:
 		score_data["typologies_completed"].append(current_typology)
 
-	# Bonus por sesión completa
-	_current_session_score += SESSION_COMPLETE_BONUS
-
-	# Verificar sesión perfecta (0 errores en toda la sesión)
-	var total_errors := results.filter(func(r): return not r["correct"]).size()
-	if total_errors == 0:
+	if is_perfect:
 		score_data["perfect_sessions"] += 1
-		_current_session_score += SESSION_PERFECT_BONUS
-
-	# Bonus por herramientas usadas
-	var tool_bonus: int = ProgressionManager.calculate_tool_bonus(tools_used)
-	_current_session_score += tool_bonus
-	if tool_bonus > 0:
-		print("[GameSession] Bonus herramientas: +%d pts" % tool_bonus)
 
 	# Registrar con el sistema de progresión (solo guarda si es mejor)
 	ProgressionManager.register_session_result(current_typology, _current_session_score)
@@ -573,7 +631,7 @@ func _on_session_complete() -> void:
 	score_data["best_scores_by_typology"][current_typology] = ProgressionManager.get_best_score(current_typology)
 
 	# ── Sincronizar con la API ────────────────────────────────────────────
-	_sync_session_to_api(tool_bonus, total_errors == 0)
+	_sync_session_to_api(tool_bonus, is_perfect)
 
 	# Emitir señal con datos completos
 	session_completed_with_data.emit(current_typology, _current_session_score, tools_used)
@@ -632,11 +690,8 @@ func _unlock(id: String, display_name: String) -> void:
 
 # ─── Sincronización con API ──────────────────────────────────────────────────
 
-## Envía los datos de la sesión completada a la API.
-func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
-	if not AuthManager.is_authenticated:
-		return
-
+## Datos de la sesión completada tal como los espera POST /progress/sessions.
+func build_session_payload(tool_bonus: int, is_perfect: bool) -> Dictionary:
 	# Construir datos de respuestas
 	var answers_data: Array = []
 	for r in results:
@@ -668,13 +723,14 @@ func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
 	
 	var total_time: int = int((Time.get_ticks_msec() / 1000.0) - session_start_time)
 
-	var session_data := {
+	return {
 		"reading_id": current_reading.get("id", 0),
 		"typology": current_typology,
 		"session_score": _current_session_score,
 		"reading_time_seconds": reading_time,
 		"total_time_seconds": total_time,
 		"is_perfect": is_perfect,
+		"is_practice": is_practice,
 		"correct_count": correct_count,
 		"incorrect_count": incorrect_count,
 		"tool_bonus": tool_bonus,
@@ -682,8 +738,13 @@ func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
 		"tools": tools_data,
 	}
 
-	AuthManager.save_session(session_data)
-	print("[GameSession] Sesión enviada a la API")
+
+## Envía los datos de la sesión completada a la API.
+func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
+	if not AuthManager.is_authenticated:
+		return
+	AuthManager.save_session(build_session_payload(tool_bonus, is_perfect))
+	print("[GameSession] Sesión enviada a la API%s" % (" (práctica)" if is_practice else ""))
 
 
 ## Carga datos de progreso desde la API y los aplica al estado local.

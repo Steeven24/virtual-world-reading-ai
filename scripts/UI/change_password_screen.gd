@@ -108,7 +108,7 @@ func _on_progress_loaded(progress_data: Dictionary) -> void:
 	# Determinar si redirigir al Lobby o a Selección de Personaje
 	var has_played := false
 	var total_score: int = progress_data.get("total_score", 0)
-	if total_score > 0:
+	if total_score > 0 or int(progress_data.get("practice_sessions", 0)) > 0:
 		has_played = true
 	else:
 		for tp in typology_progress:
