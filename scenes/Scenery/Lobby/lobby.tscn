@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://caqhqh8gx8rol" path="res://assets/Scenery/Background/Lobby/printer.png" id="28_ye3i6"]
 [ext_resource type="Texture2D" uid="uid://cktphr06tmxli" path="res://assets/Scenery/Background/Lobby/world.png" id="29_jj841"]
 [ext_resource type="Texture2D" uid="uid://deuhoqkfgt05i" path="res://assets/Animations/Fireplace/fireplace1 spritesheet.png" id="30_0tao1"]
+[ext_resource type="Texture2D" uid="uid://bg8ttsoh0gn6r" path="res://assets/Scenery/Section sign/Practicar.png" id="31_rn3cy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -338,11 +339,6 @@ position = Vector2(2379.7131, 472.61877)
 scale = Vector2(0.7060116, 0.7060116)
 texture = ExtResource("12_u7wr6")
 
-[node name="Library" type="Sprite2D" parent="." unique_id=778598826]
-position = Vector2(2372.6458, 481.75)
-scale = Vector2(0.7108051, 0.7108051)
-texture = ExtResource("12_u7wr6")
-
 [node name="Panel" type="Sprite2D" parent="." unique_id=1679457539]
 position = Vector2(207.98729, 1367.2148)
 scale = Vector2(0.28677967, 0.2867797)
@@ -643,3 +639,14 @@ scale = Vector2(0.19289371, 0.19289371)
 sprite_frames = SubResource("SpriteFrames_3tcf7")
 autoplay = "default"
 frame_progress = 0.6172105
+
+[node name="Library" type="Sprite2D" parent="." unique_id=778598826]
+position = Vector2(2372.6458, 481.75)
+scale = Vector2(0.7108051, 0.7108051)
+texture = ExtResource("12_u7wr6")
+
+[node name="Practicar" type="Sprite2D" parent="." unique_id=268892897]
+visibility_layer = 0
+position = Vector2(2370, 367)
+scale = Vector2(0.5196074, 0.43137246)
+texture = ExtResource("31_rn3cy")
