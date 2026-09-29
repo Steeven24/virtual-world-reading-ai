@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://cnyomogr1s14y" path="res://assets/Scenery/Background/lobby.png" id="1_km1v3"]
 [ext_resource type="Texture2D" uid="uid://pwpdo336k11f" path="res://assets/Scenery/Section sign/descriptivo.png" id="2_yph88"]
 [ext_resource type="Texture2D" uid="uid://dhrjrifb4ob25" path="res://assets/Scenery/Section sign/narrativo.png" id="3_rm6ok"]
-[ext_resource type="Texture2D" uid="uid://7joimxur5meb" path="res://assets/Scenery/Section sign/instructivo.png" id="4_ixbeh"]
 [ext_resource type="Texture2D" uid="uid://urwfq4tbn8xj" path="res://assets/Scenery/Section sign/expositivo.png" id="5_cb0b8"]
 [ext_resource type="Texture2D" uid="uid://bnyxij0snu3u6" path="res://assets/Scenery/Section sign/argumentativo.png" id="6_1u6js"]
 [ext_resource type="Texture2D" uid="uid://bg8ttsoh0gn6r" path="res://assets/Scenery/Section sign/Practicar.png" id="7_y0yj0"]
@@ -124,12 +123,6 @@ z_index = 1
 position = Vector2(448.43744, 365.37503)
 scale = Vector2(0.5226716, 0.5226716)
 texture = ExtResource("3_rm6ok")
-
-[node name="Instructivo" type="Sprite2D" parent="." unique_id=1156464230]
-z_index = 1
-position = Vector2(3148.0002, 375)
-scale = Vector2(0.54044116, 0.54044116)
-texture = ExtResource("4_ixbeh")
 
 [node name="Expositivo" type="Sprite2D" parent="." unique_id=1714801759]
 z_index = 1

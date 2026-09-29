@@ -16,6 +16,11 @@ var player_in_range = false
 ## el lobby muestre el overlay del tutorial guiado.
 @export var is_tutorial_trigger: bool = false
 
+## Si es true, esta estación es la zona de práctica: en lugar del diálogo de
+## confirmación abre el selector de tipologías, no lleva candado y la sesión
+## que empieza no cuenta para el progreso.
+@export var is_practice_station: bool = false
+
 ## Referencia al sprite del candado (hijo de esta escena).
 var _padlock: Sprite2D = null
 
@@ -24,6 +29,9 @@ var _locked_dialog: AcceptDialog = null
 
 ## Tema compartido por todos los diálogos del juego (marco con texturas).
 const DIALOG_THEME_PATH: String = "res://Themes and Styles/confirmation_Dialogue.tres"
+
+## Selector de tipología de la zona de práctica.
+const PRACTICE_SELECTOR_SCENE: String = "res://scenes/UI/practice_selector.tscn"
 
 func _ready():
 	$Area2D/message.visible = false
@@ -40,6 +48,10 @@ func _ready():
 	# ─── Configurar candado y diálogo de bloqueo ───────────────────────────
 	_padlock = get_node_or_null("Padlock")
 	_locked_dialog = get_node_or_null("LockedDialog")
+
+	# La práctica está siempre abierta: el candado sobra.
+	if is_practice_station and _padlock:
+		_padlock.visible = false
 
 	if _locked_dialog:
 		_locked_dialog.visibility_changed.connect(
@@ -70,6 +82,10 @@ func _process(delta):
 		if is_tutorial_trigger:
 			if not SceneManager.is_ui_open:
 				tutorial_triggered.emit()
+			return
+		if is_practice_station:
+			if not SceneManager.is_ui_open:
+				_on_practice_station_activated()
 			return
 		# Verificar si el nivel está bloqueado
 		if not typology.is_empty() and not ProgressionManager.is_unlocked(typology):
@@ -170,16 +186,19 @@ func _on_dialog_confirmed():
 		
 		# ─── Verificar lectura pendiente ─────────────────────────────────
 		
-		# Caso 1: GameSession activa con la MISMA tipología → restaurar en memoria
-		if GameSession.is_active and GameSession.current_typology == typology:
+		# La práctica en memoria no cuenta: solo una lectura de progresión.
+		var en_memoria := GameSession.current_progression_typology()
+
+		# Caso 1: lectura de progresión en memoria de la MISMA tipología → reanudar
+		if en_memoria == typology:
 			_resume_existing_session(level1, level23)
 			return
-		
-		# Caso 2: GameSession activa con OTRA tipología → bloqueo inmediato
+
+		# Caso 2: lectura de progresión en memoria de OTRA tipología → bloqueo inmediato
 		# (No requiere API, es la detección más rápida y confiable)
-		if GameSession.is_active and not GameSession.current_typology.is_empty() and GameSession.current_typology != typology:
-			print("[Teleport] BLOQUEO: GameSession activa en '%s', intentando acceder a '%s'" % [GameSession.current_typology, typology])
-			_show_pending_reading_warning(GameSession.current_typology)
+		if not en_memoria.is_empty():
+			print("[Teleport] BLOQUEO: GameSession activa en '%s', intentando acceder a '%s'" % [en_memoria, typology])
+			_show_pending_reading_warning(en_memoria)
 			return
 		
 		# Caso 3: ReadingProgressManager tiene lectura pendiente (cacheada de la API)
@@ -350,15 +369,7 @@ func _on_restore_reading_failed(_endpoint: String, _error: String) -> void:
 func _start_new_session(level1: String, level23: String) -> void:
 	# IMPORTANTE: Resetear completamente el estado anterior de GameSession
 	# para evitar que bookAndTools reutilice una lectura de otro escenario.
-	GameSession.is_active = false
-	GameSession.current_reading = {}
-	GameSession.current_level_index = 0
-	GameSession.current_question_index = 0
-	GameSession.results.clear()
-	GameSession.reading_end_time = 0.0
-	GameSession.tools_used = {"highlight": false, "underline": false, "notes": false}
-	
-	GameSession.current_typology = typology
+	GameSession.reset_for_new_reading(typology, false)
 	GameSession.configure_scenes(level23, level23, LOBBY)
 	GameSession.level_scenes["Literal"] = level1
 	target_scene_path = level1
@@ -392,13 +403,18 @@ func _create_pending_dialog() -> void:
 	)
 
 
-func _show_pending_reading_warning(pending_typology: String) -> void:
+func _show_pending_reading_warning(pending_typology: String, para_practica: bool = false) -> void:
 	if not _pending_dialog:
 		_create_pending_dialog()
-	
-	_pending_dialog.dialog_text = "⚠️ Tienes una lectura pendiente en el escenario %s.\n\nDebes terminarla antes de iniciar una nueva.\n\nRegresa al lobby y busca el escenario %s para continuar." % [
-		pending_typology, pending_typology
-	]
+
+	if para_practica:
+		_pending_dialog.dialog_text = "⚠️ Tienes una lectura pendiente en el escenario %s.\n\nTermínala antes de practicar: la práctica no puede empezar mientras haya una lectura a medias.\n\nBusca el escenario %s en el lobby para continuar." % [
+			pending_typology, pending_typology
+		]
+	else:
+		_pending_dialog.dialog_text = "⚠️ Tienes una lectura pendiente en el escenario %s.\n\nDebes terminarla antes de iniciar una nueva.\n\nRegresa al lobby y busca el escenario %s para continuar." % [
+			pending_typology, pending_typology
+		]
 	
 	# Animación slide-up (misma estética del proyecto)
 	var dialog := _pending_dialog
@@ -440,6 +456,56 @@ func _on_pending_dialog_accepted() -> void:
 	# No hacer nada más: el jugador se queda donde está.
 	# Puede ir al lobby y buscar el escenario correcto.
 
+
+# ─── Zona de práctica ────────────────────────────────────────────────────────
+
+## La práctica no puede empezar mientras haya una lectura de progresión a
+## medias: la sesión de juego es una sola y practicar encima la pisaría.
+## Se comprueba igual que en las demás estaciones: memoria, caché y API.
+func _on_practice_station_activated() -> void:
+	var pendiente := GameSession.current_progression_typology()
+	if pendiente.is_empty() and ReadingProgressManager.has_active_reading():
+		pendiente = ReadingProgressManager.get_active_typology()
+	if not pendiente.is_empty():
+		_show_pending_reading_warning(pendiente, true)
+		return
+
+	if AuthManager.is_authenticated:
+		if not ReadingProgressManager.active_reading_check_completed.is_connected(_on_practice_pending_check):
+			ReadingProgressManager.active_reading_check_completed.connect(
+				_on_practice_pending_check, CONNECT_ONE_SHOT
+			)
+		ReadingProgressManager.check_pending_reading()
+		return
+
+	_open_practice_selector()
+
+
+func _on_practice_pending_check(has_pending: bool, pending_typology: String) -> void:
+	if has_pending:
+		_show_pending_reading_warning(pending_typology, true)
+	else:
+		_open_practice_selector()
+
+
+func _open_practice_selector() -> void:
+	if SceneManager.is_ui_open:
+		return
+	var selector: Node = load(PRACTICE_SELECTOR_SCENE).instantiate()
+	add_child(selector)
+	selector.typology_chosen.connect(_start_practice_session)
+	selector.open()
+
+
+## Empieza una práctica de la tipología elegida en los escenarios de práctica.
+func _start_practice_session(practice_typology: String) -> void:
+	GameSession.reset_for_new_reading(practice_typology, true)
+	var level1: String = GameSession.PRACTICE_SCENES["level1"]
+	var level23: String = GameSession.PRACTICE_SCENES["level23"]
+	GameSession.configure_scenes(level23, level23, LOBBY)
+	GameSession.level_scenes["Literal"] = level1
+	target_scene_path = level1
+	change_scene()
 
 
 # ─── Sistema de candado y bloqueo ───────────────────────────────────────────

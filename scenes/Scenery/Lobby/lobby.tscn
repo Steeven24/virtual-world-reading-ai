@@ -314,10 +314,9 @@ position = Vector2(1637, 497)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Expositivo"
 
-[node name="Textos Instructivos" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2592, 768)
-target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
-typology = "Instructivo"
+[node name="Herramienta de práctica" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
+position = Vector2(2598, 493)
+is_practice_station = true
 
 [node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
 z_index = 1
