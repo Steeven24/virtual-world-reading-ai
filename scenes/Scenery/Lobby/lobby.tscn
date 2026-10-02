@@ -315,7 +315,7 @@ target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.t
 typology = "Expositivo"
 
 [node name="Herramienta de práctica" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2598, 493)
+position = Vector2(2591.9346, 744.8647)
 is_practice_station = true
 
 [node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
@@ -640,12 +640,14 @@ autoplay = "default"
 frame_progress = 0.6172105
 
 [node name="Library" type="Sprite2D" parent="." unique_id=778598826]
-position = Vector2(2372.6458, 481.75)
+position = Vector2(2373.076, 479.70096)
 scale = Vector2(0.7108051, 0.7108051)
 texture = ExtResource("12_u7wr6")
 
 [node name="Practicar" type="Sprite2D" parent="." unique_id=268892897]
-visibility_layer = 0
+visibility_layer = 2
+z_index = 1
+texture_filter = 1
 position = Vector2(2370, 367)
 scale = Vector2(0.5196074, 0.43137246)
 texture = ExtResource("31_rn3cy")
