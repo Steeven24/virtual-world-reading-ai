@@ -30,6 +30,14 @@ const LEVEL_NAMES: Dictionary = {
 	"Critico": "CRÍTICO",
 }
 
+## Ancho del diálogo, el mismo que el del sabio. Con la fuente de 30 px del
+## tema, a 500 px la presentación envolvía en tantas líneas que el diálogo
+## crecía hasta salirse por abajo de una ventana de 720.
+## Debe coincidir con el size del ConfirmationDialog en teacher.tscn: en la
+## primera apertura la etiqueta aún envuelve con el ancho de la escena, y si
+## es otro el alto sale mal calculado.
+const DIALOG_WIDTH: int = 800
+
 @export var sprite_resource: Texture2D
 @export var prompt_sprite_resource: Texture2D
 @export var dialog_theme: Theme
@@ -94,6 +102,9 @@ func show_dialogue():
 		
 	SceneManager.is_ui_open = true
 	confirm_dialog.dialog_text = _build_dialog_text()
+	# Alto a 0 para que el diálogo se ajuste al texto de esta vez: si no,
+	# conserva el tamaño de la última apertura y nunca vuelve a encoger.
+	confirm_dialog.size = Vector2i(DIALOG_WIDTH, 0)
 	confirm_dialog.popup_centered()
 	DialogFocus.preparar(confirm_dialog)
 
