@@ -71,7 +71,7 @@ horizontal_alignment = 1
 
 [node name="Title" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1554822627]
 layout_mode = 2
-text = "LectorHaven"
+text = "Comprensión lectora digital"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1506522847]

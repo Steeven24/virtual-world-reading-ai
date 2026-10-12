@@ -17,7 +17,7 @@ var player_in_range = false
 const INTRO_MESSAGE := "Soy el sabio de esta sala. Te doy consejos para entender mejor lo que lees: técnicas que sirven para cualquier texto.\n\nNo resuelvo dudas concretas de tu lectura, para eso está el robot asistente. Y quien te pondrá a prueba con los desafíos es el profesor.\n\nHabla conmigo siempre que quieras: cada vez te daré un consejo distinto."
 
 ## Cierre que acompaña a cada consejo, para reforzar el reparto de papeles.
-const CONSEJO_FOOTER := "Si tienes una duda más específica sobre esta lectura, ¡pregúntale al robot asistente!"
+const CONSEJO_FOOTER := "Si tienes una duda más específica sobre esta lectura, pregúntale al robot asistente"
 
 var consejos = [
 	# ─── Antes y durante la lectura ───
@@ -31,13 +31,13 @@ var consejos = [
 	"Si la lectura se te hace larga, léela por partes y resume cada una en una frase antes de seguir.",
 
 	# ─── Sacar partido a las herramientas del libro ───
-	"Las ideas principales son el esqueleto del texto. Activa Subrayar y arrastra el ratón sobre ellas para no perderlas de vista.",
-	"Marca con Resaltar las frases que resumen el mensaje del autor: son las que te dirán de qué iba todo.",
+	"Las ideas principales son el esqueleto del texto. Activa subrayar y arrastra el ratón sobre ellas para no perderlas de vista.",
+	"Marca con resaltar las frases que resumen el mensaje del autor: son las que te dirán de qué iba todo.",
 	"Subraya los nombres, las fechas y los datos concretos: son justo lo que te preguntará el desafío literal.",
-	"Abre la pestaña Notas para escribir tus dudas y tus ideas. Cada página guarda las suyas, y el Compilatorio te las reúne todas.",
+	"Abre la pestaña notas para escribir tus dudas y tus ideas. Cada página guarda las suyas, y el compilatorio te las reúne todas.",
 
 	# ─── Preparar los tres desafíos ───
-	"Pregúntate mientras lees: ¿qué me quiere enseñar este texto? Esa respuesta te vale para los tres desafíos.",
+	"Pregúntate mientras lees: ¿qué me quiere enseñar este texto? Esa respuesta te sirve para los tres desafíos.",
 	"Cuando el texto insinúa algo sin llegar a decirlo, eso es una inferencia. El profesor te preguntará justo por eso.",
 	"Pregúntate si estás de acuerdo con el autor y por qué. Eso es exactamente lo que pide el nivel crítico.",
 	"Antes de responder, relee la pregunta entera: muchos fallos vienen de contestar demasiado rápido.",

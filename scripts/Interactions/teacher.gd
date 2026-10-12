@@ -10,17 +10,17 @@ extends Node2D
 
 ## Presentación de la primera vez, para dejar claro el reparto de papeles
 ## entre el sabio, el robot y el profesor.
-const INTRO_MESSAGE := """Soy el profesor: yo te pongo a prueba. Te plantearé tres desafíos sobre el texto que has leído, según su tipología: LITERAL (lo que el texto dice), INFERENCIAL (lo que deja entender) y CRÍTICO (lo que tú opinas y por qué).
+const INTRO_MESSAGE := """Soy el profesor: yo te pongo a prueba. Te plantearé tres desafíos sobre el texto que has leído, según su nivel de comprensión: LITERAL (lo que el texto dice), INFERENCIAL (lo que deja entender) y CRÍTICO (lo que tú opinas y por qué).
 
 Para consejos generales de lectura habla con el sabio; para dudas concretas del texto, con el robot asistente.
 
-Empezamos por el literal. ¿Listo?"""
+Empezamos por el nivel literal. ¿Listo?"""
 
 ## Qué se le pide al alumno en cada nivel de comprensión.
 const LEVEL_BRIEFINGS: Dictionary = {
 	"Literal": "Te preguntaré por lo que el texto dice de forma explícita: datos, nombres y hechos que están escritos tal cual.",
 	"Inferencial": "Aquí no basta con buscar: tendrás que deducir lo que el texto sugiere sin llegar a decirlo con todas las letras.",
-	"Critico": "Este es el último. No hay datos que localizar: tendrás que valorar el texto y justificar tu opinión.",
+	"Critico": "Este es el último. No hay datos que localizar, tendrás que valorar el texto y justificar tu opinión.",
 }
 
 ## Nombre visible de cada nivel (en GameSession "Critico" va sin tilde).

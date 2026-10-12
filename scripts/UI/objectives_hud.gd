@@ -358,7 +358,7 @@ func _objetivos_lobby() -> Dictionary:
 	var pasos: Array = []
 
 	pasos.append({
-		"texto": "Repasa el tutorial en el icono central (E)",
+		"texto": "Repasa el tutorial en el ícono central (E)",
 		"hecho": GameSession.is_tutorial_completed(),
 	})
 
@@ -376,7 +376,7 @@ func _objetivos_lobby() -> Dictionary:
 		pasos.append({"texto": "Vuelve al escenario %s: tienes una lectura sin terminar" % pendiente, "hecho": false})
 
 	pasos.append({"texto": "Lee el texto y marca lo importante", "hecho": false})
-	pasos.append({"texto": "Supera los 3 desafíos con el Profesor", "hecho": false})
+	pasos.append({"texto": "Supera los 3 desafíos con el profesor", "hecho": false})
 
 	var completadas: int = GameSession.score_data.get("typologies_completed", []).size()
 	var pie := "Tipologías completadas: %d/%d  ·  %d pts" % [
@@ -419,7 +419,7 @@ func _objetivos_desafio() -> Dictionary:
 
 	var pasos: Array = [
 		{"texto": "Lectura completada", "hecho": true},
-		{"texto": "Acércate al Profesor y pulsa E", "hecho": false},
+		{"texto": "Acércate al profesor y pulsa E", "hecho": false},
 		{
 			"texto": "Responde las %d preguntas del nivel %s" % [GameSession.QUESTIONS_PER_LEVEL, nombre_nivel],
 			"hecho": false,

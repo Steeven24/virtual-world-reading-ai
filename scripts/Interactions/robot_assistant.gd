@@ -528,7 +528,7 @@ func _render_welcome():
 		"[color=%s][b]🤖 Tutor:[/b][/color]  ¡Hola! Soy tu tutor virtual. " % HEX_ASSISTANT
 		+ "Resuelvo [b]tus dudas concretas[/b] sobre [b]\"" + reading_title + "\"[/b] y te oriento con el juego si te pierdes.\n"
 		+ "[color=%s]Pregúntame cosas como «¿qué significa esta palabra?», «¿de qué trata el tercer párrafo?» o «¿cómo uso las herramientas del libro?».\n" % HEX_NOTICE
-		+ "Te doy pistas para que llegues tú a la respuesta, nunca la respuesta directa. Para consejos generales de lectura habla con el sabio, y quien te evalúa es el profesor.\n[/color]"
+		+ "Te doy pistas para que llegues tú a la respuesta, nunca a la respuesta directa. Para consejos generales de lectura habla con el sabio, y quien te evalúa es el profesor.\n[/color]"
 	)
 
 

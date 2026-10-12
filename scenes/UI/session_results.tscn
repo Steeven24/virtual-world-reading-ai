@@ -191,7 +191,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font_bold")
 theme_override_font_sizes/font_size = 18
-text = "🏆 Ver Logros"
+text = "🏆 Ver logros"
 
 [node name="LobbyButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/ButtonsContainer" unique_id=1351769508]
 unique_name_in_owner = true
@@ -200,7 +200,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font_bold")
 theme_override_font_sizes/font_size = 18
-text = "🏠 Volver al Lobby"
+text = "🏠 Volver al lobby"
 
 [node name="AssistantTipDialog" type="AcceptDialog" parent="." unique_id=363101131]
 unique_name_in_owner = true

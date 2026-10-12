@@ -19,13 +19,13 @@ const GUIDE_DELAY: float = 0.35
 ## jugador está a punto de empezar.
 const LEVEL_INTRO_MESSAGES: Dictionary = {
 	"Inferencial": {
-		"title": "✅ ¡Nivel Literal completado!",
-		"body": "Has demostrado que localizas la información que el texto dice de forma explícita.\n\n[color=#f0c050][b]➜ Acércate al profesor y pulsa E[/b][/color] para empezar el desafío [b]Inferencial[/b]: ahora tendrás que deducir lo que el texto sugiere sin decirlo con todas las letras.",
+		"title": "✅ ¡Nivel literal completado!",
+		"body": "Has demostrado que localizas la información que el texto dice de forma explícita.\n\n[color=#f0c050][b]➜ Acércate al profesor y pulsa E[/b][/color] para empezar el desafío [b]inferencial[/b]: ahora tendrás que deducir lo que el texto sugiere sin decirlo con todas las letras.",
 		"button": "¡Vamos allá! ✓",
 	},
 	"Critico": {
-		"title": "✅ ¡Nivel Inferencial completado!",
-		"body": "Ya has demostrado que sabes leer entre líneas.\n\n[color=#f0c050][b]➜ Último paso: acércate al profesor y pulsa E[/b][/color] para el desafío [b]Crítico[/b]. Aquí no hay datos que buscar: tendrás que valorar el texto y justificar tu opinión.",
+		"title": "✅ ¡Nivel inferencial completado!",
+		"body": "Ya has demostrado que sabes leer entre líneas.\n\n[color=#f0c050][b]➜ Último paso: acércate al profesor y pulsa E[/b][/color] para el desafío [b]crítico[/b]. Aquí no hay datos que buscar: tendrás que valorar el texto y justificar tu opinión.",
 		"button": "¡Adelante! ✓",
 	},
 }
@@ -33,7 +33,7 @@ const LEVEL_INTRO_MESSAGES: Dictionary = {
 ## Guía que se muestra al cerrar la lectura, cuando aparece el profesor.
 const READING_DONE_MESSAGE: Dictionary = {
 	"title": "📖 ¡Lectura completada!",
-	"body": "Ya conoces el texto. Ahora toca demostrar que lo has entendido.\n\n[color=#f0c050][b]➜ Acércate al profesor y pulsa E[/b][/color] para empezar el desafío [b]Literal[/b]: preguntas sobre lo que el texto dice de forma explícita.",
+	"body": "Ya conoces el texto. Ahora a demostrar que lo has entendido.\n\n[color=#f0c050][b]➜ Acércate al profesor y pulsa E[/b][/color] para empezar el desafío [b]literal[/b]: preguntas sobre lo que el texto dice de forma explícita.",
 	"button": "¡Entendido! ✓",
 }
 
@@ -86,10 +86,8 @@ func _on_book_warning_accepted():
 func _on_teacher_request_challenge(context):
 	# En el futuro, inyectar el texture_teacher al GameSession o pasarlo al SceneManager
 	# context["teacher_texture"] puede usarse para la pantalla de feedback
-	
 	# Desconectar señales de la API si es necesario, aunque bookAndTools ya lo hace
 	# al salir de la escena
-	
 	if GameSession.is_active:
 		# Si hay una sesión activa de la API
 		SceneManager.transition_to(GameSession.QUIZ_SCENE)

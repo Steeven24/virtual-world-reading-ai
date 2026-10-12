@@ -46,9 +46,9 @@ const TOOLS_GUIDE_BODY: String = """Este libro no es solo para leer: puedes trab
 
 [color=#f0c050][b]Resaltar[/b][/color] — las frases que resumen la idea del autor.
 [color=#f0c050][b]Subrayar[/b][/color] — los nombres, fechas y datos concretos.
-[color=#f0c050][b]Notas[/b][/color] — tus dudas y lo que vas entendiendo. Cada página guarda las suyas, y el [b]Compilatorio[/b] las reúne todas.
+[color=#f0c050][b]Notas[/b][/color] — tus dudas y lo que vas entendiendo. Cada página guarda las suyas, y el [b]compilatorio[/b] las reúne todas.
 
-[b]Para marcar:[/b] pulsa la herramienta —o las teclas [color=#f0c050][b]1[/b][/color], [color=#f0c050][b]2[/b][/color] y [color=#f0c050][b]3[/b][/color]—, arrastra el ratón sobre el texto y suelta. Con [b]Borrar[/b] quitas lo que hayas marcado.
+[b]Para marcar:[/b] pulsa la herramienta —o las teclas [color=#f0c050][b]1[/b][/color], [color=#f0c050][b]2[/b][/color] y [color=#f0c050][b]3[/b][/color]—, arrastra el ratón sobre el texto y suelta. Con [b]borrar[/b] quitas lo que hayas marcado.
 
 Dejar el texto marcado te ahorrará releerlo entero cuando llegue el desafío."""
 

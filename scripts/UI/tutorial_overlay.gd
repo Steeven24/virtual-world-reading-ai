@@ -23,40 +23,40 @@ const ANIM_DURATION: float = 0.35
 ## explica dentro del libro la primera vez que se abre, que es donde se usa.
 const STEPS: Array = [
 	{
-		"title": "👋 ¡Bienvenido al Mundo Virtual de Lectura!",
+		"title": "👋 ¡Bienvenido al mundo virtual de la comprensión lectora!",
 		"body": "Soy tu guía. En unos pocos pasos te enseño cómo moverte, quién es quién y qué tienes que hacer para completar una lectura.",
 	},
 	{
 		"title": "🎮 Movimiento",
-		"body": "Muévete con las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color], y mantén [color=#f0c050][b]Shift[/b][/color] para correr.\n\nCuando te acerques a algo con lo que puedas interactuar, aparecerá el icono [color=#f0c050][b]E[/b][/color] sobre tu personaje. Púlsalo para hablar, leer o empezar.",
+		"body": "Muévete con las teclas [color=#f0c050][b]W A S D[/b][/color] o las [color=#f0c050][b]flechas[/b][/color], y mantén [color=#f0c050][b]Shift[/b][/color] para correr.\n\nCuando te acerques a algo con lo que puedas interactuar, aparecerá el ícono [color=#f0c050][b]E[/b][/color] sobre tu personaje. Púlsalo para hablar, leer o empezar.",
 	},
 	{
 		"title": "⭐ Tu progreso",
-		"body": "Arriba a la derecha tienes tu [color=#f0c050][b]puntuación[/b][/color]: cada respuesta correcta suma según el nivel de dificultad.\n\nEn el icono [color=#f0c050][b]🏆[/b][/color] están tus logros, como leer tu primera lectura o completar las 4 tipologías.",
+		"body": "Arriba a la derecha tienes tu [color=#f0c050][b]puntuación[/b][/color]: cada respuesta correcta suma según el nivel de dificultad.\n\nEn el ícono [color=#f0c050][b]🏆[/b][/color] están tus logros, el cómo leer tu primera lectura o cómo completar las 4 tipologías textuales.",
 	},
 	{
 		"title": "📚 Las 4 tipologías textuales",
-		"body": "En el lobby hay [color=#f0c050][b]4 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Argumentativo[/b] y [b]Expositivo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en Explorador.\n\nY si quieres ensayar sin que cuente, usa la [color=#f0c050][b]Herramienta de práctica[/b][/color]: ahí puedes practicar cualquier tipología.",
+		"body": "En el lobby hay [color=#f0c050][b]4 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Argumentativo[/b] y [b]Expositivo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en explorador.\n\nY si quieres ensayar sin que cuente, usa la [color=#f0c050][b]Herramienta de práctica[/b][/color]: ahí puedes practicar cualquier tipología.",
 	},
 	{
 		"title": "📖 La sala de lectura",
 		"body": "Dentro encontrarás un [color=#f0c050][b]libro[/b][/color]. Acércate y pulsa [b]E[/b] para abrirlo.\n\nNo es solo texto: trae herramientas para [b]resaltar[/b], [b]subrayar[/b] y [b]tomar notas[/b] mientras lees. Te las explico cuando lo abras.",
 	},
 	{
-		"title": "🧙 El Sabio",
+		"title": "🧙 El sabio",
 		"body": "Está sentado en la sala de lectura. Te da [color=#f0c050][b]consejos de comprensión lectora[/b][/color]: técnicas que te sirven para cualquier texto.\n\n[color=#f0c050][b]➜ Acércate y pulsa E[/b][/color] antes de abrir el libro. Cada vez que hables con él te dará un consejo distinto.",
 	},
 	{
-		"title": "🤖 El Robot Asistente",
-		"body": "También está en la sala de lectura. Responde a [color=#f0c050][b]tus preguntas concretas[/b][/color] sobre el texto y te orienta si te pierdes con el juego.\n\n[color=#f0c050][b]➜ Pulsa E y escribe tu duda.[/b][/color] Te dará pistas para que llegues tú a la respuesta, nunca la respuesta directa.",
+		"title": "🤖 El robot asistente",
+		"body": "También está en la sala de lectura. Responde a [color=#f0c050][b]tus preguntas concretas[/b][/color] sobre el texto y te orienta si te pierdes con el juego.\n\n[color=#f0c050][b]➜ Pulsa E y escribe tu duda.[/b][/color] Te dará pistas para que llegues tú a la respuesta, nunca a la respuesta directa.",
 	},
 	{
-		"title": "🧑‍🏫 El Profesor",
-		"body": "Aparece [color=#f0c050][b]cuando terminas la lectura[/b][/color]. Es quien te pone a prueba, con desafíos adaptados a la tipología del texto.\n\n[color=#f0c050][b]➜ Acércate y pulsa E[/b][/color] para empezar. Hay 3 niveles: [b]Literal[/b] (lo que el texto dice), [b]Inferencial[/b] (lo que deja entender) y [b]Crítico[/b] (lo que tú opinas y por qué).",
+		"title": "🧑‍🏫 El profesor",
+		"body": "Aparece [color=#f0c050][b]cuando terminas la lectura[/b][/color]. Es quien te pone a prueba, con desafíos adaptados a la tipología del texto.\n\n[color=#f0c050][b]➜ Acércate y pulsa E[/b][/color] para empezar. Hay 3 niveles: [b]literal[/b] (lo que el texto dice), [b]inferencial[/b] (lo que deja entender) y [b]crítico[/b] (lo que tú opinas y por qué).",
 	},
 	{
 		"title": "🗺️ Tu recorrido",
-		"body": "Cartel de una tipología ➜ sabio y robot ➜ libro ➜ profesor.\n\nY con el profesor, tres desafíos seguidos: [b]Literal[/b] ➜ [b]Inferencial[/b] ➜ [b]Crítico[/b].\n\n¿Quieres repasar esto? Vuelve al [color=#f0c050][b]icono central[/b][/color] del lobby y pulsa [b]E[/b]. ¡Buena suerte, lector!",
+		"body": "Cartel de una tipología ➜ sabio y robot ➜ libro ➜ profesor.\n\nY con el profesor, tres desafíos seguidos: [b]literal[/b] ➜ [b]inferencial[/b] ➜ [b]crítico[/b].\n\n¿Quieres repasar esto? Vuelve al [color=#f0c050][b]ícono central[/b][/color] del lobby y pulsa [b]E[/b]. ¡Buena suerte, lector!",
 	},
 ]
 

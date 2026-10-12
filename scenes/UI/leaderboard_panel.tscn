@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bkwv5lsrtglao"]
 
-[ext_resource type="Script" path="res://scripts/Lobby/leaderboard_panel.gd" id="1"]
+[ext_resource type="Script" uid="uid://bqj6sbmjgxq63" path="res://scripts/Lobby/leaderboard_panel.gd" id="1"]
 
-[node name="LeaderboardPanel" type="CanvasLayer"]
+[node name="LeaderboardPanel" type="CanvasLayer" unique_id=164988339]
 layer = 10
 script = ExtResource("1")
 
-[node name="LeaderboardBg" type="ColorRect" parent="."]
+[node name="LeaderboardBg" type="ColorRect" parent="." unique_id=1371536830]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,61 +15,73 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=984586821]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LeaderboardPanelContainer" type="PanelContainer" parent="CenterContainer"]
+[node name="LeaderboardPanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=507003274]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(380, 400)
+layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/LeaderboardPanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/LeaderboardPanelContainer" unique_id=511050071]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Header" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=169830151]
+layout_mode = 2
 
-[node name="LeaderboardTitle" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/Header"]
+[node name="LeaderboardTitle" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/Header" unique_id=716785484]
 unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
-text = "🏆 Leaderboard"
+text = "🏆 Tabla de clasificación"
 
-[node name="LeaderboardCloseButton" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/Header"]
+[node name="LeaderboardCloseButton" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/Header" unique_id=2036354360]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 text = "✖"
 
-[node name="TabContainer" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
+[node name="TabContainer" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=811872053]
+layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Top5Button" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/TabContainer"]
+[node name="Top5Button" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/TabContainer" unique_id=893108414]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
 text = "Top 5"
 
-[node name="Top20Button" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/TabContainer"]
+[node name="Top20Button" type="Button" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/TabContainer" unique_id=917235892]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
 text = "Top 20"
 
-[node name="LeaderboardLoading" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
+[node name="LeaderboardLoading" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=1333200909]
 unique_name_in_owner = true
 visible = false
-horizontal_alignment = 1
+layout_mode = 2
 text = "Cargando..."
+horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
-size_flags_vertical = 3
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=2029152946]
 custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="LeaderboardList" type="VBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/ScrollContainer"]
+[node name="LeaderboardList" type="VBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer/ScrollContainer" unique_id=379198805]
 unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="UpdateLabel" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer"]
+[node name="UpdateLabel" type="Label" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=2000153460]
 unique_name_in_owner = true
-horizontal_alignment = 2
+layout_mode = 2
 text = "Actualizado hace 0s"
+horizontal_alignment = 2

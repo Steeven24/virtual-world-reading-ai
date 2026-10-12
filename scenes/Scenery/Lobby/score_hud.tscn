@@ -124,7 +124,7 @@ theme_override_font_sizes/font_size = 18
 text = "⭐ 0 pts"
 horizontal_alignment = 1
 
-[node name="LeaderboardButton" type="Button" parent="TopBar"]
+[node name="LeaderboardButton" type="Button" parent="TopBar" unique_id=2046081266]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
@@ -211,14 +211,14 @@ offset_bottom = 210.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu_panel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel" unique_id=2055132434]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="HBoxContainer" parent="MenuPanel/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="MenuPanel/VBoxContainer" unique_id=1586674462]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="MenuPanel/VBoxContainer/Header"]
+[node name="Title" type="Label" parent="MenuPanel/VBoxContainer/Header" unique_id=135294592]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.6, 0.65, 0.85, 1)
@@ -235,7 +235,7 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
 text = "✖"
 
-[node name="HSeparator" type="HSeparator" parent="MenuPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MenuPanel/VBoxContainer" unique_id=536975667]
 layout_mode = 2
 
 [node name="UserNameLabel" type="Label" parent="MenuPanel/VBoxContainer" unique_id=880193256]
@@ -254,7 +254,7 @@ theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 13
 text = "email@test.com"
 
-[node name="HSeparator2" type="HSeparator" parent="MenuPanel/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MenuPanel/VBoxContainer" unique_id=1659211646]
 layout_mode = 2
 
 [node name="LogoutButton" type="Button" parent="MenuPanel/VBoxContainer" unique_id=880193266]
