@@ -4,7 +4,7 @@
 
 [node name="ProgressionManager" type="Node"]
 script = ExtResource("1_script")
-threshold_descriptivo = 250
-threshold_argumentativo = 250
-threshold_expositivo = 250
+threshold_descriptivo = 120
+threshold_argumentativo = 120
+threshold_expositivo = 120
 tool_bonus_points = 20

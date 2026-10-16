@@ -37,13 +37,13 @@ const DIFFICULTY_LABELS: Dictionary = {
 # ─── Exports (ajustables desde el Inspector) ────────────────────────────────
 
 ## Puntaje mínimo en Narrativo para desbloquear Descriptivo.
-@export var threshold_descriptivo: int = 250
+@export var threshold_descriptivo: int = 150
 
 ## Puntaje mínimo en Descriptivo para desbloquear Argumentativo.
-@export var threshold_argumentativo: int = 250
+@export var threshold_argumentativo: int = 150
 
 ## Puntaje mínimo en Argumentativo para desbloquear Expositivo.
-@export var threshold_expositivo: int = 250
+@export var threshold_expositivo: int = 150
 
 ## Puntos bonus otorgados por cada herramienta utilizada durante la lectura.
 @export var tool_bonus_points: int = 20
