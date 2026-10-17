@@ -34,6 +34,17 @@ const DIFFICULTY_LABELS: Dictionary = {
 	"Expositivo": "Muy difícil",
 }
 
+## Nombre del escenario de cada tipología, como en los carteles del lobby.
+const NOMBRE_ESCENARIO: Dictionary = {
+	"Narrativo": "Textos Narrativos",
+	"Descriptivo": "Textos Descriptivos",
+	"Argumentativo": "Textos Argumentativos",
+	"Expositivo": "Textos Expositivos",
+}
+
+const MENSAJE_FINAL_ESTACION := "🏆 ¡Completaste todas las tipologías!\n\nPuedes seguir practicando en la zona de práctica."
+const MENSAJE_FINAL_RESULTADO := "🏆 ¡Completaste todas las tipologías! Puedes seguir practicando en la zona de práctica."
+
 # ─── Exports (ajustables desde el Inspector) ────────────────────────────────
 
 ## Puntaje mínimo en Narrativo para desbloquear Descriptivo.
@@ -94,7 +105,10 @@ func is_unlocked(typology: String) -> bool:
 ## Registra el resultado de una sesión completada.
 ## Solo guarda el puntaje si es mayor que el anterior (nunca baja).
 ## Verifica si se desbloquea la tipología inmediatamente siguiente.
-func register_session_result(typology: String, session_score: int) -> void:
+## Devuelve {"aprobada_ahora": bool, "desbloqueada": String}: si esta lectura
+## aprobó la tipología y qué tipología abrió ("" si ninguna).
+func register_session_result(typology: String, session_score: int) -> Dictionary:
+	var era_aprobada := is_approved(typology)
 	var current_best: int = best_scores.get(typology, 0)
 	best_scores[typology] = maxi(current_best, session_score)
 
@@ -102,8 +116,78 @@ func register_session_result(typology: String, session_score: int) -> void:
 		typology, session_score, best_scores[typology]
 	])
 
-	_check_unlock(typology)
+	var desbloqueada := _check_unlock(typology)
 	progression_changed.emit()
+	return {
+		"aprobada_ahora": not era_aprobada and is_approved(typology),
+		"desbloqueada": desbloqueada,
+	}
+
+
+# ─── Tipologías aprobadas ────────────────────────────────────────────────────
+# Aprobar una tipología la cierra en el lobby: el alumno sigue con la
+# siguiente. Se decide por el puntaje, no por el desbloqueo de la siguiente,
+# que puede haberlo cambiado un administrador.
+
+## Puntaje con el que se aprueba una tipología: el que abre la siguiente.
+## La última no abre nada y usa el umbral con el que se llegó a ella.
+func get_pass_threshold(typology: String) -> int:
+	var next: String = get_next_typology(typology)
+	if next.is_empty():
+		return threshold_expositivo
+	return get_unlock_thresholds().get(next, threshold_expositivo)
+
+
+## ¿Superó el alumno esta tipología?
+func is_approved(typology: String) -> bool:
+	if typology not in DIFFICULTY_ORDER:
+		return false
+	return best_scores.get(typology, 0) >= get_pass_threshold(typology)
+
+
+## Primera tipología del recorrido que falta aprobar, o "" si están todas.
+func get_next_unapproved() -> String:
+	for typology in DIFFICULTY_ORDER:
+		if not is_approved(typology):
+			return typology
+	return ""
+
+
+func all_approved() -> bool:
+	return get_next_unapproved().is_empty()
+
+
+## Qué hacer cuando el alumno pulsa E en la estación de una tipología.
+## pendiente es la tipología de la lectura a medias conocida, o "".
+## "bloqueada", "aprobada", "reanudar" (aprobada, pero con su propia lectura
+## a medias: se deja terminarla) o "normal".
+func decidir_entrada(typology: String, pendiente: String) -> String:
+	if not is_unlocked(typology):
+		return "bloqueada"
+	if is_approved(typology):
+		return "reanudar" if pendiente == typology else "aprobada"
+	return "normal"
+
+
+## Aviso de la estación de una tipología aprobada.
+func mensaje_estacion_aprobada(typology: String) -> String:
+	if all_approved():
+		return MENSAJE_FINAL_ESTACION
+	return "✓ Ya aprobaste %s con %d pts.\n\nContinúa con %s." % [
+		NOMBRE_ESCENARIO.get(typology, typology),
+		get_best_score(typology),
+		NOMBRE_ESCENARIO[get_next_unapproved()],
+	]
+
+
+## Mensaje de la pantalla de resultados cuando la tipología queda aprobada.
+func mensaje_resultado_aprobada(typology: String) -> String:
+	if all_approved():
+		return MENSAJE_FINAL_RESULTADO
+	return "✓ ¡Aprobaste %s! Continúa con %s en el lobby." % [
+		NOMBRE_ESCENARIO.get(typology, typology),
+		NOMBRE_ESCENARIO[get_next_unapproved()],
+	]
 
 
 ## Calcula el bonus total por herramientas usadas en la sesión.
@@ -232,17 +316,18 @@ func load_from_api(typology_progress: Array) -> void:
 ## Verifica si al completar una tipología se desbloquea la siguiente.
 ## REGLA: Solo verifica el inmediato siguiente, NO recursivamente.
 ## Esto garantiza desbloqueo uno a la vez.
-func _check_unlock(completed_typology: String) -> void:
+## Devuelve la tipología desbloqueada ahora, o "" si no se abrió ninguna.
+func _check_unlock(completed_typology: String) -> String:
 	var idx: int = DIFFICULTY_ORDER.find(completed_typology)
 	if idx < 0 or idx >= DIFFICULTY_ORDER.size() - 1:
-		return
+		return ""
 
 	# Solo verificar el inmediato siguiente
 	var next_typology: String = DIFFICULTY_ORDER[idx + 1]
 
 	# Si ya está desbloqueado, no hacer nada
 	if next_typology in unlocked:
-		return
+		return ""
 
 	var thresholds: Dictionary = get_unlock_thresholds()
 	var threshold: int = thresholds.get(next_typology, 999)
@@ -251,4 +336,6 @@ func _check_unlock(completed_typology: String) -> void:
 		unlocked.append(next_typology)
 		level_unlocked.emit(next_typology)
 		print("[ProgressionManager] ¡Desbloqueado: %s! (umbral: %d)" % [next_typology, threshold])
+		return next_typology
 	# NO se verifica recursivamente — desbloqueo uno a la vez
+	return ""

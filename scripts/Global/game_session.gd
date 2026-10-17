@@ -183,6 +183,11 @@ var score_data: Dictionary = {
 ## Puntaje acumulado solo en la sesión actual (para comparar con best).
 var _current_session_score: int = 0
 
+## Lo que cambió en la progresión al terminar la última lectura:
+## {"aprobada_ahora": bool, "desbloqueada": String}. Vacío en la práctica y
+## hasta que termina una lectura. Lo usa la pantalla de resultados.
+var resultado_progresion: Dictionary = {}
+
 # ─── Sistema de personajes ──────────────────────────────────────────────────
 
 ## Personaje seleccionado ("male" o "women").
@@ -289,6 +294,7 @@ func reset_for_new_reading(typology: String, practice: bool) -> void:
 	_level_errors = 0
 	reading_end_time = 0.0
 	tools_used = {"highlight": false, "underline": false, "notes": false}
+	resultado_progresion = {}
 
 
 ## Descarta la práctica en curso sin guardar nada: la práctica nunca deja una
@@ -624,7 +630,7 @@ func _on_session_complete() -> void:
 		score_data["perfect_sessions"] += 1
 
 	# Registrar con el sistema de progresión (solo guarda si es mejor)
-	ProgressionManager.register_session_result(current_typology, _current_session_score)
+	resultado_progresion = ProgressionManager.register_session_result(current_typology, _current_session_score)
 
 	# Actualizar score_data desde ProgressionManager
 	score_data["total_score"] = ProgressionManager.get_total_score()
