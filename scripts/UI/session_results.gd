@@ -154,6 +154,29 @@ func _populate_progression_summary(typology: String) -> void:
 	global_score_label.text = "Puntaje total acumulado: %d pts" % total_global
 
 	_show_unlock_progress()
+	_show_approved(typology)
+
+
+## Tipología aprobada (con esta lectura o desde antes): su escenario queda
+## cerrado en el lobby, así que no se ofrece otra lectura y se dice cuál sigue.
+func _show_approved(typology: String) -> void:
+	if not ProgressionManager.is_approved(typology):
+		return
+	retry_button.visible = false
+
+	var mensaje := _create_label(ProgressionManager.mensaje_resultado_aprobada(typology), 16, COLOR_CORRECT)
+	mensaje.name = "MensajeAprobada"
+	mensaje.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	mensaje.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+	# Justo después de la línea de progreso de desbloqueo, o del total si no la hay.
+	var anterior: Control = global_score_label
+	var progreso := global_score_label.get_parent().get_node_or_null("ProgresoDesbloqueo")
+	if progreso:
+		anterior = progreso
+	var parent := anterior.get_parent()
+	parent.add_child(mensaje)
+	parent.move_child(mensaje, anterior.get_index() + 1)
 
 
 ## La práctica no bate récords ni suma al total: se dice claramente.
@@ -264,6 +287,7 @@ func _show_unlock_progress() -> void:
 
 	# Crear etiqueta de progreso
 	var progress_label := Label.new()
+	progress_label.name = "ProgresoDesbloqueo"
 	if is_unlocked:
 		progress_label.text = "✅ %s desbloqueado" % next_typology
 		progress_label.add_theme_color_override("font_color", COLOR_CORRECT)
