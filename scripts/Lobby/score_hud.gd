@@ -17,7 +17,7 @@ extends CanvasLayer
 @onready var logout_button: Button = %LogoutButton
 @onready var close_menu_button: Button = %CloseMenuButton
 
-const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const FONT_PATH := "res://fonts/fuente_juego.tres"
 const LOGIN_SCENE := "res://scenes/UI/login_screen.tscn"
 
 ## Definición de logros con sus nombres para mostrar.

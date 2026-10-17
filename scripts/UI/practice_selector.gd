@@ -3,7 +3,7 @@
 ## Las cuatro tipologías están siempre disponibles, aunque estén bloqueadas en
 ## la progresión: la práctica no cuenta para nada, así que sirve justamente para
 ## prepararse. Mismo lenguaje visual que guide_panel (panel oscuro con borde
-## dorado, fuentes PixelifySans, entrada con fade + slide).
+## dorado, fuentes del juego, entrada con fade + slide).
 ##
 ## Bloquea el movimiento con SceneManager.is_ui_open mientras está abierto y se
 ## libera solo al cerrarse.
@@ -21,8 +21,8 @@ signal typology_chosen(typology: String)
 ## El alumno cerró el selector sin elegir.
 signal canceled
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 const PANEL_WIDTH: int = 620
 const MARGIN_BOTTOM: int = 40

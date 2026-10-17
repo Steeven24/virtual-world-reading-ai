@@ -16,8 +16,8 @@ extends CanvasLayer
 
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 const MARGEN: int = 14
 const ANCHO_PANEL: int = 296

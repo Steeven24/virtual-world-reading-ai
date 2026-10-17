@@ -4,6 +4,8 @@ extends Node
 var is_ui_open: bool = false
 var emoji_font: Font = null
 
+const FUENTE_JUEGO := "res://fonts/fuente_juego.tres"
+
 func _enter_tree() -> void:
 	_setup_emoji_fallbacks()
 
@@ -42,18 +44,11 @@ func _setup_emoji_fallbacks() -> void:
 	if ThemeDB.fallback_font and ThemeDB.fallback_font is FontFile:
 		ensure_fallbacks(ThemeDB.fallback_font)
 
-	# 3. Asegurar fallback en todas las fuentes cargadas del proyecto
-	var target_font_paths = [
-		"res://fonts/PixelifySans-SemiBold.ttf",
-		"res://fonts/PixelifySans-VariableFont_wght.ttf"
-	]
-	for fp in target_font_paths:
-		if ResourceLoader.exists(fp):
-			var f = load(fp)
-			if f is FontFile:
-				ensure_fallbacks(f)
-				if fp == "res://fonts/PixelifySans-SemiBold.ttf":
-					ThemeDB.fallback_font = f
+	# 3. Las fuentes del juego (fonts/fuente_juego*.tres, ver Tipografia) ya
+	#    traen el emoji como respaldo en el propio recurso. La regular es
+	#    también el último recurso de cualquier control sin tema.
+	if ResourceLoader.exists(FUENTE_JUEGO):
+		ThemeDB.fallback_font = load(FUENTE_JUEGO)
 
 func transition_to(scene_path: String):
 	# Aquí podrías añadir una animación de fade out más adelante

@@ -8,8 +8,8 @@ extends CanvasLayer
 
 signal finished
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 const PANEL_WIDTH: int = 760
 ## Alto mínimo: los pasos que presentan a los personajes crecen por encima.

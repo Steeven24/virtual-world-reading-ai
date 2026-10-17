@@ -2,7 +2,7 @@
 ## que el jugador lo cierre.
 ##
 ## Reutiliza el mismo lenguaje visual que tutorial_overlay (panel oscuro con
-## borde dorado, fuentes PixelifySans, entrada con fade + slide) para que las
+## borde dorado, fuentes del juego, entrada con fade + slide) para que las
 ## guías del juego se lean siempre igual, aparezcan donde aparezcan.
 ##
 ## Bloquea el movimiento del jugador mediante SceneManager.is_ui_open mientras
@@ -17,8 +17,8 @@ extends CanvasLayer
 
 signal closed
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 const PANEL_WIDTH: int = 760
 const PANEL_MIN_HEIGHT: int = 240

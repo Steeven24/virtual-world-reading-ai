@@ -31,7 +31,7 @@ extends CanvasLayer
 const CHARACTER_SELECT_SCENE: String = "res://scenes/UI/character_select.tscn"
 const LOBBY_SCENE: String = "res://scenes/Scenery/Lobby/lobby.tscn"
 const CHANGE_PASSWORD_SCENE: String = "res://scenes/UI/change_password_screen.tscn"
-const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const FONT_PATH := "res://fonts/fuente_juego.tres"
 
 ## Mensajes de bienvenida basados en el número de sesiones del jugador.
 const WELCOME_MESSAGES: Array[String] = [

@@ -16,8 +16,8 @@ extends CanvasLayer
 
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 ## Los retratos viven como animaciones "profile" y "profile_women" dentro de la
 ## escena del jugador, así que se sacan de ahí en vez de duplicar las regiones.

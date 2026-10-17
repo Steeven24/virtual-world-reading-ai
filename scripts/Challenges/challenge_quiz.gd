@@ -16,7 +16,7 @@ const COLOR_DEBUG_HINT := Color(0.1, 0.45, 0.18, 0.3)
 const COLOR_LETTER := Color(0.85, 0.75, 0.3, 1.0)
 
 ## Fuente del proyecto para aplicar a los botones generados dinámicamente.
-const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const FONT_PATH := "res://fonts/fuente_juego.tres"
 
 # ─── Nodos referenciados ─────────────────────────────────────────────────────
 

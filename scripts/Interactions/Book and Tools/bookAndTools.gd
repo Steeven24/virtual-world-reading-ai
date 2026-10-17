@@ -865,21 +865,23 @@ func _construir_portada() -> String:
 	if titulo.is_empty():
 		titulo = "Lectura sin título"
 
+	# Los tamaños van en BBCode y no pasan por los overrides que escala
+	# Tipografia: se escalan aquí con la fuente elegida.
 	var lineas: Array[String] = []
 	lineas.append("[color=black][center]")
 	lineas.append("")
 	lineas.append("")
-	lineas.append("[font_size=32][b]%s[/b][/font_size]" % titulo)
+	lineas.append("[font_size=%d][b]%s[/b][/font_size]" % [Tipografia.tam(32), titulo])
 	lineas.append("")
 	lineas.append("[color=#8a7455]─────────────[/color]")
 	lineas.append("")
 
 	if not typology_filter.is_empty():
-		lineas.append("[font_size=17]Texto %s[/font_size]" % _escapar_bbcode(typology_filter))
-	lineas.append("[font_size=17]%d páginas[/font_size]" % paginas.size())
+		lineas.append("[font_size=%d]Texto %s[/font_size]" % [Tipografia.tam(17), _escapar_bbcode(typology_filter)])
+	lineas.append("[font_size=%d]%d páginas[/font_size]" % [Tipografia.tam(17), paginas.size()])
 	lineas.append("")
 	lineas.append("")
-	lineas.append("[color=#7a6a4e][font_size=15][i]Pulsa ▶ para empezar a leer[/i][/font_size][/color]")
+	lineas.append("[color=#7a6a4e][font_size=%d][i]Pulsa ▶ para empezar a leer[/i][/font_size][/color]" % Tipografia.tam(15))
 	lineas.append("[/center][/color]")
 
 	return "\n".join(lineas)

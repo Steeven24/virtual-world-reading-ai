@@ -112,7 +112,7 @@ func _show_pending_reading_indicator() -> void:
 	text_label.add_theme_color_override("font_color", Color(0.95, 0.85, 0.4, 1.0))
 	text_label.add_theme_font_size_override("font_size", 14)
 	# Cargar fuente del proyecto si existe
-	var font_path := "res://fonts/PixelifySans-SemiBold.ttf"
+	var font_path := "res://fonts/fuente_juego.tres"
 	if ResourceLoader.exists(font_path):
 		text_label.add_theme_font_override("font", load(font_path))
 	hbox.add_child(text_label)

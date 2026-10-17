@@ -15,8 +15,8 @@ var player_in_range = false
 
 # ─── Estilo (alineado con score_hud / achievement_toast / tutorial_overlay) ─
 
-const FONT_BOLD_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
-const FONT_REGULAR_PATH := "res://fonts/PixelifySans-VariableFont_wght.ttf"
+const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
+const FONT_REGULAR_PATH := "res://fonts/fuente_juego.tres"
 
 const COLOR_BG := Color(0.06, 0.06, 0.12, 0.96)
 const COLOR_CHAT_BG := Color(0.04, 0.04, 0.09, 1.0)

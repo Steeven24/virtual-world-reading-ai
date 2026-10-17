@@ -59,8 +59,8 @@ var _font_regular: Font
 func _ready() -> void:
 	layer = 100
 
-	_font_bold = load("res://fonts/PixelifySans-SemiBold.ttf") if ResourceLoader.exists("res://fonts/PixelifySans-SemiBold.ttf") else null
-	_font_regular = load("res://fonts/PixelifySans-VariableFont_wght.ttf") if ResourceLoader.exists("res://fonts/PixelifySans-VariableFont_wght.ttf") else null
+	_font_bold = load("res://fonts/fuente_juego_negrita.tres") if ResourceLoader.exists("res://fonts/fuente_juego_negrita.tres") else null
+	_font_regular = load("res://fonts/fuente_juego.tres") if ResourceLoader.exists("res://fonts/fuente_juego.tres") else null
 
 	if SceneManager:
 		SceneManager.ensure_fallbacks(_font_bold)

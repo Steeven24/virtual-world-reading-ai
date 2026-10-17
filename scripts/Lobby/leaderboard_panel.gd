@@ -18,7 +18,7 @@ extends CanvasLayer
 
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
-const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const FONT_PATH := "res://fonts/fuente_juego.tres"
 const RANK_EMOJIS: Dictionary = {1: "🥇", 2: "🥈", 3: "🥉"}
 const REFRESH_INTERVAL: float = 60.0
 

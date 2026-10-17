@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djb0y1j7j580n"]
 
 [ext_resource type="Script" uid="uid://dudaslpd8a8j0" path="res://scripts/Challenges/challenge_quiz.gd" id="1_script"]
-[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="2_font"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="2_font"]
 [ext_resource type="Texture2D" uid="uid://dltpqtnongrsv" path="res://assets/Characters/Teacher/character-spritesheet (3).png" id="3_teacher"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_question"]

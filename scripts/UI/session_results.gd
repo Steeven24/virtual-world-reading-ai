@@ -5,7 +5,7 @@ extends Control
 
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
-const FONT_PATH := "res://fonts/PixelifySans-SemiBold.ttf"
+const FONT_PATH := "res://fonts/fuente_juego_negrita.tres"
 
 const COLOR_CORRECT := Color(0.1, 0.6, 0.25, 1.0)
 const COLOR_INCORRECT := Color(0.7, 0.15, 0.15, 1.0)

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://84vwbv4vpmfk"]
 
 [ext_resource type="Script" uid="uid://cs5jihjewq8al" path="res://scripts/UI/session_results.gd" id="1_script"]
-[ext_resource type="FontFile" uid="uid://dyjk2y4nscamw" path="res://fonts/PixelifySans-SemiBold.ttf" id="2_font_bold"]
-[ext_resource type="FontFile" uid="uid://bumyilx2rusxa" path="res://fonts/PixelifySans-VariableFont_wght.ttf" id="3_font"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego_negrita.tres" id="2_font_bold"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="3_font"]
 [ext_resource type="StyleBox" uid="uid://5fhm6lslsa2m" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="4_munmg"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="4_theme"]
 [ext_resource type="Texture2D" uid="uid://dltpqtnongrsv" path="res://assets/Characters/Teacher/character-spritesheet (3).png" id="5_teacher"]

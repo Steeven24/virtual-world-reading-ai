@@ -47,7 +47,7 @@ enabled=PackedStringArray()
 
 [gui]
 
-theme/default_font="res://fonts/PixelifySans-SemiBold.ttf"
+theme/custom_font="res://fonts/fuente_juego.tres"
 
 [input]
 
