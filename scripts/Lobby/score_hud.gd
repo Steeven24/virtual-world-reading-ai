@@ -82,8 +82,7 @@ func _show_leaderboard() -> void:
 func _toggle_menu() -> void:
 	menu_panel.visible = not menu_panel.visible
 	Sonido.efecto("abrir" if menu_panel.visible else "cerrar")
-	_lista_fuentes.visible = false
-	_lista_pistas.visible = false
+	_mostrar_lista(null)
 	if menu_panel.visible:
 		achievements_panel.visible = false  # Cerrar logros si están abiertos
 		_update_user_info()
@@ -109,19 +108,23 @@ var _interruptor_efectos: CheckButton
 var _volumen_efectos: HSlider
 var _etiqueta_volumen_efectos: Label
 
+## Lo que se ve de cada sección del menú, sin su lista. Con una lista abierta,
+## el menú solo enseña la sección de esa lista (ver _mostrar_lista).
+var _seccion_fuente: Array[Control] = []
+var _seccion_musica: Array[Control] = []
+var _seccion_efectos: Array[Control] = []
+
 ## Mientras se copian los valores de Ajustes a los controles, sus señales no
 ## deben volver a escribir en Ajustes.
 var _refrescando := false
 
 
 func _construir_ajustes() -> void:
-	var nodos: Array[Control] = []
-	nodos.append(HSeparator.new())
-
-	nodos.append(_etiqueta_ajuste("TituloFuente", "🔤 Fuente del texto"))
+	_seccion_fuente.append(HSeparator.new())
+	_seccion_fuente.append(_etiqueta_ajuste("TituloFuente", "🔤 Fuente del texto"))
 	_selector_fuente = _desplegable("SelectorFuente")
 	_selector_fuente.pressed.connect(_alternar_lista.bind(true))
-	nodos.append(_selector_fuente)
+	_seccion_fuente.append(_selector_fuente)
 	_lista_fuentes = _lista_ajuste("ListaFuentes")
 	for id in Tipografia.ORDEN:
 		var opcion := _opcion_ajuste("Fuente_" + id)
@@ -131,38 +134,42 @@ func _construir_ajustes() -> void:
 		opcion.set_meta("sin_escala", true)
 		opcion.pressed.connect(_elegir_fuente.bind(id))
 		_lista_fuentes.add_child(opcion)
-	nodos.append(_lista_fuentes)
-	nodos.append(HSeparator.new())
 
+	_seccion_musica.append(HSeparator.new())
 	_interruptor_musica = _interruptor_ajuste("InterruptorMusica", "🎵 Música")
 	_interruptor_musica.toggled.connect(_on_interruptor.bind("musica_activa"))
-	nodos.append(_interruptor_musica)
+	_seccion_musica.append(_interruptor_musica)
 	_selector_pista = _desplegable("SelectorPista")
 	_selector_pista.pressed.connect(_alternar_lista.bind(false))
-	nodos.append(_selector_pista)
+	_seccion_musica.append(_selector_pista)
 	_lista_pistas = _lista_ajuste("ListaPistas")
 	for id in Sonido.ORDEN_PISTAS:
 		var opcion := _opcion_ajuste("Pista_" + id)
 		opcion.pressed.connect(_elegir_pista.bind(id))
 		_lista_pistas.add_child(opcion)
-	nodos.append(_lista_pistas)
 	var fila_musica := _fila_volumen("VolumenMusica", "EtiquetaVolumenMusica")
 	_volumen_musica = fila_musica.get_node("VolumenMusica")
 	_etiqueta_volumen_musica = fila_musica.get_node("EtiquetaVolumenMusica")
 	_volumen_musica.value_changed.connect(_on_volumen.bind("musica_volumen", _etiqueta_volumen_musica))
-	nodos.append(fila_musica)
-	nodos.append(HSeparator.new())
+	_seccion_musica.append(fila_musica)
 
+	_seccion_efectos.append(HSeparator.new())
 	_interruptor_efectos = _interruptor_ajuste("InterruptorEfectos", "🔔 Efectos de sonido")
 	_interruptor_efectos.toggled.connect(_on_interruptor.bind("efectos_activos"))
-	nodos.append(_interruptor_efectos)
+	_seccion_efectos.append(_interruptor_efectos)
 	var fila_efectos := _fila_volumen("VolumenEfectos", "EtiquetaVolumenEfectos")
 	_volumen_efectos = fila_efectos.get_node("VolumenEfectos")
 	_etiqueta_volumen_efectos = fila_efectos.get_node("EtiquetaVolumenEfectos")
 	_volumen_efectos.value_changed.connect(_on_volumen.bind("efectos_volumen", _etiqueta_volumen_efectos))
-	nodos.append(fila_efectos)
+	_seccion_efectos.append(fila_efectos)
 
-	# Todo antes del separador de «Cerrar sesión».
+	# Todo antes del separador de «Cerrar sesión»; cada lista, bajo su selector.
+	var nodos: Array[Control] = []
+	nodos.append_array(_seccion_fuente)
+	nodos.append(_lista_fuentes)
+	nodos.append_array(_seccion_musica)
+	nodos.insert(nodos.find(_selector_pista) + 1, _lista_pistas)
+	nodos.append_array(_seccion_efectos)
 	var caja := menu_panel.get_node("VBoxContainer")
 	var antes := caja.get_node("HSeparator2")
 	for nodo in nodos:
@@ -204,23 +211,38 @@ func _refrescar_ajustes() -> void:
 	_refrescando = false
 
 
-## Abre la lista de fuentes (o la de músicas) y cierra la otra.
+## Abre la lista de fuentes (o la de músicas), o la cierra si ya lo estaba.
 func _alternar_lista(fuentes: bool) -> void:
-	var abrir := _lista_fuentes if fuentes else _lista_pistas
-	var cerrar := _lista_pistas if fuentes else _lista_fuentes
-	cerrar.visible = false
-	abrir.visible = not abrir.visible
+	var lista := _lista_fuentes if fuentes else _lista_pistas
+	if lista.visible:
+		_mostrar_lista(null)
+	else:
+		_mostrar_lista(lista)
+
+
+## Deja abierta como mucho una lista (null: ninguna). Con una lista abierta,
+## el menú solo enseña la sección de esa lista: así cabe en 720 px con
+## cualquier fuente.
+func _mostrar_lista(lista: Control) -> void:
+	_lista_fuentes.visible = lista == _lista_fuentes
+	_lista_pistas.visible = lista == _lista_pistas
+	for nodo in _seccion_fuente:
+		nodo.visible = lista == null or lista == _lista_fuentes
+	for nodo in _seccion_musica:
+		nodo.visible = lista == null or lista == _lista_pistas
+	for nodo in _seccion_efectos:
+		nodo.visible = lista == null
 
 
 func _elegir_fuente(id: String) -> void:
 	Ajustes.fijar("fuente", id)
-	_lista_fuentes.visible = false
+	_mostrar_lista(null)
 	_refrescar_ajustes()
 
 
 func _elegir_pista(id: String) -> void:
 	Ajustes.fijar("musica_pista", id)
-	_lista_pistas.visible = false
+	_mostrar_lista(null)
 	_refrescar_ajustes()
 
 
@@ -229,7 +251,7 @@ func _on_interruptor(activado: bool, clave: String) -> void:
 		return
 	Ajustes.fijar(clave, activado)
 	if clave == "musica_activa":
-		_lista_pistas.visible = false
+		_mostrar_lista(null)
 	_refrescar_ajustes()
 
 

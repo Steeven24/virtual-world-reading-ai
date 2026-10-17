@@ -20,6 +20,11 @@ enum ModoVista {LECTURA, NOTAS, COMPILATORIO}
 const CARACTERES_POR_PAGINA: int = 700
 ## Proporción mínima de llenado de una página al fragmentar texto.
 const PROPORCION_MINIMA_PAGINA: float = 0.6
+## Ajuste de la letra de la hoja a cada lectura (ver _ajustar_hoja): el
+## interlineado más junto que se admite, en em, y la letra más pequeña, en
+## proporción a la de la fuente elegida.
+const INTERLINEADO_MINIMO: float = 1.5
+const PROPORCION_MINIMA_LETRA: float = 0.85
 
 ## Índice reservado para la portada: no es una página numerada, solo el título.
 ## El libro abre aquí y "Pag 1" sigue siendo la primera página con texto real.
@@ -130,6 +135,9 @@ var _used_notes: bool = false
 ## True cuando ya hay contenido paginado: antes de eso no hay marcas que guardar.
 var _contenido_listo: bool = false
 
+## Tamaño de letra de la hoja en la escena, antes de adaptarlo a la fuente.
+var _tam_hoja_base: int = 16
+
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────────
 
 func _ready() -> void:
@@ -138,6 +146,13 @@ func _ready() -> void:
 
 	rtl.bbcode_enabled = true
 	rtl.selection_enabled = true
+	# La letra de la hoja no la escala Tipografia: la ajusta _ajustar_hoja a la
+	# fuente y a la lectura, también si el libro se muestra o cambia de tamaño.
+	rtl.set_meta("sin_escala", true)
+	_tam_hoja_base = rtl.get_theme_font_size("normal_font_size")
+	rtl.resized.connect(_ajustar_hoja)
+	Tipografia.familia_aplicada.connect(_on_familia_aplicada)
+	_ajustar_hoja()
 	_configurar_botones_herramientas()
 	_configurar_contornos_seleccion()
 	_estilizar_boton_cerrar()
@@ -297,6 +312,7 @@ func _preparar_contenido(texto_completo: String) -> void:
 	_restaurar_marcas()
 	pagina_actual = PAGINA_PORTADA
 	_actualizar_estado_botones()
+	_ajustar_hoja()
 	_cambiar_modo(ModoVista.LECTURA)
 
 # ─── Identificador de usuario (UUID de dispositivo) ─────────────────────────────
@@ -859,6 +875,57 @@ func _refrescar_texto_actual() -> void:
 
 	bbcode += "[/color]"
 	rtl.text = bbcode
+
+
+## Ajusta la letra de la hoja para que ninguna página de la lectura necesite
+## barra de desplazamiento. Prueba, en orden: la letra de la fuente tal cual;
+## la misma con las líneas más juntas (hasta INTERLINEADO_MINIMO); y luego 1 px
+## menos cada vez, hasta PROPORCION_MINIMA_LETRA. Si ni así cabe alguna página,
+## se queda en lo más pequeño y esa página lleva barra. Las páginas no se
+## rehacen: las marcas y las notas se guardan por página.
+func _ajustar_hoja() -> void:
+	var tam := Tipografia.tam(_tam_hoja_base)
+	_aplicar_letra_hoja(tam, 0)
+	if _is_loading or paginas.is_empty() or rtl.size.x <= 0.0:
+		return
+
+	var opciones: Array[Vector2i] = [Vector2i(tam, 0)]
+	for t in range(tam, ceili(tam * PROPORCION_MINIMA_LETRA) - 1, -1):
+		opciones.append(Vector2i(t, _separacion_minima(t)))
+
+	var pagina := pagina_actual
+	for opcion in opciones:
+		_aplicar_letra_hoja(opcion.x, opcion.y)
+		if _caben_todas_las_paginas():
+			break
+	pagina_actual = pagina
+	_refrescar_texto_actual()
+
+
+func _caben_todas_las_paginas() -> bool:
+	for i in paginas.size():
+		pagina_actual = i
+		_refrescar_texto_actual()
+		if rtl.get_content_height() > rtl.size.y:
+			return false
+	return true
+
+
+## Separación entre líneas que deja el interlineado en INTERLINEADO_MINIMO em.
+## Nunca las separa más: una fuente que ya va más junta se queda en 0.
+func _separacion_minima(tam: int) -> int:
+	var alto_linea := rtl.get_theme_font("normal_font").get_height(tam)
+	return mini(0, ceili(tam * INTERLINEADO_MINIMO - alto_linea))
+
+
+func _aplicar_letra_hoja(tam: int, separacion: int) -> void:
+	for item in Tipografia.TAMANOS_RICH_TEXT:
+		rtl.add_theme_font_size_override(item, tam)
+	rtl.add_theme_constant_override("line_separation", separacion)
+
+
+func _on_familia_aplicada(_id: String) -> void:
+	_ajustar_hoja()
 
 
 ## Portada del libro: título centrado, tipología y número de páginas.
