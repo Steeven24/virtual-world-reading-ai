@@ -13,3 +13,5 @@ mono_crash.*
 .DS_Store
 Thumbs.db
 addons
+# Herramientas de Python (tools/)
+__pycache__/
