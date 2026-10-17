@@ -176,6 +176,7 @@ const GENERIC_LEVEL23 := "res://scenes/Scenery/Section/Generic Level/generic_lev
 const LOBBY := "res://scenes/Scenery/Lobby/lobby.tscn"
 
 func change_scene():
+	Sonido.efecto("puerta")
 	SceneManager.transition_to(target_scene_path)
 
 
@@ -604,6 +605,8 @@ func _mostrar_aviso(titulo: String, texto: String) -> void:
 	SceneManager.is_ui_open = true
 	_locked_dialog.title = titulo
 	_locked_dialog.dialog_text = texto
+	# Puerta cerrada (bloqueada o aprobada): suena un «no» en vez del de abrir.
+	Sonido.efecto("no")
 
 	var dialog := _locked_dialog
 
@@ -637,7 +640,7 @@ func _mostrar_aviso(titulo: String, texto: String) -> void:
 		if child is Control:
 			tween.tween_property(child, "modulate:a", 1.0, 0.25).set_delay(0.05)
 
-	DialogFocus.preparar(dialog)
+	DialogFocus.preparar(dialog, false)
 
 
 ## Callback cuando ProgressionManager desbloquea una tipología.

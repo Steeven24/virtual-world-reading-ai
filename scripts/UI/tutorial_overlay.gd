@@ -81,6 +81,7 @@ var _closing: bool = false
 func _ready() -> void:
 	layer = 60
 	follow_viewport_enabled = false
+	Sonido.efecto("abrir")
 
 	_font_bold = load(FONT_BOLD_PATH) if ResourceLoader.exists(FONT_BOLD_PATH) else null
 	_font_regular = load(FONT_REGULAR_PATH) if ResourceLoader.exists(FONT_REGULAR_PATH) else null
@@ -233,6 +234,7 @@ func _close() -> void:
 	if _closing:
 		return
 	_closing = true
+	Sonido.efecto("cerrar")
 
 	# Restaurar estado de UI previo (si ya estaba abierto, no lo cerramos).
 	SceneManager.is_ui_open = _was_ui_open

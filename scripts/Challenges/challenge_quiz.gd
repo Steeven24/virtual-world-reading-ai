@@ -100,6 +100,8 @@ func _create_option_buttons() -> void:
 		var text: String = str(answer.get("answer_text", ""))
 
 		var button := Button.new()
+		# Las opciones suenan a acierto o error, no a clic.
+		button.set_meta("sin_clic", true)
 		button.text = "  %s)  %s" % [letter, text]
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		button.custom_minimum_size = Vector2(0, 60)
@@ -166,6 +168,7 @@ func _on_option_pressed(letter: String) -> void:
 	# Validar respuesta
 	var result: Dictionary = GameSession.submit_answer(letter)
 	_was_correct = result.get("correct", false)
+	Sonido.efecto("acierto" if _was_correct else "error")
 	var justification: String = str(result.get("justification", ""))
 	var correct_letter: String = str(result.get("correct_answer", ""))
 	var points: int = result.get("points_earned", 0)

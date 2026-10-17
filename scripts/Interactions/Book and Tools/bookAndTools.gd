@@ -469,12 +469,14 @@ func _libro_visible() -> bool:
 func _on_button_right_pressed() -> void:
 	if pagina_actual < paginas.size() - 1:
 		pagina_actual += 1
+		Sonido.efecto("pagina")
 		_mostrar_pagina()
 
 
 func _on_button_left_pressed() -> void:
 	if pagina_actual > PAGINA_PORTADA:
 		pagina_actual -= 1
+		Sonido.efecto("pagina")
 		_mostrar_pagina()
 
 # ─── Señales de modo de vista ───────────────────────────────────────────────────
@@ -737,6 +739,7 @@ func _aplicar_formato() -> void:
 			_:
 				return
 
+	Sonido.efecto("trazo")
 	rtl.deselect()
 	_reportar_herramientas()
 	_refrescar_texto_actual()

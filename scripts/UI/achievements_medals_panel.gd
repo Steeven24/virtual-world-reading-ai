@@ -214,6 +214,7 @@ func _style_detail_close_btn() -> void:
 # ─── Animaciones ─────────────────────────────────────────────────────────────
 
 func _animate_open() -> void:
+	Sonido.efecto("abrir")
 	# Fondo: fade in
 	_bg_dim.color.a = 0.0
 	var bg_tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -690,6 +691,7 @@ func _on_medallas_tab_pressed() -> void:
 # ─── Cierre ──────────────────────────────────────────────────────────────────
 
 func _on_close_pressed() -> void:
+	Sonido.efecto("cerrar")
 	# Animación de cierre
 	var tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(_main_panel, "scale", Vector2(0.92, 0.92), 0.2)

@@ -34,6 +34,7 @@ var _font: Font
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
 func _ready() -> void:
+	Sonido.efecto("abrir")
 	_font = load(FONT_PATH)
 	if SceneManager and _font:
 		SceneManager.ensure_fallbacks(_font)
@@ -257,6 +258,7 @@ func _update_tab_buttons() -> void:
 
 
 func _close() -> void:
+	Sonido.efecto("cerrar")
 	_refresh_timer.stop()
 	queue_free()
 

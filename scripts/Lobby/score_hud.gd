@@ -80,6 +80,7 @@ func _show_leaderboard() -> void:
 
 func _toggle_menu() -> void:
 	menu_panel.visible = not menu_panel.visible
+	Sonido.efecto("abrir" if menu_panel.visible else "cerrar")
 	if menu_panel.visible:
 		achievements_panel.visible = false  # Cerrar logros si están abiertos
 		_update_user_info()

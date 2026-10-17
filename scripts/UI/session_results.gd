@@ -47,6 +47,21 @@ func _ready() -> void:
 	_animate_entry()
 	if achievements_button:
 		achievements_button.pressed.connect(_on_achievements_pressed)
+	_sonar_resultado()
+
+
+## Un solo efecto al llegar, para no encimar sonidos: si la lectura aprobó la
+## tipología, la fanfarria sustituye a la melodía de fin y la campanita del
+## desbloqueo suena después.
+func _sonar_resultado() -> void:
+	var resultado: Dictionary = GameSession.resultado_progresion
+	if GameSession.is_practice or not resultado.get("aprobada_ahora", false):
+		Sonido.efecto("fin_lectura")
+		return
+	Sonido.efecto("aprobada")
+	if not str(resultado.get("desbloqueada", "")).is_empty():
+		await get_tree().create_timer(1.2).timeout
+		Sonido.efecto("desbloqueo")
 
 
 # ─── Estilo del panel principal ──────────────────────────────────────────────

@@ -92,6 +92,7 @@ func _get_window_size() -> Vector2:
 
 
 func _create_toast(achievement_name: String, title: String = "¡Logro desbloqueado!", icon: String = "🏆") -> void:
+	Sonido.efecto("logro")
 	var win_size := _get_window_size()
 
 	# Panel principal

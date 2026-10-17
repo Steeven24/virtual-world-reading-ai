@@ -88,6 +88,7 @@ func open() -> void:
 	if not is_node_ready():
 		await ready
 
+	Sonido.efecto("abrir")
 	visible = true
 	_dim.modulate.a = 0.0
 	_panel.modulate.a = 0.0
@@ -164,6 +165,7 @@ func _animate_in() -> void:
 
 func _close() -> void:
 	_closing = true
+	Sonido.efecto("cerrar")
 	var tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(true)
 	tween.tween_property(_dim, "modulate:a", 0.0, ANIM_DURATION)

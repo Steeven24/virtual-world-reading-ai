@@ -75,6 +75,7 @@ func show_message(title: String, body: String, button_text: String = "¡Entendid
 	if not is_node_ready():
 		await ready
 
+	Sonido.efecto("abrir")
 	_title_label.text = title
 	_body_label.text = body
 	_action_button.text = button_text
@@ -176,6 +177,7 @@ func _close() -> void:
 	if _closing:
 		return
 	_closing = true
+	Sonido.efecto("cerrar")
 
 	var tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(true)

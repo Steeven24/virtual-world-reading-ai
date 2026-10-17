@@ -18,9 +18,13 @@ const COLOR_FOCO := Color(0.95, 0.85, 0.4, 1.0)
 ## Deja un diálogo listo para manejarse con teclado: foco en aceptar, flechas
 ## entre los botones y contorno visible.
 ## Llamar DESPUÉS de show()/popup(), cuando los botones ya están en el árbol.
-static func preparar(dialog: AcceptDialog) -> void:
+## Suena el efecto de abrir, salvo con sonar = false (el aviso de puerta
+## cerrada tiene su propio sonido y no deben encimarse).
+static func preparar(dialog: AcceptDialog, sonar: bool = true) -> void:
 	if dialog == null or not is_instance_valid(dialog):
 		return
+	if sonar:
+		Sonido.efecto("abrir")
 
 	var botones := _botones(dialog)
 	if botones.is_empty():
