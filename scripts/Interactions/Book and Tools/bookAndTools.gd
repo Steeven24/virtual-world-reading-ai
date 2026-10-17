@@ -726,10 +726,12 @@ func _aplicar_formato() -> void:
 	if pagina_actual < 0 or pagina_actual >= estilos_por_pagina.size():
 		return
 
+	# get_selection_to() es el índice de la última letra seleccionada, no el de
+	# la siguiente: el tramo acaba justo después (antes se quedaba sin marcar).
 	var desde: int = rtl.get_selection_from()
 	var hasta: int = rtl.get_selection_to()
 
-	if desde == -1 or hasta == -1 or desde == hasta:
+	if desde == -1 or hasta == -1:
 		return
 
 	if desde > hasta:
@@ -738,7 +740,7 @@ func _aplicar_formato() -> void:
 		hasta = temp
 
 	var estilos_actuales: Array = estilos_por_pagina[pagina_actual]
-	hasta = mini(hasta, estilos_actuales.size())
+	hasta = mini(hasta + 1, estilos_actuales.size())
 
 	for i: int in range(desde, hasta):
 		var estado: Dictionary = estilos_actuales[i]
@@ -922,6 +924,10 @@ func _aplicar_letra_hoja(tam: int, separacion: int) -> void:
 	for item in Tipografia.TAMANOS_RICH_TEXT:
 		rtl.add_theme_font_size_override(item, tam)
 	rtl.add_theme_constant_override("line_separation", separacion)
+	# El recuadro del resaltado no invade la línea vecina: Godot dibuja línea a
+	# línea y el de la siguiente tapaba el subrayado de la anterior. Con las
+	# líneas juntas (separación negativa), cada recuadro encoge la mitad.
+	rtl.add_theme_constant_override("text_highlight_v_padding", floori(separacion / 2.0))
 
 
 func _on_familia_aplicada(_id: String) -> void:
