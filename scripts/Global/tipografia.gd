@@ -80,10 +80,22 @@ var _negrita: FontVariation = preload(FUENTE_NEGRITA)
 ## Controles recién entrados al árbol, pendientes de escalar en diferido.
 var _pendientes: Array[Control] = []
 
+## Fuentes ya cargadas, retenidas mientras dure el juego. Si la anterior se
+## liberase al cambiar de familia, las variaciones derivadas de ella que aún
+## usan los controles (las del tema, el texto ya maquetado) apuntarían a datos
+## liberados y el motor llenaría la consola de «Parameter "fd" is null».
+var _cargadas: Dictionary = {}
+
 
 func _ready() -> void:
 	get_tree().node_added.connect(_on_nodo_agregado)
-	aplicar("adventor")
+	Ajustes.cambiado.connect(_on_ajuste_cambiado)
+	aplicar(Ajustes.obtener("fuente"))
+
+
+func _on_ajuste_cambiado(clave: String) -> void:
+	if clave == "fuente":
+		aplicar(Ajustes.obtener("fuente"))
 
 
 # ─── API pública ─────────────────────────────────────────────────────────────
@@ -129,12 +141,15 @@ func fuente_de(id: String, negrita: bool = false) -> Font:
 # ─── Reescalado de tamaños ───────────────────────────────────────────────────
 
 func _cargar(ruta: String, datos: Dictionary) -> FontFile:
+	if _cargadas.has(ruta):
+		return _cargadas[ruta]
 	var fuente: FontFile = load(ruta)
 	# Pixeloid está dibujada píxel a píxel: sin suavizado para que no se emborrone.
 	if datos.get("pixel", false):
 		fuente.antialiasing = TextServer.FONT_ANTIALIASING_NONE
 		fuente.hinting = TextServer.HINTING_NONE
 		fuente.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
+	_cargadas[ruta] = fuente
 	return fuente
 
 
