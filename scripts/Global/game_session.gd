@@ -75,6 +75,14 @@ const SESSION_COMPLETE_BONUS: int = 50
 ## Bonus adicional por sesión perfecta (0 errores en toda la sesión).
 const SESSION_PERFECT_BONUS: int = 25
 
+## Lecturas para «Lector ávido». Las tipologías aprobadas se cierran, así que
+## quien aprueba todo a la primera juega exactamente 4.
+const LOGRO_LECTOR_AVIDO_SESIONES: int = 4
+
+## Aciertos acumulados en un nivel para su Estrella. Con 4 lecturas de 2
+## preguntas por nivel, el máximo posible es 8.
+const LOGRO_ESTRELLA_ACIERTOS: int = 6
+
 ## Señal emitida al completar una sesión con datos completos para progresión.
 signal session_completed_with_data(typology: String, session_score: int, tools: Dictionary)
 
@@ -660,16 +668,17 @@ func _check_achievements() -> void:
 	if score_data["perfect_sessions"] >= 1 and "perfectionist" not in unlocked:
 		_unlock("perfectionist", "🎯 Perfeccionista")
 
-	# Lector ávido: 5 sesiones
-	if score_data["sessions_completed"] >= 5 and "avid_reader" not in unlocked:
+	# Lector ávido
+	if score_data["sessions_completed"] >= LOGRO_LECTOR_AVIDO_SESIONES and "avid_reader" not in unlocked:
 		_unlock("avid_reader", "📚 Lector ávido")
 
 	# Estrellas por nivel
-	if score_data["correct_by_level"]["Literal"] >= 10 and "star_literal" not in unlocked:
+	var aciertos: Dictionary = score_data["correct_by_level"]
+	if aciertos.get("Literal", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_literal" not in unlocked:
 		_unlock("star_literal", "⭐ Estrella literal")
-	if score_data["correct_by_level"]["Inferencial"] >= 10 and "star_inferencial" not in unlocked:
+	if aciertos.get("Inferencial", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_inferencial" not in unlocked:
 		_unlock("star_inferencial", "⭐⭐ Estrella inferencial")
-	if score_data["correct_by_level"]["Critico"] >= 10 and "star_critico" not in unlocked:
+	if aciertos.get("Critico", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_critico" not in unlocked:
 		_unlock("star_critico", "⭐⭐⭐ Estrella crítica")
 
 	# En mejora: mejorar un puntaje previo
@@ -784,12 +793,24 @@ func load_from_api(progress_data: Dictionary) -> void:
 		score_data["sessions_completed"] += tp.get("total_sessions", 0)
 		score_data["perfect_sessions"] += tp.get("perfect_sessions", 0)
 
+	# Aciertos por nivel acumulados (sin la práctica). Antes se perdían en cada
+	# inicio de sesión y las Estrellas solo contaban los de una misma partida.
+	var aciertos = progress_data.get("correct_by_level", {})
+	if not aciertos is Dictionary:
+		aciertos = {}
+	for nivel in LEVELS:
+		score_data["correct_by_level"][nivel] = int(aciertos.get(nivel, 0))
+
 	# Restaurar personaje
 	var character: String = str(user_data.get("character", "male"))
 	set_character(character)
 
 	score_changed.emit(score_data["total_score"])
 	print("[GameSession] Estado restaurado desde la API")
+
+	# Quien ya cumple una regla de logro lo recibe al entrar: con todas las
+	# tipologías aprobadas no puede jugar otra lectura para que se evalúe.
+	_check_achievements()
 
 
 # ─── Conexión con la API ─────────────────────────────────────────────────────
