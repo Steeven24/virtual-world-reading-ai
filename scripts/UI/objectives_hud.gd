@@ -370,13 +370,23 @@ func _objetivos_lobby() -> Dictionary:
 	else:
 		pendiente = GameSession.current_progression_typology()
 
-	if pendiente.is_empty():
-		pasos.append({"texto": "Acércate al cartel de una tipología y pulsa E", "hecho": false})
+	# Las tipologías aprobadas se cierran: el objetivo señala la siguiente y,
+	# con el recorrido completo, solo queda practicar.
+	var recorrido_completo := pendiente.is_empty() and ProgressionManager.all_approved()
+	if recorrido_completo:
+		pasos.append({"texto": "¡Completaste las 4 tipologías! Sigue practicando en la zona de práctica", "hecho": true})
+	elif pendiente.is_empty():
+		var siguiente := ProgressionManager.get_next_unapproved()
+		pasos.append({
+			"texto": "Acércate al cartel de %s y pulsa E" % ProgressionManager.NOMBRE_ESCENARIO[siguiente],
+			"hecho": false,
+		})
 	else:
 		pasos.append({"texto": "Vuelve al escenario %s: tienes una lectura sin terminar" % pendiente, "hecho": false})
 
-	pasos.append({"texto": "Lee el texto y marca lo importante", "hecho": false})
-	pasos.append({"texto": "Supera los 3 desafíos con el profesor", "hecho": false})
+	if not recorrido_completo:
+		pasos.append({"texto": "Lee el texto y marca lo importante", "hecho": false})
+		pasos.append({"texto": "Supera los 3 desafíos con el profesor", "hecho": false})
 
 	var completadas: int = GameSession.score_data.get("typologies_completed", []).size()
 	var pie := "Tipologías completadas: %d/%d  ·  %d pts" % [

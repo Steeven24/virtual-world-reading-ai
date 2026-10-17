@@ -24,6 +24,9 @@ var player_in_range = false
 ## Referencia al sprite del candado (hijo de esta escena).
 var _padlock: Sprite2D = null
 
+## Sello «✓ Aprobado»: sustituye al candado cuando la tipología ya se aprobó.
+var _sello: Sprite2D = null
+
 ## Referencia al diálogo de nivel bloqueado.
 var _locked_dialog: AcceptDialog = null
 
@@ -47,6 +50,7 @@ func _ready():
 
 	# ─── Configurar candado y diálogo de bloqueo ───────────────────────────
 	_padlock = get_node_or_null("Padlock")
+	_sello = get_node_or_null("Sello")
 	_locked_dialog = get_node_or_null("LockedDialog")
 
 	# La práctica está siempre abierta: el candado sobra.
@@ -58,11 +62,12 @@ func _ready():
 			func(): if not _locked_dialog.visible: _on_dialog_closed()
 		)
 
-	# Actualizar visibilidad del candado según estado de progresión
+	# Candado o sello según el estado de progresión
 	if not typology.is_empty():
-		_update_padlock_visibility()
-		# Escuchar desbloqueos dinámicos
+		_actualizar_candado_y_sello()
+		# Escuchar desbloqueos y aprobaciones en vivo
 		ProgressionManager.level_unlocked.connect(_on_level_unlocked)
+		ProgressionManager.progression_changed.connect(_actualizar_candado_y_sello)
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -86,6 +91,13 @@ func _process(delta):
 		if is_practice_station:
 			if not SceneManager.is_ui_open:
 				_on_practice_station_activated()
+			return
+		# Una tipología aprobada no se vuelve a empezar: el alumno sigue con
+		# la siguiente. Solo se deja terminar una lectura suya a medias.
+		if not typology.is_empty() and ProgressionManager.is_approved(typology) \
+				and ProgressionManager.is_unlocked(typology):
+			if not SceneManager.is_ui_open:
+				_on_approved_station_activated()
 			return
 		# Verificar si el nivel está bloqueado
 		if not typology.is_empty() and not ProgressionManager.is_unlocked(typology):
@@ -367,6 +379,11 @@ func _on_restore_reading_failed(_endpoint: String, _error: String) -> void:
 
 ## Inicia una nueva sesión de lectura (flujo normal sin lectura pendiente).
 func _start_new_session(level1: String, level23: String) -> void:
+	# Una tipología aprobada nunca empieza una lectura nueva. Llega aquí cuando
+	# se ofreció reanudar una pendiente que la API ya no tiene.
+	if not typology.is_empty() and ProgressionManager.is_approved(typology):
+		_show_approved_dialog()
+		return
 	# IMPORTANTE: Resetear completamente el estado anterior de GameSession
 	# para evitar que bookAndTools reutilice una lectura de otro escenario.
 	GameSession.reset_for_new_reading(typology, false)
@@ -510,23 +527,57 @@ func _start_practice_session(practice_typology: String) -> void:
 
 # ─── Sistema de candado y bloqueo ───────────────────────────────────────────
 
-## Actualiza la visibilidad del candado según el estado de progresión.
-func _update_padlock_visibility() -> void:
-	if _padlock and not typology.is_empty():
+## Candado si la tipología está bloqueada; sello si ya se aprobó.
+func _actualizar_candado_y_sello() -> void:
+	if typology.is_empty():
+		return
+	if _padlock:
 		_padlock.visible = not ProgressionManager.is_unlocked(typology)
+	if _sello:
+		_sello.visible = ProgressionManager.is_approved(typology)
+
+
+## E en una tipología aprobada: se deja reanudar su propia lectura a medias
+## (en memoria, en caché o, si no se sabe, preguntando a la API); si no la
+## hay, se avisa de que ya está aprobada.
+func _on_approved_station_activated() -> void:
+	var pendiente := GameSession.current_progression_typology()
+	if pendiente.is_empty() and ReadingProgressManager.has_active_reading():
+		pendiente = ReadingProgressManager.get_active_typology()
+
+	if ProgressionManager.decidir_entrada(typology, pendiente) == "reanudar":
+		show_dialogue()
+		return
+
+	if pendiente.is_empty() and AuthManager.is_authenticated:
+		if not ReadingProgressManager.active_reading_check_completed.is_connected(_on_pendiente_aprobada):
+			ReadingProgressManager.active_reading_check_completed.connect(
+				_on_pendiente_aprobada, CONNECT_ONE_SHOT
+			)
+		ReadingProgressManager.check_pending_reading()
+		return
+
+	_show_approved_dialog()
+
+
+## Respuesta de la API a la consulta de lectura pendiente de una aprobada.
+func _on_pendiente_aprobada(has_pending: bool, pending_typology: String) -> void:
+	var pendiente := pending_typology if has_pending else ""
+	if ProgressionManager.decidir_entrada(typology, pendiente) == "reanudar":
+		show_dialogue()
+	else:
+		_show_approved_dialog()
+
+
+## Aviso de tipología aprobada: con cuántos puntos y cuál sigue.
+func _show_approved_dialog() -> void:
+	_mostrar_aviso("Tipología aprobada", ProgressionManager.mensaje_estacion_aprobada(typology))
 
 
 ## Muestra el diálogo de nivel bloqueado con animación slide-up.
 func _show_locked_dialog() -> void:
-	if SceneManager.is_ui_open:
-		return
-
-	if not _locked_dialog:
-		return
-
-	SceneManager.is_ui_open = true
-
 	# Obtener información del bloqueo para personalizar el mensaje
+	var texto := "🔒 Este nivel aún está bloqueado."
 	var lock_info: Dictionary = ProgressionManager.get_lock_info(typology)
 	if lock_info.get("locked", false):
 		var req_typology: String = lock_info.get("required_typology", "")
@@ -534,11 +585,25 @@ func _show_locked_dialog() -> void:
 		var current: int = lock_info.get("current_score", 0)
 		var difficulty: String = lock_info.get("difficulty_label", "")
 
-		_locked_dialog.dialog_text = "🔒 Este nivel (%s) está bloqueado.\n\nNecesitas obtener al menos %d puntos en %s para desbloquearlo.\nTu mejor puntaje actual en %s: %d pts.\n\n¡Usa todas las herramientas y responde correctamente para desbloquear!" % [
+		texto = "🔒 Este nivel (%s) está bloqueado.\n\nNecesitas obtener al menos %d puntos en %s para desbloquearlo.\nTu mejor puntaje actual en %s: %d pts.\n\n¡Usa todas las herramientas y responde correctamente para desbloquear!" % [
 			difficulty, req_score, req_typology, req_typology, current
 		]
-	else:
-		_locked_dialog.dialog_text = "🔒 Este nivel aún está bloqueado."
+
+	_mostrar_aviso("Nivel Bloqueado", texto)
+
+
+## Muestra el diálogo de aviso de la estación (bloqueada o aprobada) con la
+## animación slide-up de los demás diálogos del proyecto.
+func _mostrar_aviso(titulo: String, texto: String) -> void:
+	if SceneManager.is_ui_open:
+		return
+
+	if not _locked_dialog:
+		return
+
+	SceneManager.is_ui_open = true
+	_locked_dialog.title = titulo
+	_locked_dialog.dialog_text = texto
 
 	var dialog := _locked_dialog
 
@@ -578,4 +643,4 @@ func _show_locked_dialog() -> void:
 ## Callback cuando ProgressionManager desbloquea una tipología.
 func _on_level_unlocked(unlocked_typology: String) -> void:
 	if unlocked_typology == typology:
-		_update_padlock_visibility()
+		_actualizar_candado_y_sello()
