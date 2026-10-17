@@ -273,5 +273,11 @@ def guardar_wav(ruta, l, r=None):
 
 
 def guardar_ogg(ruta, l, r):
+    """OGG Vorbis estéreo. Se escribe por bloques: libsndfile 1.2 se cae sin
+    aviso si recibe una pieza de minuto y medio en una sola escritura."""
     import soundfile as sf
-    sf.write(str(ruta), np.stack([l, r], axis=1), SR, format="OGG", subtype="VORBIS")
+    datos = np.stack([l, r], axis=1)
+    bloque = 65536
+    with sf.SoundFile(str(ruta), "w", SR, 2, format="OGG", subtype="VORBIS") as f:
+        for i in range(0, len(datos), bloque):
+            f.write(datos[i:i + bloque])
