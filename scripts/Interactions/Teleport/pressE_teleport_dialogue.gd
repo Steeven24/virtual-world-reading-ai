@@ -53,9 +53,14 @@ func _ready():
 	_sello = get_node_or_null("Sello")
 	_locked_dialog = get_node_or_null("LockedDialog")
 
-	# La práctica está siempre abierta: el candado sobra.
-	if is_practice_station and _padlock:
-		_padlock.visible = false
+	# La práctica está siempre abierta y el libro del tutorial solo vuelve a
+	# enseñar las instrucciones: ni candado ni sello, aunque reutilicen la
+	# escena de las estaciones.
+	if is_practice_station or is_tutorial_trigger:
+		if _padlock:
+			_padlock.visible = false
+		if _sello:
+			_sello.visible = false
 
 	if _locked_dialog:
 		_locked_dialog.visibility_changed.connect(
