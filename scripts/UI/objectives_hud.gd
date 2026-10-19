@@ -336,12 +336,24 @@ func _reajustar() -> void:
 # ─── Cálculo de objetivos por fase ───────────────────────────────────────────
 
 func _calcular_objetivos() -> Dictionary:
-	var escena := get_tree().current_scene
-	if escena == null:
-		return {"pasos": [], "pie": ""}
+	match _fase(get_tree().current_scene):
+		"lobby":
+			return _objetivos_lobby()
+		"lectura":
+			return _objetivos_lectura()
+		"desafio":
+			return _objetivos_desafio()
+	return {"pasos": [], "pie": ""}
 
+
+## Fase en la que está el jugador: "lobby", "lectura", "desafio" o "" sin
+## escena. La lista de pasos y la flecha de destino (GuiaDestino) salen de
+## aquí, para que nunca se contradigan.
+func _fase(escena: Node) -> String:
+	if escena == null:
+		return ""
 	if escena.scene_file_path == LOBBY_SCENE:
-		return _objetivos_lobby()
+		return "lobby"
 
 	# Escenario de tipología: si tiene libro y la lectura no ha terminado,
 	# el jugador sigue en la fase de leer; si no, le toca el profesor.
@@ -349,8 +361,53 @@ func _calcular_objetivos() -> Dictionary:
 	var lectura_terminada: bool = GameSession.reading_end_time > 0.0
 
 	if tiene_libro and not lectura_terminada:
-		return _objetivos_lectura()
-	return _objetivos_desafio()
+		return "lectura"
+	return "desafio"
+
+
+## Nodo al que tiene que ir el jugador ahora, o null: la estación que toca en
+## el lobby, el libro mientras lee y el profesor en los desafíos.
+func destino_actual() -> Node2D:
+	var escena := get_tree().current_scene
+	if escena == null or escena.scene_file_path in ESCENAS_OCULTAS:
+		return null
+	match _fase(escena):
+		"lobby":
+			return _destino_lobby(escena)
+		"lectura":
+			return escena.get_node_or_null("Book") as Node2D
+		"desafio":
+			return escena.get_node_or_null("Teacher") as Node2D
+	return null
+
+
+## La estación de la lectura a medias o de la primera tipología sin aprobar;
+## con todo aprobado, la de práctica. Con el juego terminado, ninguna.
+func _destino_lobby(escena: Node) -> Node2D:
+	if ProgressionManager.juego_terminado():
+		return null
+	var tipologia := _tipologia_pendiente()
+	if tipologia.is_empty():
+		if ProgressionManager.all_approved():
+			return _estacion(escena, func(n): return n.get("is_practice_station") == true)
+		tipologia = ProgressionManager.get_next_unapproved()
+	return _estacion(escena, func(n): return n.get("typology") == tipologia and n.get("is_practice_station") != true)
+
+
+## Primera estación del lobby (los nodos con is_practice_station) que cumple
+## la condición, o null.
+func _estacion(escena: Node, condicion: Callable) -> Node2D:
+	for nodo in escena.find_children("*", "Node2D", true, false):
+		if nodo.get("is_practice_station") != null and condicion.call(nodo):
+			return nodo
+	return null
+
+
+## Tipología de la lectura de progresión a medias, o "".
+func _tipologia_pendiente() -> String:
+	if ReadingProgressManager.has_active_reading():
+		return ReadingProgressManager.get_active_typology()
+	return GameSession.current_progression_typology()
 
 
 func _objetivos_lobby() -> Dictionary:
@@ -368,11 +425,7 @@ func _objetivos_lobby() -> Dictionary:
 
 	# Una lectura a medias manda sobre todo lo demás: no se puede empezar otra
 	# hasta terminarla, así que es lo primero que hay que contar.
-	var pendiente := ""
-	if ReadingProgressManager.has_active_reading():
-		pendiente = ReadingProgressManager.get_active_typology()
-	else:
-		pendiente = GameSession.current_progression_typology()
+	var pendiente := _tipologia_pendiente()
 
 	# Las tipologías aprobadas se cierran: el objetivo señala la siguiente y,
 	# con el recorrido completo, solo queda practicar.

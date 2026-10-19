@@ -33,6 +33,7 @@ ReadingProgressManager="*res://scripts/Global/reading_progress_manager.gd"
 MedalImageLoader="*res://scripts/Global/medal_image_loader.gd"
 ProfileHUD="*res://scripts/UI/profile_hud.gd"
 ObjectivesHUD="*res://scripts/UI/objectives_hud.gd"
+GuiaDestino="*res://scripts/Global/guia_destino.gd"
 SessionGuard="*res://scripts/Global/session_guard.gd"
 
 [display]
