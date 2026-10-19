@@ -36,14 +36,15 @@ var _active_data: Dictionary = {}
 ## True si hay una lectura activa conocida.
 var _has_active: bool = false
 
-## True mientras se espera una respuesta de la API.
-var _is_busy: bool = false
-
 # ─── Nodo HTTP ───────────────────────────────────────────────────────────────
 
 var _http: HTTPRequest
-var _pending_action: String = ""  # "check", "save", "clear", "load"
-var _pending_body: String = ""
+
+## Peticiones a la espera de turno: una sola en vuelo; nada se descarta.
+var _cola := ColaLecturaActiva.new()
+
+## Acción de la petición en vuelo: "check", "save", "clear" o "load".
+var _accion_en_vuelo: String = ""
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
@@ -114,13 +115,7 @@ func check_pending_reading() -> void:
 	if not AuthManager.is_authenticated:
 		active_reading_check_completed.emit(false, "")
 		return
-	if _is_busy:
-		return
-	_pending_action = "check"
-	_do_request(
-		"%s/progress/active-reading" % ApiConfig.BASE_URL,
-		HTTPClient.METHOD_GET,
-	)
+	_pedir("check")
 
 
 ## Guarda el estado actual de GameSession como lectura activa en la API.
@@ -134,8 +129,6 @@ func save_active_reading() -> void:
 		return
 	# La práctica nunca deja lectura pendiente.
 	if GameSession.is_practice:
-		return
-	if _is_busy:
 		return
 
 	var state := GameSession.serialize_state()
@@ -154,15 +147,11 @@ func save_active_reading() -> void:
 		"results_json": JSON.stringify(state.get("results", [])),
 		"tools_used_json": JSON.stringify(state.get("tools_used", {})),
 		"reading_start_time": str(state.get("reading_start_time", 0)),
+		"reading_seconds": int(state.get("reading_seconds", 0)),
+		"total_seconds": int(state.get("total_seconds", 0)),
 	})
 
-	_pending_action = "save"
-	_pending_body = body
-	_do_request(
-		"%s/progress/active-reading" % ApiConfig.BASE_URL,
-		HTTPClient.METHOD_PUT,
-		body,
-	)
+	_pedir("save", body)
 
 
 ## Carga la lectura activa desde la API y restaura GameSession.
@@ -171,13 +160,7 @@ func load_active_reading() -> void:
 	if not AuthManager.is_authenticated:
 		request_failed.emit("No autenticado")
 		return
-	if _is_busy:
-		return
-	_pending_action = "load"
-	_do_request(
-		"%s/progress/active-reading" % ApiConfig.BASE_URL,
-		HTTPClient.METHOD_GET,
-	)
+	_pedir("load")
 
 
 ## Limpia la lectura activa (tras completar sesión o por expiración).
@@ -190,20 +173,33 @@ func clear_active_reading() -> void:
 	if not AuthManager.is_authenticated:
 		active_reading_cleared.emit()
 		return
-	if _is_busy:
-		# Encolar limpieza para después
-		return
-	_pending_action = "clear"
-	_do_request(
-		"%s/progress/active-reading" % ApiConfig.BASE_URL,
-		HTTPClient.METHOD_DELETE,
-	)
+	_pedir("clear")
 
 
 # ─── HTTP interno ────────────────────────────────────────────────────────────
 
+func _pedir(accion: String, cuerpo: String = "") -> void:
+	_cola.pedir(accion, cuerpo)
+	_procesar()
+
+
+## Lanza la siguiente petición de la cola si no hay ninguna en vuelo.
+func _procesar() -> void:
+	var peticion := _cola.siguiente()
+	if peticion.is_empty():
+		return
+	_accion_en_vuelo = str(peticion["accion"])
+	var url := "%s/progress/active-reading" % ApiConfig.BASE_URL
+	match _accion_en_vuelo:
+		"save":
+			_do_request(url, HTTPClient.METHOD_PUT, str(peticion["cuerpo"]))
+		"clear":
+			_do_request(url, HTTPClient.METHOD_DELETE)
+		_:
+			_do_request(url, HTTPClient.METHOD_GET)
+
+
 func _do_request(url: String, method: int, body: String = "") -> void:
-	_is_busy = true
 	var headers: PackedStringArray = ["Content-Type: application/json"]
 
 	if not AuthManager.auth_token.is_empty():
@@ -220,9 +216,12 @@ func _do_request(url: String, method: int, body: String = "") -> void:
 		err = _http.request(url, headers, method, body)
 
 	if err != OK:
-		_is_busy = false
 		push_error("[ReadingProgressManager] Error al iniciar petición: %s" % error_string(err))
-		request_failed.emit("Error de conexión")
+		var accion := _accion_en_vuelo
+		_accion_en_vuelo = ""
+		_cola.terminar()
+		_dispatch_error(accion, "Error de conexión")
+		_procesar()
 
 
 func _on_request_completed(
@@ -231,11 +230,16 @@ func _on_request_completed(
 	_headers: PackedStringArray,
 	body: PackedByteArray
 ) -> void:
-	_is_busy = false
-	var action := _pending_action
-	_pending_action = ""
-	_pending_body = ""
+	var action := _accion_en_vuelo
+	_accion_en_vuelo = ""
+	_cola.terminar()
+	_atender_respuesta(action, result, response_code, body)
+	# Lo que llegó mientras tanto (o lo que pidieron los que escuchan las
+	# señales de esta respuesta) sale ahora.
+	_procesar()
 
+
+func _atender_respuesta(action: String, result: int, response_code: int, body: PackedByteArray) -> void:
 	# Error de red
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_warning("[ReadingProgressManager] Error de red en %s" % action)
