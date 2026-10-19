@@ -42,6 +42,11 @@ const NOMBRE_ESCENARIO: Dictionary = {
 	"Expositivo": "Textos Expositivos",
 }
 
+## Lecturas terminadas que tiene el alumno para aprobar cada tipología. Si las
+## gasta sin aprobar, el juego termina: ya no puede avanzar. Espejo de
+## MAX_INTENTOS_POR_TIPOLOGIA en la API (api/game_rules.py).
+const MAX_INTENTOS: int = 5
+
 const MENSAJE_FINAL_ESTACION := "🏆 ¡Completaste todas las tipologías!\n\nPuedes seguir practicando en la zona de práctica."
 const MENSAJE_FINAL_RESULTADO := "🏆 ¡Completaste todas las tipologías! Puedes seguir practicando en la zona de práctica."
 
@@ -66,6 +71,10 @@ var best_scores: Dictionary = {}
 
 ## Tipologías desbloqueadas. Narrativo siempre está desbloqueado.
 var unlocked: Array[String] = ["Narrativo"]
+
+## Intentos gastados por tipología (lecturas de progresión terminadas desde
+## que existen los intentos). Ejemplo: {"Narrativo": 2}
+var intentos: Dictionary = {}
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
@@ -111,6 +120,10 @@ func register_session_result(typology: String, session_score: int) -> Dictionary
 	var era_aprobada := is_approved(typology)
 	var current_best: int = best_scores.get(typology, 0)
 	best_scores[typology] = maxi(current_best, session_score)
+	# Cada lectura terminada gasta un intento, apruebe o no. Se suma aquí para
+	# no depender de que la sesión llegue a la API.
+	if typology in DIFFICULTY_ORDER:
+		intentos[typology] = intentos_usados(typology) + 1
 
 	print("[ProgressionManager] Sesión registrada: %s → %d pts (mejor: %d)" % [
 		typology, session_score, best_scores[typology]
@@ -160,13 +173,76 @@ func all_approved() -> bool:
 ## Qué hacer cuando el alumno pulsa E en la estación de una tipología.
 ## pendiente es la tipología de la lectura a medias conocida, o "".
 ## "bloqueada", "aprobada", "reanudar" (aprobada, pero con su propia lectura
-## a medias: se deja terminarla) o "normal".
+## a medias: se deja terminarla), "agotada" (sin intentos) o "normal".
 func decidir_entrada(typology: String, pendiente: String) -> String:
 	if not is_unlocked(typology):
 		return "bloqueada"
 	if is_approved(typology):
 		return "reanudar" if pendiente == typology else "aprobada"
+	if esta_agotada(typology) and pendiente != typology:
+		return "agotada"
 	return "normal"
+
+
+# ─── Intentos ────────────────────────────────────────────────────────────────
+
+func intentos_usados(typology: String) -> int:
+	return int(intentos.get(typology, 0))
+
+
+func intentos_restantes(typology: String) -> int:
+	return maxi(0, MAX_INTENTOS - intentos_usados(typology))
+
+
+## Sin aprobar y sin intentos: no puede empezar otra lectura en ella.
+func esta_agotada(typology: String) -> bool:
+	return typology in DIFFICULTY_ORDER and not is_approved(typology) 			and intentos_usados(typology) >= MAX_INTENTOS
+
+
+## Con una tipología agotada el recorrido se acaba: como se desbloquean en
+## orden, las siguientes ya no se abren.
+func juego_terminado() -> bool:
+	return not tipologia_agotada().is_empty()
+
+
+## Tipología que se quedó sin intentos, o "".
+func tipologia_agotada() -> String:
+	for typology in DIFFICULTY_ORDER:
+		if esta_agotada(typology):
+			return typology
+	return ""
+
+
+## «Intento N de 5» para la lectura que se va a jugar (o la que está a medias).
+func texto_intento(typology: String) -> String:
+	return "Intento %d de %d" % [mini(intentos_usados(typology) + 1, MAX_INTENTOS), MAX_INTENTOS]
+
+
+func mensaje_estacion_agotada(typology: String) -> String:
+	return "Se acabaron tus %d intentos en %s.
+
+El juego terminó: ya no puedes avanzar a otras tipologías. Puedes seguir practicando en la zona de práctica y ver tus logros y el ranking." % [
+		MAX_INTENTOS, NOMBRE_ESCENARIO.get(typology, typology),
+	]
+
+
+## Aviso de una estación bloqueada cuando ya no hay forma de desbloquearla.
+func mensaje_juego_terminado() -> String:
+	var agotada := tipologia_agotada()
+	return "🏁 El juego terminó: se acabaron tus intentos en %s, así que esta tipología ya no se puede desbloquear.
+
+Puedes seguir practicando en la zona de práctica." % NOMBRE_ESCENARIO.get(agotada, agotada)
+
+
+## Línea de la pantalla de resultados de una lectura que no aprobó.
+func mensaje_resultado_intentos(typology: String) -> String:
+	var escenario: String = NOMBRE_ESCENARIO.get(typology, typology)
+	if esta_agotada(typology):
+		return "Se acabaron tus %d intentos en %s. El juego terminó: ya no puedes avanzar, pero puedes seguir en la zona de práctica." % [MAX_INTENTOS, escenario]
+	var quedan := intentos_restantes(typology)
+	if quedan == 1:
+		return "Te queda 1 intento en %s." % escenario
+	return "Te quedan %d intentos en %s." % [quedan, escenario]
 
 
 ## Aviso de la estación de una tipología aprobada.
@@ -287,6 +363,7 @@ func get_lock_info(typology: String) -> Dictionary:
 func reset_all() -> void:
 	best_scores.clear()
 	unlocked = ["Narrativo"]
+	intentos.clear()
 	progression_changed.emit()
 	print("[ProgressionManager] Progresión reiniciada.")
 
@@ -296,11 +373,13 @@ func reset_all() -> void:
 func load_from_api(typology_progress: Array) -> void:
 	best_scores.clear()
 	unlocked = ["Narrativo"]  # Siempre desbloqueado
+	intentos.clear()
 
 	for tp in typology_progress:
 		var typology: String = str(tp.get("typology", ""))
 		var best: int = tp.get("best_score", 0)
 		var is_unlocked: bool = tp.get("is_unlocked", false)
+		intentos[typology] = int(tp.get("attempts_used", 0))
 
 		if best > 0:
 			best_scores[typology] = best

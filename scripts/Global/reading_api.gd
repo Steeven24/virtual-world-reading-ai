@@ -115,6 +115,14 @@ func get_random_reading_full(typology: String = "", practice: bool = false) -> v
 	_enqueue_request(url, "full_reading", {})
 
 
+## Lectura de progresión que toca en la tipología, sin repetir las que el
+## alumno ya terminó: la elige la API. Responde por full_reading_loaded; si se
+## quedó sin intentos, request_failed con "HTTP 403".
+func get_next_reading_full(typology: String) -> void:
+	var url := "%s/progress/next-reading?typology=%s" % [ApiConfig.BASE_URL, typology.uri_encode()]
+	_enqueue_request(url, "full_reading", {"siguiente": true})
+
+
 ## Obtiene una lectura completa por ID con preguntas y respuestas.
 func get_reading_full(reading_id: int) -> void:
 	var cached := _cache.get_cached_full_reading(reading_id)
