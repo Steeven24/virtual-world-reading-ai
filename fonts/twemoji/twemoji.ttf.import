@@ -2,20 +2,20 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://un5ffmah14ui"
-path="res://.godot/imported/NotoEmoji.ttf-0d1188f9e4b9eab9cd2b0d39fc8dea77.fontdata"
+uid="uid://c70dk6vbdab00"
+path="res://.godot/imported/twemoji.ttf-e67ca91f133ef22d57fae1058cbdeba3.fontdata"
 
 [deps]
 
-source_file="res://fonts/NotoEmoji.ttf"
-dest_files=["res://.godot/imported/NotoEmoji.ttf-0d1188f9e4b9eab9cd2b0d39fc8dea77.fontdata"]
+source_file="res://fonts/twemoji/twemoji.ttf"
+dest_files=["res://.godot/imported/twemoji.ttf-e67ca91f133ef22d57fae1058cbdeba3.fontdata"]
 
 [params]
 
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
-disable_embedded_bitmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

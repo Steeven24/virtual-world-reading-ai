@@ -1,8 +1,9 @@
-[gd_resource type="FontVariation" load_steps=3 format=3]
+[gd_resource type="FontVariation" load_steps=4 format=3]
 
 [ext_resource type="FontFile" path="res://fonts/adventor/texgyreadventor-regular.otf" id="1_base"]
-[ext_resource type="FontFile" path="res://fonts/NotoColorEmoji.ttf" id="2_emoji"]
+[ext_resource type="FontFile" path="res://fonts/twemoji/twemoji.ttf" id="2_emoji"]
+[ext_resource type="FontFile" path="res://fonts/simbolos/SimbolosVW-Regular.ttf" id="3_simbolos"]
 
 [resource]
-fallbacks = Array[Font]([ExtResource("2_emoji")])
+fallbacks = Array[Font]([ExtResource("2_emoji"), ExtResource("3_simbolos")])
 base_font = ExtResource("1_base")
