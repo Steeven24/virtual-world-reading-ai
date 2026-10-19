@@ -10,6 +10,9 @@ const FONT_PATH := "res://fonts/fuente_juego_negrita.tres"
 const COLOR_CORRECT := Color(0.1, 0.6, 0.25, 1.0)
 const COLOR_INCORRECT := Color(0.7, 0.15, 0.15, 1.0)
 const COLOR_GOLD := Color(0.85, 0.75, 0.3, 1.0)
+## Rojo claro de «sin intentos»: el de las incorrectas apenas se lee sobre el
+## fondo oscuro del panel.
+const COLOR_AGOTADA := Color(0.95, 0.45, 0.42, 1.0)
 const COLOR_WHITE := Color(0.9, 0.92, 0.95, 1.0)
 const COLOR_DIM := Color(0.6, 0.6, 0.7, 1.0)
 
@@ -170,6 +173,7 @@ func _populate_progression_summary(typology: String) -> void:
 
 	_show_unlock_progress()
 	_show_approved(typology)
+	_mostrar_intentos(typology)
 
 
 ## Tipología aprobada (con esta lectura o desde antes): su escenario queda
@@ -184,14 +188,38 @@ func _show_approved(typology: String) -> void:
 	mensaje.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	mensaje.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
-	# Justo después de la línea de progreso de desbloqueo, o del total si no la hay.
+	_insertar_tras_progreso(mensaje)
+
+
+## Lo que queda en una tipología sin aprobar: cuántos intentos, o que se
+## acabaron (y entonces no se ofrece otra lectura, que ya no podría empezar).
+func _mostrar_intentos(typology: String) -> void:
+	if GameSession.is_practice or ProgressionManager.is_approved(typology) \
+			or not typology in ProgressionManager.DIFFICULTY_ORDER:
+		return
+	var agotada := ProgressionManager.esta_agotada(typology)
+	var mensaje := _create_label(ProgressionManager.mensaje_resultado_intentos(typology), 16,
+			COLOR_AGOTADA if agotada else COLOR_GOLD)
+	mensaje.name = "MensajeIntentos"
+	mensaje.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	mensaje.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_insertar_tras_progreso(mensaje)
+
+	if agotada:
+		retry_button.visible = false
+	else:
+		retry_button.text = "🔄 Otra lectura (%s)" % ProgressionManager.texto_intento(typology).to_lower()
+
+
+## Justo después de la línea de progreso de desbloqueo, o del total si no la hay.
+func _insertar_tras_progreso(etiqueta: Control) -> void:
 	var anterior: Control = global_score_label
 	var progreso := global_score_label.get_parent().get_node_or_null("ProgresoDesbloqueo")
 	if progreso:
 		anterior = progreso
 	var parent := anterior.get_parent()
-	parent.add_child(mensaje)
-	parent.move_child(mensaje, anterior.get_index() + 1)
+	parent.add_child(etiqueta)
+	parent.move_child(etiqueta, anterior.get_index() + 1)
 
 
 ## La práctica no bate récords ni suma al total: se dice claramente.

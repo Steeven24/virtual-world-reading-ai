@@ -361,6 +361,11 @@ func _objetivos_lobby() -> Dictionary:
 		"hecho": GameSession.is_tutorial_completed(),
 	})
 
+	# Sin intentos en una tipología el recorrido se acabó: solo queda practicar.
+	if ProgressionManager.juego_terminado():
+		pasos.append({"texto": "Juego terminado: ya no puedes avanzar", "hecho": false})
+		return {"pasos": pasos, "pie": "Puedes seguir practicando en la zona de práctica"}
+
 	# Una lectura a medias manda sobre todo lo demás: no se puede empezar otra
 	# hasta terminarla, así que es lo primero que hay que contar.
 	var pendiente := ""
@@ -377,7 +382,10 @@ func _objetivos_lobby() -> Dictionary:
 	elif pendiente.is_empty():
 		var siguiente := ProgressionManager.get_next_unapproved()
 		pasos.append({
-			"texto": "Acércate al cartel de %s y pulsa E" % ProgressionManager.NOMBRE_ESCENARIO[siguiente],
+			"texto": "Acércate al cartel de %s y pulsa E (%s)" % [
+				ProgressionManager.NOMBRE_ESCENARIO[siguiente],
+				ProgressionManager.texto_intento(siguiente).to_lower(),
+			],
 			"hecho": false,
 		})
 	else:

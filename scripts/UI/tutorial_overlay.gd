@@ -36,7 +36,7 @@ const STEPS: Array = [
 	},
 	{
 		"title": "📚 Las 4 tipologías textuales",
-		"body": "En el lobby hay [color=#f0c050][b]4 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Argumentativo[/b] y [b]Expositivo[/b].\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en explorador.\n\nY si quieres ensayar sin que cuente, usa la [color=#f0c050][b]Herramienta de práctica[/b][/color]: ahí puedes practicar cualquier tipología.",
+		"body": "En el lobby hay [color=#f0c050][b]4 estaciones[/b][/color], una por tipología: [b]Narrativo[/b], [b]Descriptivo[/b], [b]Argumentativo[/b] y [b]Expositivo[/b].\n\nTienes [color=#f0c050][b]5 intentos[/b][/color] por tipología: cada lectura que terminas cuenta como uno y las lecturas no se repiten. Si gastas los 5 sin aprobar, ya no podrás avanzar.\n\n[color=#f0c050][b]➜ Camina hasta el cartel de una de ellas y pulsa E[/b][/color] para entrar. Visítalas todas para convertirte en explorador.\n\nY si quieres ensayar sin que cuente, usa la [color=#f0c050][b]Herramienta de práctica[/b][/color]: ahí puedes practicar cualquier tipología.",
 	},
 	{
 		"title": "📖 La sala de lectura",
