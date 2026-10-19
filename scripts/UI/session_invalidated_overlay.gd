@@ -4,11 +4,21 @@ extends CanvasLayer
 
 const LOGIN_SCENE := "res://scenes/UI/login_screen.tscn"
 
+var motivo: String = "SESSION_INVALIDATED"
+
 @onready var _close_button: Button = %LogoutButton
+@onready var _title_label: Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Title
+@onready var _desc_label: Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Description
 
 func _ready() -> void:
 	# Asegurar que esté encima de todo
 	layer = 128
+	
+	if motivo == "WORKSPACE_INACTIVE":
+		if _title_label:
+			_title_label.text = "⚠️ ¡ENTORNO DESACTIVADO!"
+		if _desc_label:
+			_desc_label.text = "El administrador desactivó el entorno en el que estabas jugando. Tu progreso guardado se conserva."
 	
 	if _close_button:
 		_close_button.pressed.connect(_on_logout_button_pressed)
