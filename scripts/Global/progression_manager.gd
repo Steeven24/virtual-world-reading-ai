@@ -196,7 +196,8 @@ func intentos_restantes(typology: String) -> int:
 
 ## Sin aprobar y sin intentos: no puede empezar otra lectura en ella.
 func esta_agotada(typology: String) -> bool:
-	return typology in DIFFICULTY_ORDER and not is_approved(typology) 			and intentos_usados(typology) >= MAX_INTENTOS
+	return typology in DIFFICULTY_ORDER and not is_approved(typology) \
+			and intentos_usados(typology) >= MAX_INTENTOS
 
 
 ## Con una tipología agotada el recorrido se acaba: como se desbloquean en
@@ -219,9 +220,7 @@ func texto_intento(typology: String) -> String:
 
 
 func mensaje_estacion_agotada(typology: String) -> String:
-	return "Se acabaron tus %d intentos en %s.
-
-El juego terminó: ya no puedes avanzar a otras tipologías. Puedes seguir practicando en la zona de práctica y ver tus logros y el ranking." % [
+	return "Se acabaron tus %d intentos en %s.\n\nEl juego terminó: ya no puedes avanzar a otras tipologías. Puedes seguir practicando en la zona de práctica y ver tus logros y el ranking." % [
 		MAX_INTENTOS, NOMBRE_ESCENARIO.get(typology, typology),
 	]
 
@@ -229,9 +228,7 @@ El juego terminó: ya no puedes avanzar a otras tipologías. Puedes seguir pract
 ## Aviso de una estación bloqueada cuando ya no hay forma de desbloquearla.
 func mensaje_juego_terminado() -> String:
 	var agotada := tipologia_agotada()
-	return "🏁 El juego terminó: se acabaron tus intentos en %s, así que esta tipología ya no se puede desbloquear.
-
-Puedes seguir practicando en la zona de práctica." % NOMBRE_ESCENARIO.get(agotada, agotada)
+	return "🏁 El juego terminó: se acabaron tus intentos en %s, así que esta tipología ya no se puede desbloquear.\n\nPuedes seguir practicando en la zona de práctica." % NOMBRE_ESCENARIO.get(agotada, agotada)
 
 
 ## Línea de la pantalla de resultados de una lectura que no aprobó.
