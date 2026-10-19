@@ -205,7 +205,6 @@ text = "🏠 Volver al lobby"
 [node name="AssistantTipDialog" type="AcceptDialog" parent="." unique_id=363101131]
 unique_name_in_owner = true
 transparent_bg = true
-oversampling_override = 1.0
 title = "💡 Consejo del asistente"
 size = Vector2i(800, 225)
 borderless = true

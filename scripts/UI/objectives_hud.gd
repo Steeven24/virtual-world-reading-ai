@@ -83,8 +83,7 @@ var _tween_visibilidad: Tween = null
 
 func _ready() -> void:
 	layer = 20
-	# El viewport del juego es de 192x108 (pixel art): sin esto el panel saldría
-	# gigante y escalado junto al mundo.
+	# Panel de interfaz: no debe moverse ni escalarse con la cámara del mundo.
 	follow_viewport_enabled = false
 
 	_font_bold = load(FONT_BOLD_PATH) if ResourceLoader.exists(FONT_BOLD_PATH) else null

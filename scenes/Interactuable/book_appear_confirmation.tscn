@@ -104,7 +104,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="confirm" type="ConfirmationDialog" parent="Book/Area2D" unique_id=1163613631]
 transparent_bg = true
-oversampling_override = 1.0
 title = ""
 initial_position = 2
 size = Vector2i(493, 192)

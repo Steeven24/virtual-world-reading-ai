@@ -144,13 +144,9 @@ func _layout() -> void:
 
 
 func _get_window_size() -> Vector2:
-	var window := get_window()
-	if window:
-		return Vector2(window.size)
-	return Vector2(
-		ProjectSettings.get_setting("display/window/size/window_width_override", 1280),
-		ProjectSettings.get_setting("display/window/size/window_height_override", 720)
-	)
+	# Con el estirado canvas_items la interfaz mide siempre 1280x720, sea cual
+	# sea la ventana: el tamaño real (get_window().size) ya no sirve aquí.
+	return get_viewport().get_visible_rect().size
 
 
 func _animate_in() -> void:

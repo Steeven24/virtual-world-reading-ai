@@ -250,7 +250,6 @@ shape = SubResource("CircleShape2D_teacher")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1231486270]
 transparent_bg = true
-oversampling_override = 1.0
 title = "Profesor"
 initial_position = 3
 size = Vector2i(800, 232)

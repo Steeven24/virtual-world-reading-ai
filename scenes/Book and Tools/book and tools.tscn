@@ -447,7 +447,6 @@ text = "✖"
 [node name="ConfirmDesafios" type="ConfirmationDialog" parent="." unique_id=501246328]
 unique_name_in_owner = true
 transparent_bg = true
-oversampling_override = 1.0
 title = "Confirmar"
 size = Vector2i(1106, 232)
 borderless = true

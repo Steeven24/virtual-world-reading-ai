@@ -115,7 +115,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="confirm" type="ConfirmationDialog" parent="Area2D" unique_id=1163613631]
 transparent_bg = true
-oversampling_override = 1.0
 title = "Confirmar"
 size = Vector2i(493, 392)
 borderless = true
@@ -163,7 +162,6 @@ texture = ExtResource("7_sello")
 
 [node name="LockedDialog" type="AcceptDialog" parent="." unique_id=900100002]
 transparent_bg = true
-oversampling_override = 1.0
 title = "Nivel Bloqueado"
 size = Vector2i(600, 200)
 borderless = true

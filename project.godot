@@ -36,12 +36,12 @@ SessionGuard="*res://scripts/Global/session_guard.gd"
 
 [display]
 
-window/size/viewport_width=192
-window/size/viewport_height=108
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/initial_position_type=0
 window/size/resizable=false
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
