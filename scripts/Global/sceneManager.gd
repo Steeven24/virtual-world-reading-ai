@@ -88,7 +88,7 @@ func transition_to(scene_path: String):
 # ─── Posición en el lobby ────────────────────────────────────────────────────
 
 ## Guarda dónde está el jugador si la escena es el lobby. Sirve para todas las
-## salidas: estaciones, práctica y tutorial.
+## salidas: estaciones y tutorial.
 func recordar_posicion_lobby(escena: Node) -> void:
 	if escena == null or escena.scene_file_path != LOBBY_SCENE:
 		return

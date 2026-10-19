@@ -58,7 +58,7 @@ func _ready() -> void:
 ## desbloqueo suena después.
 func _sonar_resultado() -> void:
 	var resultado: Dictionary = GameSession.resultado_progresion
-	if GameSession.is_practice or not resultado.get("aprobada_ahora", false):
+	if not resultado.get("aprobada_ahora", false):
 		Sonido.efecto("fin_lectura")
 		return
 	Sonido.efecto("aprobada")
@@ -135,10 +135,7 @@ func _populate_data() -> void:
 	# Fila de bonus por herramientas en la tabla
 	_show_tool_bonus_info()
 
-	if GameSession.is_practice:
-		_populate_practice_summary()
-	else:
-		_populate_progression_summary(typology)
+	_populate_progression_summary(typology)
 
 	# Recomendación del asistente si no usó herramientas
 	_check_tools_usage()
@@ -194,7 +191,7 @@ func _show_approved(typology: String) -> void:
 ## Lo que queda en una tipología sin aprobar: cuántos intentos, o que se
 ## acabaron (y entonces no se ofrece otra lectura, que ya no podría empezar).
 func _mostrar_intentos(typology: String) -> void:
-	if GameSession.is_practice or ProgressionManager.is_approved(typology) \
+	if ProgressionManager.is_approved(typology) \
 			or not typology in ProgressionManager.DIFFICULTY_ORDER:
 		return
 	var agotada := ProgressionManager.esta_agotada(typology)
@@ -220,18 +217,6 @@ func _insertar_tras_progreso(etiqueta: Control) -> void:
 	var parent := anterior.get_parent()
 	parent.add_child(etiqueta)
 	parent.move_child(etiqueta, anterior.get_index() + 1)
-
-
-## La práctica no bate récords ni suma al total: se dice claramente.
-func _populate_practice_summary() -> void:
-	title_label.text = "📝 ¡Práctica completada!"
-	session_score_label.text = "⭐ Puntaje de la práctica: %d pts" % GameSession.get_session_score()
-	record_label.visible = false
-	best_score_label.visible = false
-	global_score_label.text = "Esta práctica no cuenta para tu progreso."
-	retry_button.text = "🔄 Otra lectura de práctica"
-	if achievements_button:
-		achievements_button.visible = false
 
 
 func _populate_grid(details: Array) -> void:
@@ -422,8 +407,6 @@ func _on_lobby_pressed() -> void:
 	if lobby.is_empty():
 		push_error("[SessionResults] No hay escena de lobby configurada")
 		return
-	# Una práctica terminada no deja nada en memoria al volver.
-	GameSession.end_practice()
 	SceneManager.transition_to(lobby)
 
 

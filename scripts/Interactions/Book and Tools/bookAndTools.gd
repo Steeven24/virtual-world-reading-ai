@@ -244,28 +244,22 @@ func _connect_api_signals() -> void:
 ## (lectura restaurada), reutiliza esos datos sin pedir una nueva.
 func _preload_from_api() -> void:
 	# Si ya hay una sesión activa con lectura cargada, reutilizarla, PERO solo si
-	# es de la tipología del escenario y del mismo tipo (práctica o progresión):
-	# una lectura de progresión nunca debe acabar en la práctica, ni al revés.
+	# es de la tipología del escenario.
 	if GameSession.is_active and not GameSession.current_reading.is_empty():
 		var reading_typology: String = str(GameSession.current_reading.get("typology", ""))
-		var reading_is_practice: bool = bool(GameSession.current_reading.get("is_practice", false))
 		var misma_tipologia: bool = typology_filter.is_empty() or reading_typology == typology_filter
-		if misma_tipologia and reading_is_practice == GameSession.is_practice:
+		if misma_tipologia:
 			print("[BookAndTools] Reutilizando lectura existente de GameSession (tipología: %s)" % reading_typology)
 			_on_api_reading_received(GameSession.current_reading)
 			return
 		else:
-			print("[BookAndTools] La lectura cargada no es de este escenario (%s, práctica: %s), solicitando nueva" % [reading_typology, reading_is_practice])
+			print("[BookAndTools] La lectura cargada no es de este escenario (%s), solicitando nueva" % reading_typology)
 			GameSession.is_active = false
 			GameSession.current_reading = {}
 	_is_loading = true
 	_set_loading_state()
-	# La progresión pide la lectura siguiente (sin repetir y nunca sin
-	# intentos); la práctica sigue al azar entre las suyas.
-	if GameSession.is_practice:
-		ReadingAPI.get_random_reading_full(typology_filter, true)
-	else:
-		ReadingAPI.get_next_reading_full(typology_filter)
+	# La lectura siguiente la elige la API (sin repetir y nunca sin intentos).
+	ReadingAPI.get_next_reading_full(typology_filter)
 
 
 ## Muestra un estado visual de carga en el libro.

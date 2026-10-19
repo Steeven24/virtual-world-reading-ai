@@ -43,7 +43,7 @@ func _ready() -> void:
 	#    consultar la API (check_pending_reading se ejecuta al cargar progreso).
 	await get_tree().create_timer(0.8).timeout
 	if ProgressionManager.juego_terminado():
-		_mostrar_franja("🏁", "Juego terminado: ya no puedes avanzar. Puedes seguir practicando en la zona de práctica.")
+		_mostrar_franja("🏁", "Juego terminado: ya no puedes avanzar. Puedes ver tus logros y el ranking en la barra de arriba.")
 	else:
 		_show_pending_reading_indicator()
 

@@ -329,13 +329,13 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 		_process_queue()
 		return
 	
-	# Capturar sesión invalidada en tiempo real (409)
+	# Capturar sesión invalidada o entorno desactivado en tiempo real (409)
 	if response_code == 409:
 		var json := JSON.new()
 		if json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary:
 			var error_detail = str(json.data.get("detail", ""))
-			if error_detail == "SESSION_INVALIDATED":
-				_handle_session_invalidated()
+			if error_detail == "SESSION_INVALIDATED" or error_detail == "WORKSPACE_INACTIVE":
+				_handle_session_invalidated(error_detail)
 				_request_queue.clear()
 				_is_requesting = false
 				return
@@ -543,9 +543,9 @@ func _stop_polling() -> void:
 		print("[AuthManager] Polling de validación detenido")
 
 
-func _handle_session_invalidated() -> void:
+func _handle_session_invalidated(motivo: String = "SESSION_INVALIDATED") -> void:
 	session_invalidated.emit()
-	print("[AuthManager] ¡Sesión invalidada por el administrador!")
+	print("[AuthManager] ¡Sesión invalidada por el administrador! Motivo: %s" % motivo)
 	_stop_polling()
 	
 	# Si ya existe el overlay, no crear otro
@@ -555,4 +555,6 @@ func _handle_session_invalidated() -> void:
 	var overlay_scene = load("res://scenes/UI/session_invalidated_overlay.tscn")
 	if overlay_scene:
 		_overlay_instance = overlay_scene.instantiate()
+		if "motivo" in _overlay_instance:
+			_overlay_instance.motivo = motivo
 		get_tree().root.add_child(_overlay_instance)

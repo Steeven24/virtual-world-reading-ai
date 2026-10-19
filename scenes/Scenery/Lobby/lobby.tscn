@@ -30,7 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://caqhqh8gx8rol" path="res://assets/Scenery/Background/Lobby/printer.png" id="28_ye3i6"]
 [ext_resource type="Texture2D" uid="uid://cktphr06tmxli" path="res://assets/Scenery/Background/Lobby/world.png" id="29_jj841"]
 [ext_resource type="Texture2D" uid="uid://deuhoqkfgt05i" path="res://assets/Animations/Fireplace/fireplace1 spritesheet.png" id="30_0tao1"]
-[ext_resource type="Texture2D" uid="uid://bg8ttsoh0gn6r" path="res://assets/Scenery/Section sign/Practicar.png" id="31_rn3cy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -313,10 +312,6 @@ typology = "Narrativo"
 position = Vector2(1637, 497)
 target_scene_path = "res://scenes/Scenery/Section/Generic Level/generic_level1.tscn"
 typology = "Expositivo"
-
-[node name="Herramienta de práctica" parent="." unique_id=1467939944 instance=ExtResource("3_uogk4")]
-position = Vector2(2591.9346, 744.8647)
-is_practice_station = true
 
 [node name="Textos Argumentativos" parent="." unique_id=1594036802 instance=ExtResource("3_uogk4")]
 z_index = 1
@@ -643,11 +638,3 @@ frame_progress = 0.6172105
 position = Vector2(2373.076, 479.70096)
 scale = Vector2(0.7108051, 0.7108051)
 texture = ExtResource("12_u7wr6")
-
-[node name="Practicar" type="Sprite2D" parent="." unique_id=268892897]
-visibility_layer = 2
-z_index = 1
-texture_filter = 1
-position = Vector2(2370, 367)
-scale = Vector2(0.5196074, 0.43137246)
-texture = ExtResource("31_rn3cy")
