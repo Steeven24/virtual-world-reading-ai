@@ -38,7 +38,10 @@ func _ready() -> void:
 	#    Pequeño delay para que ReadingProgressManager haya tenido tiempo de
 	#    consultar la API (check_pending_reading se ejecuta al cargar progreso).
 	await get_tree().create_timer(0.8).timeout
-	_show_pending_reading_indicator()
+	if ProgressionManager.juego_terminado():
+		_mostrar_franja("🏁", "Juego terminado: ya no puedes avanzar. Puedes seguir practicando en la zona de práctica.")
+	else:
+		_show_pending_reading_indicator()
 
 
 func _on_tutorial_requested() -> void:
@@ -81,7 +84,12 @@ func _show_pending_reading_indicator() -> void:
 	var pending_typology := ReadingProgressManager.get_active_typology()
 	if pending_typology.is_empty():
 		return
+	_mostrar_franja("📖", "Lectura pendiente en %s — ¡Regresa para continuar!" % pending_typology)
 
+
+## Franja dorada arriba del lobby con un icono y un texto (lectura pendiente,
+## juego terminado).
+func _mostrar_franja(icono: String, texto: String) -> void:
 	# Crear banner de CanvasLayer
 	_pending_banner = CanvasLayer.new()
 	_pending_banner.layer = 10
@@ -108,12 +116,12 @@ func _show_pending_reading_indicator() -> void:
 	panel.add_child(hbox)
 
 	var icon_label := Label.new()
-	icon_label.text = "📖"
+	icon_label.text = icono
 	icon_label.add_theme_font_size_override("font_size", 20)
 	hbox.add_child(icon_label)
 
 	var text_label := Label.new()
-	text_label.text = "Lectura pendiente en %s — ¡Regresa para continuar!" % pending_typology
+	text_label.text = texto
 	text_label.add_theme_color_override("font_color", Color(0.95, 0.85, 0.4, 1.0))
 	text_label.add_theme_font_size_override("font_size", 14)
 	# Cargar fuente del proyecto si existe

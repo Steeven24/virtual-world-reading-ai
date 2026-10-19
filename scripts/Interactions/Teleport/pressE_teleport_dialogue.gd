@@ -27,6 +27,11 @@ var _padlock: Sprite2D = null
 ## Sello «✓ Aprobado»: sustituye al candado cuando la tipología ya se aprobó.
 var _sello: Sprite2D = null
 
+## Sello «sin intentos»: la tipología se quedó sin intentos sin aprobarse. Se
+## crea por código copiando la posición y el tamaño del sello de aprobado.
+var _sin_intentos: Sprite2D = null
+const SELLO_SIN_INTENTOS := preload("res://assets/Scenery/Padlock/sin_intentos.png")
+
 ## Referencia al diálogo de nivel bloqueado.
 var _locked_dialog: AcceptDialog = null
 
@@ -52,6 +57,15 @@ func _ready():
 	_padlock = get_node_or_null("Padlock")
 	_sello = get_node_or_null("Sello")
 	_locked_dialog = get_node_or_null("LockedDialog")
+	if _sello:
+		_sin_intentos = Sprite2D.new()
+		_sin_intentos.name = "SinIntentos"
+		_sin_intentos.texture = SELLO_SIN_INTENTOS
+		_sin_intentos.texture_filter = _sello.texture_filter
+		_sin_intentos.position = _sello.position
+		_sin_intentos.scale = _sello.scale
+		_sin_intentos.visible = false
+		add_child(_sin_intentos)
 
 	# La práctica está siempre abierta y el libro del tutorial solo vuelve a
 	# enseñar las instrucciones: ni candado ni sello, aunque reutilicen la
@@ -108,6 +122,11 @@ func _process(delta):
 		if not typology.is_empty() and not ProgressionManager.is_unlocked(typology):
 			_show_locked_dialog()
 			return
+		# Sin intentos no empieza otra lectura (su propia pendiente, sí).
+		if not typology.is_empty() and ProgressionManager.decidir_entrada(typology, _pendiente_conocida()) == "agotada":
+			if not SceneManager.is_ui_open:
+				_mostrar_aviso("Sin intentos", ProgressionManager.mensaje_estacion_agotada(typology))
+			return
 		show_dialogue()
 			
 
@@ -117,7 +136,8 @@ func show_dialogue():
 		
 	SceneManager.is_ui_open = true
 	var dialog = $Area2D/confirm
-	
+	_poner_texto_intento(dialog)
+
 	# 1. Forzamos posicionamiento absoluto
 	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
 	
@@ -315,6 +335,8 @@ func _restore_and_navigate(level1: String, level23: String) -> void:
 		state_data["session_score"] = int(active_data.get("session_score", 0))
 		state_data["reading_completed"] = active_data.get("reading_completed", false)
 		state_data["reading_start_time"] = active_data.get("reading_start_time", "0")
+		state_data["reading_seconds"] = int(active_data.get("reading_seconds", 0))
+		state_data["total_seconds"] = int(active_data.get("total_seconds", 0))
 		
 		# Parsear JSON de resultados y herramientas
 		var json := JSON.new()
@@ -360,7 +382,14 @@ func _on_restore_reading_loaded(data: Dictionary) -> void:
 	GameSession.start_session_with_data(data)
 	# Restaurar el estado guardado (nivel, pregunta, score, etc.)
 	GameSession.restore_state(_pending_restore_state)
-	
+
+	# Todo respondido (se cerró el navegador tras la última respuesta): la
+	# sesión se completa ahora y se va a los resultados.
+	if GameSession.sesion_respondida_entera():
+		target_scene_path = GameSession.completar_sesion_restaurada()
+		change_scene()
+		return
+
 	# Navegar al punto correcto
 	if _pending_restore_state.get("reading_completed", false):
 		# Ya terminó la lectura, ir al escenario del nivel actual
@@ -533,14 +562,38 @@ func _start_practice_session(practice_typology: String) -> void:
 
 # ─── Sistema de candado y bloqueo ───────────────────────────────────────────
 
-## Candado si la tipología está bloqueada; sello si ya se aprobó.
+## Candado si la tipología está bloqueada; sello si ya se aprobó; sello rojo
+## si se quedó sin intentos.
 func _actualizar_candado_y_sello() -> void:
 	if typology.is_empty():
 		return
+	var agotada := ProgressionManager.esta_agotada(typology)
 	if _padlock:
-		_padlock.visible = not ProgressionManager.is_unlocked(typology)
+		_padlock.visible = not ProgressionManager.is_unlocked(typology) and not agotada
 	if _sello:
 		_sello.visible = ProgressionManager.is_approved(typology)
+	if _sin_intentos:
+		_sin_intentos.visible = agotada
+
+
+## Tipología de la lectura de progresión a medias que se conoce, o "".
+func _pendiente_conocida() -> String:
+	var pendiente := GameSession.current_progression_typology()
+	if pendiente.is_empty() and ReadingProgressManager.has_active_reading():
+		pendiente = ReadingProgressManager.get_active_typology()
+	return pendiente
+
+
+## El diálogo de una estación de la progresión dice qué intento va a ser (o
+## que hay una lectura a medias que continuar).
+func _poner_texto_intento(dialog: ConfirmationDialog) -> void:
+	if typology.is_empty() or not typology in ProgressionManager.DIFFICULTY_ORDER:
+		return
+	var intento := ProgressionManager.texto_intento(typology)
+	if _pendiente_conocida() == typology:
+		dialog.dialog_text = "Tienes una lectura a medias aquí. ¿Quieres continuarla?\n\n%s." % intento
+	else:
+		dialog.dialog_text = "¿Estás seguro de que deseas empezar el desafío?\n\n%s." % intento
 
 
 ## E en una tipología aprobada: se deja reanudar su propia lectura a medias
@@ -585,7 +638,10 @@ func _show_locked_dialog() -> void:
 	# Obtener información del bloqueo para personalizar el mensaje
 	var texto := "🔒 Este nivel aún está bloqueado."
 	var lock_info: Dictionary = ProgressionManager.get_lock_info(typology)
-	if lock_info.get("locked", false):
+	if ProgressionManager.juego_terminado():
+		# Ya no hay forma de conseguir el puntaje que pide: se dice claro.
+		texto = ProgressionManager.mensaje_juego_terminado()
+	elif lock_info.get("locked", false):
 		var req_typology: String = lock_info.get("required_typology", "")
 		var req_score: int = lock_info.get("required_score", 0)
 		var current: int = lock_info.get("current_score", 0)
