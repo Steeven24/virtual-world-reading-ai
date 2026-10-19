@@ -19,7 +19,6 @@ func _ready() -> void:
 
 func _on_session_invalidated() -> void:
 	is_active = false
-	is_practice = false
 	current_reading.clear()
 	current_typology = ""
 	current_level_index = 0
@@ -115,13 +114,6 @@ const TYPOLOGY_SCENES: Dictionary = {
 	}
 }
 
-## Escenarios de la zona de práctica: los del antiguo escenario de textos
-## instructivos, que ahora sirve para practicar cualquier tipología.
-const PRACTICE_SCENES: Dictionary = {
-	"level1": "res://scenes/Scenery/Section/Instructivos/instructivos_level1.tscn",
-	"level23": "res://scenes/Scenery/Section/Instructivos/instructivos_level2-3.tscn",
-}
-
 ## Escenas de niveles (escenarios intermedios).
 ## Estas se configuran al iniciar sesión según la lectura.
 var level_scenes: Dictionary = {
@@ -167,11 +159,6 @@ var results: Array = []
 ## True si hay una sesión activa.
 var is_active: bool = false
 
-## True si la sesión en curso es de la zona de práctica. La práctica usa el
-## mismo recorrido (lectura y 3 niveles), pero no cuenta para nada: ni puntaje,
-## ni desbloqueos, ni logros, ni alias, ni lectura pendiente.
-var is_practice: bool = false
-
 ## Contador de errores en el nivel actual (para bonus perfecto).
 var _level_errors: int = 0
 
@@ -198,8 +185,8 @@ var score_data: Dictionary = {
 var _current_session_score: int = 0
 
 ## Lo que cambió en la progresión al terminar la última lectura:
-## {"aprobada_ahora": bool, "desbloqueada": String}. Vacío en la práctica y
-## hasta que termina una lectura. Lo usa la pantalla de resultados.
+## {"aprobada_ahora": bool, "desbloqueada": String}. Vacío hasta que termina
+## una lectura. Lo usa la pantalla de resultados.
 var resultado_progresion: Dictionary = {}
 
 # ─── Sistema de personajes ──────────────────────────────────────────────────
@@ -295,10 +282,8 @@ func reset_tutorial() -> void:
 
 ## Deja la sesión lista para empezar una lectura nueva de la tipología dada.
 ## La lectura se pide después, al entrar en la sala (bookAndTools).
-## Con practice = true la lectura será de la zona de práctica.
-func reset_for_new_reading(typology: String, practice: bool) -> void:
+func reset_for_new_reading(typology: String) -> void:
 	is_active = false
-	is_practice = practice
 	current_reading = {}
 	current_typology = typology
 	current_level_index = 0
@@ -313,17 +298,10 @@ func reset_for_new_reading(typology: String, practice: bool) -> void:
 	resultado_progresion = {}
 
 
-## Descarta la práctica en curso sin guardar nada: la práctica nunca deja una
-## lectura pendiente. No hace nada si la sesión es de progresión.
-func end_practice() -> void:
-	if is_practice:
-		reset_for_new_reading("", false)
-
-
 ## Tipología de la lectura de progresión que hay en memoria, o "" si no hay
-## ninguna. La práctica nunca cuenta como lectura en curso ni pendiente.
+## ninguna.
 func current_progression_typology() -> String:
-	if is_active and not is_practice:
+	if is_active:
 		return current_typology
 	return ""
 
@@ -359,13 +337,9 @@ func end_reading() -> void:
 	guardar_progreso()
 
 
-## La progresión pide a la API la lectura siguiente (sin repetir y nunca sin
-## intentos); la práctica sigue al azar entre las suyas.
+## Pide a la API la lectura siguiente (sin repetir y nunca sin intentos).
 func _pedir_lectura(typology: String) -> void:
-	if is_practice:
-		ReadingAPI.get_random_reading_full(typology, true)
-	else:
-		ReadingAPI.get_next_reading_full(typology)
+	ReadingAPI.get_next_reading_full(typology)
 
 
 ## Configura las rutas de escenas para los niveles intermedios y el lobby.
@@ -455,14 +429,12 @@ func submit_answer(letter: String) -> Dictionary:
 	if is_correct:
 		points_earned = POINTS_BY_LEVEL.get(current_level, 10)
 		_current_session_score += points_earned
-		if not is_practice:
-			score_data["correct_by_level"][current_level] += 1
+		score_data["correct_by_level"][current_level] += 1
 	else:
 		penalty = PENALTY_BY_LEVEL.get(current_level, 5)
 		_current_session_score = maxi(0, _current_session_score - penalty)
 		_level_errors += 1
-		if not is_practice:
-			score_data["incorrect_by_level"][current_level] += 1
+		score_data["incorrect_by_level"][current_level] += 1
 
 	score_changed.emit(_current_session_score)
 
@@ -551,9 +523,6 @@ func get_best_score(typology: String) -> int:
 
 ## Retorna true si la sesión actual superó el mejor puntaje previo.
 func is_new_record() -> bool:
-	# La práctica no bate récords: no cuenta para el progreso.
-	if is_practice:
-		return false
 	# Comparamos contra el best ANTES de registrar (el actual ya fue registrado)
 	# Usamos el score_data local que se actualiza después del registro
 	var best: int = score_data["best_scores_by_typology"].get(current_typology, 0)
@@ -672,11 +641,11 @@ func completar_sesion_restaurada() -> String:
 	return RESULTS_SCENE
 
 
-## Guarda la lectura en curso en la API (solo progresión). Se llama al
-## asignarse la lectura, tras cada respuesta y al terminar de leer: si el
-## alumno cierra el navegador, la retoma en el mismo punto.
+## Guarda la lectura en curso en la API. Se llama al asignarse la lectura,
+## tras cada respuesta y al terminar de leer: si el alumno cierra el
+## navegador, la retoma en el mismo punto.
 func guardar_progreso() -> void:
-	if is_active and not is_practice:
+	if is_active:
 		ReadingProgressManager.save_active_reading()
 
 
@@ -749,8 +718,6 @@ static func estado_desde_respuestas(respuestas: Array, preguntas_por_nivel: Dict
 func _on_session_complete() -> void:
 	is_active = false
 
-	# Los bonus se calculan igual en la práctica: el alumno ve el puntaje que
-	# habría obtenido, aunque no cuente.
 	_current_session_score += SESSION_COMPLETE_BONUS
 	var total_errors := results.filter(func(r): return not r["correct"]).size()
 	var is_perfect := total_errors == 0
@@ -760,13 +727,6 @@ func _on_session_complete() -> void:
 	_current_session_score += tool_bonus
 	if tool_bonus > 0:
 		print("[GameSession] Bonus herramientas: +%d pts" % tool_bonus)
-
-	if is_practice:
-		# Se envía para que el docente la vea, y nada más: ni progreso, ni
-		# lectura pendiente, ni logros, ni alias (session_completed_with_data
-		# es lo que dispara los avisos de alias y la limpieza de la pendiente).
-		_sync_session_to_api(tool_bonus, is_perfect)
-		return
 
 	score_data["sessions_completed"] += 1
 
@@ -886,7 +846,6 @@ func build_session_payload(tool_bonus: int, is_perfect: bool) -> Dictionary:
 		"reading_time_seconds": reading_time,
 		"total_time_seconds": total_time,
 		"is_perfect": is_perfect,
-		"is_practice": is_practice,
 		"correct_count": correct_count,
 		"incorrect_count": incorrect_count,
 		"tool_bonus": tool_bonus,
@@ -900,7 +859,7 @@ func _sync_session_to_api(tool_bonus: int, is_perfect: bool) -> void:
 	if not AuthManager.is_authenticated:
 		return
 	AuthManager.save_session(build_session_payload(tool_bonus, is_perfect))
-	print("[GameSession] Sesión enviada a la API%s" % (" (práctica)" if is_practice else ""))
+	print("[GameSession] Sesión enviada a la API")
 
 
 ## Carga datos de progreso desde la API y los aplica al estado local.
@@ -934,7 +893,7 @@ func load_from_api(progress_data: Dictionary) -> void:
 		score_data["sessions_completed"] += tp.get("total_sessions", 0)
 		score_data["perfect_sessions"] += tp.get("perfect_sessions", 0)
 
-	# Aciertos por nivel acumulados (sin la práctica). Antes se perdían en cada
+	# Aciertos por nivel acumulados. Antes se perdían en cada
 	# inicio de sesión y las Estrellas solo contaban los de una misma partida.
 	var aciertos = progress_data.get("correct_by_level", {})
 	if not aciertos is Dictionary:
@@ -1007,21 +966,18 @@ func _prepare_level_questions() -> void:
 		func(q): return str(q.get("comprehension_level", "")) == level
 	)
 
-	# La práctica baraja al azar. La progresión pone primero las ya respondidas
-	# de este nivel y luego un orden fijo por alumno y lectura: al reanudar
-	# salen las mismas preguntas (también en lecturas guardadas antes de esto).
-	if is_practice:
-		filtered.shuffle()
-	else:
-		var respondidas := []
-		for r in results:
-			if r.get("level") != level:
-				continue
-			for q in filtered:
-				if q.get("id") == r.get("question_id") and not q in respondidas:
-					respondidas.append(q)
-		var resto := filtered.filter(func(q): return not q in respondidas)
-		filtered = respondidas + orden_preguntas(resto, semilla_preguntas(level))
+	# Primero las ya respondidas de este nivel y luego un orden fijo por alumno
+	# y lectura: al reanudar salen las mismas preguntas (también en lecturas
+	# guardadas antes de esto).
+	var respondidas := []
+	for r in results:
+		if r.get("level") != level:
+			continue
+		for q in filtered:
+			if q.get("id") == r.get("question_id") and not q in respondidas:
+				respondidas.append(q)
+	var resto := filtered.filter(func(q): return not q in respondidas)
+	filtered = respondidas + orden_preguntas(resto, semilla_preguntas(level))
 	level_questions = filtered.slice(0, mini(QUESTIONS_PER_LEVEL, filtered.size()))
 	current_question_index = 0
 

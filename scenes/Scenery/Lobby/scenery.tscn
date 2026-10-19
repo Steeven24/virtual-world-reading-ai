@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dhrjrifb4ob25" path="res://assets/Scenery/Section sign/narrativo.png" id="3_rm6ok"]
 [ext_resource type="Texture2D" uid="uid://urwfq4tbn8xj" path="res://assets/Scenery/Section sign/expositivo.png" id="5_cb0b8"]
 [ext_resource type="Texture2D" uid="uid://bnyxij0snu3u6" path="res://assets/Scenery/Section sign/argumentativo.png" id="6_1u6js"]
-[ext_resource type="Texture2D" uid="uid://bg8ttsoh0gn6r" path="res://assets/Scenery/Section sign/Practicar.png" id="7_y0yj0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngs1x"]
 size = Vector2(73.88893, 53.333317)
@@ -217,8 +216,3 @@ shape = SubResource("RectangleShape2D_uvta1")
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Room walls" unique_id=1490655131]
 position = Vector2(1710, 607)
 shape = SubResource("RectangleShape2D_5x86x")
-
-[node name="Practicar" type="Sprite2D" parent="." unique_id=1225853879]
-position = Vector2(2370, 367)
-scale = Vector2(0.5196074, 0.43137246)
-texture = ExtResource("7_y0yj0")

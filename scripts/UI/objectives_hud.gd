@@ -383,24 +383,25 @@ func destino_actual() -> Node2D:
 	return null
 
 
-## La estación de la lectura a medias o de la primera tipología sin aprobar;
-## con todo aprobado, la de práctica. Con el juego terminado, ninguna.
+## La estación de la lectura a medias o de la primera tipología sin aprobar.
+## Con todo aprobado o con el juego terminado, ninguna.
 func _destino_lobby(escena: Node) -> Node2D:
 	if ProgressionManager.juego_terminado():
 		return null
 	var tipologia := _tipologia_pendiente()
 	if tipologia.is_empty():
 		if ProgressionManager.all_approved():
-			return _estacion(escena, func(n): return n.get("is_practice_station") == true)
+			return null
 		tipologia = ProgressionManager.get_next_unapproved()
-	return _estacion(escena, func(n): return n.get("typology") == tipologia and n.get("is_practice_station") != true)
+	return _estacion(escena, func(n): return n.get("typology") == tipologia)
 
 
-## Primera estación del lobby (los nodos con is_practice_station) que cumple
-## la condición, o null.
+## Primera estación del lobby que cumple la condición, o null. Las estaciones
+## son los nodos con el script de pressE_teleport_dialogue, que es el que tiene
+## is_tutorial_trigger.
 func _estacion(escena: Node, condicion: Callable) -> Node2D:
 	for nodo in escena.find_children("*", "Node2D", true, false):
-		if nodo.get("is_practice_station") != null and condicion.call(nodo):
+		if nodo.get("is_tutorial_trigger") != null and condicion.call(nodo):
 			return nodo
 	return null
 
@@ -420,20 +421,19 @@ func _objetivos_lobby() -> Dictionary:
 		"hecho": GameSession.is_tutorial_completed(),
 	})
 
-	# Sin intentos en una tipología el recorrido se acabó: solo queda practicar.
+	# Sin intentos en una tipología el recorrido se acabó.
 	if ProgressionManager.juego_terminado():
 		pasos.append({"texto": "Juego terminado: ya no puedes avanzar", "hecho": false})
-		return {"pasos": pasos, "pie": "Puedes seguir practicando en la zona de práctica"}
+		return {"pasos": pasos, "pie": "Puedes ver tus logros y el ranking en la barra de arriba"}
 
 	# Una lectura a medias manda sobre todo lo demás: no se puede empezar otra
 	# hasta terminarla, así que es lo primero que hay que contar.
 	var pendiente := _tipologia_pendiente()
 
-	# Las tipologías aprobadas se cierran: el objetivo señala la siguiente y,
-	# con el recorrido completo, solo queda practicar.
+	# Las tipologías aprobadas se cierran: el objetivo señala la siguiente.
 	var recorrido_completo := pendiente.is_empty() and ProgressionManager.all_approved()
 	if recorrido_completo:
-		pasos.append({"texto": "¡Completaste las 4 tipologías! Sigue practicando en la zona de práctica", "hecho": true})
+		pasos.append({"texto": "¡Completaste las 4 tipologías!", "hecho": true})
 	elif pendiente.is_empty():
 		var siguiente := ProgressionManager.get_next_unapproved()
 		pasos.append({
@@ -477,10 +477,7 @@ func _objetivos_lectura() -> Dictionary:
 
 	var pie := ""
 	if not GameSession.current_typology.is_empty():
-		if GameSession.is_practice:
-			pie = "Práctica · Texto %s · no cuenta para tu progreso" % GameSession.current_typology
-		else:
-			pie = "Texto %s  ·  3 desafíos por delante" % GameSession.current_typology
+		pie = "Texto %s  ·  3 desafíos por delante" % GameSession.current_typology
 	return {"pasos": pasos, "pie": pie}
 
 
@@ -503,9 +500,8 @@ func _objetivos_desafio() -> Dictionary:
 		var superado: String = str(NOMBRES_NIVEL.get(GameSession.LEVELS[i], GameSession.LEVELS[i]))
 		pasos.insert(1 + i, {"texto": "Nivel %s superado" % superado, "hecho": true})
 
-	var pie := "Nivel %d de %d  ·  %d pts en esta %s" % [
+	var pie := "Nivel %d de %d  ·  %d pts en esta sesión" % [
 		indice + 1, GameSession.LEVELS.size(), GameSession.get_session_score(),
-		"práctica" if GameSession.is_practice else "sesión",
 	]
 	return {"pasos": pasos, "pie": pie}
 

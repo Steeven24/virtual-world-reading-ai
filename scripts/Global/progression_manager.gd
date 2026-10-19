@@ -19,8 +19,7 @@ signal progression_changed
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
 ## Orden de dificultad de las tipologías (de más fácil a más difícil).
-## Instructivo ya no forma parte de la progresión: su escenario es ahora la
-## zona de práctica (GameSession.PRACTICE_SCENES).
+## Instructivo ya no forma parte de la progresión.
 ## Debe coincidir con DIFFICULTY_ORDER de la API (api/game_rules.py).
 const DIFFICULTY_ORDER: Array[String] = [
 	"Narrativo", "Descriptivo", "Argumentativo", "Expositivo"
@@ -47,8 +46,8 @@ const NOMBRE_ESCENARIO: Dictionary = {
 ## MAX_INTENTOS_POR_TIPOLOGIA en la API (api/game_rules.py).
 const MAX_INTENTOS: int = 5
 
-const MENSAJE_FINAL_ESTACION := "🏆 ¡Completaste todas las tipologías!\n\nPuedes seguir practicando en la zona de práctica."
-const MENSAJE_FINAL_RESULTADO := "🏆 ¡Completaste todas las tipologías! Puedes seguir practicando en la zona de práctica."
+const MENSAJE_FINAL_ESTACION := "🏆 ¡Completaste todas las tipologías!\n\nPuedes ver tus logros y el ranking en la barra de arriba."
+const MENSAJE_FINAL_RESULTADO := "🏆 ¡Completaste todas las tipologías! Puedes ver tus logros y el ranking en la barra de arriba."
 
 # ─── Exports (ajustables desde el Inspector) ────────────────────────────────
 
@@ -220,7 +219,7 @@ func texto_intento(typology: String) -> String:
 
 
 func mensaje_estacion_agotada(typology: String) -> String:
-	return "Se acabaron tus %d intentos en %s.\n\nEl juego terminó: ya no puedes avanzar a otras tipologías. Puedes seguir practicando en la zona de práctica y ver tus logros y el ranking." % [
+	return "Se acabaron tus %d intentos en %s.\n\nEl juego terminó: ya no puedes avanzar a otras tipologías. Puedes ver tus logros y el ranking en la barra de arriba." % [
 		MAX_INTENTOS, NOMBRE_ESCENARIO.get(typology, typology),
 	]
 
@@ -228,14 +227,14 @@ func mensaje_estacion_agotada(typology: String) -> String:
 ## Aviso de una estación bloqueada cuando ya no hay forma de desbloquearla.
 func mensaje_juego_terminado() -> String:
 	var agotada := tipologia_agotada()
-	return "🏁 El juego terminó: se acabaron tus intentos en %s, así que esta tipología ya no se puede desbloquear.\n\nPuedes seguir practicando en la zona de práctica." % NOMBRE_ESCENARIO.get(agotada, agotada)
+	return "🏁 El juego terminó: se acabaron tus intentos en %s, así que esta tipología ya no se puede desbloquear.\n\nPuedes ver tus logros y el ranking en la barra de arriba." % NOMBRE_ESCENARIO.get(agotada, agotada)
 
 
 ## Línea de la pantalla de resultados de una lectura que no aprobó.
 func mensaje_resultado_intentos(typology: String) -> String:
 	var escenario: String = NOMBRE_ESCENARIO.get(typology, typology)
 	if esta_agotada(typology):
-		return "Se acabaron tus %d intentos en %s. El juego terminó: ya no puedes avanzar, pero puedes seguir en la zona de práctica." % [MAX_INTENTOS, escenario]
+		return "Se acabaron tus %d intentos en %s. El juego terminó: ya no puedes avanzar." % [MAX_INTENTOS, escenario]
 	var quedan := intentos_restantes(typology)
 	if quedan == 1:
 		return "Te queda 1 intento en %s." % escenario

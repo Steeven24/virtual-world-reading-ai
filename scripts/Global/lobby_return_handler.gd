@@ -3,10 +3,8 @@ extends CanvasLayer
 @onready var confirm_dialog = %ConfirmDialog
 const LOBBY_SCENE = "res://scenes/Scenery/Lobby/lobby.tscn"
 
-## Textos del diálogo de vuelta al lobby. En la práctica no hay nada que
-## guardar: salir la descarta.
+## Texto del diálogo de vuelta al lobby.
 const TEXTO_PROGRESION := "¿Estás seguro de que deseas regresar al Lobby? Tu progreso no se perderá."
-const TEXTO_PRACTICA := "¿Volver al Lobby? Esta práctica se descartará: la práctica no se guarda a medias ni cuenta para tu progreso."
 
 func _ready():
 	confirm_dialog.hide()
@@ -20,7 +18,7 @@ func request_return():
 		return
 		
 	SceneManager.is_ui_open = true
-	confirm_dialog.dialog_text = TEXTO_PRACTICA if GameSession.is_practice else TEXTO_PROGRESION
+	confirm_dialog.dialog_text = TEXTO_PROGRESION
 
 	# Usar animación de aparición similar a otros diálogos
 	confirm_dialog.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
@@ -63,10 +61,7 @@ func _on_dialog_closed():
 func _on_dialog_confirmed():
 	_on_dialog_closed()
 
-	if GameSession.is_practice:
-		# La práctica no deja lectura pendiente: se descarta.
-		GameSession.end_practice()
-	elif GameSession.is_active:
+	if GameSession.is_active:
 		# Persistir lectura activa antes de regresar al lobby
 		ReadingProgressManager.save_active_reading()
 	SceneManager.transition_to(LOBBY_SCENE)

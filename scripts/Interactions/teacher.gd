@@ -124,10 +124,7 @@ func _build_dialog_text() -> String:
 	var header := "Desafío %s" % str(LEVEL_NAMES.get(level, level.to_upper()))
 	var typology: String = GameSession.current_typology
 	if not typology.is_empty():
-		if GameSession.is_practice:
-			header += " — práctica, texto %s" % typology
-		else:
-			header += " — texto %s" % typology
+		header += " — texto %s" % typology
 
 	return "%s\n\n%s\n\n¿Empezamos?" % [header, briefing]
 
