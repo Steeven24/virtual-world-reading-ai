@@ -55,6 +55,13 @@ func _ready():
 		# Conectar señal del teacher para cargar el desafío
 		if not teacher.request_challenge.is_connected(_on_teacher_request_challenge):
 			teacher.request_challenge.connect(_on_teacher_request_challenge)
+
+		# Lectura ya terminada (se reanudó tras cerrar el navegador después de
+		# «Hecho»): la sala pasa a la fase del profesor, como al pulsarlo. Sin
+		# esto el profesor seguía oculto y no había forma de seguir.
+		if (lectura_y_libro or book_interaction) and GameSession.is_active \
+				and GameSession.reading_end_time > 0.0:
+			_on_book_warning_accepted()
 	
 	# Conectar señal del libro
 	if lectura_y_libro:
