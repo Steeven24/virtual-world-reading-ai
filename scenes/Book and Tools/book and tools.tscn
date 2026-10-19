@@ -442,7 +442,7 @@ offset_top = -4.0
 offset_right = 935.0
 offset_bottom = 34.0
 theme_override_fonts/font = ExtResource("4_gntck")
-text = "✖"
+text = "✕"
 
 [node name="ConfirmDesafios" type="ConfirmationDialog" parent="." unique_id=501246328]
 unique_name_in_owner = true

@@ -631,7 +631,7 @@ func _anadir_distintivo_atajo(boton: TextureButton, tecla: String) -> void:
 
 ## Prepara el contorno dorado en los botones que tienen estado activo: las tres
 ## herramientas de marcado y las tres vistas del libro. Hecho, las flechas de
-## página y la ✖ de cerrar son acciones puntuales y no tienen nada que marcar.
+## página y la ✕ de cerrar son acciones puntuales y no tienen nada que marcar.
 func _configurar_contornos_seleccion() -> void:
 	for boton in [resaltar_button, subrayar_button, borrar_button,
 			boton_lectura, boton_notas, boton_compilatorio]:
@@ -686,7 +686,7 @@ func _marcar_seleccion(boton: BaseButton, activo: bool) -> void:
 
 
 ## Le da al botón de cerrar el mismo lenguaje visual (rojo, redondeado, con
-## borde y hover) que la ✖ de los paneles de logros y marcador.
+## borde y hover) que la ✕ de los paneles de logros y marcador.
 func _estilizar_boton_cerrar() -> void:
 	if boton_cerrar == null:
 		return

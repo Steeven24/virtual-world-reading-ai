@@ -140,7 +140,7 @@ func _create_ui():
 	header.add_child(title)
 
 	btn_cerrar = Button.new()
-	btn_cerrar.text = "✖"
+	btn_cerrar.text = "✕"
 	btn_cerrar.tooltip_text = "Cerrar chat"
 	btn_cerrar.add_theme_color_override("font_color", COLOR_RED)
 	btn_cerrar.add_theme_color_override("font_hover_color", Color(1.0, 0.7, 0.7, 1.0))

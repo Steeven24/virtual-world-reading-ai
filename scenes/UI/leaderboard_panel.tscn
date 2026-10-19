@@ -44,7 +44,7 @@ text = "🏆 Tabla de clasificación"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-text = "✖"
+text = "✕"
 
 [node name="TabContainer" type="HBoxContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=811872053]
 layout_mode = 2
