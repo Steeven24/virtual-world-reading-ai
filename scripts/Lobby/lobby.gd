@@ -14,6 +14,11 @@ const AUTO_OPEN_DELAY: float = 0.4
 var _tutorial_instance: CanvasLayer = null
 
 
+## Al volver de un escenario, el jugador aparece donde entró (SceneManager).
+func _enter_tree() -> void:
+	SceneManager.aplicar_posicion_lobby(get_node_or_null("Player"))
+
+
 func _ready() -> void:
 	# 1) Conectar el punto "Tutorial" del lobby como trigger del overlay.
 	var tutorial_node := get_node_or_null("Tutorial")
