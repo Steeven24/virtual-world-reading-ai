@@ -135,6 +135,10 @@ var _used_notes: bool = false
 ## True cuando ya hay contenido paginado: antes de eso no hay marcas que guardar.
 var _contenido_listo: bool = false
 
+## Guarda resaltados, subrayados y notas al poco de cambiarlos (no en cada
+## letra): si el navegador se cierra con el libro abierto, no se pierden.
+var _temporizador_marcas: Timer
+
 ## Tamaño de letra de la hoja en la escena, antes de adaptarlo a la fuente.
 var _tam_hoja_base: int = 16
 
@@ -156,6 +160,13 @@ func _ready() -> void:
 	_configurar_botones_herramientas()
 	_configurar_contornos_seleccion()
 	_estilizar_boton_cerrar()
+
+	_temporizador_marcas = Timer.new()
+	_temporizador_marcas.one_shot = true
+	_temporizador_marcas.wait_time = 1.0
+	_temporizador_marcas.timeout.connect(_guardar_cambios_del_libro)
+	add_child(_temporizador_marcas)
+	text_notas.text_changed.connect(_programar_guardado_marcas)
 
 	# Determinar modo de carga
 	# Si no tiene typology_filter propio, usar el de GameSession (configurado desde el Lobby)
@@ -249,7 +260,12 @@ func _preload_from_api() -> void:
 			GameSession.current_reading = {}
 	_is_loading = true
 	_set_loading_state()
-	ReadingAPI.get_random_reading_full(typology_filter, GameSession.is_practice)
+	# La progresión pide la lectura siguiente (sin repetir y nunca sin
+	# intentos); la práctica sigue al azar entre las suyas.
+	if GameSession.is_practice:
+		ReadingAPI.get_random_reading_full(typology_filter, true)
+	else:
+		ReadingAPI.get_next_reading_full(typology_filter)
 
 
 ## Muestra un estado visual de carga en el libro.
@@ -276,6 +292,9 @@ func _on_api_reading_received(data: Dictionary) -> void:
 	# Solo iniciar nueva sesión si NO hay una activa con esta misma lectura
 	if not GameSession.is_active or GameSession.current_reading.get("id", -1) != _current_reading_id:
 		GameSession.start_session_with_data(data)
+		# Lectura asignada: se guarda ya, para que cerrar el navegador antes
+		# de terminarla no dé otra lectura distinta.
+		GameSession.guardar_progreso()
 	# Solo reconfigurar escenas si los exports tienen valor (flujo Baños legacy).
 	# Para el flujo genérico, las rutas ya fueron configuradas desde el Lobby.
 	if not level2_scene_path.is_empty():
@@ -291,7 +310,10 @@ func _on_api_request_failed(endpoint: String, error: String) -> void:
 	if not _is_loading:
 		return
 	_is_loading = false
-	_show_error_state("No se pudo cargar la lectura.\n%s" % error)
+	if error.contains("403"):
+		_show_error_state("No te quedan intentos en esta tipología.")
+	else:
+		_show_error_state("No se pudo cargar la lectura.\n%s" % error)
 	push_error("[BookAndTools] Fallo en %s: %s" % [endpoint, error])
 
 
@@ -761,6 +783,7 @@ func _aplicar_formato() -> void:
 	rtl.deselect()
 	_reportar_herramientas()
 	_refrescar_texto_actual()
+	_programar_guardado_marcas()
 
 # ─── Paginación y renderizado ────────────────────────────────────────────────────
 
@@ -1004,6 +1027,18 @@ func _generar_compilatorio() -> void:
 	rtl_compilatorio.text = texto
 
 # ─── Persistencia de marcas y notas ─────────────────────────────────────────────
+
+## Reinicia la cuenta atrás del guardado: se guarda un segundo después del
+## último cambio.
+func _programar_guardado_marcas() -> void:
+	if _temporizador_marcas:
+		_temporizador_marcas.start()
+
+
+func _guardar_cambios_del_libro() -> void:
+	_guardar_nota()
+	_guardar_marcas()
+
 
 ## Clave con la que se guardan las marcas de esta lectura. Lleva el id del
 ## jugador para que dos cuentas del mismo equipo no se pisen entre sí.

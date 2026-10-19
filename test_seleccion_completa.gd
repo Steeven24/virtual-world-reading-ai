@@ -76,7 +76,9 @@ func _doble_clic(libro, rtl: RichTextLabel, palabra: String) -> void:
 			ev.button_mask = MOUSE_BUTTON_MASK_LEFT if pulsado else 0
 			ev.position = pos
 			ev.global_position = pos
-			get_viewport().push_input(ev)
+			# En coordenadas del viewport: con el estirado canvas_items, las de la
+			# ventana (64x64 en headless) ya no coinciden con las de la interfaz.
+			get_viewport().push_input(ev, true)
 			await get_tree().process_frame
 
 
