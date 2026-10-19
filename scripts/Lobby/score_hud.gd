@@ -107,12 +107,14 @@ var _etiqueta_volumen_musica: Label
 var _interruptor_efectos: CheckButton
 var _volumen_efectos: HSlider
 var _etiqueta_volumen_efectos: Label
+var _interruptor_pantalla: CheckButton
 
 ## Lo que se ve de cada sección del menú, sin su lista. Con una lista abierta,
 ## el menú solo enseña la sección de esa lista (ver _mostrar_lista).
 var _seccion_fuente: Array[Control] = []
 var _seccion_musica: Array[Control] = []
 var _seccion_efectos: Array[Control] = []
+var _seccion_pantalla: Array[Control] = []
 
 ## Mientras se copian los valores de Ajustes a los controles, sus señales no
 ## deben volver a escribir en Ajustes.
@@ -163,6 +165,12 @@ func _construir_ajustes() -> void:
 	_volumen_efectos.value_changed.connect(_on_volumen.bind("efectos_volumen", _etiqueta_volumen_efectos))
 	_seccion_efectos.append(fila_efectos)
 
+	# Pantalla completa: preferencia del equipo (Pantalla), no de la cuenta.
+	_seccion_pantalla.append(HSeparator.new())
+	_interruptor_pantalla = _interruptor_ajuste("InterruptorPantalla", "🖥️ Pantalla completa")
+	_interruptor_pantalla.toggled.connect(_on_pantalla_completa)
+	_seccion_pantalla.append(_interruptor_pantalla)
+
 	# Todo antes del separador de «Cerrar sesión»; cada lista, bajo su selector.
 	var nodos: Array[Control] = []
 	nodos.append_array(_seccion_fuente)
@@ -170,6 +178,7 @@ func _construir_ajustes() -> void:
 	nodos.append_array(_seccion_musica)
 	nodos.insert(nodos.find(_selector_pista) + 1, _lista_pistas)
 	nodos.append_array(_seccion_efectos)
+	nodos.append_array(_seccion_pantalla)
 	var caja := menu_panel.get_node("VBoxContainer")
 	var antes := caja.get_node("HSeparator2")
 	for nodo in nodos:
@@ -208,6 +217,9 @@ func _refrescar_ajustes() -> void:
 	_volumen_efectos.editable = efectos_activos
 	_volumen_efectos.value = int(Ajustes.obtener("efectos_volumen"))
 	_etiqueta_volumen_efectos.text = "%d %%" % int(Ajustes.obtener("efectos_volumen"))
+
+	# El modo real, no la preferencia: el alumno pudo salir con el navegador.
+	_interruptor_pantalla.button_pressed = Pantalla.es_completa()
 	_refrescando = false
 
 
@@ -232,6 +244,8 @@ func _mostrar_lista(lista: Control) -> void:
 		nodo.visible = lista == null or lista == _lista_pistas
 	for nodo in _seccion_efectos:
 		nodo.visible = lista == null
+	for nodo in _seccion_pantalla:
+		nodo.visible = lista == null
 
 
 func _elegir_fuente(id: String) -> void:
@@ -253,6 +267,12 @@ func _on_interruptor(activado: bool, clave: String) -> void:
 	if clave == "musica_activa":
 		_mostrar_lista(null)
 	_refrescar_ajustes()
+
+
+func _on_pantalla_completa(activada: bool) -> void:
+	if _refrescando:
+		return
+	Pantalla.fijar_preferencia(activada)
 
 
 func _on_volumen(valor: float, clave: String, etiqueta: Label) -> void:
