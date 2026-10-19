@@ -54,6 +54,15 @@ const RETURN_MESSAGES: Array[String] = [
 
 var _is_returning_player: bool = false
 
+## Panel «Crear cuenta» y su enlace, creados por código bajo el login.
+var _registro: PanelRegistro = null
+var _crear_cuenta_button: Button = null
+
+## Credenciales recién registradas, para entrar con ellas en cuanto la API
+## confirme la cuenta.
+var _correo_registro: String = ""
+var _clave_registro: String = ""
+
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
 func _ready() -> void:
@@ -73,7 +82,11 @@ func _ready() -> void:
 	AuthManager.login_failed.connect(_on_login_failed)
 	AuthManager.progress_loaded.connect(_on_progress_loaded)
 	AuthManager.progress_load_failed.connect(_on_progress_load_failed)
+	AuthManager.register_success.connect(_on_register_success)
+	AuthManager.register_failed.connect(_on_register_failed)
 	
+	_construir_registro()
+
 	# Estilizar UI
 	_apply_styles()
 	
@@ -100,6 +113,10 @@ func _exit_tree() -> void:
 		AuthManager.progress_loaded.disconnect(_on_progress_loaded)
 	if AuthManager.progress_load_failed.is_connected(_on_progress_load_failed):
 		AuthManager.progress_load_failed.disconnect(_on_progress_load_failed)
+	if AuthManager.register_success.is_connected(_on_register_success):
+		AuthManager.register_success.disconnect(_on_register_success)
+	if AuthManager.register_failed.is_connected(_on_register_failed):
+		AuthManager.register_failed.disconnect(_on_register_failed)
 
 
 # ─── Flujos de UI ────────────────────────────────────────────────────────────
@@ -122,6 +139,8 @@ func _show_new_player_flow() -> void:
 	_is_returning_player = false
 	login_panel.visible = true
 	return_panel.visible = false
+	if _registro:
+		_registro.visible = false
 	
 	var msg_idx: int = randi() % WELCOME_MESSAGES.size()
 	welcome_label.text = WELCOME_MESSAGES[msg_idx]
@@ -180,6 +199,10 @@ func _on_login_success(user_data: Dictionary) -> void:
 
 func _on_login_failed(error: String) -> void:
 	_hide_loading()
+	if _registro and _registro.visible:
+		_registro.set_cargando(false)
+		_registro.mostrar_error(error)
+		return
 	_show_error(error)
 
 
@@ -251,42 +274,59 @@ func _apply_styles() -> void:
 		return
 	if SceneManager:
 		SceneManager.ensure_fallbacks(font)
-	
+
 	# Aplicar fuente a todos los Labels del LoginScreen
 	for child in find_children("*", "Label", true, false):
 		if child is Label:
 			child.add_theme_font_override("font", font)
-	
-	# Estilizar campos de entrada
+
 	for input in [email_input, password_input]:
-		var style := StyleBoxFlat.new()
-		style.bg_color = Color(0.12, 0.13, 0.18, 0.9)
-		style.corner_radius_top_left = 8
-		style.corner_radius_top_right = 8
-		style.corner_radius_bottom_left = 8
-		style.corner_radius_bottom_right = 8
-		style.border_width_left = 2
-		style.border_width_top = 2
-		style.border_width_right = 2
-		style.border_width_bottom = 2
-		style.border_color = Color(0.25, 0.27, 0.35, 0.6)
-		style.content_margin_left = 12
-		style.content_margin_right = 12
-		style.content_margin_top = 4
-		style.content_margin_bottom = 4
-		input.add_theme_stylebox_override("normal", style)
-		
-		var focus_style := style.duplicate()
-		focus_style.border_color = Color(0.39, 0.4, 0.95, 0.8)
-		input.add_theme_stylebox_override("focus", focus_style)
-		
-		input.add_theme_color_override("font_color", Color(0.9, 0.9, 0.95))
-		input.add_theme_color_override("font_placeholder_color", Color(0.4, 0.42, 0.5))
+		_estilo_campo(input)
+	_estilo_boton_ojo(toggle_password_button)
+	_estilo_boton_principal(login_button)
+	if return_continue_button:
+		_estilo_boton_principal(return_continue_button)
+	if return_switch_button:
+		_estilo_boton_secundario(return_switch_button)
+	_estilo_boton_secundario(_crear_cuenta_button)
+
+	# El registro usa las mismas piezas que el login.
+	for campo in _registro.campos():
+		_estilo_campo(campo)
+	_estilo_boton_ojo(_registro.ojo_button)
+	_estilo_boton_principal(_registro.crear_button)
+	_estilo_boton_secundario(_registro.volver_button)
+	_registro.add_theme_stylebox_override("panel", login_panel.get_theme_stylebox("panel"))
+
+
+## Campo de texto: fondo oscuro, borde que se ilumina con el foco.
+func _estilo_campo(input: LineEdit) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.12, 0.13, 0.18, 0.9)
+	style.set_corner_radius_all(8)
+	style.set_border_width_all(2)
+	style.border_color = Color(0.25, 0.27, 0.35, 0.6)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+	input.add_theme_stylebox_override("normal", style)
+
+	var focus_style := style.duplicate()
+	focus_style.border_color = Color(0.39, 0.4, 0.95, 0.8)
+	input.add_theme_stylebox_override("focus", focus_style)
+
+	input.add_theme_color_override("font_color", Color(0.9, 0.9, 0.95))
+	input.add_theme_color_override("font_placeholder_color", Color(0.4, 0.42, 0.5))
+	var font = load(FONT_PATH)
+	if font:
 		input.add_theme_font_override("font", font)
-		input.add_theme_font_size_override("font_size", 16)
-	
-	# Estilizar el botón del ojo igual que los campos, para que se lea como
-	# parte del mismo control y no como un botón suelto.
+	input.add_theme_font_size_override("font_size", 16)
+
+
+## Botón del ojo: igual que los campos, para que se lea como parte del mismo
+## control y no como un botón suelto.
+func _estilo_boton_ojo(boton: Button) -> void:
 	var eye_normal := StyleBoxFlat.new()
 	eye_normal.bg_color = Color(0.12, 0.13, 0.18, 0.9)
 	eye_normal.set_corner_radius_all(8)
@@ -294,67 +334,59 @@ func _apply_styles() -> void:
 	eye_normal.border_color = Color(0.25, 0.27, 0.35, 0.6)
 	var eye_hover := eye_normal.duplicate()
 	eye_hover.border_color = Color(0.39, 0.4, 0.95, 0.8)
-	toggle_password_button.add_theme_stylebox_override("normal", eye_normal)
-	toggle_password_button.add_theme_stylebox_override("hover", eye_hover)
-	toggle_password_button.add_theme_stylebox_override("pressed", eye_hover)
-	toggle_password_button.add_theme_color_override("font_color", Color(0.75, 0.77, 0.85))
-	toggle_password_button.add_theme_color_override("font_hover_color", Color.WHITE)
-	toggle_password_button.add_theme_color_override("font_pressed_color", Color.WHITE)
-	toggle_password_button.add_theme_font_override("font", font)
-	toggle_password_button.add_theme_font_size_override("font_size", 18)
+	boton.add_theme_stylebox_override("normal", eye_normal)
+	boton.add_theme_stylebox_override("hover", eye_hover)
+	boton.add_theme_stylebox_override("pressed", eye_hover)
+	boton.add_theme_color_override("font_color", Color(0.75, 0.77, 0.85))
+	boton.add_theme_color_override("font_hover_color", Color.WHITE)
+	boton.add_theme_color_override("font_pressed_color", Color.WHITE)
+	var font = load(FONT_PATH)
+	if font:
+		boton.add_theme_font_override("font", font)
+	boton.add_theme_font_size_override("font_size", 18)
 
-	# Estilizar botón de login
+
+## Botón principal (entrar, continuar, crear cuenta).
+func _estilo_boton_principal(boton: Button) -> void:
 	var btn_normal := StyleBoxFlat.new()
 	btn_normal.bg_color = Color(0.39, 0.4, 0.95, 1.0)
-	btn_normal.corner_radius_top_left = 10
-	btn_normal.corner_radius_top_right = 10
-	btn_normal.corner_radius_bottom_left = 10
-	btn_normal.corner_radius_bottom_right = 10
-	login_button.add_theme_stylebox_override("normal", btn_normal)
-	
+	btn_normal.set_corner_radius_all(10)
+	boton.add_theme_stylebox_override("normal", btn_normal)
+
 	var btn_hover := btn_normal.duplicate()
 	btn_hover.bg_color = Color(0.45, 0.46, 1.0, 1.0)
-	login_button.add_theme_stylebox_override("hover", btn_hover)
-	
+	boton.add_theme_stylebox_override("hover", btn_hover)
+
 	var btn_pressed := btn_normal.duplicate()
 	btn_pressed.bg_color = Color(0.30, 0.31, 0.80, 1.0)
-	login_button.add_theme_stylebox_override("pressed", btn_pressed)
-	
-	login_button.add_theme_color_override("font_color", Color.WHITE)
-	login_button.add_theme_color_override("font_hover_color", Color.WHITE)
-	login_button.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 1.0))
-	login_button.add_theme_font_override("font", font)
-	login_button.add_theme_font_size_override("font_size", 18)
-	
-	# Estilizar botones del panel de retorno
-	if return_continue_button:
-		return_continue_button.add_theme_stylebox_override("normal", btn_normal.duplicate())
-		return_continue_button.add_theme_stylebox_override("hover", btn_hover.duplicate())
-		return_continue_button.add_theme_stylebox_override("pressed", btn_pressed.duplicate())
-		return_continue_button.add_theme_color_override("font_color", Color.WHITE)
-		return_continue_button.add_theme_font_override("font", font)
-		return_continue_button.add_theme_font_size_override("font_size", 18)
-	
-	if return_switch_button:
-		var ghost_style := StyleBoxFlat.new()
-		ghost_style.bg_color = Color(0.15, 0.16, 0.22, 0.5)
-		ghost_style.corner_radius_top_left = 8
-		ghost_style.corner_radius_top_right = 8
-		ghost_style.corner_radius_bottom_left = 8
-		ghost_style.corner_radius_bottom_right = 8
-		ghost_style.border_width_left = 1
-		ghost_style.border_width_top = 1
-		ghost_style.border_width_right = 1
-		ghost_style.border_width_bottom = 1
-		ghost_style.border_color = Color(0.3, 0.32, 0.4, 0.5)
-		return_switch_button.add_theme_stylebox_override("normal", ghost_style)
-		var ghost_hover := ghost_style.duplicate()
-		ghost_hover.bg_color = Color(0.2, 0.21, 0.28, 0.7)
-		return_switch_button.add_theme_stylebox_override("hover", ghost_hover)
-		return_switch_button.add_theme_color_override("font_color", Color(0.6, 0.62, 0.7))
-		return_switch_button.add_theme_color_override("font_hover_color", Color(0.8, 0.82, 0.9))
-		return_switch_button.add_theme_font_override("font", font)
-		return_switch_button.add_theme_font_size_override("font_size", 14)
+	boton.add_theme_stylebox_override("pressed", btn_pressed)
+
+	boton.add_theme_color_override("font_color", Color.WHITE)
+	boton.add_theme_color_override("font_hover_color", Color.WHITE)
+	boton.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 1.0))
+	var font = load(FONT_PATH)
+	if font:
+		boton.add_theme_font_override("font", font)
+	boton.add_theme_font_size_override("font_size", 18)
+
+
+## Botón secundario y discreto (cambiar de cuenta, crear cuenta, volver).
+func _estilo_boton_secundario(boton: Button) -> void:
+	var ghost_style := StyleBoxFlat.new()
+	ghost_style.bg_color = Color(0.15, 0.16, 0.22, 0.5)
+	ghost_style.set_corner_radius_all(8)
+	ghost_style.set_border_width_all(1)
+	ghost_style.border_color = Color(0.3, 0.32, 0.4, 0.5)
+	boton.add_theme_stylebox_override("normal", ghost_style)
+	var ghost_hover := ghost_style.duplicate()
+	ghost_hover.bg_color = Color(0.2, 0.21, 0.28, 0.7)
+	boton.add_theme_stylebox_override("hover", ghost_hover)
+	boton.add_theme_color_override("font_color", Color(0.6, 0.62, 0.7))
+	boton.add_theme_color_override("font_hover_color", Color(0.8, 0.82, 0.9))
+	var font = load(FONT_PATH)
+	if font:
+		boton.add_theme_font_override("font", font)
+	boton.add_theme_font_size_override("font_size", 14)
 
 
 func _animate_entry() -> void:
@@ -363,6 +395,75 @@ func _animate_entry() -> void:
 	panel.modulate.a = 0.0
 	var tween := create_tween()
 	tween.tween_property(panel, "modulate:a", 1.0, 0.6).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+
+
+# ─── Crear cuenta ────────────────────────────────────────────────────────────
+
+## Enlace «Crear cuenta» bajo el botón de entrar y el panel de registro, al
+## lado del de login. Se crean aquí y no en la escena para que el panel viva
+## en un solo script (panel_registro.gd).
+func _construir_registro() -> void:
+	_crear_cuenta_button = Button.new()
+	_crear_cuenta_button.name = "CrearCuentaButton"
+	_crear_cuenta_button.text = "¿No tienes cuenta? Crear cuenta"
+	_crear_cuenta_button.pressed.connect(_on_crear_cuenta_pressed)
+	var caja := login_button.get_parent()
+	caja.add_child(_crear_cuenta_button)
+	caja.move_child(_crear_cuenta_button, login_button.get_index() + 1)
+
+	_registro = PanelRegistro.new()
+	login_panel.get_parent().add_child(_registro)
+	login_panel.get_parent().move_child(_registro, login_panel.get_index() + 1)
+	_registro.registro_pedido.connect(_on_registro_pedido)
+	_registro.volver_pedido.connect(_on_volver_al_login)
+
+
+func _on_crear_cuenta_pressed() -> void:
+	error_label.text = ""
+	_registro.vaciar()
+	login_panel.visible = false
+	_registro.visible = true
+	welcome_label.text = "¡Únete al mundo de lectura!"
+	subtitle_label.text = "Crea tu cuenta para empezar"
+	_registro.nombre_input.grab_focus()
+
+
+func _on_volver_al_login() -> void:
+	_registro.visible = false
+	login_panel.visible = true
+	_show_new_player_flow()
+
+
+func _on_registro_pedido(nombre: String, correo: String, clave: String) -> void:
+	_correo_registro = correo
+	_clave_registro = clave
+	_registro.set_cargando(true)
+	AuthManager.register(correo, clave, nombre)
+
+
+## La cuenta existe: se entra con ella y sigue el flujo de un jugador nuevo
+## (elegir personaje y lobby con tutorial).
+func _on_register_success(_datos: Dictionary) -> void:
+	AuthManager.login(_correo_registro, _clave_registro)
+	_clave_registro = ""
+
+
+func _on_register_failed(error: String) -> void:
+	_registro.set_cargando(false)
+	_registro.mostrar_error(mensaje_error_registro(error))
+
+
+## Texto para el alumno a partir del error que devuelve AuthManager (el
+## "detail" de la API o un error de red).
+static func mensaje_error_registro(detalle: String) -> String:
+	if detalle.contains("Ya existe"):
+		return "Ya existe una cuenta con ese correo."
+	if detalle.begins_with("["):
+		# 422: la API devuelve la lista de errores de validación del correo.
+		return "Revisa el correo: no parece válido."
+	if detalle == "Error de red" or detalle.begins_with("HTTP "):
+		return "No se pudo conectar con el servidor. Inténtalo de nuevo."
+	return detalle
 
 
 # ─── Utilidades de UI ────────────────────────────────────────────────────────
