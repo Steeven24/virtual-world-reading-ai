@@ -140,6 +140,12 @@ var session_start_time: float = 0.0
 var reading_start_time: float = 0.0
 var reading_end_time: float = 0.0
 
+## Segundos de lectura y de sesión acumulados antes de la última reanudación.
+## Los tics del motor vuelven a cero al recargar la página: el tiempo de una
+## lectura retomada es lo guardado más lo jugado desde que se retomó.
+var _segundos_lectura_previos: float = 0.0
+var _segundos_total_previos: float = 0.0
+
 ## Lectura completa con preguntas (respuesta de /readings/{id}/full).
 var current_reading: Dictionary = {}
 
@@ -301,6 +307,8 @@ func reset_for_new_reading(typology: String, practice: bool) -> void:
 	_current_session_score = 0
 	_level_errors = 0
 	reading_end_time = 0.0
+	_segundos_lectura_previos = 0.0
+	_segundos_total_previos = 0.0
 	tools_used = {"highlight": false, "underline": false, "notes": false}
 	resultado_progresion = {}
 
@@ -336,15 +344,28 @@ func start_session(typology: String) -> void:
 	session_start_time = Time.get_ticks_msec() / 1000.0
 	reading_start_time = session_start_time
 	reading_end_time = 0.0
-	
+	_segundos_lectura_previos = 0.0
+	_segundos_total_previos = 0.0
+
 	_connect_api()
-	ReadingAPI.get_random_reading_full(typology, is_practice)
+	_pedir_lectura(typology)
 
 
-## Registra el fin del tiempo de lectura.
+## Registra el fin del tiempo de lectura y lo guarda con las herramientas
+## usadas (bookAndTools las fija justo antes).
 func end_reading() -> void:
 	reading_end_time = Time.get_ticks_msec() / 1000.0
-	print("[GameSession] Fin de lectura registrado. Tiempo de lectura: %d segundos" % int(reading_end_time - reading_start_time))
+	print("[GameSession] Fin de lectura registrado. Tiempo de lectura: %d segundos" % segundos_lectura())
+	guardar_progreso()
+
+
+## La progresión pide a la API la lectura siguiente (sin repetir y nunca sin
+## intentos); la práctica sigue al azar entre las suyas.
+func _pedir_lectura(typology: String) -> void:
+	if is_practice:
+		ReadingAPI.get_random_reading_full(typology, true)
+	else:
+		ReadingAPI.get_next_reading_full(typology)
 
 
 ## Configura las rutas de escenas para los niveles intermedios y el lobby.
@@ -368,7 +389,9 @@ func start_session_with_data(data: Dictionary) -> void:
 	session_start_time = Time.get_ticks_msec() / 1000.0
 	reading_start_time = session_start_time
 	reading_end_time = 0.0
-	
+	_segundos_lectura_previos = 0.0
+	_segundos_total_previos = 0.0
+
 	_prepare_level_questions()
 	session_ready.emit()
 
@@ -404,6 +427,19 @@ func submit_answer(letter: String) -> Dictionary:
 	var justification: String = str(question.get("justification", ""))
 	var current_level := get_current_level()
 
+	# Una pregunta ya respondida (por ejemplo, al reanudar) no se puntúa dos
+	# veces: se devuelve lo que se respondió entonces.
+	var qid = question.get("id", 0)
+	for previo in results:
+		if qid and previo.get("question_id") == qid:
+			return {
+				"correct": bool(previo.get("correct", false)),
+				"justification": justification,
+				"correct_answer": correct_letter,
+				"points_earned": 0,
+				"penalty": 0,
+			}
+
 	# Registrar resultado
 	results.append({
 		"level": current_level,
@@ -429,6 +465,10 @@ func submit_answer(letter: String) -> Dictionary:
 			score_data["incorrect_by_level"][current_level] += 1
 
 	score_changed.emit(_current_session_score)
+
+	# Antes de enseñar la corrección: si se cierra el navegador viendo la
+	# respuesta correcta, al volver la pregunta ya cuenta como respondida.
+	guardar_progreso()
 
 	return {
 		"correct": is_correct,
@@ -492,9 +532,11 @@ func retry_with_new_reading() -> void:
 	session_start_time = Time.get_ticks_msec() / 1000.0
 	reading_start_time = session_start_time
 	reading_end_time = 0.0
-	
+	_segundos_lectura_previos = 0.0
+	_segundos_total_previos = 0.0
+
 	_connect_api()
-	ReadingAPI.get_random_reading_full(typology, is_practice)
+	_pedir_lectura(typology)
 
 
 ## Retorna el puntaje obtenido solo en la sesión actual.
@@ -556,48 +598,150 @@ func serialize_state() -> Dictionary:
 		"results": results.duplicate(true),
 		"tools_used": tools_used.duplicate(),
 		"reading_start_time": reading_start_time,
+		"reading_seconds": segundos_lectura(),
+		"total_seconds": segundos_total(),
 	}
 
 
 ## Restaura el estado de la sesión desde datos persistidos.
-## Usado por ReadingProgressManager al regresar a un escenario con lectura pendiente.
-## No re-solicita la lectura: asume que current_reading ya fue cargado.
+## Usado al regresar a un escenario con lectura pendiente, también tras cerrar
+## el navegador. No re-solicita la lectura: asume que current_reading ya fue
+## cargado. La posición y el puntaje se deducen de las respuestas guardadas
+## (estado_desde_respuestas), no de los campos guardados, que pueden ir un
+## paso por detrás si se cerró el juego viendo una corrección.
 func restore_state(data: Dictionary) -> void:
-	current_level_index = int(data.get("current_level_index", 0))
-	current_question_index = int(data.get("current_question_index", 0))
-	_current_session_score = int(data.get("session_score", 0))
-	_level_errors = 0
-
-	# Restaurar resultados
-	var saved_results = data.get("results", [])
 	results.clear()
+	var vistas := {}
+	var saved_results = data.get("results", [])
 	if saved_results is Array:
 		for r in saved_results:
+			if not r is Dictionary:
+				continue
+			var qid = r.get("question_id", 0)
+			if qid and vistas.has(qid):
+				continue
+			vistas[qid] = true
 			results.append(r)
 
 	# Restaurar herramientas
 	var saved_tools = data.get("tools_used", {})
-	if saved_tools is Dictionary:
+	if saved_tools is Dictionary and not saved_tools.is_empty():
 		tools_used = saved_tools.duplicate()
 	else:
 		tools_used = {"highlight": false, "underline": false, "notes": false}
 
-	# Restaurar tiempos
-	var saved_start = data.get("reading_start_time", 0)
-	reading_start_time = float(saved_start) if saved_start is float or saved_start is int else Time.get_ticks_msec() / 1000.0
-	session_start_time = reading_start_time
+	# Tiempos: lo acumulado antes más lo que se juegue desde ahora.
+	_segundos_lectura_previos = float(data.get("reading_seconds", 0))
+	_segundos_total_previos = float(data.get("total_seconds", 0))
+	var ahora := Time.get_ticks_msec() / 1000.0
+	session_start_time = ahora
+	reading_start_time = ahora
+	reading_end_time = ahora if data.get("reading_completed", false) else 0.0
 
-	if data.get("reading_completed", false):
-		reading_end_time = Time.get_ticks_msec() / 1000.0
-	else:
-		reading_end_time = 0.0
+	var preguntas_por_nivel := {}
+	var todas: Array = current_reading.get("questions", [])
+	for nivel in LEVELS:
+		var del_nivel := todas.filter(func(q): return str(q.get("comprehension_level", "")) == nivel).size()
+		preguntas_por_nivel[nivel] = mini(QUESTIONS_PER_LEVEL, del_nivel)
+	var estado := estado_desde_respuestas(results, preguntas_por_nivel)
 
+	current_level_index = int(estado["nivel"])
+	_current_session_score = int(estado["puntaje"])
+	var nivel_actual := get_current_level()
+	_level_errors = results.filter(func(r): return r.get("level") == nivel_actual and not r.get("correct", false)).size()
 	is_active = true
-	_prepare_level_questions()
+	if current_level_index < LEVELS.size():
+		_prepare_level_questions()
+		current_question_index = int(estado["pregunta"])
 	score_changed.emit(_current_session_score)
 	print("[GameSession] Estado restaurado: nivel=%d, pregunta=%d, score=%d" % [
 		current_level_index, current_question_index, _current_session_score
 	])
+
+
+## ¿Están respondidas todas las preguntas? Pasa si se cerró el navegador
+## justo después de la última respuesta: al reanudar se completa la sesión.
+func sesion_respondida_entera() -> bool:
+	return not current_reading.is_empty() and current_level_index >= LEVELS.size()
+
+
+## Cierra una sesión reanudada que ya estaba toda respondida y devuelve la
+## escena de resultados.
+func completar_sesion_restaurada() -> String:
+	_on_session_complete()
+	return RESULTS_SCENE
+
+
+## Guarda la lectura en curso en la API (solo progresión). Se llama al
+## asignarse la lectura, tras cada respuesta y al terminar de leer: si el
+## alumno cierra el navegador, la retoma en el mismo punto.
+func guardar_progreso() -> void:
+	if is_active and not is_practice:
+		ReadingProgressManager.save_active_reading()
+
+
+## Segundos de lectura: lo acumulado antes de reanudar más el tramo actual,
+## que acaba al pulsar «Hecho».
+func segundos_lectura() -> int:
+	var fin := reading_end_time if reading_end_time > 0.0 else Time.get_ticks_msec() / 1000.0
+	return int(_segundos_lectura_previos + maxf(0.0, fin - reading_start_time))
+
+
+func segundos_total() -> int:
+	return int(_segundos_total_previos + maxf(0.0, Time.get_ticks_msec() / 1000.0 - session_start_time))
+
+
+## Desordena una copia de las preguntas con una semilla fija: el mismo
+## alumno y la misma lectura dan siempre el mismo orden (Fisher–Yates).
+static func orden_preguntas(preguntas: Array, semilla: int) -> Array:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = semilla
+	var copia := preguntas.duplicate()
+	for i in range(copia.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var tmp = copia[i]
+		copia[i] = copia[j]
+		copia[j] = tmp
+	return copia
+
+
+func semilla_preguntas(nivel: String) -> int:
+	return AuthManager.get_user_id() * 1000003 + int(current_reading.get("id", 0)) * 97 + LEVELS.find(nivel)
+
+
+## Deduce de las respuestas dadas (en orden) en qué nivel y pregunta sigue la
+## sesión y con qué puntaje, con las mismas reglas que submit_answer y
+## advance_to_next: puntos y penalización por nivel con mínimo 0, y bonus de
+## nivel perfecto al completar un nivel sin errores. Las respuestas repetidas
+## a una misma pregunta cuentan una vez. preguntas_por_nivel: cuántas
+## preguntas tiene cada nivel en esta lectura (normalmente 2).
+## Devuelve {"nivel", "pregunta", "puntaje", "completa"}.
+static func estado_desde_respuestas(respuestas: Array, preguntas_por_nivel: Dictionary) -> Dictionary:
+	var unicas := []
+	var vistas := {}
+	for r in respuestas:
+		var qid = r.get("question_id", 0)
+		if qid and vistas.has(qid):
+			continue
+		vistas[qid] = true
+		unicas.append(r)
+
+	var puntaje := 0
+	for i in LEVELS.size():
+		var nivel: String = LEVELS[i]
+		var dadas := unicas.filter(func(r): return r.get("level") == nivel)
+		var errores := 0
+		for r in dadas:
+			if r.get("correct", false):
+				puntaje += POINTS_BY_LEVEL.get(nivel, 10)
+			else:
+				puntaje = maxi(0, puntaje - PENALTY_BY_LEVEL.get(nivel, 5))
+				errores += 1
+		if dadas.size() < int(preguntas_por_nivel.get(nivel, QUESTIONS_PER_LEVEL)):
+			return {"nivel": i, "pregunta": dadas.size(), "puntaje": puntaje, "completa": false}
+		if errores == 0:
+			puntaje += LEVEL_PERFECT_BONUS
+	return {"nivel": LEVELS.size(), "pregunta": 0, "puntaje": puntaje, "completa": true}
 
 
 # ─── Lógica de sesión completada ───────────────────────────────────────
@@ -732,11 +876,8 @@ func build_session_payload(tool_bonus: int, is_perfect: bool) -> Dictionary:
 	var correct_count: int = results.filter(func(r): return r["correct"]).size()
 	var incorrect_count: int = results.size() - correct_count
 
-	var reading_time: int = 0
-	if reading_end_time > reading_start_time:
-		reading_time = int(reading_end_time - reading_start_time)
-	
-	var total_time: int = int((Time.get_ticks_msec() / 1000.0) - session_start_time)
+	var reading_time: int = segundos_lectura()
+	var total_time: int = segundos_total()
 
 	return {
 		"reading_id": current_reading.get("id", 0),
@@ -841,12 +982,16 @@ func _on_full_reading_loaded(data: Dictionary) -> void:
 
 	_prepare_level_questions()
 	session_ready.emit()
+	guardar_progreso()
 
 
 func _on_request_failed(endpoint: String, error: String) -> void:
 	if not is_active:
 		return
 	_disconnect_api()
+	if error.contains("403"):
+		session_failed.emit("No te quedan intentos en esta tipología.")
+		return
 	session_failed.emit("Error al cargar lectura: %s" % error)
 
 
@@ -862,8 +1007,21 @@ func _prepare_level_questions() -> void:
 		func(q): return str(q.get("comprehension_level", "")) == level
 	)
 
-	# Barajar y tomar las primeras QUESTIONS_PER_LEVEL
-	filtered.shuffle()
+	# La práctica baraja al azar. La progresión pone primero las ya respondidas
+	# de este nivel y luego un orden fijo por alumno y lectura: al reanudar
+	# salen las mismas preguntas (también en lecturas guardadas antes de esto).
+	if is_practice:
+		filtered.shuffle()
+	else:
+		var respondidas := []
+		for r in results:
+			if r.get("level") != level:
+				continue
+			for q in filtered:
+				if q.get("id") == r.get("question_id") and not q in respondidas:
+					respondidas.append(q)
+		var resto := filtered.filter(func(q): return not q in respondidas)
+		filtered = respondidas + orden_preguntas(resto, semilla_preguntas(level))
 	level_questions = filtered.slice(0, mini(QUESTIONS_PER_LEVEL, filtered.size()))
 	current_question_index = 0
 
