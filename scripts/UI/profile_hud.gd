@@ -170,6 +170,8 @@ func _construir_ui() -> void:
 	_panel.custom_minimum_size = Vector2(ANCHO_PANEL, 0)
 	_panel.position = Vector2(MARGEN, MARGEN)
 	_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	# La flecha del borde de GuiaDestino no se mete debajo de este panel.
+	_panel.add_to_group("zona_hud")
 	_panel.add_theme_stylebox_override("panel", _estilo_panel())
 	add_child(_panel)
 

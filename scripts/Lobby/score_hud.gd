@@ -38,6 +38,8 @@ const ACHIEVEMENT_NAMES: Dictionary = {
 func _ready() -> void:
 	achievements_panel.visible = false
 	menu_panel.visible = false
+	# La flecha del borde de GuiaDestino no se mete debajo de los botones de arriba.
+	menu_button.get_parent().add_to_group("zona_hud")
 	_update_score(GameSession.get_total_score())
 	GameSession.score_changed.connect(_update_score)
 	GameSession.achievement_unlocked.connect(_on_achievement_unlocked)

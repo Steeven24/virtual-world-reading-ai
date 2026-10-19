@@ -34,6 +34,13 @@ const DURACION_PULSO: float = 0.5
 ## Por encima de todo lo del mapa (las escenas no pasan de z_index 1).
 const Z_MUNDO: int = 10
 
+## Grupo de los paneles de la interfaz que ocupan el borde (perfil, objetivos,
+## marcador, franja del lobby). Se dibujan encima de la flecha del borde, así
+## que esta se queda antes de entrar en ellos.
+const GRUPO_ZONAS := "zona_hud"
+## Distancia que la flecha (33 px a ×3) guarda con esos paneles.
+const HOLGURA_ZONA: float = 24.0
+
 ## Destino actual (o null) y escena en la que se buscó.
 var _destino: Node2D = null
 var _id_escena: int = 0
@@ -103,7 +110,7 @@ func _colocar_flecha_borde(mostrar: bool) -> void:
 		var en_pantalla := get_viewport().get_canvas_transform() * _destino.global_position
 		mostrar = not vista.has_point(en_pantalla)
 		if mostrar:
-			_flecha_borde.position = posicion_en_borde(vista.get_center(), en_pantalla, vista, MARGEN_BORDE)
+			_flecha_borde.position = posicion_libre(vista.get_center(), en_pantalla, vista, MARGEN_BORDE, _zonas_hud(), HOLGURA_ZONA)
 			# El arte apunta hacia abajo; se gira para que apunte al destino.
 			_flecha_borde.rotation = (en_pantalla - _flecha_borde.position).angle() - PI / 2.0
 	_flecha_borde.visible = mostrar
@@ -125,6 +132,48 @@ static func posicion_en_borde(centro: Vector2, objetivo: Vector2, rect: Rect2, m
 		var borde_y := interior.end.y if direccion.y > 0.0 else interior.position.y
 		t = minf(t, (borde_y - centro.y) / direccion.y)
 	return centro + direccion * t
+
+
+## Como posicion_en_borde, pero si el camino hasta el borde cruza una de las
+## zonas (agrandada holgura), la flecha se queda justo antes de entrar en ella.
+static func posicion_libre(centro: Vector2, objetivo: Vector2, rect: Rect2, margen: float, zonas: Array[Rect2], holgura: float) -> Vector2:
+	var borde := posicion_en_borde(centro, objetivo, rect, margen)
+	var direccion := borde - centro
+	var t := 1.0
+	for zona in zonas:
+		var entrada := _entrada(centro, direccion, zona.grow(holgura))
+		if entrada >= 0.0:
+			t = minf(t, entrada)
+	return centro + direccion * t
+
+
+## Fracción del segmento centro → centro + direccion en la que entra en rect,
+## o -1 si no lo cruza (o si centro ya está dentro).
+static func _entrada(centro: Vector2, direccion: Vector2, rect: Rect2) -> float:
+	if rect.has_point(centro):
+		return -1.0
+	var t_min := 0.0
+	var t_max := 1.0
+	for eje in 2:
+		if is_zero_approx(direccion[eje]):
+			if centro[eje] < rect.position[eje] or centro[eje] > rect.end[eje]:
+				return -1.0
+			continue
+		var t1 := (rect.position[eje] - centro[eje]) / direccion[eje]
+		var t2 := (rect.end[eje] - centro[eje]) / direccion[eje]
+		t_min = maxf(t_min, minf(t1, t2))
+		t_max = minf(t_max, maxf(t1, t2))
+	return t_min if t_min <= t_max else -1.0
+
+
+## Rectángulos (en pantalla) de los paneles visibles del grupo GRUPO_ZONAS.
+func _zonas_hud() -> Array[Rect2]:
+	var zonas: Array[Rect2] = []
+	for nodo in get_tree().get_nodes_in_group(GRUPO_ZONAS):
+		var control := nodo as Control
+		if control and control.is_visible_in_tree():
+			zonas.append(control.get_global_rect())
+	return zonas
 
 
 func _rehacer_mundo(escena: Node) -> void:
