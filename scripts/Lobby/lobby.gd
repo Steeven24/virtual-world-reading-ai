@@ -11,6 +11,10 @@ const TUTORIAL_OVERLAY_SCENE: String = "res://scenes/UI/tutorial_overlay.tscn"
 ## la transición de cambio de escena termine y el HUD ya sea visible.
 const AUTO_OPEN_DELAY: float = 0.4
 
+## Ancho máximo del texto de la franja de arriba: así cabe entre la tarjeta de
+## perfil y el marcador (unos 670 px libres a 1280x720).
+const ANCHO_MAX_TEXTO_FRANJA: float = 520.0
+
 var _tutorial_instance: CanvasLayer = null
 
 
@@ -95,6 +99,14 @@ func _mostrar_franja(icono: String, texto: String) -> void:
 	_pending_banner.layer = 10
 	add_child(_pending_banner)
 
+	# Centrada arriba: un contenedor de todo el ancho la centra aunque el panel
+	# aún no sepa su tamaño (con anclas y position quedaba pegada a la izquierda,
+	# medio fuera de la pantalla y bajo la tarjeta de perfil).
+	var franja := CenterContainer.new()
+	franja.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	franja.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_pending_banner.add_child(franja)
+
 	var panel := PanelContainer.new()
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.12, 0.10, 0.22, 0.92)
@@ -108,7 +120,9 @@ func _mostrar_franja(icono: String, texto: String) -> void:
 	style.content_margin_top = 8
 	style.content_margin_bottom = 8
 	panel.add_theme_stylebox_override("panel", style)
-	_pending_banner.add_child(panel)
+	# La flecha del borde de GuiaDestino no se mete debajo de la franja.
+	panel.add_to_group("zona_hud")
+	franja.add_child(panel)
 
 	var hbox := HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -128,11 +142,13 @@ func _mostrar_franja(icono: String, texto: String) -> void:
 	var font_path := "res://fonts/fuente_juego.tres"
 	if ResourceLoader.exists(font_path):
 		text_label.add_theme_font_override("font", load(font_path))
+	# Un aviso largo se parte en dos líneas en vez de llegar a la tarjeta de
+	# perfil o al marcador.
+	var fuente: Font = text_label.get_theme_font("font")
+	if fuente.get_string_size(texto, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x > ANCHO_MAX_TEXTO_FRANJA:
+		text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		text_label.custom_minimum_size.x = ANCHO_MAX_TEXTO_FRANJA
 	hbox.add_child(text_label)
-
-	# Posicionar arriba centrado
-	panel.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
 
 	# Animación de pulso suave en el borde dorado
 	var tween := create_tween().set_loops()
@@ -140,7 +156,7 @@ func _mostrar_franja(icono: String, texto: String) -> void:
 	tween.tween_property(panel, "modulate:a", 1.0, 1.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
 	# Animación de entrada (slide down)
-	panel.position.y = -60
+	franja.position.y = -60
 	var entry_tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	entry_tween.tween_property(panel, "position:y", 0.0, 0.4)
+	entry_tween.tween_property(franja, "position:y", 0.0, 0.4)
 
