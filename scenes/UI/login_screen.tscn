@@ -194,5 +194,5 @@ text = "Usar otra cuenta"
 
 [node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=2084709435]
 layout_mode = 2
-text = "Beta v1.6 — Mundo Virtual de Lectura"
+text = "Beta v2.0 — Mundo Virtual de Lectura"
 horizontal_alignment = 1

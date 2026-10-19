@@ -1,8 +1,8 @@
-[gd_resource type="FontVariation" load_steps=4 format=3]
+[gd_resource type="FontVariation" format=3 uid="uid://b1na81jyx8q0w"]
 
-[ext_resource type="FontFile" path="res://fonts/adventor/texgyreadventor-regular.otf" id="1_base"]
-[ext_resource type="FontFile" path="res://fonts/twemoji/twemoji.ttf" id="2_emoji"]
-[ext_resource type="FontFile" path="res://fonts/simbolos/SimbolosVW-Regular.ttf" id="3_simbolos"]
+[ext_resource type="FontFile" uid="uid://6u1b5e3vi6p1" path="res://fonts/adventor/texgyreadventor-regular.otf" id="1_base"]
+[ext_resource type="FontFile" uid="uid://c70dk6vbdab00" path="res://fonts/twemoji/twemoji.ttf" id="2_emoji"]
+[ext_resource type="FontFile" uid="uid://dkrv07y2m6gak" path="res://fonts/simbolos/SimbolosVW-Regular.ttf" id="3_simbolos"]
 
 [resource]
 fallbacks = Array[Font]([ExtResource("2_emoji"), ExtResource("3_simbolos")])
