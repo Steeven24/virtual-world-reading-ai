@@ -72,6 +72,9 @@ var _history_reading_id: int = -1
 var _http: HTTPRequest
 var _history_http: HTTPRequest
 var _is_requesting: bool = false
+## Pregunta de la petición en curso, para guardarla junto a su respuesta. Se
+## copia aparte: el historial puede vaciarse mientras se espera al tutor.
+var _pending_message: String = ""
 var _is_loading_history: bool = false
 var _pending_history_reading_id: int = -1
 
@@ -180,6 +183,7 @@ func send_message(message: String) -> void:
 
 	# Agregar mensaje del usuario al historial local
 	_add_to_history("user", message)
+	_pending_message = message
 
 	# Construir el body de la petición
 	var body := {
@@ -336,8 +340,8 @@ func _on_request_completed(
 	_add_to_history("assistant", response_text)
 	chat_response_received.emit(current_conversation_id, response_text)
 
-	# Registrar la interacción con el NPC para métricas del dashboard
-	AuthManager.save_npc_interaction(active_npc_type, _get_reading_id())
+	# Registrar la interacción (pregunta y respuesta) para el dashboard
+	AuthManager.save_npc_interaction(active_npc_type, _get_reading_id(), _pending_message, response_text)
 
 
 func _on_history_completed(

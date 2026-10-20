@@ -46,6 +46,17 @@ const NOMBRE_ESCENARIO: Dictionary = {
 ## MAX_INTENTOS_POR_TIPOLOGIA en la API (api/game_rules.py).
 const MAX_INTENTOS: int = 5
 
+## Medallas por desempeño, aparte de los logros: cada tipología aprobada da la
+## suya, de oro al primer intento, de plata al segundo y de bronce después;
+## aprobar las cuatro da «Gran lector», de platino. Espejo de api/medallas.py.
+const MEDALLAS: Dictionary = {
+	"Narrativo": {"nombre": "Medalla del Narrador", "emoji": "📜"},
+	"Descriptivo": {"nombre": "Medalla del Observador", "emoji": "🔍"},
+	"Argumentativo": {"nombre": "Medalla del Orador", "emoji": "💬"},
+	"Expositivo": {"nombre": "Medalla del Divulgador", "emoji": "🧪"},
+}
+const MEDALLA_GRAN_LECTOR: Dictionary = {"nombre": "Gran lector", "emoji": "👑"}
+
 const MENSAJE_FINAL_ESTACION := "🏆 ¡Completaste todas las tipologías!\n\nPuedes ver tus logros y el ranking en la barra de arriba."
 const MENSAJE_FINAL_RESULTADO := "🏆 ¡Completaste todas las tipologías! Puedes ver tus logros y el ranking en la barra de arriba."
 
@@ -260,6 +271,24 @@ func mensaje_resultado_aprobada(typology: String) -> String:
 		NOMBRE_ESCENARIO.get(typology, typology),
 		NOMBRE_ESCENARIO[get_next_unapproved()],
 	]
+
+
+# ─── Medallas ────────────────────────────────────────────────────────────────
+
+## Metal de la medalla de una tipología aprobada en ese intento.
+func metal_por_intentos(intentos_gastados: int) -> String:
+	if intentos_gastados <= 1:
+		return "oro"
+	if intentos_gastados == 2:
+		return "plata"
+	return "bronce"
+
+
+## Metal de la medalla de la tipología, o "" si aún no está aprobada.
+func metal_de_medalla(typology: String) -> String:
+	if not is_approved(typology):
+		return ""
+	return metal_por_intentos(maxi(intentos_usados(typology), 1))
 
 
 ## Calcula el bonus total por herramientas usadas en la sesión.

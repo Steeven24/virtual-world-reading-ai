@@ -237,13 +237,19 @@ func update_character(character: String) -> void:
 	print("[AuthManager] Personaje actualizado a: %s" % character)
 
 
-## Registra una interacción con un NPC (robot o sabio).
-func save_npc_interaction(npc_type: String, reading_id: int = -1) -> void:
+## Registra una interacción con un NPC (robot o sabio): lo que preguntó el
+## jugador y lo que respondió el tutor, para que el dashboard lo muestre.
+func save_npc_interaction(npc_type: String, reading_id: int = -1,
+		user_message: String = "", assistant_reply: String = "") -> void:
 	if not is_authenticated:
 		return
 	var data := {"npc_type": npc_type}
 	if reading_id > 0:
 		data["reading_id"] = reading_id
+	if not user_message.is_empty():
+		data["user_message"] = user_message.left(4000)
+	if not assistant_reply.is_empty():
+		data["assistant_reply"] = assistant_reply.left(8000)
 	var body := JSON.stringify(data)
 	_enqueue_request(
 		"%s/progress/npc-interaction" % ApiConfig.BASE_URL,

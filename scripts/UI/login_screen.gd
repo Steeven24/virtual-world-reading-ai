@@ -276,6 +276,11 @@ func _apply_styles() -> void:
 		if child is Label:
 			child.add_theme_font_override("font", font)
 
+	# El encabezado del recuadro del proyecto, en negrita.
+	var negrita = load("res://fonts/fuente_juego_negrita.tres")
+	if negrita:
+		$ProyectoPanel/ProyectoVBox/ProyectoTitulo.add_theme_font_override("font", negrita)
+
 	for input in [email_input, password_input]:
 		_estilo_campo(input)
 	_estilo_boton_ojo(toggle_password_button)

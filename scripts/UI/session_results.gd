@@ -16,6 +16,13 @@ const COLOR_AGOTADA := Color(0.95, 0.45, 0.42, 1.0)
 const COLOR_WHITE := Color(0.9, 0.92, 0.95, 1.0)
 const COLOR_DIM := Color(0.6, 0.6, 0.7, 1.0)
 
+const EMOJI_METAL := {"oro": "🥇", "plata": "🥈", "bronce": "🥉"}
+const COLOR_METAL := {
+	"oro": Color(0.95, 0.78, 0.20),
+	"plata": Color(0.80, 0.84, 0.90),
+	"bronce": Color(0.85, 0.56, 0.33),
+}
+
 const LEVELS: Array[String] = ["Literal", "Inferencial", "Critico"]
 
 # ─── Nodos referenciados ─────────────────────────────────────────────────────
@@ -186,6 +193,36 @@ func _show_approved(typology: String) -> void:
 	mensaje.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 	_insertar_tras_progreso(mensaje)
+
+	if GameSession.resultado_progresion.get("aprobada_ahora", false):
+		_anunciar_medalla(typology)
+
+
+## La lectura que aprueba la tipología gana su medalla: se anuncia en la
+## pantalla y con un aviso. Si era la última, se lanza la celebración final.
+func _anunciar_medalla(typology: String) -> void:
+	var metal := ProgressionManager.metal_de_medalla(typology)
+	var datos: Dictionary = ProgressionManager.MEDALLAS.get(typology, {})
+	if metal.is_empty() or datos.is_empty():
+		return
+	var linea := _create_label("%s ¡Ganaste la %s de %s!" % [EMOJI_METAL[metal], datos["nombre"], metal.to_upper()],
+			18, COLOR_METAL[metal])
+	linea.name = "MensajeMedalla"
+	linea.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# Justo debajo del mensaje de aprobada.
+	var aprobada := global_score_label.get_parent().get_node("MensajeAprobada")
+	aprobada.get_parent().add_child(linea)
+	aprobada.get_parent().move_child(linea, aprobada.get_index() + 1)
+
+	AchievementToast.show_notice("¡Medalla de %s!" % metal, datos["nombre"], datos["emoji"])
+
+	if ProgressionManager.all_approved():
+		AchievementToast.show_notice("¡Medalla de platino!", ProgressionManager.MEDALLA_GRAN_LECTOR["nombre"],
+				ProgressionManager.MEDALLA_GRAN_LECTOR["emoji"])
+		# Tras la fanfarria de la pantalla de resultados.
+		await get_tree().create_timer(2.2).timeout
+		if is_inside_tree():
+			get_tree().root.add_child(CelebracionFinal.new())
 
 
 ## Lo que queda en una tipología sin aprobar: cuántos intentos, o que se
