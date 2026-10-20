@@ -621,6 +621,11 @@ region = Rect2(512, 512, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_770dr"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"dog_interaction_women",
+"speed": 3.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qlg0r")
@@ -1228,7 +1233,8 @@ script = ExtResource("1_3vyb7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=377981558]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_770dr")
-animation = &"run_up_women"
+animation = &"dog_interaction_women"
+frame_progress = 0.264453
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=270371656]
 position = Vector2(0, -7)

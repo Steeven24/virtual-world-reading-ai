@@ -33,6 +33,10 @@ const LOBBY_SCENE: String = "res://scenes/Scenery/Lobby/lobby.tscn"
 const CHANGE_PASSWORD_SCENE: String = "res://scenes/UI/change_password_screen.tscn"
 const FONT_PATH := "res://fonts/fuente_juego.tres"
 
+## Enlace «Crear cuenta» del login. Oculto: las cuentas las crea el
+## administrador desde el dashboard. Ponerlo a true para volver a mostrarlo.
+const MOSTRAR_CREAR_CUENTA := false
+
 ## Mensajes de bienvenida basados en el número de sesiones del jugador.
 const WELCOME_MESSAGES: Array[String] = [
 	"¡Tu aventura comienza aquí!",
@@ -408,6 +412,7 @@ func _construir_registro() -> void:
 	_crear_cuenta_button.name = "CrearCuentaButton"
 	_crear_cuenta_button.text = "¿No tienes cuenta? Crear cuenta"
 	_crear_cuenta_button.pressed.connect(_on_crear_cuenta_pressed)
+	_crear_cuenta_button.visible = MOSTRAR_CREAR_CUENTA
 	var caja := login_button.get_parent()
 	caja.add_child(_crear_cuenta_button)
 	caja.move_child(_crear_cuenta_button, login_button.get_index() + 1)

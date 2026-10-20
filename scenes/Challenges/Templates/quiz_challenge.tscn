@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dudaslpd8a8j0" path="res://scripts/Challenges/challenge_quiz.gd" id="1_script"]
 [ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="2_font"]
 [ext_resource type="Texture2D" uid="uid://dltpqtnongrsv" path="res://assets/Characters/Teacher/character-spritesheet (3).png" id="3_teacher"]
+[ext_resource type="Texture2D" uid="uid://coid3t5pbeca7" path="res://assets/Login/LoginBackground.png" id="4_fondo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_question"]
 content_margin_left = 24.0
@@ -81,6 +82,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture_filter = 1
+texture = ExtResource("4_fondo")
+expand_mode = 1
 stretch_mode = 6
 
 [node name="ColorOverlay" type="ColorRect" parent="." unique_id=1585162812]
@@ -90,7 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.06, 0.06, 0.11, 1)
+color = Color(0.05, 0.05, 0.1, 0.72)
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1073508413]
 layout_mode = 1
