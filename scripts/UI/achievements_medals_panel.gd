@@ -1,6 +1,10 @@
 ## achievements_medals_panel.gd
 ## Panel premium para visualizar Logros y Medallas del jugador.
 ## Diseño visual mejorado con animaciones, efectos de brillo, y transiciones suaves.
+## Logros y medallas se ganan por separado: los logros, con las reglas de
+## GameSession; las medallas, por desempeño (una por tipología aprobada, con
+## metal según los intentos, y «Gran lector» al aprobarlas todas). Ver
+## api/medallas.py.
 extends CanvasLayer
 
 # ─── Constantes de diseño ────────────────────────────────────────────────────
@@ -49,7 +53,13 @@ const TAB_ANIM_DURATION := 0.2
 # ─── Estado ──────────────────────────────────────────────────────────────────
 
 var _http_request: HTTPRequest
+var _medals_http: HTTPRequest
 var _achievements_data: Array = []
+var _medals_data: Array = []
+## Resumen que muestra _total_label en cada pestaña.
+var _resumen_logros: String = ""
+var _resumen_medallas: String = ""
+var _en_medallas: bool = false
 var _loading_tween: Tween
 var _font_bold: Font
 var _font_regular: Font
@@ -95,6 +105,9 @@ func _ready() -> void:
 	_http_request = HTTPRequest.new()
 	add_child(_http_request)
 	_http_request.request_completed.connect(_on_request_completed)
+	_medals_http = HTTPRequest.new()
+	add_child(_medals_http)
+	_medals_http.request_completed.connect(_on_medals_completed)
 	_fetch_achievements()
 
 
@@ -266,6 +279,7 @@ func _fetch_achievements() -> void:
 		headers.append("X-Slot-Id: %d" % AuthManager.current_slot_id)
 
 	var err := _http_request.request(url, headers, HTTPClient.METHOD_GET)
+	_medals_http.request("%s/progress/medals" % ApiConfig.BASE_URL, headers, HTTPClient.METHOD_GET)
 	if err != OK:
 		_total_label.text = "Error al conectar"
 		if _loading_tween and _loading_tween.is_valid():
@@ -295,13 +309,35 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 		_loading_label.show()
 
 
+func _on_medals_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		_resumen_medallas = "No se pudieron cargar las medallas"
+		_actualizar_resumen()
+		return
+	var json := JSON.new()
+	if json.parse(body.get_string_from_utf8()) != OK or not json.data is Array:
+		return
+	_medals_data = json.data
+	for child in _medals_grid.get_children():
+		child.queue_free()
+	var ganadas := 0
+	for i in range(_medals_data.size()):
+		var item: Dictionary = _medals_data[i]
+		if item.get("is_unlocked", false):
+			ganadas += 1
+		_create_medal_item(item, i)
+	_resumen_medallas = "Medallas: %d / %d" % [ganadas, _medals_data.size()]
+	_actualizar_resumen()
+
+
+func _actualizar_resumen() -> void:
+	_total_label.text = _resumen_medallas if _en_medallas else _resumen_logros
+
 # ─── Poblar UI ───────────────────────────────────────────────────────────────
 
 func _populate_ui() -> void:
 	# Limpiar contenedores
 	for child in _achievements_container.get_children():
-		child.queue_free()
-	for child in _medals_grid.get_children():
 		child.queue_free()
 
 	var total_count := _achievements_data.size()
@@ -313,10 +349,10 @@ func _populate_ui() -> void:
 		if is_unlocked:
 			unlocked_count += 1
 		_create_achievement_item(item, i)
-		_create_medal_item(item, i)
 
 	# Actualizar contador
-	_total_label.text = "Completado: %d / %d" % [unlocked_count, total_count]
+	_resumen_logros = "Logros: %d / %d" % [unlocked_count, total_count]
+	_actualizar_resumen()
 
 	# Animar barra de progreso
 	var percent: float = (float(unlocked_count) / maxf(total_count, 1)) * 100.0
@@ -364,6 +400,23 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 		icon_lbl.add_theme_font_override("font", _font_bold)
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
+
+	# Insignia del logro subida desde el dashboard (antes era su «medalla»).
+	var image_url: String = str(item.get("medal_image_path", ""))
+	if is_unlocked and not image_url.is_empty():
+		var insignia := TextureRect.new()
+		insignia.custom_minimum_size = Vector2(40, 40)
+		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		insignia.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		insignia.hide()
+		hbox.add_child(insignia)
+		hbox.move_child(insignia, 0)
+		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
+			if tex and is_instance_valid(insignia):
+				insignia.texture = tex
+				insignia.show()
+				icon_lbl.hide()
+		)
 
 	# Contenedor de texto
 	var vbox := VBoxContainer.new()
@@ -413,7 +466,7 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 
 func _create_medal_item(item: Dictionary, index: int) -> void:
 	var is_unlocked: bool = item.get("is_unlocked", false)
-	var tier: String = str(item.get("medal_tier", "bronce"))
+	var tier: String = _tier_de(item)
 	var tier_color := _get_tier_color(tier)
 	var glow_color := _get_tier_glow_color(tier)
 
@@ -477,46 +530,21 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	var img_container := CenterContainer.new()
 	vbox.add_child(img_container)
 
-	var texture_rect := TextureRect.new()
-	texture_rect.custom_minimum_size = Vector2(72, 72)
-	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	img_container.add_child(texture_rect)
-
 	var emoji_lbl := Label.new()
-	emoji_lbl.text = str(item.get("medal_placeholder_emoji", "🏅"))
+	emoji_lbl.text = str(item.get("emoji", "🏅")) if is_unlocked else "🔒"
 	emoji_lbl.add_theme_font_size_override("font_size", 48)
 	if _font_bold:
 		emoji_lbl.add_theme_font_override("font", _font_bold)
 	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	img_container.add_child(emoji_lbl)
 
-	# Cargar imagen real si existe y está desbloqueada
-	var image_url: String = str(item.get("medal_image_path", ""))
-	if is_unlocked and not image_url.is_empty():
-		# IMPORTANTE: ocultar textura y mostrar emoji ANTES de llamar al loader,
-		# porque si la imagen ya está cacheada, el callback se ejecuta de forma
-		# sincrónica y las líneas posteriores revertirían los cambios del callback.
-		texture_rect.hide()
-		emoji_lbl.show()
-		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
-			if tex:
-				texture_rect.texture = tex
-				emoji_lbl.hide()
-				texture_rect.show()
-		)
-	else:
-		texture_rect.hide()
-		emoji_lbl.show()
-
 	# Efecto gris si bloqueada
 	if not is_unlocked:
-		emoji_lbl.modulate = Color(0.2, 0.2, 0.2, 0.6)
+		emoji_lbl.modulate = Color(0.45, 0.45, 0.5, 0.7)
 
-	# Nombre de la medalla.
-	# Con nombres largos el texto crecía más que la carta y se salía por abajo;
-	# ahora se corta en dos líneas y el nombre completo queda en el tooltip.
-	var nombre_completo: String = "???" if not is_unlocked else str(item.get("medal_name", ""))
+	# Nombre de la medalla: también bloqueada, para que se sepa a qué aspira.
+	# Con nombres largos se corta en dos líneas y el completo va al tooltip.
+	var nombre_completo: String = str(item.get("name", ""))
 	var name_lbl := Label.new()
 	name_lbl.text = nombre_completo
 	name_lbl.add_theme_color_override("font_color", COLOR_TEXT_PRIMARY if is_unlocked else COLOR_TEXT_DISABLED)
@@ -530,16 +558,15 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	vbox.add_child(name_lbl)
 	card.tooltip_text = nombre_completo
 
-	# Etiqueta de tier (solo desbloqueada)
-	if is_unlocked:
-		var tier_lbl := Label.new()
-		tier_lbl.text = tier.to_upper()
-		tier_lbl.add_theme_color_override("font_color", tier_color)
-		tier_lbl.add_theme_font_size_override("font_size", 9)
-		tier_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		if _font_bold:
-			tier_lbl.add_theme_font_override("font", _font_bold)
-		vbox.add_child(tier_lbl)
+	# Metal (o que sigue bloqueada) debajo del nombre.
+	var tier_lbl := Label.new()
+	tier_lbl.text = tier.to_upper() if is_unlocked else "BLOQUEADA"
+	tier_lbl.add_theme_color_override("font_color", tier_color if is_unlocked else COLOR_TEXT_DISABLED)
+	tier_lbl.add_theme_font_size_override("font_size", 9)
+	tier_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	if _font_bold:
+		tier_lbl.add_theme_font_override("font", _font_bold)
+	vbox.add_child(tier_lbl)
 
 	# Click
 	card.pressed.connect(func(): _show_medal_detail(item))
@@ -573,38 +600,29 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 
 func _show_medal_detail(item: Dictionary) -> void:
 	var is_unlocked: bool = item.get("is_unlocked", false)
-	var tier: String = str(item.get("medal_tier", "bronce"))
+	var tier: String = _tier_de(item)
 	var tier_color := _get_tier_color(tier)
 
 	# Nombre
-	_detail_medal_name.text = str(item.get("medal_name", "???")) if is_unlocked else "🔒 Medalla Bloqueada"
+	_detail_medal_name.text = str(item.get("name", "???")) if is_unlocked else "🔒 " + str(item.get("name", "Medalla bloqueada"))
 	_detail_medal_name.add_theme_color_override("font_color", tier_color if is_unlocked else COLOR_TEXT_DISABLED)
 
 	# Descripción
 	if is_unlocked:
-		_detail_medal_desc.text = str(item.get("medal_description", ""))
+		_detail_medal_desc.text = "%s\n\n%s" % [item.get("description", ""), _texto_intentos(item)]
 	else:
-		_detail_medal_desc.text = "Desbloquea el logro '%s' para conseguir esta medalla.\n\nRequisito: %s" % [item.get("name", ""), item.get("how_to_unlock", "")]
+		_detail_medal_desc.text = "Cómo ganarla: %s" % item.get("how_to_unlock", "")
 
-	# Tier
-	_detail_medal_tier.text = "✦ Rareza: %s" % tier.to_upper()
-	_detail_medal_tier.add_theme_color_override("font_color", tier_color)
+	# Metal
+	_detail_medal_tier.text = ("✦ Metal: %s" % tier.to_upper()) if is_unlocked else "✦ Oro · Plata · Bronce"
+	_detail_medal_tier.add_theme_color_override("font_color", tier_color if is_unlocked else COLOR_HINT)
 
-	# Emoji / Imagen
-	_detail_medal_emoji.text = str(item.get("medal_placeholder_emoji", "🏅"))
+	# Emoji
+	_detail_medal_emoji.text = str(item.get("emoji", "🏅")) if is_unlocked else "🔒"
 	if _font_bold:
 		_detail_medal_emoji.add_theme_font_override("font", _font_bold)
 	_detail_medal_emoji.show()
 	_detail_medal_image.hide()
-
-	var image_url: String = str(item.get("medal_image_path", ""))
-	if is_unlocked and not image_url.is_empty():
-		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
-			if tex:
-				_detail_medal_image.texture = tex
-				_detail_medal_emoji.hide()
-				_detail_medal_image.show()
-		)
 
 	# Estilo del panel de detalle basado en el tier
 	var style := StyleBoxFlat.new()
@@ -635,6 +653,21 @@ func _hide_medal_detail() -> void:
 
 
 # ─── Colores por Tier ────────────────────────────────────────────────────────
+
+## Metal de una medalla de /progress/medals ("" si está bloqueada).
+func _tier_de(item: Dictionary) -> String:
+	var tier = item.get("tier")
+	return "" if tier == null else str(tier)
+
+
+func _texto_intentos(item: Dictionary) -> String:
+	var intentos = item.get("attempts")
+	if intentos == null:
+		return "¡Aprobaste todas las tipologías!"
+	if int(intentos) == 1:
+		return "Aprobada al primer intento."
+	return "Aprobada en %d intentos." % int(intentos)
+
 
 func _get_tier_color(tier: String) -> Color:
 	match tier.to_lower():
@@ -669,6 +702,8 @@ func _get_tier_glow_color(tier: String) -> Color:
 func _on_logros_tab_pressed() -> void:
 	_apply_tab_style(_logros_tab_btn, true)
 	_apply_tab_style(_medallas_tab_btn, false)
+	_en_medallas = false
+	_actualizar_resumen()
 	_medallas_scroll.hide()
 	_logros_scroll.show()
 	# Transición suave
@@ -680,6 +715,8 @@ func _on_logros_tab_pressed() -> void:
 func _on_medallas_tab_pressed() -> void:
 	_apply_tab_style(_medallas_tab_btn, true)
 	_apply_tab_style(_logros_tab_btn, false)
+	_en_medallas = true
+	_actualizar_resumen()
 	_logros_scroll.hide()
 	_medallas_scroll.show()
 	# Transición suave

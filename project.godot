@@ -43,7 +43,6 @@ window/size/viewport_height=720
 window/size/initial_position_type=0
 window/size/resizable=false
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
 
 [editor_plugins]
 

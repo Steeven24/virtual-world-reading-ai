@@ -81,6 +81,8 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_kbrqd"]
+
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
 script = ExtResource("3_script_ctrl")
@@ -166,3 +168,7 @@ scale = Vector2(1.0468752, 1.0555556)
 sprite_frames = SubResource("SpriteFrames_jeusa")
 autoplay = "default"
 centered = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=256835482]
+position = Vector2(3079, 768)
+sprite_frames = SubResource("SpriteFrames_kbrqd")

@@ -30,6 +30,14 @@
 [ext_resource type="Texture2D" uid="uid://caqhqh8gx8rol" path="res://assets/Scenery/Background/Lobby/printer.png" id="28_ye3i6"]
 [ext_resource type="Texture2D" uid="uid://cktphr06tmxli" path="res://assets/Scenery/Background/Lobby/world.png" id="29_jj841"]
 [ext_resource type="Texture2D" uid="uid://deuhoqkfgt05i" path="res://assets/Animations/Fireplace/fireplace1 spritesheet.png" id="30_0tao1"]
+[ext_resource type="Texture2D" uid="uid://fk25emowcls3" path="res://assets/Scenery/Background/Computer/computer.png" id="31_rn3cy"]
+[ext_resource type="Texture2D" uid="uid://cmvx8bglrsns2" path="res://assets/Scenery/Background/Lobby/plant.png" id="32_wsahc"]
+[ext_resource type="Texture2D" uid="uid://bdgsnewebqxrd" path="res://assets/Scenery/Background/Lobby/greenhouse1.png" id="33_s6hfv"]
+[ext_resource type="Texture2D" uid="uid://1t17186vpsu1" path="res://assets/Scenery/Background/Lobby/greenhouse3.png" id="34_ri2k0"]
+[ext_resource type="Texture2D" uid="uid://ctltpno7djnn8" path="res://assets/Scenery/Background/Lobby/lights.png" id="35_8ea5g"]
+[ext_resource type="Texture2D" uid="uid://dfjre3omavyex" path="res://assets/Scenery/Background/Lobby/bookseller.png" id="36_qwnhm"]
+[ext_resource type="Texture2D" uid="uid://bv86js3hb1lsy" path="res://assets/Scenery/Background/Lobby/printer3.png" id="37_3tcf7"]
+[ext_resource type="Texture2D" uid="uid://cdryvuv61ggsh" path="res://assets/Interaction/QR-premio-render.png" id="38_qwnhm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -638,3 +646,56 @@ frame_progress = 0.6172105
 position = Vector2(2373.076, 479.70096)
 scale = Vector2(0.7108051, 0.7108051)
 texture = ExtResource("12_u7wr6")
+
+[node name="Computer" type="Sprite2D" parent="." unique_id=1942706030]
+texture_filter = 1
+position = Vector2(1407.4548, 219.52025)
+scale = Vector2(0.27459347, 0.30011472)
+texture = ExtResource("31_rn3cy")
+region_enabled = true
+region_rect = Rect2(251, 82, 1083, 732)
+
+[node name="Plant" type="Sprite2D" parent="." unique_id=1859989336]
+position = Vector2(1143.8022, 274.97412)
+scale = Vector2(0.11412624, 0.11412624)
+texture = ExtResource("32_wsahc")
+
+[node name="Tepidarium1" type="Sprite2D" parent="." unique_id=351348201]
+position = Vector2(1901.9305, 604.0605)
+scale = Vector2(0.18530108, 0.18530108)
+texture = ExtResource("33_s6hfv")
+
+[node name="Tepidarium3" type="Sprite2D" parent="." unique_id=1826885351]
+position = Vector2(1637.7855, 281.93143)
+scale = Vector2(0.16126105, 0.18459648)
+texture = ExtResource("34_ri2k0")
+
+[node name="Lights" type="Sprite2D" parent="." unique_id=803224309]
+position = Vector2(917.3104, 467.17)
+scale = Vector2(0.17848587, 0.18047154)
+texture = ExtResource("35_8ea5g")
+
+[node name="Bookseller" type="Sprite2D" parent="." unique_id=546053152]
+position = Vector2(94.766235, 697.10675)
+scale = Vector2(0.15784052, 0.15784054)
+texture = ExtResource("36_qwnhm")
+
+[node name="Bookseller2" type="Sprite2D" parent="." unique_id=1158085885]
+position = Vector2(92.84929, 347.02124)
+scale = Vector2(0.1552198, 0.15521978)
+texture = ExtResource("36_qwnhm")
+
+[node name="Printer3" type="Sprite2D" parent="." unique_id=1942794511]
+position = Vector2(1222.6161, 286.23975)
+scale = Vector2(0.122437865, 0.122437865)
+texture = ExtResource("37_3tcf7")
+
+[node name="QrPremioRender2" type="Sprite2D" parent="." unique_id=1329259837]
+position = Vector2(856.52954, 571.21106)
+scale = Vector2(0.08165392, 0.08165392)
+texture = ExtResource("38_qwnhm")
+
+[node name="QrPremioRender" type="Sprite2D" parent="." unique_id=2083870094]
+position = Vector2(976.65857, 571.4159)
+scale = Vector2(0.08212594, 0.08212594)
+texture = ExtResource("38_qwnhm")

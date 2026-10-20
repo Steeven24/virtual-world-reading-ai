@@ -2,6 +2,31 @@
 
 [ext_resource type="Script" uid="uid://cyo6ynqtfjby0" path="res://scripts/UI/login_screen.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://coid3t5pbeca7" path="res://assets/Login/LoginBackground.png" id="2_pbf7n"]
+[ext_resource type="Texture2D" uid="uid://bmt7cbw4tafnp" path="res://assets/Logo/LogoUTA.png" id="3_logo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_placa_logo"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_proyecto"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+bg_color = Color(0.04, 0.045, 0.08, 0.82)
+border_width_left = 3
+border_color = Color(0.39, 0.4, 0.95, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="LoginScreen" type="CanvasLayer" unique_id=1490014881]
 script = ExtResource("1")
@@ -42,7 +67,7 @@ layout_mode = 2
 [node name="WelcomeLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=362481791]
 unique_name_in_owner = true
 layout_mode = 2
-text = "¡Bienvenido al Mundo Virtual!"
+text = "¡Bienvenido al Entorno Virtual!"
 horizontal_alignment = 1
 
 [node name="TitleSpacer" type="Control" parent="CenterContainer/MainVBox" unique_id=1186550361]
@@ -64,10 +89,17 @@ theme_override_constants/margin_bottom = 28
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TitleIcon" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1145516201]
+[node name="LogoPlaca" type="PanelContainer" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1145516201]
 layout_mode = 2
-text = "📖"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBox_placa_logo")
+
+[node name="LogoUTA" type="TextureRect" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer/LogoPlaca" unique_id=1145516202]
+custom_minimum_size = Vector2(212, 80)
+layout_mode = 2
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Title" type="Label" parent="CenterContainer/MainVBox/LoginPanel/MarginContainer/VBoxContainer" unique_id=1554822627]
 layout_mode = 2
@@ -194,5 +226,36 @@ text = "Usar otra cuenta"
 
 [node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=2084709435]
 layout_mode = 2
-text = "Beta v2.0 — Mundo Virtual de Lectura"
+text = "v2.2 — Entorno Virtual de Lectura"
 horizontal_alignment = 1
+
+[node name="ProyectoPanel" type="PanelContainer" parent="." unique_id=1145516210]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 400.0
+offset_bottom = -16.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_proyecto")
+
+[node name="ProyectoVBox" type="VBoxContainer" parent="ProyectoPanel" unique_id=1145516211]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="ProyectoTitulo" type="Label" parent="ProyectoPanel/ProyectoVBox" unique_id=1145516212]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.74, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Proyecto de investigación:"
+
+[node name="ProyectoTexto" type="Label" parent="ProyectoPanel/ProyectoVBox" unique_id=1145516213]
+custom_minimum_size = Vector2(356, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.87, 0.92, 1)
+theme_override_font_sizes/font_size = 12
+text = "Entorno virtual asistido por inteligencia artificial orientado al fortalecimiento de la comprensión lectora en estudiantes del curso de Nivelación de la Facultad de Ciencias Humanas y de la Educación, de la Universidad Técnica de Ambato."
+autowrap_mode = 3

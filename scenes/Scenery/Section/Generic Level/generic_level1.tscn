@@ -14,12 +14,84 @@
 [ext_resource type="Texture2D" uid="uid://ccu2j655cljus" path="res://assets/Scenery/Background/Flowerpot/flowerpot4.png" id="12_3wpdv"]
 [ext_resource type="Texture2D" uid="uid://ehhr1f0ud7xb" path="res://assets/Scenery/Background/Flowerpot/flowerpot5.png" id="13_qb2sr"]
 [ext_resource type="Texture2D" uid="uid://bdy4acleokukl" path="res://assets/Animations/Fireplace/fireplace3 spritesheet.png" id="14_3wpdv"]
+[ext_resource type="Texture2D" uid="uid://dnteb6g4ug5je" path="res://assets/Animations/Various animations/Marc2.png" id="14_qb2sr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
 size = Vector2(469, 703)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by13k"]
 size = Vector2(224.98145, 108.53314)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyey4"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(0, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itudq"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(2952, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur8tb"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(5904, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk847"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(8856, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noloq"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(11808, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de0t6"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(14760, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1m8lg"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(17712, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eln1"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(20664, 2398, 2952, 2398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4rcu"]
+atlas = ExtResource("14_qb2sr")
+region = Rect2(23616, 2398, 2952, 2398)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3wpdv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyey4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itudq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur8tb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk847")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noloq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de0t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1m8lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eln1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4rcu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qb2sr"]
 atlas = ExtResource("14_3wpdv")
@@ -182,6 +254,12 @@ scale = Vector2(0.24744377, 0.2472143)
 texture = ExtResource("13_qb2sr")
 region_enabled = true
 region_rect = Rect2(67.14258, 387.17847, 489.5951, 731.25415)
+
+[node name="Windows" type="AnimatedSprite2D" parent="." unique_id=512485226]
+position = Vector2(-442.9999, 295)
+scale = Vector2(0.094837874, 0.09562423)
+sprite_frames = SubResource("SpriteFrames_3wpdv")
+frame_progress = 0.18700957
 
 [node name="Fireplace" type="AnimatedSprite2D" parent="." unique_id=1340328686]
 texture_filter = 1

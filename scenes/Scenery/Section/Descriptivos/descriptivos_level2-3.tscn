@@ -14,6 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://dg144ws4hlv7x" path="res://assets/Scenery/Background/Furniture/furniture3.png" id="10_0vfh5"]
 [ext_resource type="Texture2D" uid="uid://dsrpv3rbn5evr" path="res://assets/Scenery/Background/Flowerpot/flowerpot3.png" id="11_x3yks"]
 [ext_resource type="Texture2D" uid="uid://dev21btgwmc56" path="res://assets/Scenery/Background/Animals/dog.png" id="12_44r6q"]
+[ext_resource type="Texture2D" uid="uid://dslay28vvrqd2" path="res://assets/Animations/Various animations/lampara2.png" id="15_0vfh5"]
+[ext_resource type="Texture2D" uid="uid://cvfep5iy046eh" path="res://assets/Animations/Various animations/lamparaBackGround2.png" id="16_x3yks"]
+[ext_resource type="Texture2D" uid="uid://q1diwco8ikeq" path="res://assets/Animations/Various animations/Lampara1.png" id="17_44r6q"]
+[ext_resource type="Texture2D" uid="uid://cprcoiw57mybl" path="res://assets/Animations/Various animations/reloj300.png" id="18_pv8rt"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/pressE_Mensaje.tscn" id="99_perro"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aml51"]
 size = Vector2(850.9625, 276.9901)
@@ -26,6 +31,136 @@ size = Vector2(127.28508, 116.44827)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cc3x"]
 size = Vector2(67.9725, 66.60445)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy0so"]
+atlas = ExtResource("15_0vfh5")
+region = Rect2(0, 0, 30, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p23kn"]
+atlas = ExtResource("15_0vfh5")
+region = Rect2(30, 0, 30, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3uhht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy0so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p23kn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xylfm"]
+atlas = ExtResource("16_x3yks")
+region = Rect2(0, 0, 72, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqvqr"]
+atlas = ExtResource("16_x3yks")
+region = Rect2(72, 0, 72, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m6yto"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xylfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqvqr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tom7j"]
+atlas = ExtResource("17_44r6q")
+region = Rect2(0, 0, 30, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyvhu"]
+atlas = ExtResource("17_44r6q")
+region = Rect2(30, 0, 30, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cqoe7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tom7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyvhu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e86oc"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(0, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iixap"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(99, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfxts"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(198, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnf7t"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(297, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r82o3"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(396, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nbic"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(495, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or1o0"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(594, 0, 99, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b0a6"]
+atlas = ExtResource("18_pv8rt")
+region = Rect2(693, 0, 99, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hykem"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e86oc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iixap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfxts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnf7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r82o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nbic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or1o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b0a6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.5
+}]
 
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
@@ -124,6 +259,10 @@ position = Vector2(696.50635, 654)
 scale = Vector2(0.43589726, 0.43589726)
 texture = ExtResource("12_44r6q")
 
+[node name="PerroInteraccion" parent="." instance=ExtResource("99_perro")]
+position = Vector2(696.5, 654)
+mensaje = "Debería dejarlo descansar"
+
 [node name="Zzz" parent="." unique_id=115294721 instance=ExtResource("5_hrb0w")]
 z_index = 1
 z_as_relative = false
@@ -136,3 +275,33 @@ offset_left = 1200.0
 offset_top = 640.0
 offset_right = 1200.0
 offset_bottom = 640.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1243386751]
+z_index = 1
+texture_filter = 1
+position = Vector2(43, 272)
+scale = Vector2(1.2, 1.1041664)
+sprite_frames = SubResource("SpriteFrames_3uhht")
+autoplay = "default"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=690258727]
+z_index = 1
+texture_filter = 1
+position = Vector2(328, 357)
+scale = Vector2(0.43576366, 0.3541667)
+sprite_frames = SubResource("SpriteFrames_m6yto")
+autoplay = "default"
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="." unique_id=1726102351]
+texture_filter = 1
+position = Vector2(904, 136)
+scale = Vector2(1.1249998, 1.2342855)
+sprite_frames = SubResource("SpriteFrames_cqoe7")
+autoplay = "default"
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=1461917116]
+texture_filter = 1
+position = Vector2(980, 66.90902)
+scale = Vector2(0.5454548, 0.516414)
+sprite_frames = SubResource("SpriteFrames_hykem")
+autoplay = "default"
