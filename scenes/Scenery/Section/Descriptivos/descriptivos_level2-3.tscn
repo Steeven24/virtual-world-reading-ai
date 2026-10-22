@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cvfep5iy046eh" path="res://assets/Animations/Various animations/lamparaBackGround2.png" id="16_x3yks"]
 [ext_resource type="Texture2D" uid="uid://q1diwco8ikeq" path="res://assets/Animations/Various animations/Lampara1.png" id="17_44r6q"]
 [ext_resource type="Texture2D" uid="uid://cprcoiw57mybl" path="res://assets/Animations/Various animations/reloj300.png" id="18_pv8rt"]
+[ext_resource type="Texture2D" uid="uid://50481fibfnt4" path="res://assets/Animations/Various animations/taza.png" id="20_44r6q"]
 [ext_resource type="PackedScene" path="res://scenes/Interactuable/pressE_Mensaje.tscn" id="99_perro"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aml51"]
@@ -162,6 +163,70 @@ animations = [{
 "speed": 4.5
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_twa5f"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(0, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irdp7"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(32, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lavq7"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(64, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyx4k"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(96, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fygs6"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(128, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2er2"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(160, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4je6"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(192, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3tbb"]
+atlas = ExtResource("20_44r6q")
+region = Rect2(224, 0, 32, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pv8rt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twa5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irdp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lavq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyx4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fygs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2er2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4je6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3tbb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Level1" type="Node2D" unique_id=1292648426]
 y_sort_enabled = true
 script = ExtResource("3_script_ctrl")
@@ -259,7 +324,7 @@ position = Vector2(696.50635, 654)
 scale = Vector2(0.43589726, 0.43589726)
 texture = ExtResource("12_44r6q")
 
-[node name="PerroInteraccion" parent="." instance=ExtResource("99_perro")]
+[node name="PerroInteraccion" parent="." unique_id=10030344 instance=ExtResource("99_perro")]
 position = Vector2(696.5, 654)
 mensaje = "Debería dejarlo descansar"
 
@@ -305,3 +370,12 @@ position = Vector2(980, 66.90902)
 scale = Vector2(0.5454548, 0.516414)
 sprite_frames = SubResource("SpriteFrames_hykem")
 autoplay = "default"
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="." unique_id=2047927541]
+texture_filter = 1
+position = Vector2(307, 433.00003)
+scale = Vector2(1.1249998, 1.2342855)
+sprite_frames = SubResource("SpriteFrames_pv8rt")
+autoplay = "default"
+centered = false
+offset = Vector2(0, -50)
