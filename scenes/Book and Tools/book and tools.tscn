@@ -17,153 +17,102 @@
 [ext_resource type="Texture2D" uid="uid://smye0xn3j6ic" path="res://assets/Buttons/Book Tools/Pressed/Hecho.PNG" id="13_jb4w5"]
 [ext_resource type="Texture2D" uid="uid://c3t6gugrde351" path="res://assets/Buttons/Book Tools/Hover/Hecho.PNG" id="14_bm4mi"]
 [ext_resource type="Texture2D" uid="uid://bnlm3obxm2fb2" path="res://assets/Buttons/Book Tools/BaseButton/button-left.png" id="17_r4h2e"]
-[ext_resource type="Texture2D" uid="uid://b7bfp6166ijkc" path="res://assets/Buttons/Book Tools/BaseButton/colores.png" id="18_4uhxw"]
 [ext_resource type="Texture2D" uid="uid://ba8gvgky1rfsy" path="res://assets/Buttons/Book Tools/BaseButton/button-left-pressed.png" id="18_8nksb"]
 [ext_resource type="Texture2D" uid="uid://bniilje45jhq4" path="res://assets/Buttons/Book Tools/BaseButton/button-right.png" id="18_425m3"]
-[ext_resource type="Texture2D" uid="uid://df880aqhr0gfg" path="res://assets/Buttons/Book Tools/BaseButton/Icon/alineacion-central.png" id="19_56ivi"]
 [ext_resource type="Texture2D" uid="uid://d1127u8csvxrh" path="res://assets/Buttons/Book Tools/BaseButton/button-right-over.png" id="20_8nksb"]
-[ext_resource type="Texture2D" uid="uid://d2n16dlkqovbb" path="res://assets/Buttons/Book Tools/BaseButton/Icon/nota.png" id="20_56ivi"]
-[ext_resource type="Texture2D" uid="uid://carl2uuuk1m4v" path="res://assets/Buttons/Book Tools/BaseButton/Icon/notas-juntas.png" id="20_gntck"]
 [ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="theme_confirm"]
+[ext_resource type="Texture2D" uid="uid://b0wgbicg8nr47" path="res://assets/Buttons/Book Tools/Vistas/cinta_lectura.png" id="30_cinlecn"]
+[ext_resource type="Texture2D" uid="uid://btuwxog4y15fq" path="res://assets/Buttons/Book Tools/Vistas/cinta_lectura_hover.png" id="31_cinlech"]
+[ext_resource type="Texture2D" uid="uid://btqdwad347s38" path="res://assets/Buttons/Book Tools/Vistas/cinta_lectura_activa.png" id="32_cinleca"]
+[ext_resource type="Texture2D" uid="uid://dbdd3oh7ph1v2" path="res://assets/Buttons/Book Tools/Vistas/cinta_notas.png" id="33_cinnotn"]
+[ext_resource type="Texture2D" uid="uid://jxiyshyvj2c7" path="res://assets/Buttons/Book Tools/Vistas/cinta_notas_hover.png" id="34_cinnoth"]
+[ext_resource type="Texture2D" uid="uid://blwgr0f37ci1u" path="res://assets/Buttons/Book Tools/Vistas/cinta_notas_activa.png" id="35_cinnota"]
+[ext_resource type="Texture2D" uid="uid://ydfctoyrid1j" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio.png" id="36_cincomn"]
+[ext_resource type="Texture2D" uid="uid://diry7fjii5fur" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio_hover.png" id="37_cincomh"]
+[ext_resource type="Texture2D" uid="uid://8rqy6jxd74o2" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio_activa.png" id="38_cincoma"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gntck"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(0, 0, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_lec_n"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("30_cinlecn")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8nksb"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(384, 0, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_lec_h"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("31_cinlech")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r4h2e"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(128, 0, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_lec_a"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("32_cinleca")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_425m3"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(256, 0, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_not_n"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("33_cinnotn")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2s6yn"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(0, 106, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_not_h"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("34_cinnoth")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_12q57"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(128, 106, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_not_a"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("35_cinnota")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ua4sa"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(256, 106, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_com_n"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("36_cincomn")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rdc2b"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(384, 106, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_com_h"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("37_cincomh")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dsda"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(0, 212, 128, 105)
+[sub_resource type="StyleBoxTexture" id="SBT_com_a"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("38_cincoma")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vvei6"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(128, 212, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tqkpc"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(256, 212, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqqnr"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(384, 212, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3tcmt"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(0, 318, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3lv0g"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(128, 318, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7stb"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(256, 318, 128, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_36ewr"]
-atlas = ExtResource("18_4uhxw")
-region = Rect2(384, 318, 128, 105)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vb0ts"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gntck")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8nksb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r4h2e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_425m3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2s6yn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_12q57")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ua4sa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rdc2b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1dsda")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvei6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tqkpc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rqqnr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3tcmt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3lv0g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7stb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_36ewr")
-}],
-"loop": true,
-"name": &"Space 1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r4h2e")
-}],
-"loop": true,
-"name": &"Space 2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvei6")
-}],
-"loop": true,
-"name": &"Space 3",
-"speed": 5.0
-}]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4uhxw"]
-
+[sub_resource type="StyleBoxEmpty" id="SBE_vista_foco"]
 [node name="LecturaYLibro" type="Control" unique_id=2040741173]
 layout_mode = 3
 anchors_preset = 15
@@ -372,67 +321,71 @@ texture_pressed = ExtResource("20_8nksb")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="ButtonReading" type="Button" parent="UIAnchor" unique_id=1513072957]
-unique_name_in_owner = true
+[node name="Vistas" type="VBoxContainer" parent="UIAnchor"]
 layout_mode = 0
-offset_left = -22.0
+offset_left = -210.0
 offset_top = 28.0
 offset_right = 40.0
-offset_bottom = 78.0
-
-[node name="Reading" type="AnimatedSprite2D" parent="UIAnchor/ButtonReading" unique_id=892238578]
-position = Vector2(31, 25)
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_vb0ts")
-animation = &"Space 1"
-
-[node name="Text" type="Sprite2D" parent="UIAnchor/ButtonReading/Reading" unique_id=1055218097]
-material = SubResource("CanvasItemMaterial_4uhxw")
-position = Vector2(14.000061, 3.0517578e-05)
-scale = Vector2(0.15113121, 0.15113121)
-texture = ExtResource("19_56ivi")
-
-[node name="ButtonNotes" type="Button" parent="UIAnchor" unique_id=1477265914]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -22.0
-offset_top = 81.0
-offset_right = 40.0
-offset_bottom = 131.0
-
-[node name="Notes" type="AnimatedSprite2D" parent="UIAnchor/ButtonNotes" unique_id=781006497]
-position = Vector2(31, 25)
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_vb0ts")
-animation = &"Space 2"
-
-[node name="Notes" type="Sprite2D" parent="UIAnchor/ButtonNotes/Notes" unique_id=273292658]
-texture_filter = 3
-material = SubResource("CanvasItemMaterial_4uhxw")
-position = Vector2(14.000061, 3.0517578e-05)
-scale = Vector2(0.15113121, 0.15113121)
-texture = ExtResource("20_56ivi")
-
-[node name="ButtonCompilatorio" type="Button" parent="UIAnchor" unique_id=1419384677]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -22.0
-offset_top = 134.0
-offset_right = 40.0
 offset_bottom = 184.0
+mouse_filter = 2
+theme_override_constants/separation = 14
 
-[node name="Reading" type="AnimatedSprite2D" parent="UIAnchor/ButtonCompilatorio" unique_id=254550279]
-position = Vector2(31, 25)
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_vb0ts")
-animation = &"Space 3"
+[node name="ButtonReading" type="Button" parent="UIAnchor/Vistas" unique_id=1513072957]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_disabled_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("SBE_vista_foco")
+theme_override_styles/normal = SubResource("SBT_lec_n")
+theme_override_styles/hover = SubResource("SBT_lec_h")
+theme_override_styles/pressed = SubResource("SBT_lec_a")
+theme_override_styles/disabled = SubResource("SBT_lec_a")
+text = "Lectura"
+alignment = 0
 
-[node name="Text" type="Sprite2D" parent="UIAnchor/ButtonCompilatorio/Reading" unique_id=1028034865]
-material = SubResource("CanvasItemMaterial_4uhxw")
-position = Vector2(14.000061, 3.0517578e-05)
-scale = Vector2(0.15113121, 0.15113121)
-texture = ExtResource("20_gntck")
+[node name="ButtonNotes" type="Button" parent="UIAnchor/Vistas" unique_id=1477265914]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_disabled_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("SBE_vista_foco")
+theme_override_styles/normal = SubResource("SBT_not_n")
+theme_override_styles/hover = SubResource("SBT_not_h")
+theme_override_styles/pressed = SubResource("SBT_not_a")
+theme_override_styles/disabled = SubResource("SBT_not_a")
+text = "Notas"
+alignment = 0
 
+[node name="ButtonCompilatorio" type="Button" parent="UIAnchor/Vistas" unique_id=1419384677]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_disabled_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("SBE_vista_foco")
+theme_override_styles/normal = SubResource("SBT_com_n")
+theme_override_styles/hover = SubResource("SBT_com_h")
+theme_override_styles/pressed = SubResource("SBT_com_a")
+theme_override_styles/disabled = SubResource("SBT_com_a")
+text = "Compilatorio"
+alignment = 0
 [node name="ButtonCerrar" type="Button" parent="UIAnchor" unique_id=1234567890]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(38, 38)
@@ -465,8 +418,8 @@ cancel_button_text = "Cancelar"
 [connection signal="pressed" from="UIAnchor/PanelContainer/HBoxContainer/HerramientasPanel/Herramientas/HechoButton" to="." method="_on_hecho_button_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonLeft" to="." method="_on_button_left_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonRight" to="." method="_on_button_right_pressed"]
-[connection signal="pressed" from="UIAnchor/ButtonReading" to="." method="_on_button_reading_pressed"]
-[connection signal="pressed" from="UIAnchor/ButtonNotes" to="." method="_on_button_notes_pressed"]
-[connection signal="pressed" from="UIAnchor/ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
+[connection signal="pressed" from="UIAnchor/Vistas/ButtonReading" to="." method="_on_button_reading_pressed"]
+[connection signal="pressed" from="UIAnchor/Vistas/ButtonNotes" to="." method="_on_button_notes_pressed"]
+[connection signal="pressed" from="UIAnchor/Vistas/ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
 [connection signal="confirmed" from="ConfirmDesafios" to="." method="_on_confirm_challenges"]
