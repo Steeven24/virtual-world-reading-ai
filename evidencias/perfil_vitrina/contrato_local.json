@@ -1,0 +1,46 @@
+{
+  "/progress/profile": {
+    "alias": null,
+    "vitrina": []
+  },
+  "/leaderboard/top?limit=2": {
+    "players": [
+      {
+        "rank": 1,
+        "display_name": "Alumno 45",
+        "character": "male",
+        "total_score": 748,
+        "total_achievements": 5,
+        "alias": "Curiosidad",
+        "vitrina": [
+          {
+            "tipo": "medalla",
+            "id": "medalla_narrativo",
+            "nombre": "Medalla del Narrador",
+            "emoji": "📜",
+            "tier": "oro",
+            "imagen": null
+          },
+          {
+            "tipo": "logro",
+            "id": "first_reading",
+            "nombre": "📖 Primera lectura",
+            "emoji": "📖",
+            "tier": "bronce",
+            "imagen": null
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "display_name": "Alumno 44",
+        "character": "women",
+        "total_score": 561,
+        "total_achievements": 3,
+        "alias": "Intuición",
+        "vitrina": []
+      }
+    ],
+    "updated_at": "2026-10-25T00:45:17.267221Z"
+  }
+}

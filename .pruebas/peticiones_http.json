@@ -1,0 +1,145 @@
+{
+  "perfil": {
+    "alias": "intuicion",
+    "vitrina": [
+      {
+        "id": "first_reading",
+        "tipo": "logro"
+      },
+      {
+        "id": "medalla_narrativo",
+        "tipo": "medalla"
+      },
+      {
+        "id": "medalla_expositivo",
+        "tipo": "medalla"
+      }
+    ]
+  },
+  "peticiones": [
+    {
+      "alias": "intuicion",
+      "vitrina": []
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": []
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        }
+      ]
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        },
+        {
+          "id": "medalla_expositivo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "sabiduria",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        },
+        {
+          "id": "medalla_expositivo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        },
+        {
+          "id": "medalla_expositivo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "interes",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        },
+        {
+          "id": "medalla_expositivo",
+          "tipo": "medalla"
+        }
+      ]
+    },
+    {
+      "alias": "intuicion",
+      "vitrina": [
+        {
+          "id": "first_reading",
+          "tipo": "logro"
+        },
+        {
+          "id": "medalla_narrativo",
+          "tipo": "medalla"
+        },
+        {
+          "id": "medalla_expositivo",
+          "tipo": "medalla"
+        }
+      ]
+    }
+  ]
+}
