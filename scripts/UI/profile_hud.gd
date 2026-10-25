@@ -14,6 +14,9 @@
 ## Registrar como Autoload: Project Settings → Autoload → "ProfileHUD"
 extends CanvasLayer
 
+signal perfil_actualizado
+signal error_perfil(mensaje: String)
+
 # ─── Constantes ──────────────────────────────────────────────────────────────
 
 const FONT_BOLD_PATH := "res://fonts/fuente_juego_negrita.tres"
@@ -92,6 +95,18 @@ var _personaje_pintado: String = ""
 var _usuario_actual: int = -1
 var _alias_elegido: String = ""
 var _hay_alias_nuevo: bool = false
+var vitrina: Array = []
+var perfil_cargado: bool = false
+var guardando_perfil: bool = false
+var _perfil_http: HTTPRequest
+var _alias_local: bool = false
+var _pendiente_perfil: bool = false
+var _vitrina_pendiente: bool = false
+var _revision_perfil: int = 0
+var _revision_enviada: int = 0
+var _recuperando_perfil: bool = false
+var _operacion_perfil: String = ""
+var _usuario_peticion: int = -1
 
 # ─── Ciclo de vida ───────────────────────────────────────────────────────────
 
@@ -107,6 +122,12 @@ func _ready() -> void:
 		SceneManager.ensure_fallbacks(_font_bold)
 		SceneManager.ensure_fallbacks(_font_regular)
 
+	_perfil_http = HTTPRequest.new()
+	_perfil_http.timeout = 10.0
+	add_child(_perfil_http)
+	_perfil_http.request_completed.connect(_perfil_recibido)
+	AuthManager.progress_loaded.connect(func(_datos): _cargar_preferencias())
+	AuthManager.logged_out.connect(_limpiar_perfil)
 	_construir_ui()
 	_panel.modulate.a = 0.0
 	_panel.visible = false
@@ -216,7 +237,8 @@ func _construir_ui() -> void:
 	columna.add_child(_nombre)
 
 	_boton_alias = Button.new()
-	_boton_alias.flat = true
+	_boton_alias.flat = false
+	_boton_alias.custom_minimum_size.y = 30
 	# Sin foco: E y Espacio son ui_accept y abrirían la lista al interactuar
 	# con un NPC.
 	_boton_alias.focus_mode = Control.FOCUS_NONE
@@ -229,9 +251,14 @@ func _construir_ui() -> void:
 	_boton_alias.add_theme_color_override("font_color", COLOR_ORO)
 	_boton_alias.add_theme_color_override("font_hover_color", COLOR_NOMBRE)
 	_boton_alias.add_theme_color_override("font_pressed_color", COLOR_NOMBRE)
-	var sin_margen := StyleBoxEmpty.new()
 	for estado in ["normal", "hover", "pressed", "focus"]:
-		_boton_alias.add_theme_stylebox_override(estado, sin_margen)
+		var estilo := StyleBoxFlat.new()
+		estilo.bg_color = Color(0.26, 0.22, 0.10) if estado == "normal" else Color(0.38, 0.31, 0.12)
+		estilo.border_color = COLOR_ORO
+		estilo.set_border_width_all(1)
+		estilo.set_corner_radius_all(5)
+		estilo.set_content_margin_all(5)
+		_boton_alias.add_theme_stylebox_override(estado, estilo)
 	if _font_regular:
 		_boton_alias.add_theme_font_override("font", _font_regular)
 	_boton_alias.pressed.connect(_alternar_lista_alias)
@@ -369,7 +396,7 @@ func _cargar_frames_jugador() -> SpriteFrames:
 func _pintar_alias() -> void:
 	var texto := "« %s »  ▾" % get_alias_name()
 	if _hay_alias_nuevo:
-		texto = "« %s »  ● nuevo" % get_alias_name()
+		texto = "▾ ● nuevo · « %s »" % get_alias_name()
 	_boton_alias.text = texto
 
 # ─── Progreso ────────────────────────────────────────────────────────────────
@@ -555,6 +582,9 @@ func _crear_opcion_alias(alias: Dictionary) -> Button:
 func _elegir_alias(id: String) -> void:
 	_alias_elegido = id
 	_guardar_preferencia("alias", id)
+	_alias_local = true
+	_marcar_perfil_pendiente()
+	guardar_perfil()
 	_pintar_alias()
 	_cerrar_lista_alias()
 
@@ -590,13 +620,25 @@ func _clave(nombre: String) -> String:
 
 
 func _cargar_preferencias() -> void:
+	# Una carga nueva reemplaza la petición anterior; lo pendiente ya está en disco.
+	_perfil_http.cancel_request()
+	_operacion_perfil = ""
+	guardando_perfil = false
+	_recuperando_perfil = false
+	_usuario_actual = AuthManager.get_user_id()
 	var cfg := ConfigFile.new()
 	cfg.load(CONFIG_PATH)
+	_alias_local = cfg.has_section_key(CONFIG_SECCION, _clave("alias"))
+	_pendiente_perfil = bool(cfg.get_value(CONFIG_SECCION, _clave("pendiente"), false))
+	vitrina = cfg.get_value(CONFIG_SECCION, _clave("vitrina"), [])
+	_vitrina_pendiente = bool(cfg.get_value(CONFIG_SECCION, _clave("vitrina_pendiente"), false))
+	perfil_cargado = false
 	_alias_elegido = str(cfg.get_value(CONFIG_SECCION, _clave("alias"), ALIAS[0]["id"]))
 	_hay_alias_nuevo = bool(cfg.get_value(CONFIG_SECCION, _clave("nuevo"), false))
 	if _alias_por_id(_alias_elegido).is_empty():
 		_alias_elegido = ALIAS[0]["id"]
 	_cerrar_lista_alias()
+	_peticion_perfil("GET")
 
 
 func _guardar_preferencia(nombre: String, valor: Variant) -> void:
@@ -606,3 +648,129 @@ func _guardar_preferencia(nombre: String, valor: Variant) -> void:
 	cfg.load(CONFIG_PATH)
 	cfg.set_value(CONFIG_SECCION, _clave(nombre), valor)
 	cfg.save(CONFIG_PATH)
+
+
+func _limpiar_perfil() -> void:
+	_perfil_http.cancel_request()
+	_operacion_perfil = ""
+	guardando_perfil = false
+	_recuperando_perfil = false
+	perfil_cargado = false
+	vitrina = []
+	_usuario_actual = -1
+	_alias_elegido = ""
+
+
+func tiene_en_vitrina(tipo: String, id: String) -> bool:
+	for pieza in vitrina:
+		if pieza.get("tipo") == tipo and pieza.get("id") == id:
+			return true
+	return false
+
+
+func cambiar_vitrina(tipo: String, id: String) -> void:
+	if not perfil_cargado or guardando_perfil:
+		return
+	var nueva := vitrina.duplicate(true)
+	if tiene_en_vitrina(tipo, id):
+		for indice in range(nueva.size() - 1, -1, -1):
+			if nueva[indice].get("tipo") == tipo and nueva[indice].get("id") == id:
+				nueva.remove_at(indice)
+	elif nueva.size() < 3:
+		nueva.append({"tipo": tipo, "id": id})
+	else:
+		return
+	vitrina = nueva
+	_vitrina_pendiente = true
+	_guardar_preferencia("vitrina_pendiente", true)
+	_guardar_preferencia("vitrina", vitrina)
+	_marcar_perfil_pendiente()
+	guardar_perfil()
+	perfil_actualizado.emit()
+
+
+func _marcar_perfil_pendiente() -> void:
+	_revision_perfil += 1
+	_pendiente_perfil = true
+	_guardar_preferencia("pendiente", true)
+
+
+func guardar_perfil() -> void:
+	# El GET previo evita borrar una vitrina del servidor al elegir el alias.
+	if not perfil_cargado:
+		_peticion_perfil("GET")
+	else:
+		_peticion_perfil("PUT")
+
+
+func _peticion_perfil(metodo: String) -> void:
+	if not AuthManager.is_authenticated or not _operacion_perfil.is_empty():
+		return
+	_usuario_peticion = AuthManager.get_user_id()
+	_operacion_perfil = metodo
+	guardando_perfil = metodo == "PUT"
+	_revision_enviada = _revision_perfil
+	var cabeceras := PackedStringArray(["Content-Type: application/json", "Authorization: Bearer " + AuthManager.auth_token])
+	var cuerpo := JSON.stringify({"alias": _alias_elegido if _alias_local else null, "vitrina": vitrina}) if metodo == "PUT" else ""
+	var error := _perfil_http.request(ApiConfig.BASE_URL + "/progress/profile", cabeceras, HTTPClient.METHOD_PUT if metodo == "PUT" else HTTPClient.METHOD_GET, cuerpo)
+	if error != OK:
+		_operacion_perfil = ""
+		guardando_perfil = false
+		error_perfil.emit("No se pudo conectar. Se reintentará al cargar el progreso.")
+
+
+func _perfil_recibido(resultado: int, codigo: int, _cabeceras: PackedStringArray, cuerpo: PackedByteArray) -> void:
+	var operacion := _operacion_perfil
+	_operacion_perfil = ""
+	guardando_perfil = false
+	if _usuario_peticion != AuthManager.get_user_id():
+		return
+	var datos = JSON.parse_string(cuerpo.get_string_from_utf8())
+	if resultado != HTTPRequest.RESULT_SUCCESS or codigo < 200 or codigo >= 300 or not datos is Dictionary:
+		var mensaje := "No se pudo sincronizar el perfil. Se reintentará al cargar el progreso."
+		if datos is Dictionary and datos.has("detail"):
+			mensaje = str(datos["detail"])
+		_boton_alias.tooltip_text = "Cambiar alias\n" + mensaje
+		# Un 422 no es un fallo de red: el servidor dice que lo que guardamos ya
+		# no vale (una pieza que dejó de estar desbloqueada, un catálogo que
+		# cambió, un progreso corregido). Reintentarlo no lo arregla nunca y la
+		# copia local se queda bloqueando la vitrina en 3/3, así que se tira y se
+		# adopta la del servidor, que ya filtra lo que no corresponde.
+		if codigo == 422 and operacion == "PUT" and not _recuperando_perfil:
+			vitrina = []
+			_vitrina_pendiente = false
+			_pendiente_perfil = false
+			_guardar_preferencia("vitrina", vitrina)
+			_guardar_preferencia("vitrina_pendiente", false)
+			_guardar_preferencia("pendiente", false)
+			_recuperando_perfil = true
+			_peticion_perfil("GET")
+		perfil_actualizado.emit()
+		error_perfil.emit(mensaje)
+		return
+	_boton_alias.tooltip_text = "Cambiar alias"
+	perfil_cargado = true
+	if operacion == "GET":
+		if not _alias_local and datos.get("alias") != null:
+			_alias_elegido = str(datos["alias"])
+			_alias_local = true
+			_guardar_preferencia("alias", _alias_elegido)
+		if not _vitrina_pendiente:
+			vitrina = datos.get("vitrina", [])
+			_guardar_preferencia("vitrina", vitrina)
+		# Una preferencia local explícita prevalece incluso si se eligió sin red,
+		# salvo mientras nos recuperamos de un rechazo: ahí volver a enviarla
+		# sería un ciclo PUT→422→GET→PUT sin salida.
+		if _recuperando_perfil:
+			_recuperando_perfil = false
+		elif _pendiente_perfil or _alias_local and datos.get("alias") != _alias_elegido:
+			guardar_perfil()
+	elif _revision_enviada == _revision_perfil:
+		_pendiente_perfil = false
+		_vitrina_pendiente = false
+		_guardar_preferencia("vitrina_pendiente", false)
+		_guardar_preferencia("pendiente", false)
+	else:
+		guardar_perfil()
+	_pintar_alias()
+	perfil_actualizado.emit()

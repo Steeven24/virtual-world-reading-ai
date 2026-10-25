@@ -49,7 +49,7 @@ const LEVELS: Array[String] = ["Literal", "Inferencial", "Critico"]
 const QUESTIONS_PER_LEVEL: int = 2
 
 ## Mostrar la respuesta correcta en los desafíos (solo para desarrollo).
-const DEBUG_SHOW_ANSWER: bool = false
+const DEBUG_SHOW_ANSWER: bool = true
 
 ## Puntos por respuesta correcta según nivel.
 const POINTS_BY_LEVEL: Dictionary = {

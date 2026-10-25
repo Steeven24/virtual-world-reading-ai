@@ -29,12 +29,14 @@ var _is_requesting: bool = false
 var _current_limit: int = 5
 var _refresh_timer: Timer
 var _last_update_time: float = 0.0
+var _frames_retratos: SpriteFrames
 var _font: Font
 
 # ─── Ciclo de vida ──────────────────────────────────────────────────────────
 
 func _ready() -> void:
 	Sonido.efecto("abrir")
+	_frames_retratos = ProfileHUD._cargar_frames_jugador()
 	_font = load(FONT_PATH)
 	if SceneManager and _font:
 		SceneManager.ensure_fallbacks(_font)
@@ -150,86 +152,125 @@ func _render_leaderboard(players: Array) -> void:
 		var total_achievements: int = int(player_data.get("total_achievements", 0))
 		var character: String = str(player_data.get("character", "male"))
 		
-		_add_player_row(rank, display_name, total_score, total_achievements, character)
+		_add_player_row(rank, display_name, total_score, total_achievements, character, player_data)
 
 
-func _add_player_row(rank: int, name: String, score: int, achievements: int, character: String) -> void:
-	var row := HBoxContainer.new()
-	row.custom_minimum_size.y = 32
-	
-	# Fondo para top 3
-	if rank <= 3:
-		var bg := ColorRect.new()
-		bg.color = Color(0.95, 0.85, 0.4, 0.06) if rank == 1 else Color(0.7, 0.75, 0.8, 0.04) if rank == 2 else Color(0.8, 0.5, 0.2, 0.04)
-		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-		row.add_child(bg)
-	
-	# Rango
-	var rank_label := Label.new()
-	var rank_emoji: String = RANK_EMOJIS.get(rank, "%d." % rank)
-	rank_label.text = rank_emoji
-	rank_label.custom_minimum_size.x = 36
-	rank_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	rank_label.add_theme_font_size_override("font_size", 16 if rank <= 3 else 13)
-	if rank > 3:
-		rank_label.add_theme_color_override("font_color", Color(0.5, 0.52, 0.6))
+func _etiqueta(texto: String, tamano: int = 14) -> Label:
+	var etiqueta := Label.new()
+	etiqueta.text = texto
+	etiqueta.add_theme_font_size_override("font_size", tamano)
 	if _font:
-		rank_label.add_theme_font_override("font", _font)
-	row.add_child(rank_label)
-	
-	# Icono de personaje
-	var char_label := Label.new()
-	var is_female: bool = character.to_lower() in ["women", "female", "woman", "girl", "f", "mujer"]
-	char_label.text = "👩" if is_female else "👨"
-	char_label.custom_minimum_size.x = 24
-	char_label.add_theme_font_size_override("font_size", 14)
-	if _font:
-		char_label.add_theme_font_override("font", _font)
-	row.add_child(char_label)
-	
-	# Nombre
-	var name_label := Label.new()
-	name_label.text = name
-	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_label.clip_text = true
-	name_label.add_theme_font_size_override("font_size", 14)
-	var name_color := Color(0.95, 0.92, 0.7) if rank == 1 else Color(0.85, 0.88, 0.92) if rank <= 3 else Color(0.7, 0.72, 0.8)
-	name_label.add_theme_color_override("font_color", name_color)
-	if _font:
-		name_label.add_theme_font_override("font", _font)
-	row.add_child(name_label)
-	
-	# Puntaje
-	var score_label := Label.new()
-	score_label.text = "⭐ %d" % score
-	score_label.custom_minimum_size.x = 70
-	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	score_label.add_theme_font_size_override("font_size", 13)
-	score_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3) if rank <= 3 else Color(0.6, 0.62, 0.7))
-	if _font:
-		score_label.add_theme_font_override("font", _font)
-	row.add_child(score_label)
-	
-	# Logros
-	var ach_label := Label.new()
-	ach_label.text = "🏆 %d" % achievements
-	ach_label.custom_minimum_size.x = 50
-	ach_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	ach_label.add_theme_font_size_override("font_size", 12)
-	ach_label.add_theme_color_override("font_color", Color(0.5, 0.52, 0.6))
-	if _font:
-		ach_label.add_theme_font_override("font", _font)
-	row.add_child(ach_label)
-	
-	leaderboard_list.add_child(row)
-	
-	# Separador
-	var sep := HSeparator.new()
-	sep.add_theme_color_override("separator", Color(0.2, 0.22, 0.3, 0.3))
-	leaderboard_list.add_child(sep)
+		etiqueta.add_theme_font_override("font", _font)
+	return etiqueta
 
 
-# ─── Controles de UI ────────────────────────────────────────────────────────
+func _marco(color: Color) -> PanelContainer:
+	var marco := PanelContainer.new()
+	var estilo := StyleBoxFlat.new()
+	estilo.bg_color = Color(0.12, 0.13, 0.20)
+	estilo.border_color = color
+	estilo.set_border_width_all(2)
+	estilo.set_corner_radius_all(6)
+	estilo.set_content_margin_all(4)
+	marco.add_theme_stylebox_override("panel", estilo)
+	return marco
+
+
+func _add_player_row(rank: int, nombre: String, puntos: int, logros: int, personaje: String, datos: Dictionary = {}) -> void:
+	var tarjeta := _marco(Color(0.35, 0.32, 0.18, 0.6))
+	tarjeta.custom_minimum_size.y = 112
+	leaderboard_list.add_child(tarjeta)
+	var fila := HBoxContainer.new()
+	fila.add_theme_constant_override("separation", 12)
+	tarjeta.add_child(fila)
+	var rango := _etiqueta(RANK_EMOJIS.get(rank, "%d." % rank), 22)
+	rango.custom_minimum_size.x = 36
+	fila.add_child(rango)
+	var marco := _marco(ProfileHUD.COLOR_ORO)
+	marco.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	fila.add_child(marco)
+	var retrato := TextureRect.new()
+	retrato.name = "Retrato"
+	retrato.custom_minimum_size = Vector2(64, 64)
+	retrato.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	retrato.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	retrato.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var animacion := "profile_women" if personaje.to_lower() in ["women", "female", "woman", "girl", "f", "mujer"] else "profile"
+	if _frames_retratos and _frames_retratos.has_animation(animacion) and _frames_retratos.get_frame_count(animacion) > 0:
+		retrato.texture = _frames_retratos.get_frame_texture(animacion, 0)
+	marco.add_child(retrato)
+	var columna := VBoxContainer.new()
+	columna.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	fila.add_child(columna)
+	var cabecera := HBoxContainer.new()
+	columna.add_child(cabecera)
+	var etiqueta_nombre := _etiqueta(nombre, 17)
+	etiqueta_nombre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	etiqueta_nombre.clip_text = true
+	cabecera.add_child(etiqueta_nombre)
+	var puntuacion := _etiqueta("⭐ %d" % puntos, 16)
+	puntuacion.add_theme_color_override("font_color", ProfileHUD.COLOR_ORO)
+	cabecera.add_child(puntuacion)
+	var nombre_alias = datos.get("alias")
+	var alias := _etiqueta("« %s »" % (str(nombre_alias) if nombre_alias else "Intuición"), 14)
+	alias.name = "Alias"
+	alias.clip_text = true
+	alias.add_theme_color_override("font_color", ProfileHUD.COLOR_ORO)
+	columna.add_child(alias)
+	var huecos := HBoxContainer.new()
+	huecos.name = "Vitrina"
+	huecos.add_theme_constant_override("separation", 8)
+	columna.add_child(huecos)
+	var piezas = datos.get("vitrina", [])
+	if not piezas is Array:
+		piezas = []
+	for indice in range(3):
+		_agregar_hueco(huecos, piezas[indice] if indice < piezas.size() else {})
+	var cantidad := _etiqueta("🏆 %d" % logros, 12)
+	cantidad.tooltip_text = "Logros conseguidos"
+	cantidad.add_theme_color_override("font_color", Color(0.62, 0.64, 0.72))
+	huecos.add_child(cantidad)
+
+
+func _agregar_hueco(fila: HBoxContainer, pieza: Dictionary) -> void:
+	var marco := _marco(_color_metal(str(pieza.get("tier", ""))))
+	marco.custom_minimum_size = Vector2(42, 42)
+	marco.tooltip_text = str(pieza.get("nombre", "Hueco libre de la vitrina"))
+	fila.add_child(marco)
+	var centro := CenterContainer.new()
+	marco.add_child(centro)
+	# Un hueco libre se dibuja como un rombo tenue, no como un punto suelto: así
+	# se lee como un sitio por llenar y no como un carácter perdido.
+	var icono := _etiqueta(str(pieza.get("emoji", "🏅")) if not pieza.is_empty() else "◇", 24)
+	if pieza.is_empty():
+		icono.add_theme_color_override("font_color", Color(0.45, 0.47, 0.56))
+	centro.add_child(icono)
+	var imagen = pieza.get("imagen")
+	if imagen is String and not imagen.is_empty():
+		var textura := TextureRect.new()
+		textura.custom_minimum_size = Vector2(30, 30)
+		textura.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		textura.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		textura.hide()
+		centro.add_child(textura)
+		var url: String = ApiConfig.BASE_URL + imagen if imagen.begins_with("/") else imagen
+		MedalImageLoader.load_medal_image(str(pieza.get("tipo", "")) + "_" + str(pieza.get("id", "")), url, func(tex):
+			if tex and is_instance_valid(textura):
+				textura.texture = tex
+				textura.show()
+				icono.hide()
+		)
+
+
+func _color_metal(tier: String) -> Color:
+	# Mismo criterio que el panel de medallas para reconocer el metal en ambas vistas.
+	match tier.to_lower():
+		"bronce": return Color(0.72, 0.50, 0.30)
+		"plata": return Color(0.70, 0.75, 0.82)
+		"oro": return Color(0.95, 0.78, 0.20)
+		"platino": return Color(0.78, 0.92, 0.98)
+		_: return Color(0.45, 0.45, 0.50)
+
 
 func _switch_view(limit: int) -> void:
 	_current_limit = limit

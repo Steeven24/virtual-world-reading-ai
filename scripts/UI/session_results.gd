@@ -126,7 +126,7 @@ func _populate_data() -> void:
 	# Info de la lectura
 	var reading_title: String = str(GameSession.current_reading.get("title", "Lectura"))
 	var typology: String = GameSession.current_typology
-	info_label.text = "\"%s\" — %s" % [reading_title, typology]
+	info_label.text = "%s · « %s »\n\"%s\" — %s" % [AuthManager.get_display_name(), ProfileHUD.get_alias_name(), reading_title, typology]
 
 	# Tabla de resultados por nivel
 	var summary := GameSession.get_results_summary()
