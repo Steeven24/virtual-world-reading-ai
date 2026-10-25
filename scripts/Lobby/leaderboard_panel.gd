@@ -234,7 +234,8 @@ func _add_player_row(rank: int, nombre: String, puntos: int, logros: int, person
 
 func _agregar_hueco(fila: HBoxContainer, pieza: Dictionary) -> void:
 	var marco := _marco(_color_metal(str(pieza.get("tier", ""))))
-	marco.custom_minimum_size = Vector2(42, 42)
+	# 48 de marco para una insignia a 2x (64 no cabe en la fila sin estirarla).
+	marco.custom_minimum_size = Vector2(48, 48)
 	marco.tooltip_text = str(pieza.get("nombre", "Hueco libre de la vitrina"))
 	fila.add_child(marco)
 	var centro := CenterContainer.new()
@@ -248,13 +249,16 @@ func _agregar_hueco(fila: HBoxContainer, pieza: Dictionary) -> void:
 	var imagen = pieza.get("imagen")
 	if imagen is String and not imagen.is_empty():
 		var textura := TextureRect.new()
-		textura.custom_minimum_size = Vector2(30, 30)
+		# 32 = tamaño nativo del arte: ni se amplía ni se reduce.
+		textura.custom_minimum_size = Vector2(32, 32)
 		textura.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		textura.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		textura.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		textura.hide()
 		centro.add_child(textura)
-		var url: String = ApiConfig.BASE_URL + imagen if imagen.begins_with("/") else imagen
-		MedalImageLoader.load_medal_image(str(pieza.get("tipo", "")) + "_" + str(pieza.get("id", "")), url, func(tex):
+		# Se pasa la ruta tal cual: MedalImageLoader la resuelve contra la API y
+		# ademas contempla que la base termine en /api, cosa que aqui se perdia.
+		MedalImageLoader.load_medal_image(str(pieza.get("tipo", "")) + "_" + str(pieza.get("id", "")), imagen, func(tex):
 			if tex and is_instance_valid(textura):
 				textura.texture = tex
 				textura.show()

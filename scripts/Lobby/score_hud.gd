@@ -22,16 +22,16 @@ const LOGIN_SCENE := "res://scenes/UI/login_screen.tscn"
 
 ## Definición de logros con sus nombres para mostrar.
 const ACHIEVEMENT_NAMES: Dictionary = {
-	"first_reading": "📖 Primera lectura",
-	"explorer": "🏅 Explorador",
-	"perfectionist": "🎯 Perfeccionista",
-	"avid_reader": "📚 Lector ávido",
-	"star_literal": "⭐ Estrella literal",
-	"star_inferencial": "⭐⭐ Estrella inferencial",
-	"star_critico": "⭐⭐⭐ Estrella crítica",
-	"improvement": "📈 En mejora",
-	"centurion": "💯 Centurión",
-	"half_millennium": "🏆 Medio milenio",
+	"first_reading": "Primera lectura",
+	"explorer": "Explorador",
+	"perfectionist": "Perfeccionista",
+	"avid_reader": "Lector ávido",
+	"star_literal": "Estrella literal",
+	"star_inferencial": "Estrella inferencial",
+	"star_critico": "Estrella crítica",
+	"improvement": "En mejora",
+	"centurion": "Centurión",
+	"half_millennium": "Medio milenio",
 }
 
 

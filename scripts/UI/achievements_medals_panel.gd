@@ -422,9 +422,12 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	var image_url: String = str(item.get("medal_image_path", ""))
 	if is_unlocked and not image_url.is_empty():
 		var insignia := TextureRect.new()
-		insignia.custom_minimum_size = Vector2(40, 40)
+		# 64 = 2x los 32 px del arte. Con un tamaño que no sea múltiplo exacto,
+		# el pixel art se emborrona aunque el filtro sea nearest.
+		insignia.custom_minimum_size = Vector2(64, 64)
 		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		insignia.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		insignia.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		insignia.hide()
 		hbox.add_child(insignia)
 		hbox.move_child(insignia, 0)
@@ -563,6 +566,24 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	img_container.add_child(emoji_lbl)
 
+	# Insignia dibujada de la medalla. El emoji se queda debajo como respaldo:
+	# si la descarga falla, la carta sigue mostrando algo.
+	var ruta_insignia: String = str(item.get("imagen", ""))
+	if is_unlocked and not ruta_insignia.is_empty():
+		var insignia := TextureRect.new()
+		insignia.custom_minimum_size = Vector2(64, 64)
+		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		insignia.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		insignia.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		insignia.hide()
+		img_container.add_child(insignia)
+		MedalImageLoader.load_medal_image(str(item.get("id", "")), ruta_insignia, func(tex):
+			if tex and is_instance_valid(insignia):
+				insignia.texture = tex
+				insignia.show()
+				emoji_lbl.hide()
+		)
+
 	# Efecto gris si bloqueada
 	if not is_unlocked:
 		emoji_lbl.modulate = Color(0.45, 0.45, 0.5, 0.7)
@@ -651,6 +672,17 @@ func _show_medal_detail(item: Dictionary) -> void:
 		_detail_medal_emoji.add_theme_font_override("font", _font_bold)
 	_detail_medal_emoji.show()
 	_detail_medal_image.hide()
+	_detail_medal_image.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var ruta_detalle: String = str(item.get("imagen", ""))
+	if is_unlocked and not ruta_detalle.is_empty():
+		var id_detalle := str(item.get("id", ""))
+		MedalImageLoader.load_medal_image(id_detalle, ruta_detalle, func(tex):
+			# La ficha puede haber cambiado de medalla mientras se descargaba.
+			if tex and is_instance_valid(_detail_medal_image) and str(_pieza_detalle.get("id", "")) == id_detalle:
+				_detail_medal_image.texture = tex
+				_detail_medal_image.show()
+				_detail_medal_emoji.hide()
+		)
 
 	# Estilo del panel de detalle basado en el tier
 	var style := StyleBoxFlat.new()
