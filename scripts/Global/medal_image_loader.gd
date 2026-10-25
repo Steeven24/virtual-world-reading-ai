@@ -1,9 +1,20 @@
 ## medal_image_loader.gd
-## Autoload que descarga y cachea imágenes de medallas desde la API.
-## Guarda los archivos en: user://cache/medals/
+## Autoload que resuelve las insignias de logros y medallas.
+##
+## Las quince de serie viven en el propio juego (res://assets/Medals/): son arte
+## fijo de 1 KB, igual para todos, y pedirlas por red solo añadía dependencia de
+## conexión, caché en disco y un parpadeo al abrir el panel.
+##
+## La API sigue pudiendo anularlas: si un administrador sube otra insignia desde
+## el dashboard, el logro trae su medal_image_path y esa gana. Por eso se
+## conserva la descarga con caché de abajo.
 extends Node
 
 const CACHE_DIR := "user://cache/medals/"
+const DIR_LOCAL := "res://assets/Medals/"
+
+## Texturas locales ya cargadas, por id.
+var _locales: Dictionary = {}
 
 # Diccionario para evitar descargas duplicadas de la misma medalla en paralelo
 # {"achievement_id": [callback1, callback2, ...]}
@@ -20,6 +31,38 @@ func _ready() -> void:
 		if dir and not dir.dir_exists("medals"):
 			dir.make_dir("medals")
 	print("[MedalImageLoader] Inicializado. Cache en: %s" % CACHE_DIR)
+
+
+## Insignia que trae el juego para ese id, o null si no la tiene.
+func textura_local(achievement_id: String) -> Texture2D:
+	if _locales.has(achievement_id):
+		return _locales[achievement_id]
+	var ruta := DIR_LOCAL + achievement_id + ".png"
+	var tex: Texture2D = load(ruta) if ResourceLoader.exists(ruta) else null
+	_locales[achievement_id] = tex
+	return tex
+
+
+## Pinta la insignia de un id en un TextureRect: primero la local, al instante,
+## y si el servidor manda una propia, la sustituye cuando termine de bajar.
+## Devuelve true si algo quedó pintado ya (sin esperar a la red).
+func pintar_insignia(destino: TextureRect, achievement_id: String, url_servidor: String,
+		al_pintar := Callable()) -> bool:
+	var local := textura_local(achievement_id)
+	if local:
+		destino.texture = local
+		destino.show()
+		if al_pintar.is_valid():
+			al_pintar.call()
+	if not url_servidor.is_empty():
+		load_medal_image(achievement_id, url_servidor, func(tex):
+			if tex and is_instance_valid(destino):
+				destino.texture = tex
+				destino.show()
+				if al_pintar.is_valid():
+					al_pintar.call()
+		)
+	return local != null
 
 
 ## Carga la imagen de una medalla. 

@@ -418,9 +418,8 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
 
-	# Insignia del logro subida desde el dashboard (antes era su «medalla»).
-	var image_url: String = str(item.get("medal_image_path", ""))
-	if is_unlocked and not image_url.is_empty():
+	# Insignia del logro: la del juego, y si el dashboard subió otra, esa.
+	if is_unlocked:
 		var insignia := TextureRect.new()
 		# 64 = 2x los 32 px del arte. Con un tamaño que no sea múltiplo exacto,
 		# el pixel art se emborrona aunque el filtro sea nearest.
@@ -431,12 +430,8 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 		insignia.hide()
 		hbox.add_child(insignia)
 		hbox.move_child(insignia, 0)
-		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
-			if tex and is_instance_valid(insignia):
-				insignia.texture = tex
-				insignia.show()
-				icon_lbl.hide()
-		)
+		MedalImageLoader.pintar_insignia(insignia, str(item.get("id", "")),
+			str(item.get("medal_image_path", "")), func(): icon_lbl.hide())
 
 	# Contenedor de texto
 	var vbox := VBoxContainer.new()
@@ -568,8 +563,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 
 	# Insignia dibujada de la medalla. El emoji se queda debajo como respaldo:
 	# si la descarga falla, la carta sigue mostrando algo.
-	var ruta_insignia: String = str(item.get("imagen", ""))
-	if is_unlocked and not ruta_insignia.is_empty():
+	if is_unlocked:
 		var insignia := TextureRect.new()
 		insignia.custom_minimum_size = Vector2(64, 64)
 		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -577,12 +571,8 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 		insignia.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		insignia.hide()
 		img_container.add_child(insignia)
-		MedalImageLoader.load_medal_image(str(item.get("id", "")), ruta_insignia, func(tex):
-			if tex and is_instance_valid(insignia):
-				insignia.texture = tex
-				insignia.show()
-				emoji_lbl.hide()
-		)
+		MedalImageLoader.pintar_insignia(insignia, str(item.get("id", "")),
+			str(item.get("imagen", "")), func(): emoji_lbl.hide())
 
 	# Efecto gris si bloqueada
 	if not is_unlocked:
@@ -674,8 +664,15 @@ func _show_medal_detail(item: Dictionary) -> void:
 	_detail_medal_image.hide()
 	_detail_medal_image.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var ruta_detalle: String = str(item.get("imagen", ""))
+	var id_detalle := str(item.get("id", ""))
+	if is_unlocked:
+		# La local se pinta ya, sin esperar: no hay carrera posible.
+		var local := MedalImageLoader.textura_local(id_detalle)
+		if local:
+			_detail_medal_image.texture = local
+			_detail_medal_image.show()
+			_detail_medal_emoji.hide()
 	if is_unlocked and not ruta_detalle.is_empty():
-		var id_detalle := str(item.get("id", ""))
 		MedalImageLoader.load_medal_image(id_detalle, ruta_detalle, func(tex):
 			# La ficha puede haber cambiado de medalla mientras se descargaba.
 			if tex and is_instance_valid(_detail_medal_image) and str(_pieza_detalle.get("id", "")) == id_detalle:

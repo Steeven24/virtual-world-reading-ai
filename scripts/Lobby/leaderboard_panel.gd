@@ -246,8 +246,7 @@ func _agregar_hueco(fila: HBoxContainer, pieza: Dictionary) -> void:
 	if pieza.is_empty():
 		icono.add_theme_color_override("font_color", Color(0.45, 0.47, 0.56))
 	centro.add_child(icono)
-	var imagen = pieza.get("imagen")
-	if imagen is String and not imagen.is_empty():
+	if not pieza.is_empty():
 		var textura := TextureRect.new()
 		# 32 = tamaño nativo del arte: ni se amplía ni se reduce.
 		textura.custom_minimum_size = Vector2(32, 32)
@@ -256,14 +255,9 @@ func _agregar_hueco(fila: HBoxContainer, pieza: Dictionary) -> void:
 		textura.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		textura.hide()
 		centro.add_child(textura)
-		# Se pasa la ruta tal cual: MedalImageLoader la resuelve contra la API y
-		# ademas contempla que la base termine en /api, cosa que aqui se perdia.
-		MedalImageLoader.load_medal_image(str(pieza.get("tipo", "")) + "_" + str(pieza.get("id", "")), imagen, func(tex):
-			if tex and is_instance_valid(textura):
-				textura.texture = tex
-				textura.show()
-				icono.hide()
-		)
+		# Misma clave que el panel de medallas, para no bajar dos veces lo mismo.
+		MedalImageLoader.pintar_insignia(textura, str(pieza.get("id", "")),
+			str(pieza.get("imagen", "")), func(): icono.hide())
 
 
 func _color_metal(tier: String) -> Color:
