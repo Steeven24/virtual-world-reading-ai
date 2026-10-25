@@ -256,7 +256,7 @@ region_enabled = true
 region_rect = Rect2(67.14258, 387.17847, 489.5951, 731.25415)
 
 [node name="Windows" type="AnimatedSprite2D" parent="." unique_id=512485226]
-position = Vector2(-442.9999, 295)
+position = Vector2(-295.00006, 383)
 scale = Vector2(0.094837874, 0.09562423)
 sprite_frames = SubResource("SpriteFrames_3wpdv")
 frame_progress = 0.18700957

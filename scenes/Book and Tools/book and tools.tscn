@@ -30,6 +30,9 @@
 [ext_resource type="Texture2D" uid="uid://ydfctoyrid1j" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio.png" id="36_cincomn"]
 [ext_resource type="Texture2D" uid="uid://diry7fjii5fur" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio_hover.png" id="37_cincomh"]
 [ext_resource type="Texture2D" uid="uid://8rqy6jxd74o2" path="res://assets/Buttons/Book Tools/Vistas/cinta_compilatorio_activa.png" id="38_cincoma"]
+[ext_resource type="Texture2D" uid="uid://biegcfdrflf5i" path="res://assets/Buttons/Book Tools/Vistas/cinta_ajustes.png" id="39_cinajun"]
+[ext_resource type="Texture2D" uid="uid://djkladkoe2owp" path="res://assets/Buttons/Book Tools/Vistas/cinta_ajustes_hover.png" id="40_cinajuh"]
+[ext_resource type="Texture2D" uid="uid://cdjpesruqtt67" path="res://assets/Buttons/Book Tools/Vistas/cinta_ajustes_activa.png" id="41_cinajua"]
 
 [sub_resource type="StyleBoxTexture" id="SBT_lec_n"]
 content_margin_left = 20.0
@@ -109,6 +112,33 @@ content_margin_top = 9.0
 content_margin_right = 48.0
 content_margin_bottom = 9.0
 texture = ExtResource("38_cincoma")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
+
+[sub_resource type="StyleBoxTexture" id="SBT_aju_n"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("39_cinajun")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
+
+[sub_resource type="StyleBoxTexture" id="SBT_aju_h"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("40_cinajuh")
+texture_margin_left = 14.0
+texture_margin_right = 48.0
+
+[sub_resource type="StyleBoxTexture" id="SBT_aju_a"]
+content_margin_left = 20.0
+content_margin_top = 9.0
+content_margin_right = 48.0
+content_margin_bottom = 9.0
+texture = ExtResource("41_cinajua")
 texture_margin_left = 14.0
 texture_margin_right = 48.0
 
@@ -326,7 +356,7 @@ layout_mode = 0
 offset_left = -210.0
 offset_top = 28.0
 offset_right = 40.0
-offset_bottom = 184.0
+offset_bottom = 222.0
 mouse_filter = 2
 theme_override_constants/separation = 14
 
@@ -386,6 +416,23 @@ theme_override_styles/pressed = SubResource("SBT_com_a")
 theme_override_styles/disabled = SubResource("SBT_com_a")
 text = "Compilatorio"
 alignment = 0
+[node name="ButtonAjustes" type="Button" parent="UIAnchor/Vistas"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.95686275, 0.8627451, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_gntck")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("SBE_vista_foco")
+theme_override_styles/normal = SubResource("SBT_aju_n")
+theme_override_styles/hover = SubResource("SBT_aju_h")
+theme_override_styles/pressed = SubResource("SBT_aju_a")
+text = "Ajustes"
+alignment = 0
+
 [node name="ButtonCerrar" type="Button" parent="UIAnchor" unique_id=1234567890]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(38, 38)
@@ -421,5 +468,6 @@ cancel_button_text = "Cancelar"
 [connection signal="pressed" from="UIAnchor/Vistas/ButtonReading" to="." method="_on_button_reading_pressed"]
 [connection signal="pressed" from="UIAnchor/Vistas/ButtonNotes" to="." method="_on_button_notes_pressed"]
 [connection signal="pressed" from="UIAnchor/Vistas/ButtonCompilatorio" to="." method="_on_button_compilatorio_pressed"]
+[connection signal="pressed" from="UIAnchor/Vistas/ButtonAjustes" to="." method="_on_button_ajustes_pressed"]
 [connection signal="pressed" from="UIAnchor/ButtonCerrar" to="." method="_on_button_cerrar_pressed"]
 [connection signal="confirmed" from="ConfirmDesafios" to="." method="_on_confirm_challenges"]
