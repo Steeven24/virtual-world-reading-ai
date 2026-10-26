@@ -53,10 +53,23 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.15, 0.1, 0.3, 0.15)
 
+[node name="BrandLabel" type="Label" parent="." unique_id=1536479602]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 260.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.94, 0.94, 1, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.045, 0.08, 0.9)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "LectorHaven"
+
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=2009053178]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -226,7 +239,7 @@ text = "Usar otra cuenta"
 
 [node name="VersionLabel" type="Label" parent="CenterContainer/MainVBox" unique_id=2084709435]
 layout_mode = 2
-text = "v2.2 — Entorno Virtual de Lectura"
+text = "v2.5 — Entorno Virtual de Lectura"
 horizontal_alignment = 1
 
 [node name="ProyectoPanel" type="PanelContainer" parent="." unique_id=1145516210]

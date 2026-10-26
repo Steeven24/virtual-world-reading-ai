@@ -24,7 +24,7 @@ grow_vertical = 2
 
 [node name="LeaderboardPanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=507003274]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(380, 400)
+custom_minimum_size = Vector2(620, 620)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/LeaderboardPanelContainer" unique_id=511050071]
@@ -70,7 +70,7 @@ text = "Cargando..."
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/LeaderboardPanelContainer/VBoxContainer" unique_id=2029152946]
-custom_minimum_size = Vector2(0, 260)
+custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 size_flags_vertical = 3
 

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://4clklnslniqt"]
 
 [ext_resource type="Script" uid="uid://bpljuddy115g0" path="res://scripts/UI/achievements_medals_panel.gd" id="1_script"]
-[ext_resource type="FontVariation" path="res://fonts/fuente_juego_negrita.tres" id="2_font_bold"]
-[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="3_font"]
+[ext_resource type="FontVariation" uid="uid://bm4cu5shvhyxi" path="res://fonts/fuente_juego_negrita.tres" id="2_font_bold"]
+[ext_resource type="FontVariation" uid="uid://b1na81jyx8q0w" path="res://fonts/fuente_juego.tres" id="3_font"]
 
 [node name="AchievementsMedalsPanel" type="CanvasLayer" unique_id=2042415610]
 script = ExtResource("1_script")

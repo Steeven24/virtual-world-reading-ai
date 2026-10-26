@@ -99,6 +99,7 @@ Dejar el texto marcado te ahorrará releerlo entero cuando llegue el desafío.""
 @onready var boton_lectura: Button = %ButtonReading
 @onready var boton_notas: Button = %ButtonNotes
 @onready var boton_compilatorio: Button = %ButtonCompilatorio
+@onready var boton_ajustes: Button = %ButtonAjustes
 @onready var label_notas_guardadas: Label = %LabelNotasGuardadas
 @onready var confirm_desafios: ConfirmationDialog = %ConfirmDesafios
 @onready var boton_cerrar: Button = %ButtonCerrar
@@ -111,6 +112,10 @@ var pagina_actual: int = PAGINA_PORTADA
 var paginas: Array[String] = []
 var estilos_por_pagina: Array[Array] = []
 var notas_por_pagina: Dictionary = {}
+
+## Panel de ajustes abierto desde la cuarta cinta, si lo hay. Se libera solo al
+## cerrarse, así que aquí solo vale para no abrir dos.
+var panel_ajustes: AjustesPanel = null
 
 ## Título de la lectura. Se muestra en la portada del libro.
 var _titulo_lectura: String = ""
@@ -462,6 +467,17 @@ func _on_rich_text_label_gui_input(event: InputEvent) -> void:
 			_aplicar_formato()
 
 
+## Escape abre los ajustes con el libro delante, en cualquiera de las tres
+## vistas. Cerrarlos es cosa del propio panel, que se queda la tecla mientras
+## está abierto; la comprobación de aquí es por si el orden de entrada cambiara.
+func _unhandled_input(event: InputEvent) -> void:
+	if not _libro_visible() or is_instance_valid(panel_ajustes):
+		return
+	if event.is_action_pressed("ui_cancel"):
+		_abrir_ajustes()
+		get_viewport().set_input_as_handled()
+
+
 ## Atajos 1 / 2 / 3 para activar Resaltar, Subrayar y Borrar sin ir al ratón.
 ## Solo en modo lectura: en Notas el TextEdit se queda las teclas antes de que
 ## lleguen aquí, pero se comprueba el modo igual por si no tiene el foco.
@@ -531,6 +547,24 @@ func _on_button_compilatorio_pressed() -> void:
 	_guardar_nota()
 	_cambiar_modo(ModoVista.COMPILATORIO)
 	_generar_compilatorio()
+
+# ─── Ajustes ────────────────────────────────────────────────────────────────────
+# La cuarta cinta no cambia de vista: abre los mismos ajustes que el menú del
+# lobby. Durante la lectura es cuando más falta hacen (fuente, volumen) y hasta
+# ahora obligaban a salir del escenario. En los desafíos no hay cinta porque son
+# otra escena, sin libro.
+
+func _on_button_ajustes_pressed() -> void:
+	_abrir_ajustes()
+
+
+func _abrir_ajustes() -> void:
+	if is_instance_valid(panel_ajustes):
+		return
+	# Cuelga de la raíz, no del libro: así sigue en pantalla aunque el libro
+	# cambie de modo, igual que los paneles de logros y clasificación.
+	panel_ajustes = AjustesPanel.new()
+	get_tree().root.add_child(panel_ajustes)
 
 # ─── Lógica de modos de vista ───────────────────────────────────────────────────
 

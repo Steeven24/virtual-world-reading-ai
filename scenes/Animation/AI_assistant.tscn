@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dw4dill5cd1sr"]
 
 [ext_resource type="Texture2D" uid="uid://bv4sxfshha1nj" path="res://assets/Characters/AI assistant/robot asistente.png" id="1_3o6w5"]
-[ext_resource type="Texture2D" uid="uid://d3tw6rg0swu56" path="res://assets/Characters/AI assistant/robot.png" id="2_v22vo"]
+[ext_resource type="Texture2D" uid="uid://qgaaafg07gix" path="res://assets/Characters/AI assistant/robot spritesheet.png" id="2_v22vo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3gomu"]
 atlas = ExtResource("1_3o6w5")
@@ -17,35 +17,35 @@ region = Rect2(1364, 961, 682, 841)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eny6w"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(0, 0, 38, 62)
+region = Rect2(0, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv8ur"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(38, 0, 38, 62)
+region = Rect2(114, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3003o"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(76, 0, 38, 62)
+region = Rect2(228, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5hhmd"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(114, 0, 38, 62)
+region = Rect2(342, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fb6p"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(152, 0, 38, 62)
+region = Rect2(456, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_endgi"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(190, 0, 38, 62)
+region = Rect2(570, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7bbm3"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(228, 0, 38, 62)
+region = Rect2(684, 0, 114, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ouo12"]
 atlas = ExtResource("2_v22vo")
-region = Rect2(266, 0, 38, 62)
+region = Rect2(798, 0, 114, 186)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qol45"]
 animations = [{
@@ -94,7 +94,9 @@ animations = [{
 }]
 
 [node name="Assistant" type="AnimatedSprite2D" unique_id=2128936607]
-scale = Vector2(0.13819645, 0.13819645)
+texture_filter = 1
+scale = Vector2(0.6315789, 0.631579)
 sprite_frames = SubResource("SpriteFrames_qol45")
-autoplay = "default"
-frame_progress = 0.8258075
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.39940512

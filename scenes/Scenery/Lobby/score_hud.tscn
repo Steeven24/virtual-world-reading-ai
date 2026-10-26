@@ -91,7 +91,7 @@ script = ExtResource("1_script")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -300.0
+offset_left = -510.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 50.0
@@ -100,7 +100,7 @@ theme_override_constants/separation = 8
 
 [node name="MenuButton" type="Button" parent="TopBar" unique_id=1400285703]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 0)
+custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font")
@@ -108,7 +108,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_hud")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_hud")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hud")
-text = "⚙️"
+text = "⚙️ Configuración"
 
 [node name="ScorePanel" type="PanelContainer" parent="TopBar" unique_id=365391127]
 layout_mode = 2

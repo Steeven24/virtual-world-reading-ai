@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/UI/technology_survey.gd" id="1_script"]
+[ext_resource type="Theme" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_theme"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego_negrita.tres" id="3_bold"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="4_font"]
+
+[node name="TechnologySurvey" type="CanvasLayer"]
+layer = 110
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.035, 0.06, 0.96)
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 70.0
+offset_top = 35.0
+offset_right = -70.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Margin"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+
+[node name="Padding" type="MarginContainer" parent="Margin/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="Content" type="VBoxContainer" parent="Margin/Panel/Padding"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Header" type="HBoxContainer" parent="Margin/Panel/Padding/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/Panel/Padding/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 27
+text = "Encuesta sobre el mundo virtual"
+
+[node name="Progress" type="Label" parent="Margin/Panel/Padding/Content/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 16
+text = "Paso 1 de 4"
+
+[node name="Intro" type="Label" parent="Margin/Panel/Padding/Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 16
+text = "Antes de abrir tu recompensa, cuéntanos cómo fue tu experiencia. Tus respuestas se guardarán para mejorar el mundo virtual."
+autowrap_mode = 3
+
+[node name="SectionTitle" type="Label" parent="Margin/Panel/Padding/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 21
+
+[node name="ScaleHelp" type="Label" parent="Margin/Panel/Padding/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Panel/Padding/Content"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Questions" type="VBoxContainer" parent="Margin/Panel/Padding/Content/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Error" type="Label" parent="Margin/Panel/Padding/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.4, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Margin/Panel/Padding/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Close" type="Button" parent="Margin/Panel/Padding/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 17
+text = "Responder después"
+
+[node name="Spacer" type="Control" parent="Margin/Panel/Padding/Content/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Previous" type="Button" parent="Margin/Panel/Padding/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 17
+text = "Anterior"
+
+[node name="Next" type="Button" parent="Margin/Panel/Padding/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 17
+text = "Siguiente"

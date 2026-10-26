@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/UI/comic_creditos.gd" id="1_script"]
+[ext_resource type="Theme" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_tema"]
+[ext_resource type="StyleBox" path="res://Themes and Styles/confirmation_style_box_texture.tres" id="3_panel"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego_negrita.tres" id="4_bold"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="5_font"]
+
+[node name="ComicCreditos" type="CanvasLayer"]
+layer = 102
+script = ExtResource("1_script")
+
+[node name="Fondo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Centro" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Centro"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+theme = ExtResource("2_tema")
+theme_override_styles/panel = ExtResource("3_panel")
+
+[node name="Margen" type="MarginContainer" parent="Centro/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="Caja" type="VBoxContainer" parent="Centro/Panel/Margen"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titulo" type="Label" parent="Centro/Panel/Margen/Caja"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 28
+text = "Créditos de los cómics"
+horizontal_alignment = 1
+
+[node name="Intro" type="Label" parent="Centro/Panel/Margen/Caja"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 16
+text = "Los cómics de esta zona se comparten con licencia libre. Gracias a su autor por permitirlo."
+autowrap_mode = 3
+horizontal_alignment = 1
+
+[node name="Obra" type="Label" parent="Centro/Panel/Margen/Caja"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 22
+autowrap_mode = 3
+horizontal_alignment = 1
+
+[node name="Autor" type="Label" parent="Centro/Panel/Margen/Caja"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Licencia" type="Label" parent="Centro/Panel/Margen/Caja"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Enlace" type="LinkButton" parent="Centro/Panel/Margen/Caja"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 18
+
+[node name="BotonCerrar" type="Button" parent="Centro/Panel/Margen/Caja"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 18
+text = "Cerrar"

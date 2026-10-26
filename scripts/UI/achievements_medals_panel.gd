@@ -52,6 +52,9 @@ const TAB_ANIM_DURATION := 0.2
 
 # ─── Estado ──────────────────────────────────────────────────────────────────
 
+var _boton_vitrina: Button
+var _nota_vitrina: Label
+var _pieza_detalle: Dictionary = {}
 var _http_request: HTTPRequest
 var _medals_http: HTTPRequest
 var _achievements_data: Array = []
@@ -68,6 +71,20 @@ var _font_regular: Font
 
 func _ready() -> void:
 	layer = 100
+	_boton_vitrina = Button.new()
+	_boton_vitrina.name = "BotonVitrina"
+	_boton_vitrina.add_theme_font_override("font", load("res://fonts/fuente_juego.tres"))
+	_detail_medal_tier.get_parent().add_child(_boton_vitrina)
+	_boton_vitrina.pressed.connect(func(): ProfileHUD.cambiar_vitrina(_tipo_pieza(_pieza_detalle), str(_pieza_detalle.get("id", ""))))
+	_nota_vitrina = Label.new()
+	_nota_vitrina.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_nota_vitrina.add_theme_font_override("font", load("res://fonts/fuente_juego.tres"))
+	_nota_vitrina.add_theme_font_size_override("font_size", 12)
+	_detail_medal_tier.get_parent().add_child(_nota_vitrina)
+	ProfileHUD.perfil_actualizado.connect(_actualizar_vitrina)
+	ProfileHUD.error_perfil.connect(func(mensaje): _nota_vitrina.text = mensaje)
+	if not ProfileHUD.perfil_cargado:
+		ProfileHUD.guardar_perfil()
 
 	_font_bold = load("res://fonts/fuente_juego_negrita.tres") if ResourceLoader.exists("res://fonts/fuente_juego_negrita.tres") else null
 	_font_regular = load("res://fonts/fuente_juego.tres") if ResourceLoader.exists("res://fonts/fuente_juego.tres") else null
@@ -401,22 +418,20 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 	icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hbox.add_child(icon_lbl)
 
-	# Insignia del logro subida desde el dashboard (antes era su «medalla»).
-	var image_url: String = str(item.get("medal_image_path", ""))
-	if is_unlocked and not image_url.is_empty():
+	# Insignia del logro: la del juego, y si el dashboard subió otra, esa.
+	if is_unlocked:
 		var insignia := TextureRect.new()
-		insignia.custom_minimum_size = Vector2(40, 40)
+		# 64 = 2x los 32 px del arte. Con un tamaño que no sea múltiplo exacto,
+		# el pixel art se emborrona aunque el filtro sea nearest.
+		insignia.custom_minimum_size = Vector2(64, 64)
 		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		insignia.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		insignia.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		insignia.hide()
 		hbox.add_child(insignia)
 		hbox.move_child(insignia, 0)
-		MedalImageLoader.load_medal_image(str(item["id"]), image_url, func(tex):
-			if tex and is_instance_valid(insignia):
-				insignia.texture = tex
-				insignia.show()
-				icon_lbl.hide()
-		)
+		MedalImageLoader.pintar_insignia(insignia, str(item.get("id", "")),
+			str(item.get("medal_image_path", "")), func(): icon_lbl.hide())
 
 	# Contenedor de texto
 	var vbox := VBoxContainer.new()
@@ -454,6 +469,14 @@ func _create_achievement_item(item: Dictionary, index: int) -> void:
 			hint_lbl.add_theme_font_override("font", _font_regular)
 		vbox.add_child(hint_lbl)
 
+	if is_unlocked:
+		var detalle := Button.new()
+		detalle.text = "Ver detalle · Vitrina"
+		if _font_regular:
+			detalle.add_theme_font_override("font", _font_regular)
+		detalle.pressed.connect(_show_medal_detail.bind(item))
+		vbox.add_child(detalle)
+	_agregar_distintivo(vbox, item, "logro")
 	_achievements_container.add_child(panel)
 
 	# Animación stagger fade-in
@@ -538,6 +561,19 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	img_container.add_child(emoji_lbl)
 
+	# Insignia dibujada de la medalla. El emoji se queda debajo como respaldo:
+	# si la descarga falla, la carta sigue mostrando algo.
+	if is_unlocked:
+		var insignia := TextureRect.new()
+		insignia.custom_minimum_size = Vector2(64, 64)
+		insignia.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		insignia.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		insignia.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		insignia.hide()
+		img_container.add_child(insignia)
+		MedalImageLoader.pintar_insignia(insignia, str(item.get("id", "")),
+			str(item.get("imagen", "")), func(): emoji_lbl.hide())
+
 	# Efecto gris si bloqueada
 	if not is_unlocked:
 		emoji_lbl.modulate = Color(0.45, 0.45, 0.5, 0.7)
@@ -557,6 +593,7 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 		name_lbl.add_theme_font_override("font", _font_bold)
 	vbox.add_child(name_lbl)
 	card.tooltip_text = nombre_completo
+	_agregar_distintivo(vbox, item, "medalla")
 
 	# Metal (o que sigue bloqueada) debajo del nombre.
 	var tier_lbl := Label.new()
@@ -599,6 +636,8 @@ func _create_medal_item(item: Dictionary, index: int) -> void:
 # ─── Detalle de Medalla ─────────────────────────────────────────────────────
 
 func _show_medal_detail(item: Dictionary) -> void:
+	_pieza_detalle = item
+	_actualizar_vitrina()
 	var is_unlocked: bool = item.get("is_unlocked", false)
 	var tier: String = _tier_de(item)
 	var tier_color := _get_tier_color(tier)
@@ -623,6 +662,24 @@ func _show_medal_detail(item: Dictionary) -> void:
 		_detail_medal_emoji.add_theme_font_override("font", _font_bold)
 	_detail_medal_emoji.show()
 	_detail_medal_image.hide()
+	_detail_medal_image.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var ruta_detalle: String = str(item.get("imagen", ""))
+	var id_detalle := str(item.get("id", ""))
+	if is_unlocked:
+		# La local se pinta ya, sin esperar: no hay carrera posible.
+		var local := MedalImageLoader.textura_local(id_detalle)
+		if local:
+			_detail_medal_image.texture = local
+			_detail_medal_image.show()
+			_detail_medal_emoji.hide()
+	if is_unlocked and not ruta_detalle.is_empty():
+		MedalImageLoader.load_medal_image(id_detalle, ruta_detalle, func(tex):
+			# La ficha puede haber cambiado de medalla mientras se descargaba.
+			if tex and is_instance_valid(_detail_medal_image) and str(_pieza_detalle.get("id", "")) == id_detalle:
+				_detail_medal_image.texture = tex
+				_detail_medal_image.show()
+				_detail_medal_emoji.hide()
+		)
 
 	# Estilo del panel de detalle basado en el tier
 	var style := StyleBoxFlat.new()
@@ -735,3 +792,36 @@ func _on_close_pressed() -> void:
 	tween.parallel().tween_property(_main_panel, "modulate:a", 0.0, 0.2)
 	tween.parallel().tween_property(_bg_dim, "color:a", 0.0, 0.25)
 	tween.tween_callback(func(): queue_free())
+
+
+func _tipo_pieza(item: Dictionary) -> String:
+	return "medalla" if item in _medals_data else "logro"
+
+
+func _agregar_distintivo(contenedor: Control, item: Dictionary, tipo: String) -> void:
+	var distintivo := Label.new()
+	distintivo.name = "DistintivoVitrina"
+	distintivo.text = "✦ En mi vitrina"
+	distintivo.add_theme_color_override("font_color", COLOR_GOLD)
+	distintivo.add_theme_font_size_override("font_size", 10)
+	if _font_regular:
+		distintivo.add_theme_font_override("font", _font_regular)
+	contenedor.add_child(distintivo)
+	var actualizar := func(): distintivo.visible = ProfileHUD.tiene_en_vitrina(tipo, str(item.get("id", "")))
+	ProfileHUD.perfil_actualizado.connect(actualizar)
+	distintivo.tree_exiting.connect(func():
+		if ProfileHUD.perfil_actualizado.is_connected(actualizar):
+			ProfileHUD.perfil_actualizado.disconnect(actualizar)
+	)
+	actualizar.call()
+
+
+func _actualizar_vitrina() -> void:
+	var puesta := ProfileHUD.tiene_en_vitrina(_tipo_pieza(_pieza_detalle), str(_pieza_detalle.get("id", "")))
+	var llena := ProfileHUD.vitrina.size() >= 3 and not puesta
+	_boton_vitrina.visible = bool(_pieza_detalle.get("is_unlocked", false))
+	_boton_vitrina.text = "Quitar de mi vitrina" if puesta else "Mostrar en mi vitrina"
+	_boton_vitrina.disabled = llena or not ProfileHUD.perfil_cargado or ProfileHUD.guardando_perfil
+	_nota_vitrina.text = "Quita una pieza antes de añadir otra (3/3)." if llena else ""
+	if not ProfileHUD.perfil_cargado:
+		_nota_vitrina.text = "Esperando el perfil del servidor…"

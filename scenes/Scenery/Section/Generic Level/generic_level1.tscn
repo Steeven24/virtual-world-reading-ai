@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://ehhr1f0ud7xb" path="res://assets/Scenery/Background/Flowerpot/flowerpot5.png" id="13_qb2sr"]
 [ext_resource type="Texture2D" uid="uid://bdy4acleokukl" path="res://assets/Animations/Fireplace/fireplace3 spritesheet.png" id="14_3wpdv"]
 [ext_resource type="Texture2D" uid="uid://dnteb6g4ug5je" path="res://assets/Animations/Various animations/Marc2.png" id="14_qb2sr"]
+[ext_resource type="Texture2D" uid="uid://22bwe81lqpbc" path="res://assets/Scenery/Background/Flowerpot/flowerpot9.png" id="16_wtyk5"]
+[ext_resource type="Texture2D" uid="uid://cjas5wp3w56ha" path="res://assets/Scenery/Background/Flowerpot/flowerpot10.png" id="17_sxt6l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8kxi"]
 size = Vector2(469, 703)
@@ -24,39 +26,39 @@ size = Vector2(224.98145, 108.53314)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lyey4"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(0, 2398, 2952, 2398)
+region = Rect2(0, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_itudq"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(2952, 2398, 2952, 2398)
+region = Rect2(2952, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ur8tb"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(5904, 2398, 2952, 2398)
+region = Rect2(5904, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vk847"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(8856, 2398, 2952, 2398)
+region = Rect2(8856, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_noloq"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(11808, 2398, 2952, 2398)
+region = Rect2(11808, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_de0t6"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(14760, 2398, 2952, 2398)
+region = Rect2(14760, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1m8lg"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(17712, 2398, 2952, 2398)
+region = Rect2(17712, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1eln1"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(20664, 2398, 2952, 2398)
+region = Rect2(20664, 0, 2952, 4797)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t4rcu"]
 atlas = ExtResource("14_qb2sr")
-region = Rect2(23616, 2398, 2952, 2398)
+region = Rect2(23616, 0, 2952, 4797)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3wpdv"]
 animations = [{
@@ -256,10 +258,11 @@ region_enabled = true
 region_rect = Rect2(67.14258, 387.17847, 489.5951, 731.25415)
 
 [node name="Windows" type="AnimatedSprite2D" parent="." unique_id=512485226]
-position = Vector2(-442.9999, 295)
-scale = Vector2(0.094837874, 0.09562423)
+position = Vector2(169.49036, 263.83502)
+scale = Vector2(0.09721568, 0.095972374)
 sprite_frames = SubResource("SpriteFrames_3wpdv")
-frame_progress = 0.18700957
+autoplay = "default"
+frame_progress = 0.004424276
 
 [node name="Fireplace" type="AnimatedSprite2D" parent="." unique_id=1340328686]
 texture_filter = 1
@@ -268,3 +271,15 @@ scale = Vector2(1.0468752, 1.0555556)
 sprite_frames = SubResource("SpriteFrames_lyey4")
 autoplay = "default"
 centered = false
+
+[node name="Flowerpot9" type="Sprite2D" parent="." unique_id=375640678]
+texture_filter = 1
+position = Vector2(85.1875, 477)
+scale = Vector2(0.29525003, 0.31449994)
+texture = ExtResource("16_wtyk5")
+
+[node name="Flowerpot10" type="Sprite2D" parent="." unique_id=468813585]
+texture_filter = 1
+position = Vector2(163.5, 529.5)
+scale = Vector2(0.24999999, 0.246)
+texture = ExtResource("17_sxt6l")

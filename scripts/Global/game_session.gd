@@ -762,40 +762,40 @@ func _check_achievements() -> void:
 
 	# Primera lectura
 	if score_data["sessions_completed"] >= 1 and "first_reading" not in unlocked:
-		_unlock("first_reading", "📖 Primera lectura")
+		_unlock("first_reading", "Primera lectura")
 
 	# Explorador: 1 sesión de cada tipología de la progresión
 	if score_data["typologies_completed"].size() >= ProgressionManager.DIFFICULTY_ORDER.size() and "explorer" not in unlocked:
-		_unlock("explorer", "🏅 Explorador")
+		_unlock("explorer", "Explorador")
 
 	# Perfeccionista: 1 sesión sin errores
 	if score_data["perfect_sessions"] >= 1 and "perfectionist" not in unlocked:
-		_unlock("perfectionist", "🎯 Perfeccionista")
+		_unlock("perfectionist", "Perfeccionista")
 
 	# Lector ávido
 	if score_data["sessions_completed"] >= LOGRO_LECTOR_AVIDO_SESIONES and "avid_reader" not in unlocked:
-		_unlock("avid_reader", "📚 Lector ávido")
+		_unlock("avid_reader", "Lector ávido")
 
 	# Estrellas por nivel
 	var aciertos: Dictionary = score_data["correct_by_level"]
 	if aciertos.get("Literal", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_literal" not in unlocked:
-		_unlock("star_literal", "⭐ Estrella literal")
+		_unlock("star_literal", "Estrella literal")
 	if aciertos.get("Inferencial", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_inferencial" not in unlocked:
-		_unlock("star_inferencial", "⭐⭐ Estrella inferencial")
+		_unlock("star_inferencial", "Estrella inferencial")
 	if aciertos.get("Critico", 0) >= LOGRO_ESTRELLA_ACIERTOS and "star_critico" not in unlocked:
-		_unlock("star_critico", "⭐⭐⭐ Estrella crítica")
+		_unlock("star_critico", "Estrella crítica")
 
 	# En mejora: mejorar un puntaje previo
 	if is_new_record() and score_data["sessions_completed"] >= 2 and "improvement" not in unlocked:
-		_unlock("improvement", "📈 En mejora")
+		_unlock("improvement", "En mejora")
 
 	# Centurión: 100 pts totales
 	if score_data["total_score"] >= 100 and "centurion" not in unlocked:
-		_unlock("centurion", "💯 Centurión")
+		_unlock("centurion", "Centurión")
 
 	# Medio milenio: 500 pts totales
 	if score_data["total_score"] >= 500 and "half_millennium" not in unlocked:
-		_unlock("half_millennium", "🏆 Medio milenio")
+		_unlock("half_millennium", "Medio milenio")
 
 
 func _unlock(id: String, display_name: String) -> void:
