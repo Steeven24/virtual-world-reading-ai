@@ -1,0 +1,149 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/Interactions/pressE_comics.gd" id="2_cls42"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="2_kyc8s"]
+[ext_resource type="Theme" uid="uid://1ytmo6fq5der" path="res://Themes and Styles/confirmation_Dialogue.tres" id="2_n1o1d"]
+[ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_0esm7"]
+[ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="3_n1o1d"]
+[ext_resource type="Texture2D" uid="uid://bie7o6hgf8j7f" path="res://assets/Scenery/Padlock/padlock.png" id="6_padlock"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqvbj"]
+size = Vector2(44.87207, 23.380325)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hwa"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(0, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd1hg"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(22, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnrq7"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(44, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nc5w"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(66, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxddg"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(88, 0, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y2k1"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(0, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6ad"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(22, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o5gn"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(44, 42, 22, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbu57"]
+atlas = ExtResource("3_0esm7")
+region = Rect2(66, 42, 22, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n1o1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd1hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnrq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nc5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxddg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y2k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o5gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbu57")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="SillonComics" type="Node2D" unique_id=278619741]
+script = ExtResource("2_cls42")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=127112387]
+scale = Vector2(0.17578125, 0.17578125)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=577816882]
+scale = Vector2(45.373333, 45.373333)
+shape = SubResource("CircleShape2D_32c1v")
+
+[node name="message" type="Label" parent="Area2D" unique_id=1805099042]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -312.8889
+offset_right = 250.0
+offset_bottom = -192.88889
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kyc8s")
+theme_override_font_sizes/font_size = 100
+text = " "
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Speech bubble" type="Sprite2D" parent="." unique_id=2141102064]
+visible = false
+texture_filter = 1
+position = Vector2(0, -100)
+scale = Vector2(0.9, 1)
+texture = ExtResource("3_n1o1d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Speech bubble" unique_id=418304668]
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(1.6305552, 1.4674996)
+sprite_frames = SubResource("SpriteFrames_n1o1d")
+autoplay = "default"
+
+[node name="Padlock" type="Sprite2D" parent="." unique_id=900100001]
+texture_filter = 1
+position = Vector2(0, -17.999998)
+scale = Vector2(0.23000015, 0.23000015)
+texture = ExtResource("6_padlock")
+
+[node name="LockedDialog" type="AcceptDialog" parent="." unique_id=900100002]
+transparent_bg = true
+title = "Zona de cómics"
+size = Vector2i(600, 200)
+borderless = true
+transparent = true
+theme = ExtResource("2_n1o1d")
+ok_button_text = "Entendido"
+dialog_text = "La zona de cómics está cerrada."
+dialog_autowrap = true
+
+[node name="Sillon" type="Polygon2D" parent="." unique_id=900100010]
+z_index = -1
+color = Color(0.45, 0.2, 0.2, 1)
+polygon = PackedVector2Array(-14, -12, 14, -12, 14, 10, -14, 10)
