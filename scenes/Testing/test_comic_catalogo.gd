@@ -1,8 +1,9 @@
 ## Prueba del catálogo de cómics. Se lanza en headless:
 ##   Godot --headless --path <copia aislada> --quit-after 4000 res://scenes/Testing/test_comic_catalogo.tscn
-## IMPORTANTE: ejecutar sobre una copia con use_custom_user_dir, nunca sobre el
+## IMPORTANTE: ejecutar sobre una copia con config/use_custom_user_dir, nunca sobre el
 ## user:// real: AuthManager restaura el token guardado y se harían peticiones
-## reales con la cuenta del alumno. La prueba aborta si detecta una sesión.
+## reales con la cuenta del alumno. La guarda de abajo es post-hoc (ComicLibrary ya lanzó su petición en su
+## _ready, antes que este): la protección real es la copia aislada.
 extends Node
 
 const ESCENA := "res://scenes/UI/comic_catalogo.tscn"

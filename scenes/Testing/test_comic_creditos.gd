@@ -1,7 +1,8 @@
 ## Prueba de la pantalla de créditos de los cómics. Se lanza en headless:
 ##   Godot --headless --path <copia aislada> --quit-after 60000 res://scenes/Testing/test_comic_creditos.tscn
 ## IMPORTANTE: ejecutar sobre una copia con config/use_custom_user_dir, nunca sobre
-## el user:// real. La prueba aborta si el user:// no es el aislado o hay sesión.
+## el user:// real. La guarda de abajo es post-hoc (ComicLibrary ya lanzó su petición en su
+## _ready, antes que este): la protección real es la copia aislada.
 extends Node
 
 const ESCENA_CREDITOS := "res://scenes/UI/comic_creditos.tscn"

@@ -35,6 +35,8 @@ func _ready() -> void:
 	add_child(_http)
 	_http.request_completed.connect(_al_completar_peticion)
 	AuthManager.logged_out.connect(_al_cerrar_sesion)
+	# Un cierre forzado (otro slot activo, entorno desactivado) no emite logged_out.
+	AuthManager.session_invalidated.connect(_al_cerrar_sesion)
 	if AuthManager.is_authenticated:
 		cargar_progreso()
 
@@ -43,7 +45,7 @@ func _ready() -> void:
 
 ## Episodios del catálogo: id, titulo, paginas (rutas) y num_paginas.
 func episodios() -> Array[Dictionary]:
-	return _episodios
+	return _episodios.duplicate()
 
 
 ## Autor, título de la obra, licencia y enlace, para la pantalla de créditos.
@@ -142,6 +144,11 @@ func _acotar_pagina(episode_id: String, last_page: int) -> int:
 func _al_cerrar_sesion() -> void:
 	_progreso.clear()
 	_cola.clear()
+	_visitas = 0
+	# Sin esto, la respuesta en vuelo de la cuenta anterior se aplicaría al
+	# primer elemento de la cola de la cuenta siguiente.
+	_http.cancel_request()
+	_ocupado = false
 
 
 func _episodio(episode_id: String) -> Dictionary:
@@ -184,6 +191,12 @@ func _procesar_cola() -> void:
 	var cabeceras: PackedStringArray = ["Content-Type: application/json"]
 	if not AuthManager.auth_token.is_empty():
 		cabeceras.append("Authorization: Bearer %s" % AuthManager.auth_token)
+	# Igual que AuthManager: el servidor rechaza con 409 si el slot o la versión
+	# de sesión ya no son los activos.
+	if AuthManager.current_slot_id > 0:
+		cabeceras.append("X-Slot-Id: %d" % AuthManager.current_slot_id)
+	if AuthManager.current_session_version > 0:
+		cabeceras.append("X-Session-Version: %d" % AuthManager.current_session_version)
 	var metodo := HTTPClient.METHOD_GET
 	match req["metodo"]:
 		"PUT": metodo = HTTPClient.METHOD_PUT
@@ -204,6 +217,11 @@ func _al_completar_peticion(result: int, codigo: int, _cabeceras: PackedStringAr
 	var req: Dictionary = _cola[0]
 	_cola.remove_at(0)
 	_ocupado = false
+	if codigo == 409 and _es_sesion_invalidada(body):
+		# La sesión ya no es la activa: lo que se lee no es de esta cuenta/slot.
+		# No se deja como pendiente; AuthManager expulsa y limpia (señal).
+		AuthManager._handle_session_invalidated(_detalle_409(body))
+		return
 	if result != HTTPRequest.RESULT_SUCCESS or codigo < 200 or codigo >= 300:
 		_al_fallar(req)
 	else:
@@ -218,6 +236,18 @@ func _al_completar_peticion(result: int, codigo: int, _cabeceras: PackedStringAr
 		elif req["metodo"] == "POST" and datos is Dictionary:
 			_visitas = int(datos.get("visitas", _visitas))
 	_procesar_cola()
+
+
+func _detalle_409(body: PackedByteArray) -> String:
+	var json := JSON.new()
+	if json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary:
+		return str(json.data.get("detail", ""))
+	return ""
+
+
+func _es_sesion_invalidada(body: PackedByteArray) -> bool:
+	var detalle := _detalle_409(body)
+	return detalle == "SESSION_INVALIDATED" or detalle == "WORKSPACE_INACTIVE"
 
 
 func _al_fallar(req: Dictionary) -> void:
@@ -238,7 +268,16 @@ func _leer_pendientes() -> Dictionary:
 	if not FileAccess.file_exists(ARCHIVO_PENDIENTE):
 		return {}
 	var datos = JSON.parse_string(FileAccess.get_file_as_string(ARCHIVO_PENDIENTE))
-	return datos if datos is Dictionary else {}
+	if not (datos is Dictionary):
+		return {}
+	# Formato antiguo: claves de episodio ("ep01") en vez de id de usuario. No se
+	# sabe de quién es, así que no se puede subir sin atribuirlo a otra cuenta: se descarta.
+	for clave in datos:
+		if not str(clave).is_valid_int():
+			push_warning("[ComicLibrary] Descartado comics_pendiente.json del formato antiguo")
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(ARCHIVO_PENDIENTE))
+			return {}
+	return datos
 
 
 func _escribir_pendientes(todos: Dictionary) -> void:

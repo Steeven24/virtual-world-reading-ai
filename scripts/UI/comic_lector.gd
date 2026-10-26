@@ -106,7 +106,10 @@ func abrir(episode_id: String, pagina: int) -> void:
 		return
 	_titulo.text = _titulo_episodio
 	_zoom = ZOOM_MIN
-	_mostrar_pagina(clampi(pagina, 0, _num_paginas - 1))
+	pagina = clampi(pagina, 0, _num_paginas - 1)
+	# Registrar la entrada: «abrió y leyó la primera página» no es «entró y se fue».
+	ComicLibrary.guardar_progreso(_episodio, pagina, ComicLibrary.progreso(_episodio)["finished"])
+	_mostrar_pagina(pagina)
 
 
 func episodio_actual() -> String:

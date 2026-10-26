@@ -1,8 +1,9 @@
 ## Prueba del lector de cómics. Se lanza en headless:
 ##   Godot --headless --path <copia aislada> --quit-after 60000 res://scenes/Testing/test_comic_lector.tscn
-## IMPORTANTE: ejecutar sobre una copia con use_custom_user_dir, nunca sobre el
+## IMPORTANTE: ejecutar sobre una copia con config/use_custom_user_dir, nunca sobre el
 ## user:// real: AuthManager restaura el token guardado y se harían peticiones
-## reales con la cuenta del alumno. La prueba aborta si detecta una sesión.
+## reales con la cuenta del alumno. La guarda de abajo es post-hoc (ComicLibrary ya lanzó su petición en su
+## _ready, antes que este): la protección real es la copia aislada.
 extends Node
 
 const ESCENA_LECTOR := "res://scenes/UI/comic_lector.tscn"
@@ -207,6 +208,7 @@ func _probar() -> void:
 	lector.fijar_nivel_texto(0)
 	lector.abrir("ep02", 2)
 	await _esperar()
+	_comprobar(ComicLibrary.progreso("ep02")["last_page"] == 2, "abrir() guarda la página inicial como progreso")
 	var diminutos := ["FLAME", "OCÉANO", "VIOLE(N)TO"]
 	var lista_ep2 := ComicLibrary.bocadillos("ep02", 2)
 	var en_panel_ep2: Array[String] = []

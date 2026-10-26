@@ -1,8 +1,10 @@
 ## Prueba de ComicLibrary. Se lanza en headless:
 ##   Godot --headless --path <copia aislada> --quit-after 45 res://scenes/Testing/test_comic_library.tscn
-## IMPORTANTE: ejecutar sobre una copia con use_custom_user_dir, nunca sobre el
-## user:// real: AuthManager restaura el token guardado y se harían peticiones
-## reales con la cuenta del alumno. La prueba aborta si detecta una sesión.
+## IMPORTANTE: ejecutar sobre una copia con config/use_custom_user_dir, nunca sobre
+## el user:// real: AuthManager restaura el token guardado y se harían peticiones
+## reales con la cuenta del alumno. La guarda de abajo es post-hoc: ComicLibrary
+## ya lanzó su petición en su propio _ready, antes de este. La protección real es
+## la copia aislada; la guarda solo evita seguir y escribir si no se usó.
 extends Node
 
 var _fallos := 0
@@ -17,6 +19,11 @@ func _comprobar(condicion: bool, descripcion: String) -> void:
 
 
 func _ready() -> void:
+	print("USERDIR: %s" % OS.get_user_data_dir())
+	if not OS.get_user_data_dir().contains("vw_prueba_t6"):
+		push_error("ABORTADO: el user:// no es el aislado de la prueba.")
+		get_tree().quit(2)
+		return
 	if AuthManager.is_authenticated or not AuthManager.auth_token.is_empty():
 		push_error("ABORTADO: hay una sesión real restaurada; ejecuta la prueba en una copia con user:// aislado.")
 		get_tree().quit(2)
@@ -135,6 +142,28 @@ func _probar() -> void:
 	ComicLibrary.guardar_progreso("ep04", 1, false)
 	AuthManager.logged_out.emit()
 	_comprobar(ComicLibrary.progreso("ep04")["last_page"] == 0, "al cerrar sesión se vacía el progreso en memoria")
+
+	# Sesión invalidada (otro slot activo) también vacía la memoria
+	ComicLibrary.guardar_progreso("ep04", 1, false)
+	AuthManager.session_invalidated.emit()
+	_comprobar(ComicLibrary.progreso("ep04")["last_page"] == 0, "al invalidarse la sesión se vacía el progreso en memoria")
+
+	# Carrera: la respuesta en vuelo de la cuenta anterior no puede aplicarse a la siguiente
+	ComicLibrary._cola.append({"metodo": "GET", "ruta": "/comics/progress", "cuerpo": {}, "meta": {}})
+	ComicLibrary._ocupado = true
+	AuthManager.logged_out.emit()
+	_comprobar(not ComicLibrary._ocupado and ComicLibrary._cola.is_empty(), "cerrar sesión libera la cola y no deja una petición en vuelo")
+
+	# episodios() devuelve una copia
+	var copia := ComicLibrary.episodios()
+	copia.clear()
+	_comprobar(ComicLibrary.episodios().size() == 10, "episodios() devuelve una copia: vaciarla no toca el catálogo")
+
+	# Pendiente del formato antiguo (claves de episodio): se descarta
+	var f := FileAccess.open(ComicLibrary.ARCHIVO_PENDIENTE, FileAccess.WRITE)
+	f.store_string(JSON.stringify({"ep01": {"last_page": 1, "finished": false}}))
+	f.close()
+	_comprobar(ComicLibrary._leer_pendientes().is_empty() and not FileAccess.file_exists(ComicLibrary.ARCHIVO_PENDIENTE), "el pendiente del formato antiguo se descarta")
 
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(ComicLibrary.ARCHIVO_PENDIENTE))
 	AuthManager.current_user = {}

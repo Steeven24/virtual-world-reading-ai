@@ -237,4 +237,4 @@ def test_construir_episodio_compone_los_globos_sobre_la_ilustracion(tmp_path):
     assert pagina.size == (500, 700)
     assert min(pagina.getpixel((150, 150))) > 245  # globo blanco encima
     r, g, b = pagina.getpixel((400, 600))
-    assert (abs(r - 200), abs(g - 120), abs(b - 40)) < (12, 12, 12)  # ilustración intacta
+    assert abs(r - 200) < 12 and abs(g - 120) < 12 and abs(b - 40) < 12  # ilustración intacta
