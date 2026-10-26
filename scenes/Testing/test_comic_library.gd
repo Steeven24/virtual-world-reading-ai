@@ -27,6 +27,9 @@ func _ready() -> void:
 
 
 func _probar() -> void:
+	# Estado limpio: un resto de una ejecución interrumpida falsearía las comprobaciones
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(ComicLibrary.ARCHIVO_PENDIENTE))
+
 	# Catálogo
 	var eps := ComicLibrary.episodios()
 	_comprobar(eps.size() == 10, "el catálogo trae 10 episodios (%d)" % eps.size())
@@ -40,10 +43,15 @@ func _probar() -> void:
 	_comprobar(ComicLibrary.pagina("nope", 0) == null, "pagina de episodio desconocido devuelve null")
 	var bocadillos_ok := true
 	for ep in eps:
+		var contados := 0
 		for i in ep["num_paginas"]:
-			if not (ComicLibrary.bocadillos(ep["id"], i) is Array):
-				bocadillos_ok = false
-	_comprobar(bocadillos_ok, "bocadillos devuelve una lista por cada página")
+			ComicLibrary.bocadillos(ep["id"], i)
+			contados += 1
+		# Una lista por página: el catálogo interno debe tener tantas como páginas.
+		if ComicLibrary._bocadillos[ep["id"]].size() != ep["num_paginas"] or contados != ep["num_paginas"]:
+			bocadillos_ok = false
+			print("  episodio %s: %d listas, %d páginas" % [ep["id"], ComicLibrary._bocadillos[ep["id"]].size(), ep["num_paginas"]])
+	_comprobar(bocadillos_ok, "cada episodio tiene tantas listas de bocadillos como páginas")
 	_comprobar(ComicLibrary.bocadillos("ep01", 1).size() > 0, "ep01 pág. 1 tiene bocadillos")
 	_comprobar(ComicLibrary.bocadillos("ep01", 999).is_empty(), "bocadillos fuera de rango vacío")
 
@@ -63,6 +71,26 @@ func _probar() -> void:
 	_comprobar(ComicLibrary.progreso("ep99") == {"last_page": 0, "finished": false}, "ep99 ignorado")
 	_comprobar(ComicLibrary.progreso("ep02") == {"last_page": 2, "finished": true}, "fila conocida sí se aplica")
 
+	# Página fuera de rango: se acota al episodio
+	var n_ep02: int = ComicLibrary.episodios()[1]["num_paginas"]
+	ComicLibrary._aplicar_respuesta_progreso({"episodios": [{"episode_id": "ep02", "last_page": 999, "finished": false}]})
+	_comprobar(ComicLibrary.progreso("ep02")["last_page"] == n_ep02 - 1, "last_page del servidor mayor que el episodio se acota a la última")
+	ComicLibrary._aplicar_respuesta_progreso({"episodios": [{"episode_id": "ep02", "last_page": -5, "finished": false}]})
+	_comprobar(ComicLibrary.progreso("ep02")["last_page"] == 0, "last_page negativo se acota a 0")
+	ComicLibrary.guardar_progreso("ep02", 500, true)
+	_comprobar(ComicLibrary.progreso("ep02")["last_page"] == n_ep02 - 1, "guardar_progreso acota la página")
+	ComicLibrary.guardar_progreso("ep02", -3, false)
+	_comprobar(ComicLibrary.progreso("ep02")["last_page"] == 0, "guardar_progreso acota negativos")
+	_comprobar(not FileAccess.file_exists(ComicLibrary.ARCHIVO_PENDIENTE), "sin sesión no se escribe nada pendiente")
+
+	# GET 2xx con cuerpo basura: la señal se emite igual
+	var basura := {"emitida": false}
+	ComicLibrary.progreso_cargado.connect(func(): basura["emitida"] = true, CONNECT_ONE_SHOT)
+	ComicLibrary._cola.append({"metodo": "GET", "ruta": "/comics/progress", "cuerpo": {}, "meta": {}})
+	ComicLibrary._ocupado = true
+	ComicLibrary._al_completar_peticion(HTTPRequest.RESULT_SUCCESS, 200, PackedStringArray(), "<html>proxy</html>".to_utf8_buffer())
+	_comprobar(basura["emitida"], "GET con cuerpo no válido emite progreso_cargado")
+
 	# Con sesión simulada y servidor inalcanzable
 	ApiConfig.BASE_URL = "http://127.0.0.1:1"
 	AuthManager.auth_token = "token-falso-de-prueba"
@@ -78,14 +106,37 @@ func _probar() -> void:
 	_comprobar(ComicLibrary.episodios().size() == 10, "sin red, episodios() sigue dando 10")
 	_comprobar(ComicLibrary.progreso("ep05") == {"last_page": 0, "finished": false}, "sin red, progreso devuelve ceros")
 
-	# Escritura sin red: queda pendiente
-	ComicLibrary.guardar_progreso("ep03", 4, false)
-	_comprobar(ComicLibrary.progreso("ep03")["last_page"] == 4, "guardar_progreso actualiza la memoria")
+	# Escritura sin red: queda pendiente, atada a la cuenta que la hizo
+	AuthManager.current_user = {"id": 1}
+	ComicLibrary.guardar_progreso("ep03", 2, false)
+	_comprobar(ComicLibrary.progreso("ep03")["last_page"] == 2, "guardar_progreso actualiza la memoria")
 	espera = 0.0
 	while not FileAccess.file_exists(ComicLibrary.ARCHIVO_PENDIENTE) and espera < 15.0:
 		await get_tree().create_timer(0.1).timeout
 		espera += 0.1
-	_comprobar(FileAccess.file_exists(ComicLibrary.ARCHIVO_PENDIENTE), "el PUT fallido queda pendiente en disco")
+	var pend := ComicLibrary._leer_pendientes()
+	_comprobar(pend.has("1") and pend["1"].has("ep03"), "el PUT fallido queda pendiente bajo el usuario 1")
+
+	# Otro alumno en el mismo equipo: no hereda progreso ni reenvía lo ajeno
+	AuthManager.current_user = {"id": 2}
+	estado["emitida"] = false
+	ComicLibrary.progreso_cargado.connect(func(): estado["emitida"] = true, CONNECT_ONE_SHOT)
+	ComicLibrary.cargar_progreso()
+	_comprobar(ComicLibrary.progreso("ep03") == {"last_page": 0, "finished": false}, "el usuario 2 no hereda el progreso del 1")
+	_comprobar(ComicLibrary._cola.size() == 1 and ComicLibrary._cola[0]["metodo"] == "GET", "solo se encola su GET, ningún PUT ajeno")
+	espera = 0.0
+	while not estado["emitida"] and espera < 15.0:
+		await get_tree().create_timer(0.1).timeout
+		espera += 0.1
+	pend = ComicLibrary._leer_pendientes()
+	_comprobar(pend.has("1") and pend["1"].has("ep03") and not pend.has("2"), "lo pendiente del usuario 1 sigue intacto y nada pasa al 2")
+
+	# Cerrar sesión vacía la memoria
+	ComicLibrary.guardar_progreso("ep04", 1, false)
+	AuthManager.logged_out.emit()
+	_comprobar(ComicLibrary.progreso("ep04")["last_page"] == 0, "al cerrar sesión se vacía el progreso en memoria")
+
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(ComicLibrary.ARCHIVO_PENDIENTE))
+	AuthManager.current_user = {}
 	AuthManager.is_authenticated = false
 	AuthManager.auth_token = ""

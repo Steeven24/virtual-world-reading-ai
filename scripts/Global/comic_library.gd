@@ -34,6 +34,7 @@ func _ready() -> void:
 	_http.timeout = ApiConfig.TIMEOUT_SECONDS
 	add_child(_http)
 	_http.request_completed.connect(_al_completar_peticion)
+	AuthManager.logged_out.connect(_al_cerrar_sesion)
 	if AuthManager.is_authenticated:
 		cargar_progreso()
 
@@ -76,17 +77,18 @@ func bocadillos(episode_id: String, indice: int) -> Array[Dictionary]:
 ## Dónde se quedó el alumno. Sin datos (o sin red) devuelve ceros.
 func progreso(episode_id: String) -> Dictionary:
 	var p: Dictionary = _progreso.get(episode_id, {})
-	return {"last_page": int(p.get("last_page", 0)), "finished": bool(p.get("finished", false))}
+	return {"last_page": _acotar_pagina(episode_id, int(p.get("last_page", 0))), "finished": bool(p.get("finished", false))}
 
 
 ## Guarda el progreso en memoria y lo manda al servidor (o lo deja pendiente).
 func guardar_progreso(episode_id: String, last_page: int, finished: bool) -> void:
 	if _episodio(episode_id).is_empty():
 		return
+	last_page = _acotar_pagina(episode_id, last_page)
 	_progreso[episode_id] = {"last_page": last_page, "finished": finished}
 	var cuerpo := {"last_page": last_page, "finished": finished}
+	# Sin sesión no hay cuenta a la que atribuir el progreso: solo queda en memoria.
 	if not AuthManager.is_authenticated:
-		_guardar_pendiente(episode_id, cuerpo)
 		return
 	_encolar("PUT", "/comics/progress/%s" % episode_id, cuerpo, {"episode_id": episode_id})
 
@@ -100,6 +102,8 @@ func registrar_visita() -> void:
 
 ## Baja el progreso del servidor y reenvía lo que quedó pendiente.
 func cargar_progreso() -> void:
+	# El progreso en memoria es de la cuenta anterior: empezar de cero.
+	_progreso.clear()
 	if not AuthManager.is_authenticated:
 		progreso_cargado.emit()
 		return
@@ -125,6 +129,19 @@ func _cargar_catalogo() -> void:
 		})
 		_bocadillos[ep["id"]] = ep.get("bocadillos", [])
 	print("[ComicLibrary] Catálogo cargado: %d episodios" % _episodios.size())
+
+
+## Mantiene la página dentro del episodio empaquetado.
+func _acotar_pagina(episode_id: String, last_page: int) -> int:
+	var ep := _episodio(episode_id)
+	if ep.is_empty():
+		return 0
+	return clampi(last_page, 0, maxi(ep["num_paginas"] - 1, 0))
+
+
+func _al_cerrar_sesion() -> void:
+	_progreso.clear()
+	_cola.clear()
 
 
 func _episodio(episode_id: String) -> Dictionary:
@@ -190,9 +207,13 @@ func _al_completar_peticion(result: int, codigo: int, _cabeceras: PackedStringAr
 	if result != HTTPRequest.RESULT_SUCCESS or codigo < 200 or codigo >= 300:
 		_al_fallar(req)
 	else:
-		var datos = JSON.parse_string(body.get_string_from_utf8())
-		if req["metodo"] == "GET" and datos is Dictionary:
-			_aplicar_respuesta_progreso(datos)
+		# JSON.new() en vez de parse_string: un cuerpo inválido no debe lanzar error.
+		var json := JSON.new()
+		var datos = json.data if json.parse(body.get_string_from_utf8()) == OK else null
+		if req["metodo"] == "GET":
+			# Se emite aunque el cuerpo no sea válido (proxy, HTML de error...).
+			if datos is Dictionary:
+				_aplicar_respuesta_progreso(datos)
 			progreso_cargado.emit()
 		elif req["metodo"] == "POST" and datos is Dictionary:
 			_visitas = int(datos.get("visitas", _visitas))
@@ -211,6 +232,8 @@ func _al_fallar(req: Dictionary) -> void:
 
 # ─── Escrituras pendientes (sin red) ────────────────────────────────────────
 
+## El archivo agrupa por id de usuario: {"7": {"ep01": {...}}}. Así lo pendiente
+## de un alumno nunca se reenvía con el token de otro en un equipo compartido.
 func _leer_pendientes() -> Dictionary:
 	if not FileAccess.file_exists(ARCHIVO_PENDIENTE):
 		return {}
@@ -218,22 +241,34 @@ func _leer_pendientes() -> Dictionary:
 	return datos if datos is Dictionary else {}
 
 
-## Solo importa lo último que hizo el alumno en cada episodio.
-func _guardar_pendiente(episode_id: String, cuerpo: Dictionary) -> void:
-	var pendientes := _leer_pendientes()
-	pendientes[episode_id] = cuerpo
+func _escribir_pendientes(todos: Dictionary) -> void:
 	var f := FileAccess.open(ARCHIVO_PENDIENTE, FileAccess.WRITE)
 	if f:
-		f.store_string(JSON.stringify(pendientes))
+		f.store_string(JSON.stringify(todos))
 		f.close()
 
 
+## Solo importa lo último que hizo el alumno en cada episodio.
+func _guardar_pendiente(episode_id: String, cuerpo: Dictionary) -> void:
+	var todos := _leer_pendientes()
+	var clave := str(AuthManager.get_user_id())
+	var suyos: Dictionary = todos.get(clave, {})
+	suyos[episode_id] = cuerpo
+	todos[clave] = suyos
+	_escribir_pendientes(todos)
+
+
 func _reenviar_pendientes() -> void:
-	var pendientes := _leer_pendientes()
-	if pendientes.is_empty():
+	var todos := _leer_pendientes()
+	var clave := str(AuthManager.get_user_id())
+	var suyos: Dictionary = todos.get(clave, {})
+	if suyos.is_empty():
 		return
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(ARCHIVO_PENDIENTE))
-	for id in pendientes:
-		var c: Dictionary = pendientes[id]
-		_progreso[id] = {"last_page": int(c.get("last_page", 0)), "finished": bool(c.get("finished", false))}
+	todos.erase(clave)
+	_escribir_pendientes(todos)
+	for id in suyos:
+		var c: Dictionary = suyos[id]
+		if _episodio(id).is_empty():
+			continue
+		_progreso[id] = {"last_page": _acotar_pagina(id, int(c.get("last_page", 0))), "finished": bool(c.get("finished", false))}
 		_encolar("PUT", "/comics/progress/%s" % id, c, {"episode_id": id})
