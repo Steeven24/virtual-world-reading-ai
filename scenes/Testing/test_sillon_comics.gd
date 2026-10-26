@@ -31,7 +31,7 @@ func _ready() -> void:
 			get_tree().quit(1)
 			return
 	print("USERDIR: %s" % OS.get_user_data_dir())
-	if not OS.get_user_data_dir().contains("vw_prueba_t10"):
+	if not (OS.get_user_data_dir().contains("vw_prueba_t10") or OS.get_user_data_dir().contains("vw_prueba_encuesta")):
 		push_error("ABORTADO: el user:// no es el aislado de la prueba.")
 		get_tree().quit(2)
 		return
@@ -63,6 +63,9 @@ func _aprobar(tipologia: String) -> void:
 func _nuevo_sillon() -> Node:
 	var sillon: Node = load(ESCENA_SILLON).instantiate()
 	sillon.registrar_visita = _contar_visita
+	# Las pruebas del sillón no dependen de red: por defecto simulan una encuesta
+	# ya respondida; el caso obligatorio se prueba explícitamente abajo.
+	sillon.estado_encuesta = func(): return true
 	add_child(sillon)
 	return sillon
 
@@ -94,13 +97,31 @@ func _probar() -> void:
 	# 2. Aprobar la última en vivo quita el candado sin recargar la escena
 	_aprobar("Expositivo")
 	ProgressionManager.progression_changed.emit()
-	_comprobar(not sillon.candado_visible(), "aprobar la última quita el candado en vivo")
+	_comprobar(not sillon.candado_visible(), "con la encuesta simulada como respondida, aprobar la última quita el candado")
 	ProgressionManager.reset_all()
 	_comprobar(sillon.candado_visible(), "reiniciar la progresión vuelve a poner el candado")
 	sillon.queue_free()
 	await _frames()
 
-	# 3. Juego terminado sin aprobar todas: fuera de alcance, no «apruébalas»
+	# 3. Con progreso completo pero sin encuesta: abre el formulario, no los cómics.
+	_reiniciar()
+	for t in TIPOLOGIAS:
+		_aprobar(t)
+	sillon = _nuevo_sillon()
+	sillon.estado_encuesta = func(): return false
+	sillon.interactuar()
+	await _frames()
+	_comprobar(sillon.encuesta_abierta(), "sin respuesta abre la encuesta obligatoria")
+	_comprobar(not sillon.catalogo_abierto() and _visitas == 0, "sin encuesta no abre ni cuenta visita")
+	_comprobar(SceneManager.is_ui_open, "la encuesta inmoviliza al jugador")
+	var encuesta: Node = sillon.get_child(sillon.get_child_count() - 1)
+	encuesta.cerrado.emit()
+	await _frames()
+	_comprobar(not sillon.encuesta_abierta() and not SceneManager.is_ui_open, "responder después cierra sin desbloquear")
+	sillon.queue_free()
+	await _frames()
+
+	# 4. Juego terminado sin aprobar todas: fuera de alcance, no «apruébalas»
 	_reiniciar()
 	_aprobar("Narrativo")
 	ProgressionManager.intentos["Descriptivo"] = ProgressionManager.MAX_INTENTOS
@@ -122,7 +143,7 @@ func _probar() -> void:
 	sillon.queue_free()
 	await _frames()
 
-	# 4. Con las cuatro aprobadas y una lectura de progresión a medias: entra igual
+	# 5. Con encuesta respondida y una lectura de progresión a medias: entra igual
 	_reiniciar()
 	for t in TIPOLOGIAS:
 		_aprobar(t)
@@ -145,7 +166,7 @@ func _probar() -> void:
 	await _frames()
 	_comprobar(_visitas == 1, "E con el catálogo abierto no cuenta otra visita")
 
-	# 5. Con el catálogo abierto: ni movimiento ni otras interacciones
+	# 6. Con el catálogo abierto: ni movimiento ni otras interacciones
 	_comprobar(SceneManager.is_ui_open, "con el catálogo abierto la interfaz está tomada")
 	var antes := jugador.global_position
 	Input.action_press("move_right")
@@ -168,7 +189,7 @@ func _probar() -> void:
 	await _frames()
 	estacion.queue_free()
 
-	# 6. Cerrar el catálogo devuelve el control
+	# 7. Cerrar el catálogo devuelve el control
 	var catalogo: Node = sillon.get_child(sillon.get_child_count() - 1)
 	_comprobar(catalogo is CanvasLayer and catalogo.has_signal("cerrado"), "el último hijo del sillón es el catálogo")
 	catalogo.cerrado.emit()
@@ -187,7 +208,7 @@ func _probar() -> void:
 	await _frames()
 	_comprobar(not SceneManager.is_ui_open, "descargar el sillón con el catálogo abierto libera al jugador")
 
-	# 7. Descargar el sillón con el aviso de bloqueo abierto también libera
+	# 8. Descargar el sillón con el aviso de bloqueo abierto también libera
 	_reiniciar()
 	sillon = _nuevo_sillon()
 	sillon.interactuar()

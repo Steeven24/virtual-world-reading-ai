@@ -11,6 +11,7 @@
 extends Node2D
 
 const ESCENA_CATALOGO := preload("res://scenes/UI/comic_catalogo.tscn")
+const ESCENA_ENCUESTA := preload("res://scenes/UI/technology_survey.tscn")
 
 const MENSAJE_BLOQUEADO := "🔒 La zona de cómics está cerrada por ahora.\n\nAprueba las cuatro tipologías de lectura para entrar a leer los cómics de recompensa."
 
@@ -18,10 +19,14 @@ var player_in_range := false
 
 ## Lo que se llama al entrar para contar la visita; se puede sustituir en pruebas.
 var registrar_visita: Callable = Callable()
+## Sustitución síncrona para pruebas. En juego se consulta SurveyManager.
+var estado_encuesta: Callable = Callable()
 
 var _padlock: Sprite2D
 var _locked_dialog: AcceptDialog
 var _catalogo: Node
+var _encuesta: Node
+var _consultando_encuesta := false
 ## True mientras el aviso de bloqueo tiene tomada la interfaz (lo puso este sillón).
 var _aviso_tomado := false
 
@@ -45,7 +50,7 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	# Si el lobby se descarga con el catálogo abierto, no se deja al jugador congelado.
-	if is_instance_valid(_catalogo) or _aviso_tomado:
+	if is_instance_valid(_catalogo) or is_instance_valid(_encuesta) or _aviso_tomado or _consultando_encuesta:
 		SceneManager.is_ui_open = false
 
 
@@ -73,7 +78,7 @@ func interactuar() -> void:
 	if SceneManager.is_ui_open:
 		return
 	if ProgressionManager.all_approved():
-		abrir_catalogo()
+		_intentar_desbloquear()
 	else:
 		_mostrar_bloqueo()
 
@@ -86,6 +91,60 @@ func abrir_catalogo() -> void:
 	_catalogo = ESCENA_CATALOGO.instantiate()
 	_catalogo.cerrado.connect(_cerrar_catalogo)
 	add_child(_catalogo)
+
+
+func _intentar_desbloquear() -> void:
+	SceneManager.is_ui_open = true
+	if estado_encuesta.is_valid():
+		_al_resolver_estado(bool(estado_encuesta.call()), "")
+		return
+	if SurveyManager.is_completed_for_current_slot():
+		_al_resolver_estado(true, "")
+		return
+	_consultando_encuesta = true
+	SurveyManager.status_ready.connect(_al_resolver_estado, CONNECT_ONE_SHOT)
+	SurveyManager.check_status()
+
+
+func _al_resolver_estado(completada: bool, error: String) -> void:
+	_consultando_encuesta = false
+	if not error.is_empty():
+		SceneManager.is_ui_open = false
+		_mostrar_error_encuesta(error)
+		return
+	if completada:
+		_actualizar_candado()
+		abrir_catalogo()
+	else:
+		_abrir_encuesta()
+
+
+func _abrir_encuesta() -> void:
+	if is_instance_valid(_encuesta):
+		return
+	_encuesta = ESCENA_ENCUESTA.instantiate()
+	_encuesta.cerrado.connect(_cerrar_encuesta)
+	_encuesta.completada.connect(_encuesta_completada)
+	add_child(_encuesta)
+
+
+func _cerrar_encuesta() -> void:
+	if is_instance_valid(_encuesta):
+		_encuesta.queue_free()
+	_encuesta = null
+	SceneManager.is_ui_open = false
+
+
+func _encuesta_completada() -> void:
+	if is_instance_valid(_encuesta):
+		_encuesta.queue_free()
+	_encuesta = null
+	_actualizar_candado()
+	abrir_catalogo()
+
+
+func encuesta_abierta() -> bool:
+	return is_instance_valid(_encuesta)
 
 
 func _cerrar_catalogo() -> void:
@@ -115,7 +174,21 @@ func texto_bloqueo() -> String:
 
 func _actualizar_candado() -> void:
 	if _padlock:
-		_padlock.visible = not ProgressionManager.all_approved()
+		var encuesta_lista := SurveyManager.is_completed_for_current_slot()
+		if estado_encuesta.is_valid():
+			encuesta_lista = bool(estado_encuesta.call())
+		_padlock.visible = not ProgressionManager.all_approved() or not encuesta_lista
+
+
+func _mostrar_error_encuesta(error: String) -> void:
+	if _locked_dialog == null:
+		return
+	SceneManager.is_ui_open = true
+	_aviso_tomado = true
+	_locked_dialog.title = "Encuesta pendiente"
+	_locked_dialog.dialog_text = "%s\n\nLos cómics se desbloquearán cuando puedas enviar la encuesta." % error
+	_locked_dialog.popup_centered()
+	DialogFocus.preparar(_locked_dialog, false)
 
 
 ## Aviso de zona cerrada, con el slide-up del resto de diálogos del proyecto.
