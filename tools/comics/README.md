@@ -13,6 +13,26 @@ OpenDyslexic). Se ejecuta a mano, no en el arranque del juego.
 - Para cada episodio hacen falta las páginas en español (PNG o JPG) y el SVG
   de Inkscape con el texto traducido de cada página.
 
+### Cómo se adaptó el material de los episodios 1-10
+
+Las fuentes por episodio viven en
+`https://www.peppercarrot.com/0_sources/epNN_Nombre/`. Para cada episodio:
+
+- Ilustración sin texto: `lang/gfx_Pepper-and-Carrot_by-David-Revoy_ENNPxx.png`
+  (la `P00` es la portada con el título).
+- Bocadillos en español: `lang/es/ENNPxx.svg`. Una página sin SVG (por
+  ejemplo `ep04` P05) es muda: queda sin bocadillos.
+- Se copian a `trabajo/epNN/xx.png` y `xx.svg` (el número de página es el de
+  `Pxx`) y se escribe `titulo.txt` con el título español, que sale del texto
+  de la portada `P00` sin el prefijo «Episodio N:».
+
+Es un paso de un solo uso, por eso no tiene script propio. Los SVG de Inkscape
+0.91 guardan casi todo el texto como `<flowRoot>` (la región da el globo) y
+con `text-anchor:middle` y `transform` en los grupos; el extractor lo tiene en
+cuenta (ver sus pruebas). Las cajas de los efectos de sonido inclinados son la
+envolvente del rectángulo girado, así que pueden salir más grandes que la
+palabra.
+
 ## Carpeta de trabajo que espera el script
 
 Debe estar **fuera del repositorio** y tener una subcarpeta por episodio; el

@@ -6,6 +6,7 @@ catálogo con la posición y el texto de cada bocadillo. Ver README.md.
 """
 import argparse
 import json
+import math
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -66,49 +67,167 @@ def _limitar(valor: float) -> float:
     return round(min(1.0, max(0.0, valor)), 5)
 
 
-def extraer_bocadillos(svg: Path) -> list[dict]:
-    """Devuelve un bocadillo por cada <text> del SVG, con coordenadas 0-1.
+IDENTIDAD = (1.0, 0.0, 0.0, 1.0, 0.0, 0.0)  # matriz afín (a, b, c, d, e, f) de SVG
 
-    Cada <tspan> es una línea del mismo bocadillo (se une con salto de línea).
-    La caja se estima a partir del tamaño de letra: el SVG solo da el punto
-    de anclaje de cada línea, no el tamaño del globo.
+
+def _componer(padre, hijo):
+    """Matriz que aplica primero `hijo` y luego `padre` (como la cascada de SVG)."""
+    a1, b1, c1, d1, e1, f1 = padre
+    a2, b2, c2, d2, e2, f2 = hijo
+    return (
+        a1 * a2 + c1 * b2, b1 * a2 + d1 * b2,
+        a1 * c2 + c1 * d2, b1 * c2 + d1 * d2,
+        a1 * e2 + c1 * f2 + e1, b1 * e2 + d1 * f2 + f1,
+    )
+
+
+def _matriz(transform):
+    """Convierte el atributo `transform` de SVG en una matriz afín."""
+    resultado = IDENTIDAD
+    for nombre, argumentos in re.findall(r"(\w+)\s*\(([^)]*)\)", transform or ""):
+        v = [float(n) for n in re.findall(r"-?\d*\.?\d+(?:[eE][-+]?\d+)?", argumentos)]
+        if nombre == "matrix" and len(v) == 6:
+            m = tuple(v)
+        elif nombre == "translate" and v:
+            m = (1, 0, 0, 1, v[0], v[1] if len(v) > 1 else 0.0)
+        elif nombre == "scale" and v:
+            m = (v[0], 0, 0, v[1] if len(v) > 1 else v[0], 0, 0)
+        elif nombre == "rotate" and v:
+            c, s = math.cos(math.radians(v[0])), math.sin(math.radians(v[0]))
+            m = (c, s, -s, c, 0, 0)
+            if len(v) == 3:
+                m = _componer(_componer((1, 0, 0, 1, v[1], v[2]), m), (1, 0, 0, 1, -v[1], -v[2]))
+        elif nombre == "skewX" and v:
+            m = (1, 0, math.tan(math.radians(v[0])), 1, 0, 0)
+        elif nombre == "skewY" and v:
+            m = (1, math.tan(math.radians(v[0])), 0, 1, 0, 0)
+        else:
+            continue
+        resultado = _componer(resultado, m)
+    return resultado
+
+
+def _caja_transformada(caja, m):
+    """Caja envolvente (x0, y0, x1, y1) de `caja` tras aplicar la matriz `m`."""
+    x0, y0, x1, y1 = caja
+    a, b, c, d, e, f = m
+    puntos = [(a * x + c * y + e, b * x + d * y + f) for x in (x0, x1) for y in (y0, y1)]
+    xs, ys = [p[0] for p in puntos], [p[1] for p in puntos]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _oculto(elemento) -> bool:
+    en_estilo = re.search(r"display\s*:\s*none", elemento.get("style", ""))
+    return bool(en_estilo) or elemento.get("display") == "none"
+
+
+def _anclaje(*elementos) -> str:
+    """text-anchor efectivo (start, middle o end); el primer elemento que lo fije gana."""
+    for e in elementos:
+        coincidencia = re.search(r"text-anchor\s*:\s*(\w+)", e.get("style", ""))
+        valor = coincidencia.group(1) if coincidencia else e.get("text-anchor")
+        if valor:
+            return valor
+    return "start"
+
+
+def _caja_de_texto(texto):
+    """Caja local (x0, y0, x1, y1) y líneas de un <text>; None si no tiene texto."""
+    lineas = []  # (cadena, x, y, anclaje)
+    hijos = [h for h in texto if _sin_espacio_de_nombres(h.tag) == "tspan"]
+    for hijo in hijos:
+        cadena = "".join(hijo.itertext()).strip()
+        if cadena:
+            lineas.append((
+                cadena,
+                _numero(hijo.get("x"), _numero(texto.get("x"), 0)),
+                _numero(hijo.get("y"), _numero(texto.get("y"), 0)),
+                _anclaje(hijo, texto),
+            ))
+    if not hijos:
+        cadena = "".join(texto.itertext()).strip()
+        if cadena:
+            lineas.append((cadena, _numero(texto.get("x"), 0),
+                           _numero(texto.get("y"), 0), _anclaje(texto)))
+    if not lineas:
+        return None
+    tamano = _tamano_letra(texto)
+    izquierdas, derechas = [], []
+    for cadena, x, _, anclaje in lineas:
+        ancho = len(cadena) * tamano * ANCHO_CARACTER
+        # x es el anclaje: el borde izquierdo depende de text-anchor.
+        izquierda = x - ancho / 2 if anclaje == "middle" else x - ancho if anclaje == "end" else x
+        izquierdas.append(izquierda)
+        derechas.append(izquierda + ancho)
+    ys = [y for _, _, y, _ in lineas]
+    y0 = min(ys) - tamano  # la y del SVG es la línea base
+    caja = (min(izquierdas), y0, max(derechas), y0 + (max(ys) - min(ys)) + tamano * INTERLINEADO)
+    return caja, [c for c, _, _, _ in lineas]
+
+
+def _caja_de_flujo(flujo):
+    """Caja local de un <flowRoot> (la unión de sus rectángulos de región) y sus párrafos.
+
+    Inkscape 0.91 guarda los textos con flujo: la región da el tamaño real del
+    globo y cada <flowPara> es una línea.
     """
-    raiz = ET.parse(svg).getroot()
-    ancho_lienzo, alto_lienzo = _lienzo(raiz)
-    globos = []
-    for texto in raiz.iter():
-        if _sin_espacio_de_nombres(texto.tag) != "text":
+    rectangulos = []
+    for rect in flujo.iter():
+        if _sin_espacio_de_nombres(rect.tag) == "rect":
+            x, y = _numero(rect.get("x"), 0), _numero(rect.get("y"), 0)
+            rectangulos.append((x, y, x + _numero(rect.get("width"), 0), y + _numero(rect.get("height"), 0)))
+    parrafos = [
+        "".join(p.itertext()).strip()
+        for p in flujo.iter() if _sin_espacio_de_nombres(p.tag) == "flowPara"
+    ]
+    parrafos = [p for p in parrafos if p]
+    if not rectangulos or not parrafos:
+        return None
+    caja = (min(r[0] for r in rectangulos), min(r[1] for r in rectangulos),
+            max(r[2] for r in rectangulos), max(r[3] for r in rectangulos))
+    return caja, parrafos
+
+
+def _recorrer(elemento, matriz, ancho_lienzo, alto_lienzo, globos):
+    for hijo in elemento:
+        if _oculto(hijo):
             continue
-        lineas = []  # (cadena, x, y)
-        hijos = [h for h in texto if _sin_espacio_de_nombres(h.tag) == "tspan"]
-        for hijo in hijos:
-            cadena = "".join(hijo.itertext()).strip()
-            if cadena:
-                lineas.append((
-                    cadena,
-                    _numero(hijo.get("x"), _numero(texto.get("x"), 0)),
-                    _numero(hijo.get("y"), _numero(texto.get("y"), 0)),
-                ))
-        if not hijos:
-            cadena = "".join(texto.itertext()).strip()
-            if cadena:
-                lineas.append((cadena, _numero(texto.get("x"), 0), _numero(texto.get("y"), 0)))
-        if not lineas:
+        etiqueta = _sin_espacio_de_nombres(hijo.tag)
+        propia = _componer(matriz, _matriz(hijo.get("transform")))
+        if etiqueta == "text":
+            encontrado = _caja_de_texto(hijo)
+        elif etiqueta == "flowRoot":
+            encontrado = _caja_de_flujo(hijo)
+        else:
+            _recorrer(hijo, propia, ancho_lienzo, alto_lienzo, globos)
             continue
-        tamano = _tamano_letra(texto)
-        xs = [x for _, x, _ in lineas]
-        ys = [y for _, _, y in lineas]
-        x0, y0 = min(xs), min(ys) - tamano  # la y del SVG es la línea base
-        ancho = max(len(c) for c, _, _ in lineas) * tamano * ANCHO_CARACTER
-        alto = (max(ys) - min(ys)) + tamano * INTERLINEADO
+        if encontrado is None:
+            continue
+        caja, lineas = encontrado
+        x0, y0, x1, y1 = _caja_transformada(caja, propia)
         x, y = _limitar(x0 / ancho_lienzo), _limitar(y0 / alto_lienzo)
         globos.append({
             "x": x,
             "y": y,
-            "ancho": _limitar(min(ancho / ancho_lienzo, 1.0 - x)),
-            "alto": _limitar(min(alto / alto_lienzo, 1.0 - y)),
-            "texto": "\n".join(c for c, _, _ in lineas),
+            "ancho": _limitar(min((x1 - x0) / ancho_lienzo, 1.0 - x)),
+            "alto": _limitar(min((y1 - y0) / alto_lienzo, 1.0 - y)),
+            "texto": "\n".join(lineas),
         })
+
+
+def extraer_bocadillos(svg: Path) -> list[dict]:
+    """Devuelve un bocadillo por cada <text> o <flowRoot> del SVG, con coordenadas 0-1.
+
+    Cada <tspan> (o <flowPara>) es una línea del mismo bocadillo (se une con
+    salto de línea). Se aplican los `transform` de los grupos, se respeta
+    `text-anchor` (los SVG de Inkscape suelen centrar) y se ignora lo oculto.
+    En <text> la caja se estima a partir del tamaño de letra (el SVG solo da el
+    punto de anclaje); en <flowRoot> es el rectángulo de su región.
+    """
+    raiz = ET.parse(svg).getroot()
+    ancho_lienzo, alto_lienzo = _lienzo(raiz)
+    globos = []
+    _recorrer(raiz, IDENTIDAD, ancho_lienzo, alto_lienzo, globos)
     return globos
 
 

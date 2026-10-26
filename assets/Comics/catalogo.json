@@ -1,0 +1,3594 @@
+{
+  "atribucion": {
+    "autor": "David Revoy",
+    "titulo": "Pimienta y Zanahoria",
+    "licencia": "CC BY 4.0",
+    "enlace": "https://www.peppercarrot.com/es/"
+  },
+  "episodios": [
+    {
+      "id": "ep01",
+      "titulo": "Poción de vuelo",
+      "paginas": [
+        "ep01/00.webp",
+        "ep01/01.webp",
+        "ep01/02.webp",
+        "ep01/03.webp",
+        "ep01/04.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.04199,
+            "y": 0.78855,
+            "ancho": 0.91397,
+            "alto": 0.13856,
+            "texto": "Episodio 1: Poción de vuelo"
+          }
+        ],
+        [
+          {
+            "x": 0.44383,
+            "y": 0.06621,
+            "ancho": 0.14371,
+            "alto": 0.0427,
+            "texto": "...y el toque\nfinal."
+          },
+          {
+            "x": 0.48523,
+            "y": 0.39187,
+            "ancho": 0.13291,
+            "alto": 0.05394,
+            "texto": "...mmm\nquizás no sea\nsuficiente."
+          },
+          {
+            "x": 0.42813,
+            "y": 0.10837,
+            "ancho": 0.15312,
+            "alto": 0.22197,
+            "texto": "SHH"
+          },
+          {
+            "x": 0.45639,
+            "y": 0.11117,
+            "ancho": 0.12358,
+            "alto": 0.19823,
+            "texto": "SHH"
+          },
+          {
+            "x": 0.55401,
+            "y": 0.84683,
+            "ancho": 0.06763,
+            "alto": 0.03899,
+            "texto": "PLOP"
+          },
+          {
+            "x": 0.37597,
+            "y": 0.8434,
+            "ancho": 0.07497,
+            "alto": 0.03896,
+            "texto": "PLOP"
+          }
+        ],
+        [
+          {
+            "x": 0.67997,
+            "y": 0.09133,
+            "ancho": 0.13291,
+            "alto": 0.05394,
+            "texto": "...¡ah!\nPerfecto."
+          },
+          {
+            "x": 0.48843,
+            "y": 0.3839,
+            "ancho": 0.15514,
+            "alto": 0.05799,
+            "texto": "¡NO!\nNi se te ocurra."
+          },
+          {
+            "x": 0.57773,
+            "y": 0.8341,
+            "ancho": 0.06868,
+            "alto": 0.04966,
+            "texto": "SPLASH"
+          }
+        ],
+        [
+          {
+            "x": 0.28418,
+            "y": 0.40773,
+            "ancho": 0.15514,
+            "alto": 0.05799,
+            "texto": "¿Contento?"
+          },
+          {
+            "x": 0.64417,
+            "y": 0.79754,
+            "ancho": 0.11182,
+            "alto": 0.07649,
+            "texto": "WWW.PEPPERCARROT.COM\n05/2014"
+          }
+        ],
+        []
+      ]
+    },
+    {
+      "id": "ep02",
+      "titulo": "Las pociones arco iris",
+      "paginas": [
+        "ep02/00.webp",
+        "ep02/01.webp",
+        "ep02/02.webp",
+        "ep02/03.webp",
+        "ep02/04.webp",
+        "ep02/05.webp",
+        "ep02/06.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.06387,
+            "y": 0.80857,
+            "ancho": 0.85292,
+            "alto": 0.12858,
+            "texto": "Episodio 2: Las pociones arco iris"
+          }
+        ],
+        [
+          {
+            "x": 0.21826,
+            "y": 0.82217,
+            "ancho": 0.07723,
+            "alto": 0.03611,
+            "texto": "Glu"
+          },
+          {
+            "x": 0.2309,
+            "y": 0.84842,
+            "ancho": 0.0605,
+            "alto": 0.03125,
+            "texto": "Glu"
+          },
+          {
+            "x": 0.25105,
+            "y": 0.87032,
+            "ancho": 0.05496,
+            "alto": 0.02911,
+            "texto": "Glu"
+          },
+          {
+            "x": 0.22535,
+            "y": 0.42515,
+            "ancho": 0.13604,
+            "alto": 0.02454,
+            "texto": "CUIDADO"
+          },
+          {
+            "x": 0.2419,
+            "y": 0.45397,
+            "ancho": 0.1123,
+            "alto": 0.01837,
+            "texto": "PELIGROSA"
+          },
+          {
+            "x": 0.20558,
+            "y": 0.43598,
+            "ancho": 0.17714,
+            "alto": 0.02793,
+            "texto": "BRUJA"
+          },
+          {
+            "x": 0.17199,
+            "y": 0.50884,
+            "ancho": 0.19697,
+            "alto": 0.02295,
+            "texto": "33"
+          }
+        ],
+        [
+          {
+            "x": 0.72717,
+            "y": 0.14206,
+            "ancho": 0.05117,
+            "alto": 0.03518,
+            "texto": "toc"
+          },
+          {
+            "x": 0.07797,
+            "y": 0.00582,
+            "ancho": 0.0081,
+            "alto": 0.00305,
+            "texto": "FLAME"
+          },
+          {
+            "x": 0.01188,
+            "y": 0.0,
+            "ancho": 0.00807,
+            "alto": 0.00267,
+            "texto": "OCÉANO"
+          },
+          {
+            "x": 0.18979,
+            "y": 0.0,
+            "ancho": 0.01261,
+            "alto": 0.00287,
+            "texto": "VIOLE(N)TO"
+          },
+          {
+            "x": 0.19225,
+            "y": 0.08487,
+            "ancho": 0.01353,
+            "alto": 0.00573,
+            "texto": "ULTRA AZUL"
+          },
+          {
+            "x": 0.93213,
+            "y": 0.10971,
+            "ancho": 0.00787,
+            "alto": 0.01253,
+            "texto": "ROS"
+          },
+          {
+            "x": 0.876,
+            "y": 0.23908,
+            "ancho": 0.01619,
+            "alto": 0.02251,
+            "texto": "RMÍN"
+          },
+          {
+            "x": 0.26052,
+            "y": 0.45909,
+            "ancho": 0.01261,
+            "alto": 0.00402,
+            "texto": "NATURAL"
+          },
+          {
+            "x": 0.33179,
+            "y": 0.45394,
+            "ancho": 0.01409,
+            "alto": 0.00405,
+            "texto": "AMARILLO"
+          },
+          {
+            "x": 0.40132,
+            "y": 0.44627,
+            "ancho": 0.01646,
+            "alto": 0.00381,
+            "texto": "ANARANJADO"
+          },
+          {
+            "x": 0.49624,
+            "y": 0.44181,
+            "ancho": 0.01368,
+            "alto": 0.00398,
+            "texto": "FLAMENCO"
+          },
+          {
+            "x": 0.58099,
+            "y": 0.45095,
+            "ancho": 0.00864,
+            "alto": 0.00456,
+            "texto": "OCÉANO"
+          },
+          {
+            "x": 0.64441,
+            "y": 0.45883,
+            "ancho": 0.01555,
+            "alto": 0.00569,
+            "texto": "VIOLE(N)TO"
+          },
+          {
+            "x": 0.73485,
+            "y": 0.45434,
+            "ancho": 0.01608,
+            "alto": 0.00751,
+            "texto": "ULTRA AZUL"
+          },
+          {
+            "x": 0.81215,
+            "y": 0.43334,
+            "ancho": 0.01227,
+            "alto": 0.00894,
+            "texto": "META ROSA"
+          },
+          {
+            "x": 0.85416,
+            "y": 0.38788,
+            "ancho": 0.01196,
+            "alto": 0.0137,
+            "texto": "MAGENTA X"
+          },
+          {
+            "x": 0.89186,
+            "y": 0.36017,
+            "ancho": 0.00957,
+            "alto": 0.0118,
+            "texto": "CARMÍN"
+          }
+        ],
+        [
+          {
+            "x": 0.33556,
+            "y": 0.19775,
+            "ancho": 0.05426,
+            "alto": 0.02708,
+            "texto": "Glu"
+          },
+          {
+            "x": 0.335,
+            "y": 0.21776,
+            "ancho": 0.03876,
+            "alto": 0.02234,
+            "texto": "Glu"
+          },
+          {
+            "x": 0.34276,
+            "y": 0.17254,
+            "ancho": 0.05344,
+            "alto": 0.03386,
+            "texto": "Glu"
+          }
+        ],
+        [
+          {
+            "x": 0.6506,
+            "y": 0.43035,
+            "ancho": 0.05426,
+            "alto": 0.02822,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.65165,
+            "y": 0.40803,
+            "ancho": 0.05344,
+            "alto": 0.03141,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.79656,
+            "y": 0.3982,
+            "ancho": 0.06937,
+            "alto": 0.04259,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.81515,
+            "y": 0.42642,
+            "ancho": 0.05025,
+            "alto": 0.03278,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.28611,
+            "y": 0.46232,
+            "ancho": 0.06236,
+            "alto": 0.0307,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.30237,
+            "y": 0.48359,
+            "ancho": 0.04834,
+            "alto": 0.02868,
+            "texto": "Gulp"
+          },
+          {
+            "x": 0.87614,
+            "y": 0.75962,
+            "ancho": 0.03592,
+            "alto": 0.01516,
+            "texto": "m"
+          },
+          {
+            "x": 0.85585,
+            "y": 0.75819,
+            "ancho": 0.04402,
+            "alto": 0.01701,
+            "texto": "m"
+          },
+          {
+            "x": 0.82068,
+            "y": 0.75481,
+            "ancho": 0.07145,
+            "alto": 0.0227,
+            "texto": "M"
+          },
+          {
+            "x": 0.2563,
+            "y": 0.85903,
+            "ancho": 0.06727,
+            "alto": 0.06058,
+            "texto": "B"
+          },
+          {
+            "x": 0.26956,
+            "y": 0.8639,
+            "ancho": 0.06907,
+            "alto": 0.04311,
+            "texto": "l"
+          },
+          {
+            "x": 0.28529,
+            "y": 0.86442,
+            "ancho": 0.05799,
+            "alto": 0.03284,
+            "texto": "e"
+          },
+          {
+            "x": 0.31275,
+            "y": 0.85663,
+            "ancho": 0.05822,
+            "alto": 0.03542,
+            "texto": "rgh !"
+          },
+          {
+            "x": 0.58003,
+            "y": 0.9387,
+            "ancho": 0.0504,
+            "alto": 0.02206,
+            "texto": "S"
+          },
+          {
+            "x": 0.59939,
+            "y": 0.93758,
+            "ancho": 0.03975,
+            "alto": 0.02363,
+            "texto": "S"
+          },
+          {
+            "x": 0.61171,
+            "y": 0.94099,
+            "ancho": 0.03976,
+            "alto": 0.01962,
+            "texto": "S"
+          },
+          {
+            "x": 0.61955,
+            "y": 0.94414,
+            "ancho": 0.05379,
+            "alto": 0.02402,
+            "texto": "P"
+          },
+          {
+            "x": 0.63157,
+            "y": 0.93875,
+            "ancho": 0.05564,
+            "alto": 0.02816,
+            "texto": "l"
+          },
+          {
+            "x": 0.64165,
+            "y": 0.9335,
+            "ancho": 0.05666,
+            "alto": 0.03284,
+            "texto": "o"
+          },
+          {
+            "x": 0.65581,
+            "y": 0.92763,
+            "ancho": 0.05666,
+            "alto": 0.03284,
+            "texto": "p"
+          }
+        ],
+        [
+          {
+            "x": 0.44929,
+            "y": 0.33925,
+            "ancho": 0.07981,
+            "alto": 0.02655,
+            "texto": "B"
+          },
+          {
+            "x": 0.49076,
+            "y": 0.34129,
+            "ancho": 0.04736,
+            "alto": 0.02186,
+            "texto": "lub"
+          },
+          {
+            "x": 0.46843,
+            "y": 0.36028,
+            "ancho": 0.07981,
+            "alto": 0.02655,
+            "texto": "B"
+          },
+          {
+            "x": 0.50926,
+            "y": 0.36293,
+            "ancho": 0.04736,
+            "alto": 0.02186,
+            "texto": "lub"
+          },
+          {
+            "x": 0.437,
+            "y": 0.8202,
+            "ancho": 0.05315,
+            "alto": 0.03017,
+            "texto": "plof"
+          },
+          {
+            "x": 0.5159,
+            "y": 0.83565,
+            "ancho": 0.05315,
+            "alto": 0.03198,
+            "texto": "lof"
+          },
+          {
+            "x": 0.49346,
+            "y": 0.82623,
+            "ancho": 0.05315,
+            "alto": 0.03922,
+            "texto": "p"
+          },
+          {
+            "x": 0.61576,
+            "y": 0.82323,
+            "ancho": 0.04679,
+            "alto": 0.02666,
+            "texto": "lof"
+          },
+          {
+            "x": 0.59527,
+            "y": 0.82442,
+            "ancho": 0.04679,
+            "alto": 0.03435,
+            "texto": "p"
+          }
+        ],
+        [
+          {
+            "x": 0.1129,
+            "y": 0.14448,
+            "ancho": 0.79277,
+            "alto": 0.13273,
+            "texto": "Este cómic es libre y de código abierto. Este episodio ha tenido 21 mecenas en"
+          },
+          {
+            "x": 0.11031,
+            "y": 0.23174,
+            "ancho": 0.79277,
+            "alto": 0.12124,
+            "texto": "www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.1027,
+            "y": 0.30918,
+            "ancho": 0.79277,
+            "alto": 0.12292,
+            "texto": "Gracias a :"
+          },
+          {
+            "x": 0.20643,
+            "y": 0.82492,
+            "ancho": 0.59985,
+            "alto": 0.09338,
+            "texto": "hecho con Krita en GNU/Linux"
+          },
+          {
+            "x": 0.08967,
+            "y": 0.64888,
+            "ancho": 0.79277,
+            "alto": 0.12292,
+            "texto": "Traducción al castellano : TheFaico"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep03",
+      "titulo": "Los ingredientes secretos",
+      "paginas": [
+        "ep03/00.webp",
+        "ep03/01.webp",
+        "ep03/02.webp",
+        "ep03/03.webp",
+        "ep03/04.webp",
+        "ep03/05.webp",
+        "ep03/06.webp",
+        "ep03/07.webp",
+        "ep03/08.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78747,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 3: Los ingredientes secretos"
+          }
+        ],
+        [
+          {
+            "x": 0.07141,
+            "y": 0.04334,
+            "ancho": 0.30982,
+            "alto": 0.05871,
+            "texto": "Villa de Komona,\nDía de mercado"
+          },
+          {
+            "x": 0.06995,
+            "y": 0.62548,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Buenos días señor,\nQuerría ocho\nestrellas de calabaza,\npor favor."
+          },
+          {
+            "x": 0.39621,
+            "y": 0.62641,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Aquí tiene,\nson 60Ko*."
+          },
+          {
+            "x": 0.77551,
+            "y": 0.71029,
+            "ancho": 0.22449,
+            "alto": 0.08871,
+            "texto": "... ¡Ups!"
+          },
+          {
+            "x": 0.36855,
+            "y": 0.97135,
+            "ancho": 0.23724,
+            "alto": 0.01105,
+            "texto": "* Ko =  moneda de Komona"
+          }
+        ],
+        [
+          {
+            "x": 0.11321,
+            "y": 0.04081,
+            "ancho": 0.22404,
+            "alto": 0.0715,
+            "texto": "¡Vaya, lo siento!\nCreo que me llevaré solamente cuatro."
+          },
+          {
+            "x": 0.69166,
+            "y": 0.06672,
+            "ancho": 0.19051,
+            "alto": 0.05096,
+            "texto": "Grrr..."
+          },
+          {
+            "x": 0.36166,
+            "y": 0.3339,
+            "ancho": 0.21229,
+            "alto": 0.09014,
+            "texto": "¡Buenos días, tendero! Por favor, prepárame dos docenas de cada.\nDe la mejor calidad, como siempre."
+          },
+          {
+            "x": 0.38642,
+            "y": 0.46596,
+            "ancho": 0.18689,
+            "alto": 0.06423,
+            "texto": "Siempre es un\nplacer servirla, señorita Azafrán."
+          },
+          {
+            "x": 0.46994,
+            "y": 0.55346,
+            "ancho": 0.16101,
+            "alto": 0.05883,
+            "texto": "¡Anda, mira!\nSi está aquí Pimienta..."
+          },
+          {
+            "x": 0.43658,
+            "y": 0.62231,
+            "ancho": 0.2241,
+            "alto": 0.08189,
+            "texto": "A ver, déjame adivinar...\n...las cosas van viento en popa en el campo,\n¿verdad?"
+          },
+          {
+            "x": 0.58019,
+            "y": 0.72595,
+            "ancho": 0.14235,
+            "alto": 0.04986,
+            "texto": "..."
+          },
+          {
+            "x": 0.29452,
+            "y": 0.82384,
+            "ancho": 0.20406,
+            "alto": 0.11921,
+            "texto": "Supongo que\nestarás preparando\nlos ingredientes\npara el concurso\nde pociones de mañana."
+          },
+          {
+            "x": 0.52048,
+            "y": 0.82448,
+            "ancho": 0.14402,
+            "alto": 0.05173,
+            "texto": "... ¿un concurso\nde pociones?"
+          },
+          {
+            "x": 0.53923,
+            "y": 0.89903,
+            "ancho": 0.13224,
+            "alto": 0.04403,
+            "texto": "... ¿mañana?"
+          }
+        ],
+        [
+          {
+            "x": 0.50421,
+            "y": 0.77025,
+            "ancho": 0.3054,
+            "alto": 0.06611,
+            "texto": "¡Qué suerte!\nAún tengo  todo el día\npara prepararme."
+          },
+          {
+            "x": 0.52685,
+            "y": 0.86411,
+            "ancho": 0.20721,
+            "alto": 0.07799,
+            "texto": "¡Vamos a por el premio!"
+          },
+          {
+            "x": 0.1142,
+            "y": 0.46593,
+            "ancho": 0.43501,
+            "alto": 0.23149,
+            "texto": "Concurso de Pociones\nde Komona"
+          },
+          {
+            "x": 0.16863,
+            "y": 0.51704,
+            "ancho": 0.38223,
+            "alto": 0.21257,
+            "texto": "gran premio de 50 000Ko\nA LA MEJOR POCIÓN"
+          },
+          {
+            "x": 0.23735,
+            "y": 0.59699,
+            "ancho": 0.46355,
+            "alto": 0.24561,
+            "texto": "Azarday, 3 Pinkmoon\nPlaza Mayor de Komona"
+          }
+        ],
+        [
+          {
+            "x": 0.05971,
+            "y": 0.61616,
+            "ancho": 0.09987,
+            "alto": 0.06254,
+            "texto": "¡Ey ...!\n¡Ya sé!\n..."
+          },
+          {
+            "x": 0.40304,
+            "y": 0.61534,
+            "ancho": 0.18933,
+            "alto": 0.04119,
+            "texto": "...¡es exactamente\nlo que necesito!"
+          },
+          {
+            "x": 0.64062,
+            "y": 0.61684,
+            "ancho": 0.32074,
+            "alto": 0.06493,
+            "texto": "¡Zanahoria!"
+          },
+          {
+            "x": 0.69161,
+            "y": 0.65592,
+            "ancho": 0.20294,
+            "alto": 0.05909,
+            "texto": "¡Prepárate!\n¡Vamos a cazar juntos los ingredientes!"
+          },
+          {
+            "x": 0.06758,
+            "y": 0.38257,
+            "ancho": 0.09987,
+            "alto": 0.06254,
+            "texto": "..."
+          }
+        ],
+        [
+          {
+            "x": 0.65173,
+            "y": 0.19281,
+            "ancho": 0.23989,
+            "alto": 0.07978,
+            "texto": "Primero,\nnecesito unas perlas\nde niebla de nubes\nnegras ..."
+          },
+          {
+            "x": 0.44529,
+            "y": 0.51445,
+            "ancho": 0.19777,
+            "alto": 0.08992,
+            "texto": "... y algunas bayas rojas del bosque encantado ..."
+          }
+        ],
+        [
+          {
+            "x": 0.01868,
+            "y": 0.21709,
+            "ancho": 0.27284,
+            "alto": 0.08819,
+            "texto": "... también algunas\ncáscaras de huevo\ndel Fénix del\nValle de los\nVolcanes ..."
+          },
+          {
+            "x": 0.5018,
+            "y": 0.87443,
+            "ancho": 0.25238,
+            "alto": 0.05875,
+            "texto": "... y para acabar unas\ngotas de leche de una\nVaca-Dragón joven."
+          }
+        ],
+        [
+          {
+            "x": 0.21761,
+            "y": 0.03956,
+            "ancho": 0.22505,
+            "alto": 0.06475,
+            "texto": "¡Ya está Zanahoria!\nDiría que lo\ntenemos todo."
+          },
+          {
+            "x": 0.15381,
+            "y": 0.32316,
+            "ancho": 0.26056,
+            "alto": 0.02283,
+            "texto": "Creo que está..."
+          },
+          {
+            "x": 0.18237,
+            "y": 0.35273,
+            "ancho": 0.26056,
+            "alto": 0.02283,
+            "texto": "... perfecta."
+          },
+          {
+            "x": 0.13532,
+            "y": 0.62236,
+            "ancho": 0.26056,
+            "alto": 0.02283,
+            "texto": "Mmm ..."
+          },
+          {
+            "x": 0.13287,
+            "y": 0.66367,
+            "ancho": 0.28874,
+            "alto": 0.06624,
+            "texto": "¡Qué bien sienta ...\n... un buen café!"
+          },
+          {
+            "x": 0.11999,
+            "y": 0.72939,
+            "ancho": 0.2727,
+            "alto": 0.11434,
+            "texto": "Es todo lo que necesito\npara trabajar toda la noche\ny preparar la mejor poción\npara el concurso de\nmañana."
+          },
+          {
+            "x": 0.7669,
+            "y": 0.97651,
+            "ancho": 0.2331,
+            "alto": 0.02349,
+            "texto": "Continuará ..."
+          }
+        ],
+        [
+          {
+            "x": 0.17403,
+            "y": 0.19739,
+            "ancho": 0.63126,
+            "alto": 0.60226,
+            "texto": "Алексей, 獨孤欣, Albert Westra, Alejandro Flores Prieto, Alex Lusco,\nAlex Silver, Alex Vandiver, Alexander Sopicki, Andreas Rieger, Andrew,\nAndrew Grady, Andrey Alekseenko, Anna Orlova, Antan Karmola, Antoine,\nAslak Kjølås-Sæverud, Axel Bordelon, Axel Philipsenburg, Ben Evans,\nBoonsak Watanavisit, Boudewijn Rempt, carlos levischi, Charlotte Lacombe-bar, Chris Sakkas, Christophe Carré, Clara Dexter, Colby Driedger,\nConway Scott Smith, Dmitry, Eitan Goldshtrom, Enrico Billich,\n-epsilon-, Garret Patterson, Gustav Strömbom, Guy Davis,\nHelmar Suschka, Ilyas Akhmedov, Inga Huang, Irene C.,\nJean-Baptiste Hebbrecht, JEM, Jessey Wright, John, Jónatan Nilsson,\nJoseph Bowman, Juanjo Fernández Monreal, Jurgo van den Elzen,\nKai-Ting (Danil) Ko, Kasper Hansen, Kathryn Wuerstl, Ken Mingyuan Xia,\nLiselle, Lorentz Grip, MacCoy, Mandy, Martin Owens, Maurice-Marie Stromer,\nMauricio Vega, mefflin ross bullis-bates, Michelle Pereira Garcia,\nMorten Hellesø Johansen, Nazhif, Nicki Aya, Nicolae Berbece, Nicole Heersema,\nNo Reward, Noah Summers, Noble Hays, Olivier Amrein, Olivier Brun,\nOscar Moreno, Pavel Semenov, Peter Moonen, Pierre Vuillemin, Ret Samys,\nReuben Tracey, Rustin Simons, Sami T, Sean Adams, Shadefalcon,"
+          },
+          {
+            "x": 0.03459,
+            "y": 0.10883,
+            "ancho": 0.92914,
+            "alto": 0.05276,
+            "texto": "Este episodio no existiría sin el apoyo de 93 mecenas"
+          },
+          {
+            "x": 0.09447,
+            "y": 0.04941,
+            "ancho": 0.81811,
+            "alto": 0.06631,
+            "texto": "Este webcomic es completamente libre y de código abierto\n( Creative Commons Attribution 3.0, disponibles para descarga los ficheros fuente en alta resolución. )"
+          },
+          {
+            "x": 0.0,
+            "y": 0.13874,
+            "ancho": 1.0,
+            "alto": 0.22742,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.076,
+            "y": 0.75022,
+            "ancho": 0.82009,
+            "alto": 0.17067,
+            "texto": "Agradecimientos especiales a:\nAmireeti,  David Tschumperlé (G'MIC), TheFaico (traducción al español de España)\ny todo el equipo de Krita."
+          },
+          {
+            "x": 0.16343,
+            "y": 0.85541,
+            "ancho": 0.66654,
+            "alto": 0.14459,
+            "texto": "Este episodio ha sido realizado con herramientas 100% libres y de código abierto\nKrita y G'MIC en Xubuntu (GNU/Linux)"
+          },
+          {
+            "x": 0.03856,
+            "y": 0.22619,
+            "ancho": 0.14359,
+            "alto": 0.08768,
+            "texto": "¡Muchas gracias!"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep04",
+      "titulo": "Golpe de genialidad",
+      "paginas": [
+        "ep04/00.webp",
+        "ep04/01.webp",
+        "ep04/02.webp",
+        "ep04/03.webp",
+        "ep04/04.webp",
+        "ep04/05.webp",
+        "ep04/06.webp",
+        "ep04/07.webp",
+        "ep04/08.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.00488,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 4: Golpe de genialidad"
+          }
+        ],
+        [
+          {
+            "x": 0.06977,
+            "y": 0.03965,
+            "ancho": 0.39239,
+            "alto": 0.06082,
+            "texto": "Noche antes del concurso de pociones,\n2h00 de la madrugada ..."
+          },
+          {
+            "x": 0.16754,
+            "y": 0.63437,
+            "ancho": 0.28508,
+            "alto": 0.10188,
+            "texto": "¡Por fin!\nCon esta poción, nadie,\nni siquiera Azafrán,\npodrá demostrar\nmejores habilidades."
+          },
+          {
+            "x": 0.22218,
+            "y": 0.74263,
+            "ancho": 0.23344,
+            "alto": 0.08158,
+            "texto": "Solo necesito\nprobarla con\nalguien\n..."
+          },
+          {
+            "x": 0.68455,
+            "y": 0.60565,
+            "ancho": 0.31545,
+            "alto": 0.12554,
+            "texto": "ZAANAAHOO~\n~OORIAAA!!!"
+          }
+        ],
+        [
+          {
+            "x": 0.72949,
+            "y": 0.40579,
+            "ancho": 0.11223,
+            "alto": 0.06836,
+            "texto": "PIENSO"
+          },
+          {
+            "x": 0.05263,
+            "y": 0.03152,
+            "ancho": 0.16814,
+            "alto": 0.04051,
+            "texto": "¿Zanahoria?"
+          },
+          {
+            "x": 0.22565,
+            "y": 0.24395,
+            "ancho": 0.18505,
+            "alto": 0.05248,
+            "texto": "¿Eh ... ni siquiera está bajo la cama?"
+          },
+          {
+            "x": 0.55939,
+            "y": 0.11053,
+            "ancho": 0.16814,
+            "alto": 0.04051,
+            "texto": "¿Zanahoria?"
+          },
+          {
+            "x": 0.44172,
+            "y": 0.14294,
+            "ancho": 0.16814,
+            "alto": 0.04051,
+            "texto": "¡¿Zanahoria?!"
+          },
+          {
+            "x": 0.49149,
+            "y": 0.24473,
+            "ancho": 0.16814,
+            "alto": 0.04051,
+            "texto": "¡¡¡¿Zanahoria?!!!"
+          },
+          {
+            "x": 0.4439,
+            "y": 0.03292,
+            "ancho": 0.16814,
+            "alto": 0.04051,
+            "texto": "¡Zanahoria!"
+          },
+          {
+            "x": 0.7703,
+            "y": 0.2075,
+            "ancho": 0.2276,
+            "alto": 0.10571,
+            "texto": "Nunca imaginé\nque tendría que\nutilizar esta\ntécnica ..."
+          },
+          {
+            "x": 0.27346,
+            "y": 0.3523,
+            "ancho": 0.27433,
+            "alto": 0.09939,
+            "texto": "¡Zanahoria!"
+          },
+          {
+            "x": 0.3454,
+            "y": 0.49041,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Crrr"
+          },
+          {
+            "x": 0.38903,
+            "y": 0.48112,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Crrr"
+          },
+          {
+            "x": 0.43463,
+            "y": 0.47271,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Crrr"
+          },
+          {
+            "x": 0.36691,
+            "y": 0.50129,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Crrr"
+          },
+          {
+            "x": 0.4128,
+            "y": 0.4915,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Crrr"
+          },
+          {
+            "x": 0.72741,
+            "y": 0.44998,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Shhh"
+          },
+          {
+            "x": 0.77043,
+            "y": 0.44102,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Shhh"
+          },
+          {
+            "x": 0.81128,
+            "y": 0.43336,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Shhh"
+          },
+          {
+            "x": 0.7488,
+            "y": 0.45991,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Shhh"
+          },
+          {
+            "x": 0.7911,
+            "y": 0.45225,
+            "ancho": 0.1128,
+            "alto": 0.03252,
+            "texto": "Shhh"
+          },
+          {
+            "x": 0.03595,
+            "y": 0.75627,
+            "ancho": 0.1206,
+            "alto": 0.04638,
+            "texto": "Shhh  Shhh  Shhh\nShhh Shhh"
+          },
+          {
+            "x": 0.02765,
+            "y": 0.73915,
+            "ancho": 0.1206,
+            "alto": 0.04638,
+            "texto": "Crrr Crrr Crrr\nCrrr Crrr"
+          },
+          {
+            "x": 0.35189,
+            "y": 0.7491,
+            "ancho": 0.13698,
+            "alto": 0.05911,
+            "texto": "Crrr Crrr Crrr\nCrrr Crrr"
+          },
+          {
+            "x": 0.41875,
+            "y": 0.75874,
+            "ancho": 0.13288,
+            "alto": 0.05066,
+            "texto": "Shhh  Shhh  Shhh\nShhh Shhh"
+          },
+          {
+            "x": 0.50257,
+            "y": 0.88709,
+            "ancho": 0.17639,
+            "alto": 0.03944,
+            "texto": "Gargblr"
+          },
+          {
+            "x": 0.68404,
+            "y": 0.88743,
+            "ancho": 0.11983,
+            "alto": 0.0441,
+            "texto": "¡Fiouuuuumm... !"
+          },
+          {
+            "x": 0.10488,
+            "y": 0.72138,
+            "ancho": 0.17645,
+            "alto": 0.08793,
+            "texto": "¡O Sole\nMiaouuuoo!"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.031,
+            "ancho": 0.48159,
+            "alto": 0.09526,
+            "texto": "¡Oooh, Zanahoria!\nHas venido a ayudar\nsin pedírtelo...\n¡Eres tan dulce...!"
+          },
+          {
+            "x": 0.27981,
+            "y": 0.03383,
+            "ancho": 0.48159,
+            "alto": 0.09526,
+            "texto": "Justo en el instante\nen que necesitaba de mi\nasistente preferido."
+          },
+          {
+            "x": 0.00409,
+            "y": 0.24138,
+            "ancho": 0.48159,
+            "alto": 0.09526,
+            "texto": "¡Tacháaaan!\nTe presento mi\nobra maestra."
+          },
+          {
+            "x": 0.50297,
+            "y": 0.51854,
+            "ancho": 0.49703,
+            "alto": 0.13265,
+            "texto": "La poción\ndel Genio."
+          },
+          {
+            "x": 0.01669,
+            "y": 0.67386,
+            "ancho": 0.49399,
+            "alto": 0.09078,
+            "texto": "Solo un\ntraguito\n..."
+          },
+          {
+            "x": 0.54078,
+            "y": 0.71606,
+            "ancho": 0.45922,
+            "alto": 0.09078,
+            "texto": "... y si funciona,\ndeberías tener un\ngolpe de genialidad."
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "x": 0.26613,
+            "y": 0.21531,
+            "ancho": 0.15692,
+            "alto": 0.15434,
+            "texto": "Poc"
+          },
+          {
+            "x": 0.45044,
+            "y": 0.40937,
+            "ancho": 0.278,
+            "alto": 0.23375,
+            "texto": "¡Guaaau ... Zanahoria!\nes fantástico..."
+          },
+          {
+            "x": 0.70616,
+            "y": 0.43899,
+            "ancho": 0.285,
+            "alto": 0.23798,
+            "texto": "... ¿estás...\nescribiendo?"
+          },
+          {
+            "x": 0.65582,
+            "y": 0.64454,
+            "ancho": 0.34418,
+            "alto": 0.307,
+            "texto": "¿E?"
+          },
+          {
+            "x": 0.62205,
+            "y": 0.717,
+            "ancho": 0.37311,
+            "alto": 0.283,
+            "texto": "¿Energía?"
+          },
+          {
+            "x": 0.70554,
+            "y": 0.79632,
+            "ancho": 0.29446,
+            "alto": 0.20368,
+            "texto": "¿Eternidad?"
+          },
+          {
+            "x": 0.61473,
+            "y": 0.86406,
+            "ancho": 0.36705,
+            "alto": 0.13594,
+            "texto": "¿Emoción?"
+          },
+          {
+            "x": 0.82265,
+            "y": 0.12726,
+            "ancho": 0.13309,
+            "alto": 0.15996,
+            "texto": "Shrrrrrrr"
+          },
+          {
+            "x": 0.75129,
+            "y": 0.61384,
+            "ancho": 0.13953,
+            "alto": 0.12889,
+            "texto": "Shrr"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.03309,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "¿Quée... ?"
+          },
+          {
+            "x": 0.0,
+            "y": 0.06852,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "¿Empañar?"
+          },
+          {
+            "x": 0.05947,
+            "y": 0.09338,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "¿Emanar?"
+          },
+          {
+            "x": 0.2624,
+            "y": 0.09155,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "¡Vamos Zanahoria,\nhaz un esfuerzo, eso no\ntiene ningún sentido!"
+          },
+          {
+            "x": 0.02755,
+            "y": 0.42108,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "... eso no tiene ningún sentido ..."
+          },
+          {
+            "x": 0.58072,
+            "y": 0.40618,
+            "ancho": 0.41928,
+            "alto": 0.14593,
+            "texto": "¡¡¡Grrrrrrr!!!"
+          },
+          {
+            "x": 0.65701,
+            "y": 0.56202,
+            "ancho": 0.31354,
+            "alto": 0.09095,
+            "texto": "¡Nunca me sale nada bien!"
+          },
+          {
+            "x": 0.0,
+            "y": 0.6056,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "Bah ..."
+          },
+          {
+            "x": 0.0484,
+            "y": 0.63741,
+            "ancho": 0.32916,
+            "alto": 0.09518,
+            "texto": "aún me queda\ntiempo para  preparar\notra poción mejor."
+          },
+          {
+            "x": 0.58897,
+            "y": 0.65621,
+            "ancho": 0.41103,
+            "alto": 0.2259,
+            "texto": "CLAShshShshShh !"
+          },
+          {
+            "x": 0.56083,
+            "y": 0.8489,
+            "ancho": 0.27142,
+            "alto": 0.08106,
+            "texto": "... ¡buenas noches\nZanahoria!"
+          },
+          {
+            "x": 0.6955,
+            "y": 0.97515,
+            "ancho": 0.3045,
+            "alto": 0.02485,
+            "texto": "Continuará ..."
+          },
+          {
+            "x": 0.83532,
+            "y": 0.95115,
+            "ancho": 0.03631,
+            "alto": 0.01463,
+            "texto": "David Revoy\n11/2014"
+          }
+        ],
+        [
+          {
+            "x": 0.04933,
+            "y": 0.14151,
+            "ancho": 0.90489,
+            "alto": 0.68909,
+            "texto": "Алексей - 獨孤欣 - Adrian Lord - Alan Hardman - Albert Westra - Alejandro Flores Prieto - Alexander Sopicki - Alex Lusco\nAlex Silver - Alex Vandiver - Alfredo - Alice Queenofcats - Ali Poulton (Aunty Pol) - Alison Harding - Allan Zieser\nAndreas Rieger - Andrew - Andrew Godfrey - Andrey Alekseenko - Angela K - Anna Orlova - anonymous - Antan Karmola\nArco - Ardash Crowfoot - Arne Brix - Aslak Kjølås-Sæverud - Axel Bordelon - Axel Philipsenburg - barbix - Ben Evans\nBernd - Boonsak Watanavisit - Boudewijn Rempt - Brian Behnke - carlos levischi - Charlotte Lacombe-bar - Chris Radcliff\nChris Sakkas - Christophe Carré - Clara Dexter - Colby Driedger - Conway Scott Smith - Cyrille Largillier - Cyril Paciullo\nDaniel - david - Damien de Lemeny - Dmitry - Donald Hayward - Dubema Ulo - Eitan Goldshtrom - Enrico Billich\n-epsilon- - Eric Schulz - Garret Patterson - Guillaume - Gustav Strömbom - Guy Davis - Happy Mimic - Helmar Suschka\nIlyas Akhmedov - Inga Huang - Irene C. - Ivan Korotkov - Jared Tritsch - JDB - Jean-Baptiste Hebbrecht - Jessey Wright\nJohn - Jónatan Nilsson - Jon Brake - Joseph Bowman - Jurgo van den Elzen - Justin Diehl - Kai-Ting (Danil) Ko - Kasper Hansen\nKathryn Wuerstl - Ken Mingyuan Xia - Liselle - Lorentz Grip - MacCoy - Magnus Kronnäs - Mandy - marcus - Martin Owens\nMasked Admirer - Mathias Stærk - mattscribbles - Maurice-Marie Stromer - mefflin ross bullis-bates - Michael Gill\nMichelle Pereira Garcia - Mike Mosher - Morten Hellesø Johansen - Muzyka Dmytro - Nazhif - Nicholas DeLateur\nNick Allott - Nicki Aya - Nicolae Berbece - Nicole Heersema - Noah Summers - Noble Hays - Nora Czaykowski\nNyx - Olivier Amrein - Olivier Brun - Omar Willey - Oscar Moreno - Öykü Su Gürler - Ozone S. - Paul - Paul\nPavel Semenov - Peter - Peter Moonen - Petr Vlašic - Pierre Geier - Pierre Vuillemin - Pranab Shenoy - Rajul Gupta\nRet Samys - rictic - RJ van der Weide - Roman - Rumiko Hoshino - Rustin Simons - Sami T - Samuel Mitson - Scott RussSean Adams - Shadefalcon - Shane Lopez - Shawn Meyer - Sigmundur Þórir Jónsson - Simon Forster - Simon IsenbergSonny W. - Stanislav Vodetskyi - Stephen Bates - Steven Bennett - Stuart Dickson - surt - Tadamichi Ohkubo - tar8156-TheFaico - Thomas Schwery - Tracey Reuben - Travis Humble - Vespertinus - Victoria - Vlad Tomash - Westen CurryXavier Claude - Yalyn Vinkindo\ny agradecimiento especial a Amireeti por ayudarme con correcciones en inglés"
+          },
+          {
+            "x": 0.0,
+            "y": 0.05293,
+            "ancho": 1.0,
+            "alto": 0.12508,
+            "texto": "Pepper&Carrot es totalmente gratuito, de código abierto, y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 156 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.68146,
+            "ancho": 1.0,
+            "alto": 0.1898,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.09344,
+            "y": 0.61934,
+            "ancho": 0.82009,
+            "alto": 0.14285,
+            "texto": "Traducción al castellano: TheFaico\nY tú también,\npuedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14566,
+            "y": 0.8546,
+            "ancho": 0.70874,
+            "alto": 0.12659,
+            "texto": "Herramientas: Este episodio ha sido creado con programas 100% libres\nKrita, G'MIC, Blender, GIMP en Ubuntu Gnome (GNU/Linux)"
+          },
+          {
+            "x": 0.15074,
+            "y": 0.80649,
+            "ancho": 0.70874,
+            "alto": 0.12417,
+            "texto": "Open-source: todas las imágenes, fuentes tipográficas, y demás ficheros\nestán disponibles en la página oficial para su descarga."
+          },
+          {
+            "x": 0.15474,
+            "y": 0.75511,
+            "ancho": 0.70874,
+            "alto": 0.1265,
+            "texto": "Licencia: Creative Commons Attribution a 'David Revoy'\npuedes modificar, compartir, vender, etc..."
+          },
+          {
+            "x": 0.64958,
+            "y": 0.58182,
+            "ancho": 0.30186,
+            "alto": 0.12633,
+            "texto": "¡Gracias!"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep05",
+      "titulo": "Episodio especial de Navidad",
+      "paginas": [
+        "ep05/00.webp",
+        "ep05/01.webp",
+        "ep05/02.webp",
+        "ep05/03.webp",
+        "ep05/04.webp",
+        "ep05/05.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 5: Episodio especial de Navidad"
+          }
+        ],
+        [],
+        [],
+        [],
+        [
+          {
+            "x": 0.47489,
+            "y": 0.8458,
+            "ancho": 0.27529,
+            "alto": 0.05088,
+            "texto": "Fiestas"
+          },
+          {
+            "x": 0.39184,
+            "y": 0.871,
+            "ancho": 0.29206,
+            "alto": 0.03179,
+            "texto": "Felices"
+          }
+        ],
+        [
+          {
+            "x": 0.05307,
+            "y": 0.14156,
+            "ancho": 0.89805,
+            "alto": 0.62262,
+            "texto": "Addison Lewis - Adrian Lord - Alan Hardman - Albert Westra - Alejandro Flores Prieto - Aleš Tomeček - Alexander Bülow Tomassen - Alexander Sopicki - Alex Lusco - Alex Silver - Alex Vandiver - Alfredo - Ali Poulton (Aunty Pol) - Allan Zieser  Andreas Rieger - Andrej Kwadrin - Andrew - Andrew Godfrey - Andrey Alekseenko - Angela K - Anna Orlova - anonymous   Antan Karmola - Ardash Crowfoot - Arne Brix - Aslak Kjølås-Sæverud - Axel Bordelon - Axel Philipsenburg - barbix - Ben Evans      - Bernd - Boonsak Watanavisit - Boudewijn Rempt - Brett Smith - Brian Behnke - carlos levischi - Charlotte Lacombe-bar   Chris Radcliff - Chris Sakkas - Christophe Carré - Christopher Bates - Clara Dexter - Colby Driedger - Conway Scott Smith  Cyrille Largillier - Cyril Paciullo - Damien - Daniel - Daniel Björkman - david - Dmitry - Donald Hayward - Eitan Goldshtrom  Enrico Billich - -epsilon- - Eric Schulz - Frederico - Garret Patterson - GreenAngel5 - Guillaume - Gustav Strömbom\nGuy Davis - Happy Mimic - Helmar Suschka - Ilyas Akhmedov - Inga Huang - Irene C. - Ivan Korotkov - James Frazier - Jared Tritsch - JDB - Jean-Baptiste Hebbrecht - Jeffrey Schneider - Jessey Wright - John - John - Jónatan Nilsson - Jonathan Leroy   Jon Brake - Joseph Bowman - Jurgo van den Elzen - Justin Diehl - Kai-Ting (Danil) Ko - Kasper Hansen - Kathryn Wuerstl\nKen Mingyuan Xia - Liselle - Lorentz Grip - MacCoy - Magnus Kronnäs - Mandy Streisel - marcus - Martin Owens\nMary Brownlee - Masked Admirer - Mathias Stærk - mattscribbles - Maurice-Marie Stromer - mefflin ross bullis-bates\nMichael Gill - Michelle Pereira Garcia - Mike Mosher - Morten Hellesø Johansen - Muzyka Dmytro - Nazhif - Nicholas DeLateur  Nick Allott - Nicki Aya - Nicola Angel - Nicolae Berbece - Nicole Heersema - Noble Hays - Nora Czaykowski - Nyx\nOlivier Amrein - Olivier Brun - Omar Willey - Oscar Moreno - Öykü Su Gürler - Ozone S. - Paul - Paul - Pavel Semenov\nPeter - Peter Moonen - Petr Vlašic - Pierre Geier - Pierre Vuillemin - Pranab Shenoy - Rajul Gupta - Ret Samys - rictic\nRJ van der Weide - Roberto Zaghis - Roman - Rumiko Hoshino - Rustin Simons - Sally Bridgewater - Sami T - Samuel Mitson Scott Russ - Sean Adams   Shadefalcon - Shane Lopez - Shawn Meyer - Sigmundur Þórir Jónsson - Simon Forster\nSimon Isenberg - Sonny W. - Stanislav Vodetskyi - Stephen Bates - Steven Bennett - Stuart Dickson - surt - Tadamichi Ohkubo tar8156 - TheFaico - Thomas Schwery - Tracey Reuben - Travis Humble - tree - Vespertinus - Victoria - Vlad Tomash\nWesten Curry - Xavier Claude - Yalyn Vinkindo - Алексей - Глеб Бузало - 獨孤欣 & 獨弧悦"
+          },
+          {
+            "x": 0.0,
+            "y": 0.05031,
+            "ancho": 1.0,
+            "alto": 0.12508,
+            "texto": "Pepper&Carrot es totalmente gratuito, de código abierto, y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 156 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.71958,
+            "ancho": 1.0,
+            "alto": 0.1898,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.09433,
+            "y": 0.6621,
+            "ancho": 0.82009,
+            "alto": 0.14285,
+            "texto": "Traducción al castellano: TheFaico\nTu también puedes ser mecenas\nde Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14539,
+            "y": 0.85965,
+            "ancho": 0.70874,
+            "alto": 0.12659,
+            "texto": "Herramientas: Este episodio ha sido creado con programas 100% libres\nKrita, G'MIC, Blender, G'MIC en Ubuntu Gnome (GNU/Linux)"
+          },
+          {
+            "x": 0.14542,
+            "y": 0.81113,
+            "ancho": 0.70874,
+            "alto": 0.12417,
+            "texto": "Open-source: todas las imágenes, fuentes tipográficas, y demás ficheros\nestán disponibles en la página oficial para su descarga."
+          },
+          {
+            "x": 0.14562,
+            "y": 0.76378,
+            "ancho": 0.70874,
+            "alto": 0.1265,
+            "texto": "Licencia: Creative Commons Attribution a 'David Revoy'\nPuedes modificar, compartir, vender, etc..."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep06",
+      "titulo": "El concurso de pociones",
+      "paginas": [
+        "ep06/00.webp",
+        "ep06/01.webp",
+        "ep06/02.webp",
+        "ep06/03.webp",
+        "ep06/04.webp",
+        "ep06/05.webp",
+        "ep06/06.webp",
+        "ep06/07.webp",
+        "ep06/08.webp",
+        "ep06/09.webp",
+        "ep06/10.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 6: El concurso de pociones"
+          }
+        ],
+        [
+          {
+            "x": 0.03167,
+            "y": 0.26684,
+            "ancho": 0.22044,
+            "alto": 0.05002,
+            "texto": "¡Oh mecachis!, otra vez\nme he quedado dormida\nsin cerrar la ventana..."
+          },
+          {
+            "x": 0.09885,
+            "y": 0.37754,
+            "ancho": 0.16478,
+            "alto": 0.03773,
+            "texto": "...¡cómo corre\nel viento!"
+          },
+          {
+            "x": 0.10786,
+            "y": 0.47366,
+            "ancho": 0.22044,
+            "alto": 0.05002,
+            "texto": "...¿y estoy\nviendo Komona por la\nventana?"
+          },
+          {
+            "x": 0.33484,
+            "y": 0.61742,
+            "ancho": 0.09676,
+            "alto": 0.04448,
+            "texto": "¡KOMONA!"
+          },
+          {
+            "x": 0.46336,
+            "y": 0.60638,
+            "ancho": 0.12231,
+            "alto": 0.04133,
+            "texto": "¡El concurso de pociones!"
+          },
+          {
+            "x": 0.60575,
+            "y": 0.62102,
+            "ancho": 0.2144,
+            "alto": 0.06985,
+            "texto": "Me... ¡me he\nquedado dormida!"
+          },
+          {
+            "x": 0.44927,
+            "y": 0.81071,
+            "ancho": 0.13808,
+            "alto": 0.04754,
+            "texto": "... ¿pero?"
+          },
+          {
+            "x": 0.6214,
+            "y": 0.81118,
+            "ancho": 0.13808,
+            "alto": 0.04754,
+            "texto": "¿¡¿Dónde\nestoy?!?"
+          },
+          {
+            "x": 0.59206,
+            "y": 0.84426,
+            "ancho": 0.0879,
+            "alto": 0.08527,
+            "texto": "Cuac"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.18771,
+            "ancho": 0.55335,
+            "alto": 0.16263,
+            "texto": "!!!"
+          },
+          {
+            "x": 0.28583,
+            "y": 0.51332,
+            "ancho": 0.22311,
+            "alto": 0.0764,
+            "texto": "¡Zanahoria!\n¡Eres tan mono!\n¡Me llevas volando\nal concurso!"
+          },
+          {
+            "x": 0.56866,
+            "y": 0.71066,
+            "ancho": 0.28331,
+            "alto": 0.1035,
+            "texto": "¡Mag-ní-fi-co!"
+          },
+          {
+            "x": 0.70708,
+            "y": 0.76923,
+            "ancho": 0.21963,
+            "alto": 0.09691,
+            "texto": "Incluso has traído una poción, mi ropa y mi sombrero..."
+          },
+          {
+            "x": 0.71838,
+            "y": 0.87412,
+            "ancho": 0.21963,
+            "alto": 0.09691,
+            "texto": "... a ver\nla poción que has\nelegido ..."
+          }
+        ],
+        [
+          {
+            "x": 0.04867,
+            "y": 0.24252,
+            "ancho": 0.56175,
+            "alto": 0.22857,
+            "texto": "¡¡¿QUÉEE?!!"
+          },
+          {
+            "x": 0.15173,
+            "y": 0.54999,
+            "ancho": 0.24117,
+            "alto": 0.08089,
+            "texto": "Como alcalde de Komona, declaro abierto el concurso de pociones."
+          },
+          {
+            "x": 0.12173,
+            "y": 0.67401,
+            "ancho": 0.24901,
+            "alto": 0.09125,
+            "texto": "Nuestra villa se complace\nen recibir en primicia nada menos que a cuatro concursantes."
+          },
+          {
+            "x": 0.16604,
+            "y": 0.77793,
+            "ancho": 0.2913,
+            "alto": 0.10675,
+            "texto": "Recibid con un"
+          },
+          {
+            "x": 0.19194,
+            "y": 0.79674,
+            "ancho": 0.24901,
+            "alto": 0.09125,
+            "texto": "fuerte aplauso a:"
+          },
+          {
+            "x": 0.48691,
+            "y": 0.68519,
+            "ancho": 0.50093,
+            "alto": 0.05846,
+            "texto": "Concurso de Pociones de Komona"
+          }
+        ],
+        [
+          {
+            "x": 0.90274,
+            "y": 0.84768,
+            "ancho": 0.09726,
+            "alto": 0.0895,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.05143,
+            "y": 0.03451,
+            "ancho": 0.2471,
+            "alto": 0.07431,
+            "texto": "Desde el gran país de la Unión de Tecnólogos,\nes un honor acoger a la encantadora e ingeniosa"
+          },
+          {
+            "x": 0.32481,
+            "y": 0.03258,
+            "ancho": 0.17306,
+            "alto": 0.13637,
+            "texto": "... sin olvidar a nuestra paisana, la bruja más querida de Komona,"
+          },
+          {
+            "x": 0.50299,
+            "y": 0.0337,
+            "ancho": 0.19444,
+            "alto": 0.10869,
+            "texto": "... nuestra tercera participante viene\ndel país de las\npuestas de luna,"
+          },
+          {
+            "x": 0.72414,
+            "y": 0.03379,
+            "ancho": 0.22467,
+            "alto": 0.1251,
+            "texto": "...y para terminar, nuestra última participante, del bosque de Punta de Ardilla,"
+          },
+          {
+            "x": 0.03379,
+            "y": 0.10455,
+            "ancho": 0.25352,
+            "alto": 0.07544,
+            "texto": "¡Celandria!"
+          },
+          {
+            "x": 0.28552,
+            "y": 0.10455,
+            "ancho": 0.25352,
+            "alto": 0.07544,
+            "texto": "¡Azafrán!"
+          },
+          {
+            "x": 0.47599,
+            "y": 0.10477,
+            "ancho": 0.25352,
+            "alto": 0.07544,
+            "texto": "¡Shichimi!"
+          },
+          {
+            "x": 0.71682,
+            "y": 0.10455,
+            "ancho": 0.25352,
+            "alto": 0.07544,
+            "texto": "¡Pimienta!"
+          },
+          {
+            "x": 0.03863,
+            "y": 0.4687,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Que comience\nel concurso!"
+          },
+          {
+            "x": 0.22425,
+            "y": 0.51323,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡El voto se medirá\npor aplausómetro!"
+          },
+          {
+            "x": 0.09168,
+            "y": 0.61139,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Y, para comenzar,\nveamos la demostración\nde Celandria"
+          },
+          {
+            "x": 0.20533,
+            "y": 0.69839,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Damas y\ncaballeros..."
+          },
+          {
+            "x": 0.36175,
+            "y": 0.60624,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...ya no hace falta\ntener miedo a la\nmuerte gracias a..."
+          },
+          {
+            "x": 0.64693,
+            "y": 0.61133,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "... ¡mi poción de"
+          },
+          {
+            "x": 0.60205,
+            "y": 0.62974,
+            "ancho": 0.32313,
+            "alto": 0.16445,
+            "texto": "ZOMBIFICACIÓN!"
+          },
+          {
+            "x": 0.61599,
+            "y": 0.87324,
+            "ancho": 0.12009,
+            "alto": 0.09566,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.66023,
+            "y": 0.89108,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.60065,
+            "y": 0.85416,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.70492,
+            "y": 0.87836,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.73533,
+            "y": 0.88955,
+            "ancho": 0.12243,
+            "alto": 0.094,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.74805,
+            "y": 0.87517,
+            "ancho": 0.08512,
+            "alto": 0.06882,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.78629,
+            "y": 0.88173,
+            "ancho": 0.08512,
+            "alto": 0.06882,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.87375,
+            "y": 0.86784,
+            "ancho": 0.12243,
+            "alto": 0.094,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.79327,
+            "y": 0.89277,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.82602,
+            "y": 0.87506,
+            "ancho": 0.08255,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.83783,
+            "y": 0.89961,
+            "ancho": 0.08255,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.92218,
+            "y": 0.87895,
+            "ancho": 0.07782,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.64748,
+            "y": 0.84776,
+            "ancho": 0.1041,
+            "alto": 0.08296,
+            "texto": "Clap"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.02978,
+            "ancho": 0.27855,
+            "alto": 0.14199,
+            "texto": "¡FANTÁSTICO!"
+          },
+          {
+            "x": 0.13723,
+            "y": 0.05253,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Celandria desafía incluso\nla muerte con esta poción mi-la-gro-sa!"
+          },
+          {
+            "x": 0.57708,
+            "y": 0.0925,
+            "ancho": 0.09267,
+            "alto": 0.06819,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.12364,
+            "y": 0.06121,
+            "ancho": 0.12009,
+            "alto": 0.09566,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.1563,
+            "y": 0.08561,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.07626,
+            "y": 0.06888,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.2091,
+            "y": 0.07453,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.61666,
+            "y": 0.10244,
+            "ancho": 0.07645,
+            "alto": 0.05951,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.25106,
+            "y": 0.08612,
+            "ancho": 0.08512,
+            "alto": 0.06882,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.31365,
+            "y": 0.08529,
+            "ancho": 0.08512,
+            "alto": 0.06882,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.48917,
+            "y": 0.06976,
+            "ancho": 0.12243,
+            "alto": 0.094,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.36465,
+            "y": 0.08156,
+            "ancho": 0.10474,
+            "alto": 0.08416,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.41247,
+            "y": 0.09503,
+            "ancho": 0.08255,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.4463,
+            "y": 0.09661,
+            "ancho": 0.08255,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.53992,
+            "y": 0.09318,
+            "ancho": 0.08255,
+            "alto": 0.06797,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.04416,
+            "y": 0.04952,
+            "ancho": 0.1041,
+            "alto": 0.08296,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.21737,
+            "y": 0.23983,
+            "ancho": 0.19279,
+            "alto": 0.07227,
+            "texto": "...y observad"
+          },
+          {
+            "x": 0.09067,
+            "y": 0.18745,
+            "ancho": 0.2025,
+            "alto": 0.07505,
+            "texto": "... por favor, ¡parad con vuestros aplausos, pueblo de Komona!"
+          },
+          {
+            "x": 0.69744,
+            "y": 0.27299,
+            "ancho": 0.24352,
+            "alto": 0.11886,
+            "texto": "La auténtica poción\nque estábais esperando:\nla que impresionará a todos vuestros vecinos..."
+          },
+          {
+            "x": 0.7413,
+            "y": 0.34849,
+            "ancho": 0.21697,
+            "alto": 0.0737,
+            "texto": "...¡les hará retorcerse\nde envidia!"
+          },
+          {
+            "x": 0.12464,
+            "y": 0.25688,
+            "ancho": 0.29534,
+            "alto": 0.09603,
+            "texto": "MI"
+          },
+          {
+            "x": 0.52574,
+            "y": 0.42861,
+            "ancho": 0.41468,
+            "alto": 0.16445,
+            "texto": "BURGUESÍA!"
+          },
+          {
+            "x": 0.60205,
+            "y": 0.4093,
+            "ancho": 0.2025,
+            "alto": 0.07505,
+            "texto": "... ¡poción de"
+          },
+          {
+            "x": 0.18304,
+            "y": 0.41054,
+            "ancho": 0.30733,
+            "alto": 0.10662,
+            "texto": "... todo esto es posible a\npartir de ahora si aplicamos\nuna sola gota de mi ..."
+          },
+          {
+            "x": 0.90148,
+            "y": 0.64751,
+            "ancho": 0.09852,
+            "alto": 0.12601,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.55424,
+            "y": 0.64941,
+            "ancho": 0.1802,
+            "alto": 0.13468,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.60038,
+            "y": 0.69822,
+            "ancho": 0.12439,
+            "alto": 0.08825,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.56259,
+            "y": 0.61422,
+            "ancho": 0.15717,
+            "alto": 0.11848,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.64481,
+            "y": 0.66318,
+            "ancho": 0.15717,
+            "alto": 0.11848,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.70346,
+            "y": 0.68512,
+            "ancho": 0.1454,
+            "alto": 0.09857,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.71183,
+            "y": 0.66198,
+            "ancho": 0.12772,
+            "alto": 0.09689,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.76111,
+            "y": 0.67531,
+            "ancho": 0.12772,
+            "alto": 0.09689,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.87828,
+            "y": 0.6837,
+            "ancho": 0.12172,
+            "alto": 0.09857,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.79081,
+            "y": 0.69096,
+            "ancho": 0.12439,
+            "alto": 0.08825,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.84389,
+            "y": 0.67331,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.84655,
+            "y": 0.69639,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.91597,
+            "y": 0.68905,
+            "ancho": 0.08403,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.61931,
+            "y": 0.64385,
+            "ancho": 0.1562,
+            "alto": 0.1168,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.90374,
+            "y": 0.60982,
+            "ancho": 0.09626,
+            "alto": 0.13369,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.03906,
+            "y": 0.81986,
+            "ancho": 0.21671,
+            "alto": 0.07831,
+            "texto": "¡Esta poción podría volver rico a todo el pueblo de Komona!"
+          },
+          {
+            "x": 0.04517,
+            "y": 0.79571,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Fantástico! ¡Increíble!"
+          },
+          {
+            "x": 0.22065,
+            "y": 0.86899,
+            "ancho": 0.18844,
+            "alto": 0.12601,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.03789,
+            "y": 0.90076,
+            "ancho": 0.1454,
+            "alto": 0.09857,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.56732,
+            "y": 0.8939,
+            "ancho": 0.12772,
+            "alto": 0.09689,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.08481,
+            "y": 0.89312,
+            "ancho": 0.12772,
+            "alto": 0.09689,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.51614,
+            "y": 0.88957,
+            "ancho": 0.1454,
+            "alto": 0.09857,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.11451,
+            "y": 0.90877,
+            "ancho": 0.12439,
+            "alto": 0.08825,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.16759,
+            "y": 0.89112,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.28883,
+            "y": 0.89038,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.04867,
+            "y": 0.89943,
+            "ancho": 0.09969,
+            "alto": 0.07308,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.67653,
+            "y": 0.90241,
+            "ancho": 0.13988,
+            "alto": 0.08355,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.61421,
+            "y": 0.89285,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.8962,
+            "y": 0.89719,
+            "ancho": 0.1038,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.72609,
+            "y": 0.89394,
+            "ancho": 0.12387,
+            "alto": 0.09569,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.76617,
+            "y": 0.87549,
+            "ancho": 0.14162,
+            "alto": 0.11848,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.81267,
+            "y": 0.89482,
+            "ancho": 0.13202,
+            "alto": 0.09446,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.85148,
+            "y": 0.87312,
+            "ancho": 0.14162,
+            "alto": 0.11848,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.90592,
+            "y": 0.85614,
+            "ancho": 0.09408,
+            "alto": 0.11848,
+            "texto": "Clap"
+          },
+          {
+            "x": 0.31462,
+            "y": 0.90037,
+            "ancho": 0.21671,
+            "alto": 0.07831,
+            "texto": "Vuestros aplausos\nno dejan duda; Celandria está ya descartada"
+          },
+          {
+            "x": 0.21737,
+            "y": 0.25696,
+            "ancho": 0.19279,
+            "alto": 0.07227,
+            "texto": "Poción"
+          }
+        ],
+        [
+          {
+            "x": 0.11105,
+            "y": 0.03277,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Esta última demostración parece poner las cosas muy difíciles a Shichimi..."
+          },
+          {
+            "x": 0.32592,
+            "y": 0.24524,
+            "ancho": 0.25377,
+            "alto": 0.08871,
+            "texto": "¡NO!"
+          },
+          {
+            "x": 0.37352,
+            "y": 0.26683,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "No puedo, es\ndemasiado peligroso."
+          },
+          {
+            "x": 0.35654,
+            "y": 0.31202,
+            "ancho": 0.25013,
+            "alto": 0.10739,
+            "texto": "¡LO SIENTO!"
+          },
+          {
+            "x": 0.38282,
+            "y": 0.05623,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...¡vamos Shichimi!\nTodo el mundo\nte espera..."
+          },
+          {
+            "x": 0.72238,
+            "y": 0.0352,
+            "ancho": 0.22441,
+            "alto": 0.05271,
+            "texto": "Parece, damas y caballeros, que Shichimi se retira..."
+          },
+          {
+            "x": 0.02675,
+            "y": 0.41283,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Dame eso!"
+          },
+          {
+            "x": 0.26604,
+            "y": 0.38958,
+            "ancho": 0.22064,
+            "alto": 0.09513,
+            "texto": "... deja ya de\nhacerte la tímida y\nno estropees el\nespectáculo."
+          },
+          {
+            "x": 0.28899,
+            "y": 0.55558,
+            "ancho": 0.21637,
+            "alto": 0.08891,
+            "texto": "Todo el mundo\nsabe ya que he ganado\nel concurso. Da igual lo que haga tu poción..."
+          },
+          {
+            "x": 0.72103,
+            "y": 0.39133,
+            "ancho": 0.27897,
+            "alto": 0.13393,
+            "texto": "!!!"
+          },
+          {
+            "x": 0.09132,
+            "y": 0.66823,
+            "ancho": 0.26858,
+            "alto": 0.27562,
+            "texto": "BZZZIIOO"
+          },
+          {
+            "x": 0.62687,
+            "y": 0.71913,
+            "ancho": 0.37313,
+            "alto": 0.16445,
+            "texto": "¡MONSTRUO GIGANTE!"
+          },
+          {
+            "x": 0.02776,
+            "y": 0.24192,
+            "ancho": 0.18772,
+            "alto": 0.08094,
+            "texto": "Yo... yo no sabía\nque era necesario\nhacer una\ndemostración..."
+          },
+          {
+            "x": 0.70973,
+            "y": 0.6815,
+            "ancho": 0.27344,
+            "alto": 0.12591,
+            "texto": "¡¡¡CUIDADO!!!"
+          },
+          {
+            "x": 0.7261,
+            "y": 0.70399,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Es una poción de"
+          }
+        ],
+        [
+          {
+            "x": 0.05239,
+            "y": 0.0,
+            "ancho": 0.67406,
+            "alto": 0.49383,
+            "texto": "CROCROCROoooooooooo"
+          },
+          {
+            "x": 0.59523,
+            "y": 0.55543,
+            "ancho": 0.40477,
+            "alto": 0.17801,
+            "texto": "BAM!"
+          },
+          {
+            "x": 0.0,
+            "y": 0.80984,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "... ¡eh, mola!"
+          },
+          {
+            "x": 0.04891,
+            "y": 0.8912,
+            "ancho": 0.20754,
+            "alto": 0.08228,
+            "texto": "...mi poción debería al menos haceros reír un rato porque...."
+          },
+          {
+            "x": 0.05341,
+            "y": 0.83156,
+            "ancho": 0.20693,
+            "alto": 0.0756,
+            "texto": "...¿ahora me\ntoca a mí?"
+          },
+          {
+            "x": 0.79966,
+            "y": 0.80531,
+            "ancho": 0.11282,
+            "alto": 0.01877,
+            "texto": "¡Huye idiota!"
+          },
+          {
+            "x": 0.71829,
+            "y": 0.93082,
+            "ancho": 0.25963,
+            "alto": 0.05647,
+            "texto": "¡El concurso se suspende!\n...¡sálvate si puedes!"
+          }
+        ],
+        [
+          {
+            "x": 0.16283,
+            "y": 0.16321,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...como siempre,\ntodo el mundo se va\ncuando nos toca\na nosotros."
+          },
+          {
+            "x": 0.13209,
+            "y": 0.12171,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...pues ya ves:"
+          },
+          {
+            "x": 0.6135,
+            "y": 0.21836,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "De todas maneras,\ntengo una idea sobre\nlo que podemos hacer con tu \"poción\", Zanahoria."
+          },
+          {
+            "x": 0.67785,
+            "y": 0.31215,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...¡pongamos un\npoco de orden aquí\ny volvamos a casa!"
+          },
+          {
+            "x": 0.33249,
+            "y": 0.48206,
+            "ancho": 0.3124,
+            "alto": 0.12334,
+            "texto": "¡Tú,\npajarraco-gigante-zombi-burgués!"
+          },
+          {
+            "x": 0.09723,
+            "y": 0.79644,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¿Te gustaría\nprobar la última\npoción?..."
+          },
+          {
+            "x": 0.69768,
+            "y": 0.90341,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "... ¿más bien no,\nverdad?"
+          },
+          {
+            "x": 0.0,
+            "y": 0.48199,
+            "ancho": 0.61142,
+            "alto": 0.18992,
+            "texto": "¡EH!"
+          },
+          {
+            "x": 0.79103,
+            "y": 0.31059,
+            "ancho": 0.20897,
+            "alto": 0.49383,
+            "texto": "¡CRACK!"
+          }
+        ],
+        [
+          {
+            "x": 0.04901,
+            "y": 0.04335,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Sí, lee bien\nla etiqueta..."
+          },
+          {
+            "x": 0.71239,
+            "y": 0.12858,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...no dudaré en echártela encima si no te largas ahora mismo de Komona"
+          },
+          {
+            "x": 0.03376,
+            "y": 0.57633,
+            "ancho": 0.22423,
+            "alto": 0.08796,
+            "texto": "Por haber salvado nuestra villa de un desastre,"
+          },
+          {
+            "x": 0.09404,
+            "y": 0.63311,
+            "ancho": 0.26379,
+            "alto": 0.09861,
+            "texto": "otorgamos el primer puesto del concurso a Pimienta por su poción de ...??!!"
+          },
+          {
+            "x": 0.68052,
+            "y": 0.82373,
+            "ancho": 0.31233,
+            "alto": 0.14651,
+            "texto": "...emm ...de hecho, no es\nrealmente una poción;\n¡son las muestras de orina\nde mi gato para su revisión\nveterinaria!"
+          },
+          {
+            "x": 0.54093,
+            "y": 0.79898,
+            "ancho": 0.31233,
+            "alto": 0.14651,
+            "texto": "... ¡Jaja!\nSí ..."
+          },
+          {
+            "x": 0.76388,
+            "y": 0.91151,
+            "ancho": 0.23612,
+            "alto": 0.08849,
+            "texto": "...¿no hace falta\ndemostración,\nverdad?"
+          },
+          {
+            "x": 0.52777,
+            "y": 0.97576,
+            "ancho": 0.41961,
+            "alto": 0.01627,
+            "texto": "Episodio 6: El concurso de pociones"
+          },
+          {
+            "x": 0.75477,
+            "y": 0.97183,
+            "ancho": 0.24523,
+            "alto": 0.02817,
+            "texto": "FIN"
+          },
+          {
+            "x": 0.29082,
+            "y": 0.8848,
+            "ancho": 0.24491,
+            "alto": 0.1152,
+            "texto": "50 000 Ko"
+          },
+          {
+            "x": 0.18583,
+            "y": 0.9579,
+            "ancho": 0.62758,
+            "alto": 0.01368,
+            "texto": "Marzo de 2015 - Dibujo y Guión: David Revoy - Traducción: TheFaico"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.0366,
+            "ancho": 1.0,
+            "alto": 0.12508,
+            "texto": "Pepper&Carrot es completamente gratuito, de código abierto, y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 245 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.73289,
+            "ancho": 1.0,
+            "alto": 0.1898,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.09011,
+            "y": 0.71866,
+            "ancho": 0.82009,
+            "alto": 0.14285,
+            "texto": "Tu también puedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14539,
+            "y": 0.86005,
+            "ancho": 0.70874,
+            "alto": 0.12659,
+            "texto": "Herramientas: Este episodio ha sido creado al 100% con software libre\nKrita en Linux Mint (GNU/Linux)"
+          },
+          {
+            "x": 0.14542,
+            "y": 0.81517,
+            "ancho": 0.70874,
+            "alto": 0.12417,
+            "texto": "Open-source: todas las imágenes, fuentes tipográficas, y demás ficheros\nestán disponibles en la página oficial para su descarga."
+          },
+          {
+            "x": 0.14562,
+            "y": 0.76983,
+            "ancho": 0.70874,
+            "alto": 0.1265,
+            "texto": "Licencia: Creative Commons Attribution\nPuedes modificar, compartir, vender, etc..."
+          },
+          {
+            "x": 0.01999,
+            "y": 0.06092,
+            "ancho": 0.96546,
+            "alto": 0.81289,
+            "texto": "Алексей ★ Глеб Бузало ★ 獨孤欣 & 獨弧悦 ★ Addison Lewis ★ A Distinguished Robot ★ Adrian Lord ★ Ahmad Ali ★ Aina Reich ★ Alandran  ★ Alan Hardman ★ Albert Westra ★ Alcide  ★ Alejandro Flores Prieto ★ Alex ★ Alexander Bülow Tomassen ★ Alexander Sopicki ★ Alexandra Jordan ★ Alex Lusco ★ Alex Silver ★ Alex Vandiver ★ Alfredo ★ Ali Poulton (Aunty Pol) ★ Allan Zieser ★ Andreas Rieger ★ Andrej Kwadrin ★ Andrew  ★ Andrew Godfrey ★ Andrey Alekseenko ★ Angela K ★ Anna Orlova ★ Antan Karmola ★ Anthony Edlin ★ Antonio Mendoza ★ Ardash Crowfoot ★ Arjun Chennu ★ Arne Brix ★ Aslak Kjølås-Sæverud ★ Axel Bordelon ★ Axel Philipsenburg ★ Barbix ★ Ben Evans ★ Bernd  ★ Betsy Luntao ★ Boonsak Watanavisit ★ Boris Fauret ★ Boudewijn Rempt ★ BoxBoy ★ Brett Smith ★ Brian Behnke ★ Brian Smith ★ Bryan Butler ★ Bui Dang Hai Trieu ★ Carlos Levischi ★ Charlotte Lacombe-bar ★ Chris Radcliff ★ Chris Sakkas ★ Christian Gruenwaldner ★ Christophe Carré ★ Christopher Bates ★ Clara Dexter ★ codl ★ Colby Driedger ★ Conway Scott Smith ★ Cuthbert Williams  ★ Cyrille Largillier ★ Cyril Paciullo ★ Damien  ★ Daniel ★ Daniel Björkman ★ Danny Grimm ★ David Tang ★ DiCola Jamn ★ Dmitry  ★ Donald Hayward ★ Duke ★ Eitan Goldshtrom ★ Enrico Billich ★ Epsilon ★ Eric Schulz ★ Faolan Grady ★ Francois Schnell ★ Garret Patterson ★ Ginny Hendricks ★ GreenAngel5  ★ Grigory Petrov ★ Guillaume  ★ Guillaume Ballue ★ Gustav Strömbom ★ Guy Davis ★ Happy Mimic ★ Helmar Suschka ★ Henning Döscher ★ Ilyas  ★ Irina Rempt ★ Ivan Korotkov ★ James Frazier ★ Janusz  ★ Jared Tritsch ★ JDB  ★ Jean-Baptiste Hebbrecht ★ Jean-Gabriel LOQUET ★ Jeffrey Schneider ★ Jessey Wright ★ Jim  ★ Jim Street ★ Jiska  ★ Joachim Schiele ★ JoÃ£o Luiz Machado Junior ★ Joern Konopka ★ joe rutledge ★ Johanne Thomson ★ John ★ John Urquhart Ferguson ★ Jónatan Nilsson ★ Jonathan Leroy ★ Jonathan Ringstad ★ Jon Brake ★ Jorge Bernal ★ Joseph Bowman ★ Julien Duroure ★ Justus Kat ★ Kai-Ting (Danil) Ko ★ Kasper Hansen ★ Kate  ★ Kathryn Wuerstl ★ Ken Mingyuan Xia ★ Kingsquee ★ Kroet ★ Levi Kornelsen ★ Liselle  ★ Lorentz Grip ★ L S ★ Luc Stepniewski ★ Luke Hochrein ★ MacCoy  ★ Magnus Kronnäs ★ Manuel ★ Marc & Rick ★ Marcus ★ Martin Owens ★ Mary Brownlee ★ Masked Admirer ★ Mathias Stærk ★ Mefflin Ross Bullis-bates ★ Michael ★ Michael Gill ★ Michael Pureka ★ Michelle Pereira Garcia ★ Mike Mosher ★ Miroslav  ★ Muzyka Dmytro ★ Nataya Castillo ★ Nazhif  ★ Nicholas DeLateur ★ Nicholas Terranova ★ Nicki Aya ★ Nicola Angel ★ Nicolae Berbece ★ Nicole Heersema ★ Nielas Sinclair ★ NinjaKnight Comics ★ Noble Hays ★ Noelia Calles Marcos ★ Nora Czaykowski ★ Nyx  ★ Olivier Amrein ★ Olivier Brun ★ Omar Willey ★ Oscar Moreno ★ Öykü Su Gürler ★ Ozone S. ★ Pablo Lopez Soriano ★ Pat David ★ Patrick Gamblin ★ Paul ★ Pavel Semenov ★ Pet0r ★ Peter ★ Peter Moonen ★ Petr Vlašic ★ Philippe Jean Edward Bateman ★ Pierre Geier ★ Pierre Vuillemin ★ Pranab Shenoy ★ Pyves & Ran ★ Raghavendra Kamath ★ Rajul Gupta  ★ Reorx Meng ★ Ret Samys ★ Rictic  ★ RJ van der Weide ★ Roberto Zaghis ★ Roman ★ Rumiko Hoshino ★ Rustin Simons ★ Sally Bridgewater ★ Sami T ★ Samuel Mitson ★ Scott Petrovic ★ Sean Adams ★ Shadefalcon ★ ShadowMist  ★ Shafak ★ Shawn Meyer ★ Simon Forster ★ Simon Isenberg ★ Sonny W. ★ Soriac  ★ Stanislav Vodetskyi ★ Stephanie Cheshire ★ Stephen Bates ★ Stephen Smoogen ★ Steven Bennett ★ Stuart Dickson ★ Surt  ★ TamaskanLEM ★ Tar8156 ★ Terry Hancock ★ TheFaico ★ Thomas Citharel ★ Thomas Courbon ★ Thomas Schwery ★ Tim Burbank ★ Tim J. ★ Tomas Hajek ★ Tom Demian ★ Tom Savage ★ Tracey Reuben  ★ Travis Humble ★ Tree  ★ Tyson Tan ★ Urm  ★ Victoria  ★ Victoria White ★ Vladislav Kurdyukov ★ Vlad Tomash ★ Westen Curry ★ Witt N. Vest ★ Xavier Claude ★ Yalyn Vinkindo ★ Yaroslav  ★ Zeni Pong ★ Źmicier Kušnaroŭ"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep07",
+      "titulo": "El deseo",
+      "paginas": [
+        "ep07/00.webp",
+        "ep07/01.webp",
+        "ep07/02.webp",
+        "ep07/03.webp",
+        "ep07/04.webp",
+        "ep07/05.webp",
+        "ep07/06.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 7: El deseo"
+          }
+        ],
+        [
+          {
+            "x": 0.66555,
+            "y": 0.82795,
+            "ancho": 0.32313,
+            "alto": 0.16445,
+            "texto": "¡ZANAHORIA!"
+          },
+          {
+            "x": 0.37656,
+            "y": 0.39076,
+            "ancho": 0.17924,
+            "alto": 0.08871,
+            "texto": "¡ZANAHORIA!"
+          }
+        ],
+        [
+          {
+            "x": 0.0913,
+            "y": 0.13925,
+            "ancho": 0.1128,
+            "alto": 0.05001,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.10887,
+            "y": 0.10865,
+            "ancho": 0.12663,
+            "alto": 0.05997,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.19891,
+            "y": 0.64956,
+            "ancho": 0.10621,
+            "alto": 0.04709,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.21469,
+            "y": 0.62537,
+            "ancho": 0.11516,
+            "alto": 0.05106,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.63253,
+            "y": 0.25834,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Aquí estás!"
+          },
+          {
+            "x": 0.01265,
+            "y": 0.42509,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Venga, se acabó\nla siesta!\nVolvemos a casa."
+          },
+          {
+            "x": 0.79881,
+            "y": 0.595,
+            "ancho": 0.20119,
+            "alto": 0.14449,
+            "texto": "BZZZ"
+          },
+          {
+            "x": 0.76897,
+            "y": 0.80596,
+            "ancho": 0.23103,
+            "alto": 0.19094,
+            "texto": "¡PUF!"
+          }
+        ],
+        [],
+        [
+          {
+            "x": 0.03353,
+            "y": 0.05678,
+            "ancho": 0.26251,
+            "alto": 0.10266,
+            "texto": "Bienvenidos...\na la cueva mágica de las\nhadas, aventureros..."
+          },
+          {
+            "x": 0.13767,
+            "y": 0.38482,
+            "ancho": 0.21767,
+            "alto": 0.07952,
+            "texto": "... cualquier ...\ndeseo..."
+          },
+          {
+            "x": 0.69597,
+            "y": 0.24677,
+            "ancho": 0.26251,
+            "alto": 0.10266,
+            "texto": "...formulad un deseo,\ncualquier deseo, y\nharemos que se\nhaga realidad."
+          },
+          {
+            "x": 0.33877,
+            "y": 0.78767,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Yo ... yo deseo...,\nen fin, lo que yo más desearía"
+          },
+          {
+            "x": 0.42773,
+            "y": 0.83866,
+            "ancho": 0.12592,
+            "alto": 0.03771,
+            "texto": "Miaou!"
+          },
+          {
+            "x": 0.54802,
+            "y": 0.82636,
+            "ancho": 0.09881,
+            "alto": 0.04437,
+            "texto": "Zzzzz"
+          }
+        ],
+        [
+          {
+            "x": 0.53596,
+            "y": 0.39848,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...pero, ¿en serio?"
+          },
+          {
+            "x": 0.48651,
+            "y": 0.27519,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Es verdad que, a veces,\nel mejor de los deseos\nes que nada cambie..."
+          },
+          {
+            "x": 0.61928,
+            "y": 0.44905,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...¿desear volver\na dormir?\n¡Qué desperdicio!"
+          },
+          {
+            "x": 0.30929,
+            "y": 0.65172,
+            "ancho": 0.10621,
+            "alto": 0.04709,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.32507,
+            "y": 0.62754,
+            "ancho": 0.11516,
+            "alto": 0.05106,
+            "texto": "Zzzzz"
+          },
+          {
+            "x": 0.09477,
+            "y": 0.94085,
+            "ancho": 0.81082,
+            "alto": 0.01768,
+            "texto": "Abril 2015 - www.peppercarrot.com - Dibujo y Guión: David Revoy - Traducción: TheFaico"
+          },
+          {
+            "x": 0.53903,
+            "y": 0.97687,
+            "ancho": 0.41961,
+            "alto": 0.01627,
+            "texto": "Episodio 7: El deseo"
+          },
+          {
+            "x": 0.76541,
+            "y": 0.97199,
+            "ancho": 0.23459,
+            "alto": 0.02801,
+            "texto": "FIN"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.0366,
+            "ancho": 1.0,
+            "alto": 0.12508,
+            "texto": "Pepper&Carrot es completamente gratuito, de código abierto y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 273 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.78533,
+            "ancho": 1.0,
+            "alto": 0.1898,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.09011,
+            "y": 0.77272,
+            "ancho": 0.82009,
+            "alto": 0.14285,
+            "texto": "Tu también puedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14539,
+            "y": 0.90039,
+            "ancho": 0.70874,
+            "alto": 0.09961,
+            "texto": "Herramientas: Este episodio ha sido creado al 100% con software libre\nKrita en Linux Mint (GNU/Linux)"
+          },
+          {
+            "x": 0.14542,
+            "y": 0.85954,
+            "ancho": 0.70874,
+            "alto": 0.12417,
+            "texto": "Open-source: todas las imágenes, fuentes tipográficas y demás ficheros\nestán disponibles en la página oficial para su descarga."
+          },
+          {
+            "x": 0.14562,
+            "y": 0.81824,
+            "ancho": 0.70874,
+            "alto": 0.1265,
+            "texto": "Licencia: Creative Commons Attribution\nPuedes modificar, compartir, vender, etc..."
+          },
+          {
+            "x": 0.03189,
+            "y": 0.0657,
+            "ancho": 0.93644,
+            "alto": 0.78846,
+            "texto": "Addison Lewis ❀ A Distinguished Robot ❀ Adrian Lord ❀ Ahmad Ali ❀ Aina Reich ❀ Alandran ❀ Alan Hardman ❀ Albert Westra ❀ Alcide\nAlex ❀ Alexander Bülow Tomassen ❀ Alexander Sopicki ❀ Alexandra Jordan ❀ Alexey Golubev ❀ Alex Flores ❀ Alex Lusco ❀ Alex Silver\nAlex Vandiver ❀ Alfredo ❀ Ali Poulton (Aunty Pol) ❀ Allan Zieser ❀ Andreas Rieger ❀ Andreas Ulmer ❀ Andrej Kwadrin ❀ Andrew\nAndrew Godfrey ❀ Andrey Alekseenko ❀ Angela K ❀ Anna Orlova ❀ anonymous ❀ Antan Karmola ❀ Anthony Edlin ❀ Antoine\nAntonio Mendoza ❀ Antonio Parisi ❀ Ardash Crowfoot ❀ Arjun Chennu ❀ Arne Brix ❀ Arturo J. Pérez ❀ Aslak Kjølås-Sæverud\nAxel Bordelon ❀ Axel Philipsenburg ❀ barbix ❀ BataMoth ❀ Ben Evans ❀ Bernd ❀ Betsy Luntao ❀ Birger Tuer Thorvaldsen\nBoonsak Watanavisit ❀ Boris Fauret ❀ Boudewijn Rempt ❀ BoxBoy ❀ Brent Houghton ❀ Brett Smith ❀ Brian Behnke ❀ Bryan Butler\nBS ❀ Bui Dang Hai Trieu ❀ BXS ❀ carlos levischi ❀ Carola Hänggi ❀ Cedric Wohlleber ❀ Charlotte Lacombe-bar ❀ Chris Radcliff\nChris Sakkas ❀ Christian Gruenwaldner ❀ Christophe Carré ❀ Christopher Bates ❀ Clara Dexter ❀ codl ❀ Colby Driedger\nConway Scott Smith ❀ Coppin Olivier ❀ Cuthbert Williams ❀ Cyol ❀ Cyrille Largillier ❀ Cyril Paciullo ❀ Damien ❀ Daniel\nDaniel Björkman ❀ Danny Grimm ❀ David ❀ David Tang ❀ DiCola Jamn ❀ Dmitry ❀ Donald Hayward ❀ Duke ❀ Eitan Goldshtrom\nEnrico Billich ❀ epsilon ❀ Eric Schulz ❀ Faolan Grady ❀ Francois Schnell ❀ freecultureftw ❀ Garret Patterson ❀ Ginny Hendricks\nGreenAngel5 ❀ Grigory Petrov ❀ G. S. Davis ❀ Guillaume ❀ Guillaume Ballue ❀ Gustav Strömbom ❀ Happy Mimic ❀ Helmar Suschka\nHenning Döscher ❀ Henry Ståhle ❀ Ilyas ❀ Irina Rempt ❀ Ivan Korotkov ❀ James Frazier ❀ Jamie Sutherland ❀ Janusz ❀ Jared Tritsch\nJDB ❀ Jean-Baptiste Hebbrecht ❀ Jean-Gabriel LOQUET ❀ Jeffrey Schneider ❀ Jessey Wright ❀ Jim ❀ Jim Street ❀ Jiska\nJoÃ£o Luiz Machado Junior ❀ Joerg Raidt ❀ Joern Konopka ❀ joe rutledge ❀ John ❀ John ❀ John Urquhart Ferguson ❀ Jónatan Nilsson\nJonathan Leroy ❀ Jonathan Ringstad ❀ Jon Brake ❀ Jorge Bernal ❀ Joseph Bowman ❀ Juju Mendivil ❀ Julien Duroure ❀ Justus Kat\nKai-Ting (Danil) Ko ❀ Kasper Hansen ❀ Kate ❀ Kathryn Wuerstl ❀ Ken Mingyuan Xia ❀ Kingsquee ❀ Kroet ❀ Lars Ivar Igesund\nLevi Kornelsen ❀ Liang ❀ Liselle ❀ Lise-Lotte Pesonen ❀ Lorentz Grip ❀ Louis Yung ❀ L S ❀ Luc Stepniewski ❀ Luke Hochrein ❀ MacCoy\nMagnus Kronnäs ❀ Manuel ❀ Manu Järvinen ❀ Marc & Rick ❀ marcus ❀ Martin Owens ❀ Mary Brownlee ❀ Masked Admirer\nMathias Stærk ❀ mefflin ross bullis-bates ❀ Michael ❀ Michael Gill ❀ Michael Pureka ❀ Michelle Pereira Garcia ❀ Mike Mosher\nMiroslav ❀ mjkj ❀ Nazhif ❀ Nicholas DeLateur ❀ Nicholas Terranova ❀ Nicki Aya ❀ Nicola Angel ❀ Nicolae Berbece ❀ Nicole Heersema\nNielas Sinclair ❀ NinjaKnight Comics ❀ Noble Hays ❀ Noelia Calles Marcos ❀ Nora Czaykowski ❀ No Reward ❀ Nyx ❀ Olivier Amrein\nOlivier Brun ❀ Olivier Gavrois ❀ Omar Willey ❀ Oscar Moreno ❀ Öykü Su Gürler ❀ Ozone S. ❀ Pablo Lopez Soriano ❀ Pat David\nPatrick Gamblin ❀ Paul ❀ Paul ❀ Pavel Semenov ❀ Pet0r ❀ Peter ❀ Peter Moonen ❀ Petr Vlašic ❀ Philippe Jean Edward Bateman\nPierre Geier ❀ Pierre Vuillemin ❀ Pranab Shenoy ❀ Pyves & Ran ❀ Raghavendra Kamath ❀ Rajul Gupta ❀ Reorx Meng ❀ Ret Samys\nrictic ❀ RJ van der Weide ❀ Roberto Zaghis ❀ Robin Moussu ❀ Roman  Burdun ❀ Rumiko Hoshino ❀ Rustin Simons ❀ Sally Bridgewater\nSami T ❀ Samuel Mitson ❀ Scott Petrovic ❀ Sean Adams ❀ Shadefalcon ❀ ShadowMist ❀ shafak ❀ Shawn Meyer ❀ Simon Forster\nSimon Isenberg ❀ Sonja Reimann-Klieber ❀ Sonny W. ❀ Soriac ❀ Stanislav Vodetskyi ❀ Stephanie Cheshire ❀ Stephen Bates\nStephen Smoogen ❀ Steven Bennett ❀ Stuart Dickson ❀ surt ❀ Sybille Marchetto ❀ TamaskanLEM ❀ tar8156 ❀ Terry Hancock\nTheFaico ❀ thibhul ❀ Thomas Citharel ❀ Thomas Courbon ❀ Thomas Schwery ❀ Thornae ❀ Tim Burbank ❀ Tim J. ❀ Tomas Hajek\nTom Demian ❀ Tom Savage ❀ Tracey Reuben ❀ Travis Humble ❀ tree ❀ Tyson Tan ❀ Urm ❀ Victoria ❀ Victoria White\nVladislav Kurdyukov ❀ Vlad Tomash ❀ WakoTabacco ❀ Wander ❀ Westen Curry ❀ Witt N. Vest ❀ WoodChi ❀ Xavier Claude\nYalyn Vinkindo ❀ Yaroslav ❀ Zeni Pong ❀ Źmicier Kušnaroŭ ❀ Глеб Бузало ❀ 獨孤欣 & 獨弧悦"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep08",
+      "titulo": "El cumpleaños de Pimienta",
+      "paginas": [
+        "ep08/00.webp",
+        "ep08/01.webp",
+        "ep08/02.webp",
+        "ep08/03.webp",
+        "ep08/04.webp",
+        "ep08/05.webp",
+        "ep08/06.webp",
+        "ep08/07.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 8: El cumpleaños de Pimienta"
+          }
+        ],
+        [
+          {
+            "x": 0.67366,
+            "y": 0.47328,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Falta muy poco para\nmi cumpleaños y no tengo amigos con los que celebrarlo ..."
+          }
+        ],
+        [
+          {
+            "x": 0.02257,
+            "y": 0.03213,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Oh!, ¿quieres que\ninvite a las brujas que\nconocimos en el\nconcurso de pociones?"
+          },
+          {
+            "x": 0.40276,
+            "y": 0.20218,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Gran idea,\nZanahoria!"
+          },
+          {
+            "x": 0.31276,
+            "y": 0.42071,
+            "ancho": 0.13429,
+            "alto": 0.05084,
+            "texto": "Te invito\na mi fiesta"
+          }
+        ],
+        [
+          {
+            "x": 0.33817,
+            "y": 0.10699,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Ya está ..."
+          },
+          {
+            "x": 0.36834,
+            "y": 0.32993,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "... todo está listo,\nsólo falta esperar\na que vengan."
+          }
+        ],
+        [
+          {
+            "x": 0.39941,
+            "y": 0.14306,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "...al final vendrán."
+          },
+          {
+            "x": 0.32368,
+            "y": 0.0913,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "Ya deberían de...\nestoy segura de que..."
+          }
+        ],
+        [
+          {
+            "x": 0.03661,
+            "y": 0.04889,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡¡¿ Cómo han sido capaces\nde hacerme esto ?!!\n¿¡¡¡ A"
+          },
+          {
+            "x": 0.01468,
+            "y": 0.08042,
+            "ancho": 0.29496,
+            "alto": 0.10776,
+            "texto": "mí"
+          },
+          {
+            "x": 0.63952,
+            "y": 0.02204,
+            "ancho": 0.22872,
+            "alto": 0.11667,
+            "texto": "Conjuros de los\nDemonios de\nCAOSAH\nVol .1"
+          },
+          {
+            "x": 0.62799,
+            "y": 0.44357,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "... ya que no puedo\ncontar con ellas ..."
+          },
+          {
+            "x": 0.0,
+            "y": 0.79657,
+            "ancho": 0.53729,
+            "alto": 0.20343,
+            "texto": "DZZZUUUMM"
+          },
+          {
+            "x": 0.07032,
+            "y": 0.08314,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "!!!?"
+          }
+        ],
+        [
+          {
+            "x": 0.0396,
+            "y": 0.03069,
+            "ancho": 0.2671,
+            "alto": 0.10519,
+            "texto": "¡Demôniöş de Caosāh\nà vueštŗo šeŗvicio!"
+          },
+          {
+            "x": 0.65496,
+            "y": 0.0316,
+            "ancho": 0.24995,
+            "alto": 0.09939,
+            "texto": "¿Quién dešeáis nošotŗos"
+          },
+          {
+            "x": 0.72663,
+            "y": 0.04578,
+            "ancho": 0.20065,
+            "alto": 0.04987,
+            "texto": "àtacaŗ?..."
+          },
+          {
+            "x": 0.53314,
+            "y": 0.97429,
+            "ancho": 0.41961,
+            "alto": 0.01627,
+            "texto": "Episodio 8: El cumpleaños de Pimienta"
+          },
+          {
+            "x": 0.76712,
+            "y": 0.96973,
+            "ancho": 0.23288,
+            "alto": 0.03027,
+            "texto": "FIN"
+          },
+          {
+            "x": 0.19818,
+            "y": 0.95495,
+            "ancho": 0.62758,
+            "alto": 0.01368,
+            "texto": "Junio 2015 - Dibujo y Guión: David Revoy - Traducción: TheFaico"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.04765,
+            "ancho": 1.0,
+            "alto": 0.12508,
+            "texto": "Pepper&Carrot es completamente gratuito, de código abierto y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 354 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.798,
+            "ancho": 1.0,
+            "alto": 0.1898,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.09277,
+            "y": 0.7878,
+            "ancho": 0.82009,
+            "alto": 0.14285,
+            "texto": "Tú también puedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14806,
+            "y": 0.90781,
+            "ancho": 0.70874,
+            "alto": 0.09219,
+            "texto": "Herramientas: Este episodio ha sido creado al 100% con software libre\nKrita + Inkscape en GNU/Linux"
+          },
+          {
+            "x": 0.14809,
+            "y": 0.86979,
+            "ancho": 0.70874,
+            "alto": 0.12417,
+            "texto": "Open-source: todas las imágenes, fuentes tipográficas y demás ficheros\nestán disponibles en la página oficial para su descarga."
+          },
+          {
+            "x": 0.14829,
+            "y": 0.83091,
+            "ancho": 0.70874,
+            "alto": 0.1265,
+            "texto": "Licencia: Creative Commons Attribution\nPuedes modificar, compartir, vender, etc."
+          },
+          {
+            "x": 0.02692,
+            "y": 0.07604,
+            "ancho": 0.93644,
+            "alto": 0.78846,
+            "texto": "Глеб Бузало - 獨孤欣 & 獨弧悦 - Adam - Addison Lewis - A Distinguished Robot - Adrian Lord - Ahmad Ali - Aina Reich - al - Alandran\nAlan Hardman - Albert Westra - Alcide - Alex - Alexander Bülow Tomassen - AlexanderKennedy - Alexander Sopicki - Alexandra Jordan\nAlex Bradaric - Alexey Golubev - Alex Kotenko - Alex Lusco - Alex Silver - Alex V - Alfredo - Ali Poulton (Aunty Pol) - Allan Zieser - Alok Baikadi\nAndreas Rieger - Andreas Ulmer - Andrej Kwadrin - Andrew - Andrew Godfrey - Andrey Alekseenko - Andy Gelme - Anna Orlova - anonymous\nAntan Karmola - Anthony Edlin - Antoine - Antonio Mendoza - Antonio Parisi - Ardash Crowfoot - Arjun Chennu - Arne Brix - Arnulf - Arturo J. Pérez\nAxel Bordelon - Axel Philipsenburg - Ayaskull - barbix - BataMoth - Bela Bargel - Ben Evans - Bernd - Bernhard Saumweber - Betsy Luntao\nBirger Tuer Thorvaldsen - blacksheep33512 - Boonsak Watanavisit - Boris Fauret - Boudewijn Rempt - BoxBoy - Brent Houghton - Brett\nBrett Smith - Brian Behnke - Bryan Butler - Bryan Rosander - BS - Bui Dang Hai Trieu - BXS - carlos levischi - Cedric Wohlleber - Charles\nCharlotte Lacombe-bar - Chris - Chris Radcliff - Chris Sakkas - Christian Gruenwaldner - Christophe Carré - Christopher Bates\nChristopher Rodriguez - Clara Dexter - codl - Colby Driedger - Conway Scott Smith - Coppin Olivier - Cuthbert Williams - Cyol\nCyrille Largillier - Cyril Paciullo - Damien - Daniel - Daniel Björkman - Daniel Lynn - Danny Grimm - Dan Stolyarov - David - David Kerdudo\nDavid Tang - Davi Na - Davis Aites - Dawn Blair - DecMoon - Dezponia Veil - DiCola Jamn - Dmitry - Donald Hayward - Douglas Oliveira Pessoa\nDoug Moen - Duke - Eitan Goldshtrom - Ejner Fergo - Enrico Billich - Enrique Lopez - epsilon - Eric Schulz - Erik Moeller\nEsteban Manchado Velázquez - Faolan Grady - Fen Yun Fat - Francois Schnell - francou - freecultureftw - Garret Patterson - Gary Thomas\nGinny Hendricks - GreenAngel5 - Grigory Petrov - G. S. Davis - Guillaume - Gustav Strömbom - Happy Mimic - Helmar Suschka - Henning Döscher\nHenry Ståhle - HobbyThor - Igor - Ilyas - Irina Rempt - Ivan Korotkov - Jacob - James Frazier - Jamie Sutherland - Janusz - Jared Tritsch\nJason - JDB - Jean-Baptiste Hebbrecht - Jean-Gabriel Loquet - Jeffrey Schneider - Jessey Wright - Jessica Gadling - Jhonny Rosa - Jim\nJim Street - Jiska - Joao Luiz - Joerg Raidt - Joern Konopka - joe rutledge - John - John - John Gholson - John Urquhart Ferguson\nJónatan Nilsson - Jonathan Leroy - Jonathan Ringstad - Jon Brake - Jorge Bernal - Joseph Bowman - Josh Cavalier - Juju Mendivil - Julia Velkova\nJulio Avila - Justus Kat - Kailyce - Kai-Ting (Danil) Ko - Kate - Kathryn Wuerstl - Ken Mingyuan Xia - Kevin Estalella - Kevin Trévien - Kingsquee\nKroet - Kurain - La Plume - Lars Ivar Igesund - Lenod - Levi Kornelsen - Liang - Liselle - Lise-Lotte Pesonen - Lloyd Ash Pyne - Lorentz Grip\nLorenzo Leonini - Louis Yung - Luc Stepniewski - Luke Hochrein - Magnus Kronnäs - Mahwiii - Manuel - Manu Järvinen - Marc et Rick\nMarco Sousa - marcus - Martin Owens - Mary Brownlee - Masked Admirer - Matthew Reynolds - Matt Lichtenwalner - mefflin ross bullis-bates\nMichael - Michael F. SChönitzer - Michael Gill - Michael Pureka - Michelle Pereira Garcia - Mike Mosher - Miriam Varón - Miroslav - mjkj\nMoritz Fuchs - Muriah Summer - Nazhif - Nicholas DeLateur - Nicholas Terranova - Nicki Aya - Nicola Angel - Nicolae Berbece - Nicole Heersema\nNielas Sinclair - NinjaKnight Comics - Noble Hays - Noelia Calles Marcos - Nora Czaykowski - No Reward - Nyx - Oleg Schelykalnov\nOlga Bikmullina - Olivier Amrein - Olivier Brun - Olivier De Rop - Olivier Gavrois - Omar Willey - Oscar Moreno - Öykü Su Gürler - Ozone S.\nPat David - Patrick Dezothez - Patrick Gamblin - Paul - Paul - Pavel Semenov - Pet0r - Peter - Peter Moonen - Petr Vlašic\nPhilippe Jean Edward Bateman - Pierre Geier - Pierre Vuillemin - Pranab Shenoy - Praveen Bhamidipati - Pyves & Ran - Raghavendra Kamath\nRajul Gupta - Ramel Hill - Raymond Fullon - Ray Powell - Rebecca Morris - Reorx Meng - Ret Samys - Reuben Tracey - Ricardo Muggli - rictic\nRJ van der Weide - Roberto Zaghis - Robin Moussu - Roman  Burdun - Rose “flash” Flashis - Rumiko Hoshino - Rustin Simons - Sally Bridgewater\nSami T - Samuel Mitson - Scott Petrovic - Sean Adams - Sebastien - Sevag Bakalian - ShadowMist - shafak - Shawn Meyer - Simon Forster\nSimon Isenberg - Sonja Reimann-Klieber - Sonny W. - Soriac - Stanislav German-Evtushenko - Stanislav Vodetskyi - Stephan Theelke\nStephen Bates - Stephen Smoogen - Steven Bennett - Stuart Dickson - surt - Taedirk - TamaskanLEM - tar8156 - Tas Kartas - Terry Hancock\nTheFaico - thibhul - Thomas Citharel - Thomas Courbon - Thomas Schwery - Thor Galle - Thornae - Tim Burbank - Tim J. - Tomas Hajek\nTom Savage - Travis Humble - tree - Tristy - Tyson Tan - uglyheroes - Urm - usfreitas - Vera Vukovic - Victoria - Victoria White\nVladislav Kurdyukov - Vlad Tomash - WakoTabacco - Wander - Westen Curry - Wilhelmine Faust - Xavier Claude - Yalyn Vinkindo - Yaroslav\nYasmin - Zeni Pong - Źmicier Kušnaroŭ - zubr kabbi."
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep09",
+      "titulo": "El antídoto",
+      "paginas": [
+        "ep09/00.webp",
+        "ep09/01.webp",
+        "ep09/02.webp",
+        "ep09/03.webp",
+        "ep09/04.webp",
+        "ep09/05.webp",
+        "ep09/06.webp",
+        "ep09/07.webp",
+        "ep09/08.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.0,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 9: El antídoto"
+          }
+        ],
+        [
+          {
+            "x": 0.04616,
+            "y": 0.02214,
+            "ancho": 0.24638,
+            "alto": 0.03609,
+            "texto": "Al día siguiente\nde la fiesta ..."
+          },
+          {
+            "x": 0.09074,
+            "y": 0.5494,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¿¡Y esto!?\n¿La señal de las\nmontañas, del bosque\ny de las nubes?"
+          },
+          {
+            "x": 0.16186,
+            "y": 0.62821,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¿A qué se debe?"
+          },
+          {
+            "x": 0.07204,
+            "y": 0.88208,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Oh, no!"
+          }
+        ],
+        [
+          {
+            "x": 0.1769,
+            "y": 0.07771,
+            "ancho": 0.23287,
+            "alto": 0.08918,
+            "texto": "Olvidé por completo\nque debía desactivar\nmi \"sistema de\nseguridad\"..."
+          },
+          {
+            "x": 0.09739,
+            "y": 0.49334,
+            "ancho": 0.23287,
+            "alto": 0.08918,
+            "texto": "Un poco lluviosa,\ncreo, ¿no? ..."
+          },
+          {
+            "x": 0.07537,
+            "y": 0.45056,
+            "ancho": 0.23287,
+            "alto": 0.08918,
+            "texto": "Y bueno ... ¿cómo se ha dado la noche?"
+          },
+          {
+            "x": 0.12396,
+            "y": 0.69682,
+            "ancho": 0.23287,
+            "alto": 0.08918,
+            "texto": "... lo siento mucho,\nno me guardéis\nrencor, ¿eh?"
+          },
+          {
+            "x": 0.24581,
+            "y": 0.75654,
+            "ancho": 0.23287,
+            "alto": 0.08918,
+            "texto": "He preparado té para que repongamos las fuerzas después de este pequeño percance."
+          },
+          {
+            "x": 0.0,
+            "y": 0.05969,
+            "ancho": 0.35874,
+            "alto": 0.12129,
+            "texto": "Perdón ..."
+          },
+          {
+            "x": 0.04458,
+            "y": 0.39308,
+            "ancho": 0.23866,
+            "alto": 0.08671,
+            "texto": "... ¡pero estoy muy contenta de que hayáis venido todas!"
+          }
+        ],
+        [
+          {
+            "x": 0.38028,
+            "y": 0.7575,
+            "ancho": 0.24281,
+            "alto": 0.08871,
+            "texto": "¡Pimienta, estúpida!\nAhora es demasiado\ntarde, todas me\nodian ..."
+          }
+        ],
+        [],
+        [
+          {
+            "x": 0.44106,
+            "y": 0.34644,
+            "ancho": 0.1067,
+            "alto": 0.048,
+            "texto": "Eeik"
+          },
+          {
+            "x": 0.47951,
+            "y": 0.3675,
+            "ancho": 0.08412,
+            "alto": 0.03422,
+            "texto": "Eeik"
+          },
+          {
+            "x": 0.05613,
+            "y": 0.07435,
+            "ancho": 0.16388,
+            "alto": 0.11634,
+            "texto": "¡Miaaaoo!"
+          },
+          {
+            "x": 0.23859,
+            "y": 0.38639,
+            "ancho": 0.15045,
+            "alto": 0.0742,
+            "texto": "Miiou"
+          },
+          {
+            "x": 0.27266,
+            "y": 0.40367,
+            "ancho": 0.12669,
+            "alto": 0.05778,
+            "texto": "Miiou"
+          },
+          {
+            "x": 0.49545,
+            "y": 0.5928,
+            "ancho": 0.1067,
+            "alto": 0.048,
+            "texto": "Coc"
+          },
+          {
+            "x": 0.52343,
+            "y": 0.62433,
+            "ancho": 0.0803,
+            "alto": 0.02169,
+            "texto": "Coc"
+          },
+          {
+            "x": 0.48757,
+            "y": 0.76255,
+            "ancho": 0.32543,
+            "alto": 0.03946,
+            "texto": "¡Al laboratorio,\npuede ser mortal!"
+          },
+          {
+            "x": 0.20377,
+            "y": 0.76364,
+            "ancho": 0.30105,
+            "alto": 0.10998,
+            "texto": "¡Rápido!"
+          },
+          {
+            "x": 0.07835,
+            "y": 0.13171,
+            "ancho": 0.10916,
+            "alto": 0.0761,
+            "texto": "¡Eeik"
+          },
+          {
+            "x": 0.13556,
+            "y": 0.12009,
+            "ancho": 0.07879,
+            "alto": 0.05015,
+            "texto": "Eeik"
+          },
+          {
+            "x": 0.70128,
+            "y": 0.46176,
+            "ancho": 0.14719,
+            "alto": 0.05102,
+            "texto": "Miaaaoo"
+          },
+          {
+            "x": 0.07021,
+            "y": 0.14517,
+            "ancho": 0.18429,
+            "alto": 0.1109,
+            "texto": "¡Miiou"
+          },
+          {
+            "x": 0.15872,
+            "y": 0.11943,
+            "ancho": 0.14292,
+            "alto": 0.09184,
+            "texto": "Miiou"
+          },
+          {
+            "x": 0.11945,
+            "y": 0.184,
+            "ancho": 0.11998,
+            "alto": 0.07107,
+            "texto": "¡Coc"
+          },
+          {
+            "x": 0.18932,
+            "y": 0.1701,
+            "ancho": 0.0866,
+            "alto": 0.052,
+            "texto": "Coc"
+          },
+          {
+            "x": 0.22892,
+            "y": 0.10375,
+            "ancho": 0.10455,
+            "alto": 0.06719,
+            "texto": "Miiou!"
+          },
+          {
+            "x": 0.23794,
+            "y": 0.15635,
+            "ancho": 0.0712,
+            "alto": 0.04275,
+            "texto": "Coc!"
+          },
+          {
+            "x": 0.17944,
+            "y": 0.10333,
+            "ancho": 0.06688,
+            "alto": 0.04257,
+            "texto": "Eeik!"
+          }
+        ],
+        [],
+        [
+          {
+            "x": 0.28806,
+            "y": 0.44647,
+            "ancho": 0.268,
+            "alto": 0.08657,
+            "texto": "... aunque es una pena que\nno hayamos podido evitar los efectos secundarios de\nla poción ..."
+          },
+          {
+            "x": 0.50617,
+            "y": 0.60257,
+            "ancho": 0.23787,
+            "alto": 0.07508,
+            "texto": "No te preocupes; la caída del pelo y las plumas es temporal, les volverán a crecer pronto."
+          },
+          {
+            "x": 0.28304,
+            "y": 0.93871,
+            "ancho": 0.39259,
+            "alto": 0.06129,
+            "texto": "- FIN -"
+          },
+          {
+            "x": 0.18615,
+            "y": 0.97451,
+            "ancho": 0.62758,
+            "alto": 0.01368,
+            "texto": "Julio 2015 - Dibujo y Guión: David Revoy - Traducción: TheFaico"
+          },
+          {
+            "x": 0.33733,
+            "y": 0.04643,
+            "ancho": 0.18894,
+            "alto": 0.04758,
+            "texto": "¡Bieeen!"
+          },
+          {
+            "x": 0.54018,
+            "y": 0.05034,
+            "ancho": 0.16522,
+            "alto": 0.0416,
+            "texto": "¡Yiiiija!"
+          },
+          {
+            "x": 0.36814,
+            "y": 0.07708,
+            "ancho": 0.1763,
+            "alto": 0.04232,
+            "texto": "¡Somos las\nmejores!"
+          },
+          {
+            "x": 0.50494,
+            "y": 0.07899,
+            "ancho": 0.11383,
+            "alto": 0.03804,
+            "texto": "¡Ya están curados!"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.04865,
+            "ancho": 1.0,
+            "alto": 0.08036,
+            "texto": "Pepper&Carrot es completamente gratuito, de código abierto y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 406 mecenas:"
+          },
+          {
+            "x": 0.0,
+            "y": 0.86448,
+            "ancho": 1.0,
+            "alto": 0.13432,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.04656,
+            "y": 0.85172,
+            "ancho": 0.90661,
+            "alto": 0.11176,
+            "texto": "Tú también puedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.14562,
+            "y": 0.90383,
+            "ancho": 0.70874,
+            "alto": 0.08952,
+            "texto": "Licencia: Creative Commons Attribution\nFicheros originales disponibles en www.peppercarrot.com\nHerramientas: Este episodio ha sido creado al 100% con software libre\nKrita 2.9.6, Inkscape 0.91 en Linux Mint 17"
+          },
+          {
+            "x": 0.08282,
+            "y": 0.29675,
+            "ancho": 0.83447,
+            "alto": 0.33871,
+            "texto": "Глеб Бузало ★ 无名 ★ 獨孤欣 & 獨弧悦 ★ Adam Mathena ★ Addison Lewis\nA Distinguished Robot ★ Aina Reich ★ Alan Hardman ★ Albert Westra ★ Alex ★ AlexanderKennedy\nAlexander Lust ★ Alexander Sopicki ★ Alexandra Jordan ★ Alex Lusco ★ Alex Silver ★ Alex V ★ Alfredo\nAlien Green ★ Allan Zieser ★ Alok Baikadi ★ Amic ★ Andreas Rieger ★ Andreas Ulmer ★ Andrej Kwadrin\nAndrew Godfrey ★ Andrey Alekseenko ★ Anna Orlova ★ Antan Karmola ★ Anthony Edlin ★ Ardash Crowfoot\nArjun Chennu ★ Arnulf ★ Arturo J. Pérez ★ Austin Knowles ★ Axel Bordelon ★ Bastian Hougaard ★ Ben Evans\nblacksheep33512 ★ Boonsak Watanavisit ★ BoxBoy ★ Brett Smith ★ Brian Behnke ★ Bryan Butler ★ BS\nBui Dang Hai Trieu ★ carlos levischi ★ carolin der keks ★ Cedric Wohlleber ★ Chance Millar ★ Charles★ Chaz Straney\nChris ★ Chris Sakkas ★ Christian Howe ★ Christophe Carré ★ Christopher Bates ★ Christopher Rodriguez\nChristopher Vollick ★ Colby Driedger ★ Damien ★ Daniel ★ Daniel Lynn ★ Danijel ★ David Brennan\nDavid Kerdudo ★ David Tang ★ DecMoon ★ Derek Zan ★ Dio Fantasma ★ Dmitry ★ Doug Moen ★ douze12 ★ Drew Fisher\nDurand D’souza ★ Elijah Brown ★ Elisha Condon ★ -epsilon- ★ Eric Schulz ★ Faolan Grady ★ francisco dario aviltis\nFrancois Schnell ★ Francou ★ Garret Patterson ★ Gary Thomas ★ Ginny Hendricks ★ GreenAngel5 ★ Grigory Petrov\nGrzegorz Wozniak ★ G. S. Davis ★ Guillaume ★ Gustav Strömbom ★ happy2ice ★ Happy Mimic ★ Helmar Suschka\nHenning Döscher ★ Henry Ståhle ★ HobbyThor ★ Ilyas ★ Irina Rempt ★ Jacob ★ James Frazier ★ Jamie Sutherland ★ Janusz\nJason ★ Jeffrey Schneider ★ Jessey Wright ★ Jessica Gadling ★ Joao Luiz ★ John ★ John Gholson ★ John Urquhart Ferguson\nJonas Peter ★ Jonathan Leroy ★ Jonathan Walsh ★ Justus Kat ★ Kailyce ★ Kai-Ting (Danil) Ko ★ Kari Lehto ★ Kathryn Wuerstl\nkazakirinyancat ★ Ken Mingyuan Xia ★ Kevin Estalella ★ Kevin Trévien ★ Kingsquee ★ Kurain ★ La Plume ★ Lenod ★ Liang\nLise-Lotte Pesonen ★ Lloyd Ash Pyne ★ Lorentz Grip ★ Lorenzo Leonini ★ Magnus Kronnäs ★ Marc et Rick ★ Marco ★ marcus\nMatt Lichtenwalner ★ Michael F. Schönitzer ★ Michael Gill ★ Michael Polushkin ★ Mike Mosher ★ Mohamed El Banna ★ Nabispace\nNazhif ★ Nicholas DeLateur ★ Nicola Angel ★ Oleg Schelykalnov ★ Olga Bikmullina ★ Olivier Amrein ★ Olivier Gavrois ★ Omar Willey\nOscar Moreno ★ Pato Acevedo ★ Patrick Dezothez ★ Patrick Gamblin ★ Paul ★ Pavel Semenov ★ Peter Moonen ★ Petr Vlašic\nPierre Vuillemin ★ Pranab Shenoy ★ Pummie ★ Raghavendra Kamath ★ Rajul Gupta ★ Ramel Hill ★ Ray Brown ★ Rebecca Morris\nResidentEvilArtist ★ Reuben Tracey ★ Roberto Zaghis ★ Roman ★ Rumiko Hoshino ★ Rustin Simons ★ Ryan ★ Sally Bridgewater\nSami T ★ Samuel Mitson ★ Scott Petrovic ★ Scott Smiesko ★ ShadowMist ★ shafak ★ Shawn Meyer ★ Soriac ★ Stanislav ★ Stephan Theelke\nStephen Bates ★ Steven Bennett ★ Stuart Dickson ★ surt ★ Takao Yamada ★ TamaskanLEM ★ tar8156 ★ TheFaico ★ thibhul ★ Thomas Schwery\nT.H. Porter ★ Tim Burbank ★ Tim J. ★ Tom Savage ★ Travis Humble ★ Tristy ★ Tyson Tan ★ Venus ★ Vera Vukovic ★ Victoria ★ Victoria White\nWakoTabacco ★ Wei-Ching Shyu ★ Westen Curry ★ Xavier Claude ★ Yalyn Vinkindo ★ Yaroslav ★ Yasmin ★ Zeni Pong"
+          },
+          {
+            "x": 0.03718,
+            "y": 0.6372,
+            "ancho": 0.92586,
+            "alto": 0.22097,
+            "texto": "Adrian Lord ★ Ahmad Ali ★ al ★ Alandran ★ Alcide ★ Alexander Bülow Tomassen ★ Alexander Kashev ★ Alex Bradaric ★ Alex Cochrane ★ Alexey Golubev\nAli Poulton (Aunty Pol) ★ Amy ★ Andrew ★ Andy Gelme ★ Angelica Beltran ★ anonymous ★ Antoine ★ Antonio Mendoza ★ Antonio Parisi ★ Axel Philipsenburg\nbarbix ★ BataMoth ★ Bela Bargel ★ Bernd ★ Bernhard Saumweber ★ Betsy Luntao ★ Birger Tuer Thorvaldsen ★ blueswag ★ Boris Fauret ★ Brett\nBryan Rosander ★ BXS ★ Chris Kastorff ★ Chris Radcliff ★ Christian Gruenwaldner ★ Clara Dexter ★ codl ★ Comics by Shoonyah Studio ★ Conway Scott Smith\nCoppin Olivier ★ Craig Bogun ★ Crystal Bollinger ★ Cuthbert Williams ★ Cyol ★ Cyrille Largillier ★ Cyril Paciullo ★ Daniel Björkman ★ Dan Norder\nDan Stolyarov ★ David ★ Davi Na ★ Dawn Blair ★ Deanna ★ Denis Bolkovskis ★ Dezponia Veil ★ DiCola Jamn ★ Dmitriy Yakimov ★ Donald Hayward\nDouglas Oliveira Pessoa ★ Duke ★ Eitan Goldshtrom ★ Emery Schulz ★ Enrico Billich ★ Erik Moeller ★ Esteban Manchado Velázquez ★ Fen Yun Fat\nFernando Nunes ★ ida nilsen ★ Igor ★ Ivan Korotkov ★ Jamie Hunter ★ Jason Baldus ★ Jazyl Homavazir ★ JDB ★ Jean-Baptiste Hebbrecht\nJean-Gabriel LOQUET ★ Jhonny Rosa ★ Jim ★ Jim Street ★ Joerg Raidt ★ Joern Konopka ★ joe rutledge ★ John ★ Jon Brake ★ Jorge Bernal ★ Joseph Bowman\nJosh ★ Josh Cavalier ★ Juju Mendivil ★ Julian Dauner ★ Julia Velkova ★ Kate ★ Kroet ★ Lars Ivar Igesund ★ Liselle ★ Liska Myers ★ Louis Yung\nLuc Stepniewski ★ Luke Hochrein ★ Mahwiii ★ Mancy S ★ Manu Järvinen ★ Martin Owens ★ Mary Brownlee ★ Masked Admirer ★ Megan Sandiford ★ Michael\nMichael Pureka ★ Michelle Pereira Garcia ★ Miroslav ★ mjkj ★ Moonsia ★ Moritz Fuchs ★ Muriah Summer ★ Mylène Cassen ★ Nicholas Terranova\nNicole Heersema ★ Nielas Sinclair ★ Nikita Stafeev ★ Noble Hays ★ Noelia Calles Marcos ★ Nora Czaykowski ★ No Reward ★ Nyx ★ Öykü Su Gürler\nOzone S. ★ Pat David ★ Patrick Kennedy ★ Paul ★ Pet0r ★ Peter ★ Peter ★ Pierre Geier ★ Pyves & Ran ★ Ray Cruz ★ Raymond Fullon ★ Ray Powell\nRebecca ★ Rebekah Hopper ★ Rei ★ Reorx Meng ★ Ret Samys ★ rictic ★ Robin Moussu ★ Sean Adams ★ Sebastien ★ Sevag Bakalian ★ Shadefalcon\nSimon Isenberg ★ Simon Moffitt ★ Siora ★ Sonja Reimann-Klieber ★ Sonny W. ★ Stanislav German-Evtushenko ★ Stephen Smoogen ★ Surabhi Gaur\nTaedirk ★ Tas Kartas ★ Terry Hancock (Personal) ★ Thomas Citharel ★ Thomas Werner ★ Thor Galle ★ Thornae ★ Timothy Boersma ★ Tomas Hajek\nTomáš Slapnička ★ Tom Dickson ★ tree ★ uglyheroes ★ Umbra Draconis ★ Vitaly Tokarenko ★ Vladislav Kurdyukov ★ Wander ★ Wilhelmine Faust\nWilliam Crumpler ★ Źmicier Kušnaroŭ ★ zubr kabbi"
+          },
+          {
+            "x": 0.25203,
+            "y": 0.19263,
+            "ancho": 0.49626,
+            "alto": 0.09584,
+            "texto": "Arne Brix ★ Boudewijn Rempt ★ Brent Houghton ★ Casey Tatum\nDavis Aites ★ Ejner Fergo ★ Enrique Lopez ★ Francois Didier\nfreecultureftw ★ Jonathan Ringstad ★ Julio Avila ★ Levi Kornelsen\nMatthew Reynolds ★ Mefflin Ross Bullis-bates ★ Michael Oliveira\nNguyen Minh Trung ★ Nicki Aya ★ NinjaKnight Comics ★ Olivier Brun\nPraveen Bhamidipati ★ Ricardo Muggli ★ RJ van der Weide\nRoman Burdun ★ Urm"
+          },
+          {
+            "x": 0.19409,
+            "y": 0.12015,
+            "ancho": 0.61226,
+            "alto": 0.03877,
+            "texto": "Jónatan Nilsson\nAlex Kotenko ★ Philippe Jean Edward Bateman"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "ep10",
+      "titulo": "Especial de verano",
+      "paginas": [
+        "ep10/00.webp",
+        "ep10/01.webp",
+        "ep10/02.webp",
+        "ep10/03.webp",
+        "ep10/04.webp",
+        "ep10/05.webp",
+        "ep10/06.webp"
+      ],
+      "bocadillos": [
+        [
+          {
+            "x": 0.01531,
+            "y": 0.78962,
+            "ancho": 0.96969,
+            "alto": 0.16223,
+            "texto": "Episodio 10: Especial de verano"
+          }
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          {
+            "x": 0.33093,
+            "y": 0.9714,
+            "ancho": 0.31077,
+            "alto": 0.0286,
+            "texto": "- FIN -"
+          },
+          {
+            "x": 0.43864,
+            "y": 0.95819,
+            "ancho": 0.51729,
+            "alto": 0.01128,
+            "texto": "Agosto 2015 - Dibujo y Guión: David Revoy - Traducción: TheFaico"
+          }
+        ],
+        [
+          {
+            "x": 0.0,
+            "y": 0.05542,
+            "ancho": 1.0,
+            "alto": 0.08036,
+            "texto": "Pepper&Carrot es completamente gratuito, de código abierto y patrocinado\ngracias al mecenazgo de sus lectores. Para este episodio, gracias a 422 mecenas"
+          },
+          {
+            "x": 0.0,
+            "y": 0.84528,
+            "ancho": 1.0,
+            "alto": 0.13432,
+            "texto": "https://www.patreon.com/davidrevoy"
+          },
+          {
+            "x": 0.03805,
+            "y": 0.83464,
+            "ancho": 0.90661,
+            "alto": 0.11176,
+            "texto": "Tú también puedes ser mecenas de Pepper&Carrot para el próximo episodio:"
+          },
+          {
+            "x": 0.13725,
+            "y": 0.89748,
+            "ancho": 0.70874,
+            "alto": 0.08952,
+            "texto": "Licencia: Creative Commons Attribution\nFicheros originales disponibles en www.peppercarrot.com\nHerramientas: Este episodio ha sido creado al 100% con software libre\nKrita 2.9.6, Inkscape 0.91 en Linux Mint 17"
+          }
+        ]
+      ]
+    }
+  ]
+}

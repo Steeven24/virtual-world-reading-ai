@@ -86,3 +86,61 @@ def test_main_escribe_catalogo_con_rutas_prefijadas(tmp_path, origen_de_muestra)
     assert ep["id"] == "ep01"
     assert ep["paginas"] == ["ep01/01.webp", "ep01/02.webp"]
     assert (destino / "ep01" / "01.webp").exists()
+
+
+def _globos_de(tmp_path, contenido):
+    svg = tmp_path / "b.svg"
+    svg.write_text(contenido, encoding="utf-8")
+    return extraer_bocadillos(svg)
+
+
+def test_text_anchor_middle_centra_la_caja_sobre_el_anclaje(tmp_path):
+    # 10 caracteres a 40 px => 220 de ancho estimado; centrado en x=500 => borde en 390.
+    globos = _globos_de(tmp_path, """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400">
+      <text x="500" y="200" style="font-size:40px;text-anchor:middle"><tspan x="500" y="200">0123456789</tspan></text>
+    </svg>""")
+    assert globos[0]["x"] == pytest.approx(0.39)
+    assert globos[0]["ancho"] == pytest.approx(0.22)
+
+
+def test_text_anchor_end_termina_en_el_anclaje(tmp_path):
+    globos = _globos_de(tmp_path, """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400">
+      <text x="500" y="200" style="font-size:40px"><tspan x="500" y="200" style="text-anchor:end">0123456789</tspan></text>
+    </svg>""")
+    assert globos[0]["x"] == pytest.approx(0.28)
+
+
+def test_aplica_el_transform_de_los_grupos(tmp_path):
+    globos = _globos_de(tmp_path, """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400">
+      <g transform="translate(100,50)"><g transform="scale(2)">
+        <text x="100" y="100" style="font-size:20px"><tspan x="100" y="100">0123456789</tspan></text>
+      </g></g>
+    </svg>""")
+    # x local 100 -> 100*2+100 = 300; y local 80 (100-20) -> 80*2+50 = 210.
+    assert globos[0]["x"] == pytest.approx(0.3)
+    assert globos[0]["y"] == pytest.approx(210 / 1400, abs=1e-4)
+    assert globos[0]["ancho"] == pytest.approx(2 * 10 * 20 * 0.55 / 1000)
+
+
+def test_flowroot_usa_la_region_y_su_transform(tmp_path):
+    globos = _globos_de(tmp_path, """<svg xmlns="http://www.w3.org/2000/svg" xmlns:x="http://www.w3.org/2000/svg" width="1000" height="1400">
+      <g><flowRoot transform="translate(100,200)">
+        <flowRegion><rect x="50" y="20" width="300" height="100"/></flowRegion>
+        <flowPara>¡Pimienta,</flowPara><flowPara>la poción!</flowPara>
+      </flowRoot></g>
+    </svg>""")
+    assert len(globos) == 1
+    assert globos[0]["texto"] == "¡Pimienta,\nla poción!"
+    assert globos[0]["x"] == pytest.approx(0.15)
+    assert globos[0]["y"] == pytest.approx(220 / 1400, abs=1e-4)
+    assert globos[0]["ancho"] == pytest.approx(0.3)
+    assert globos[0]["alto"] == pytest.approx(100 / 1400, abs=1e-4)
+
+
+def test_ignora_capas_ocultas_y_flowroot_vacio(tmp_path):
+    globos = _globos_de(tmp_path, """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400">
+      <g style="display:none"><text x="10" y="50"><tspan x="10" y="50">oculto</tspan></text></g>
+      <flowRoot><flowRegion><rect x="0" y="0" width="10" height="10"/></flowRegion><flowPara/></flowRoot>
+      <text x="10" y="50"><tspan x="10" y="50">visible</tspan></text>
+    </svg>""")
+    assert [g["texto"] for g in globos] == ["visible"]
