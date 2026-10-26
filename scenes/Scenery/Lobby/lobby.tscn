@@ -38,6 +38,15 @@
 [ext_resource type="Texture2D" uid="uid://dfjre3omavyex" path="res://assets/Scenery/Background/Lobby/bookseller.png" id="36_qwnhm"]
 [ext_resource type="Texture2D" uid="uid://bv86js3hb1lsy" path="res://assets/Scenery/Background/Lobby/printer3.png" id="37_3tcf7"]
 [ext_resource type="Texture2D" uid="uid://cdryvuv61ggsh" path="res://assets/Interaction/QR-premio-render.png" id="38_qwnhm"]
+[ext_resource type="Texture2D" uid="uid://c1dqcg71iupd8" path="res://assets/Scenery/Background/Flowerpot/flowerpot8.png" id="39_3tcf7"]
+[ext_resource type="Texture2D" uid="uid://dy6wmdvio4dv1" path="res://assets/Scenery/Background/Lobby/armchair.png" id="40_pnffi"]
+[ext_resource type="Texture2D" uid="uid://dbm2eih52g7s3" path="res://assets/Scenery/Background/Lobby/bookcase.png" id="41_54evt"]
+[ext_resource type="Texture2D" uid="uid://dui7uil655obt" path="res://assets/Scenery/Background/Lobby/globe.png" id="42_mjty4"]
+[ext_resource type="Texture2D" uid="uid://ekb3m3hb3xbv" path="res://assets/Scenery/Background/Lobby/globe2.png" id="43_33h7a"]
+[ext_resource type="Texture2D" uid="uid://2udsvvr1sxi" path="res://assets/Scenery/Background/Lobby/microscope.png" id="44_hcice"]
+[ext_resource type="Texture2D" uid="uid://do2e8g4ouhy1b" path="res://assets/Scenery/Background/Lobby/table12.png" id="45_2s406"]
+[ext_resource type="Texture2D" uid="uid://8v8oea0wkksv" path="res://assets/Scenery/Background/Lobby/picture1.png" id="46_hkjl7"]
+[ext_resource type="Texture2D" uid="uid://dorx3ksl7gnhw" path="res://assets/Scenery/Background/Lobby/picture2.png" id="47_30p56"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
@@ -229,7 +238,7 @@ polygon = PackedVector2Array(-1441.416, 239.56665, -1441.2776, 87.115234, -718.7
 polygon = PackedVector2Array(479.1333, 1197.8335, 479.1333, 1110.7183, -466.54004, 1110.7183, -466.7766, 784.0364, -766.0862, 783.8152, -765.8721, 1197.8335)
 
 [node name="CollisionPolygon2D17" type="CollisionPolygon2D" parent="Room things" unique_id=123132611]
-polygon = PackedVector2Array(-2896.5793, 675.1426, -2722.349, 675.1426, -2722.349, 500.91235, -2504.561, 500.91235, -2504.561, 239.56665, -2722.349, 239.56665, -2613.455, 152.45166, -2330.3308, 152.45166, -2330.3308, 21.778809, -2896.5793, 21.778809)
+polygon = PackedVector2Array(-2896.5793, 675.1426, -2722.349, 675.1426, -2722.349, 500.91235, -2504.561, 500.91235, -2504.561, 239.56665, -2722.349, 239.56665, -2613.455, 166.3628, -2330.3308, 165.82397, -2330.3308, 21.778809, -2896.5793, 21.778809)
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Room things" unique_id=1896514587]
 position = Vector2(-2830.8225, -947.1105)
@@ -240,7 +249,7 @@ polygon = PackedVector2Array(-2896.5793, -1502.7365, -2765.9065, -1502.7365, -27
 
 [node name="CollisionPolygon2D19" type="CollisionPolygon2D" parent="Room things" unique_id=1125994673]
 position = Vector2(-370.23944, -370.2394)
-polygon = PackedVector2Array(1350.2852, 1568.0728, 1350.2852, 1459.1787, 2279.3525, 1459.1787, 2279.4844, 1154.2756, 2577.463, 1154.2756, 2577.2876, 1480.9575, 4421.0947, 1480.9575, 4421.0947, 1263.1697, 4464.6523, 1263.1697, 4464.6523, 675.14233, 4704.2188, 675.14233, 4704.2188, 1568.0728)
+polygon = PackedVector2Array(1350.2852, 1568.0728, 1350.2852, 1459.1787, 2279.3525, 1459.1787, 2279.4844, 1154.2756, 2577.463, 1154.2756, 2577.2876, 1480.9575, 4421.0947, 1480.9575, 4421.0947, 1263.1697, 4464.6523, 1263.1697, 4464.6523, 704.7722, 4704.2188, 704.7722, 4704.2188, 1568.0728)
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="Room things" unique_id=1508611685]
 position = Vector2(3670.8284, 44.571533)
@@ -699,3 +708,61 @@ texture = ExtResource("38_qwnhm")
 position = Vector2(976.65857, 571.4159)
 scale = Vector2(0.08212594, 0.08212594)
 texture = ExtResource("38_qwnhm")
+
+[node name="Flowerpot8" type="Sprite2D" parent="." unique_id=897551844]
+position = Vector2(1694.1292, 326.50998)
+scale = Vector2(0.17528117, 0.17528117)
+texture = ExtResource("39_3tcf7")
+centered = false
+
+[node name="Armchair" type="Sprite2D" parent="." unique_id=1523013242]
+position = Vector2(2641.4094, 1145.7908)
+scale = Vector2(0.38657552, 0.38657555)
+texture = ExtResource("40_pnffi")
+centered = false
+
+[node name="Bookcase" type="Sprite2D" parent="." unique_id=1172582417]
+position = Vector2(2627.0688, 1030.3905)
+scale = Vector2(0.38256633, 0.35753098)
+texture = ExtResource("41_54evt")
+
+[node name="Globe" type="Sprite2D" parent="." unique_id=1535815444]
+position = Vector2(1997.2153, 1069.9685)
+scale = Vector2(0.22103867, 0.21688102)
+texture = ExtResource("42_mjty4")
+
+[node name="Globe2" type="Sprite2D" parent="." unique_id=1413091822]
+position = Vector2(816.44745, 1074.441)
+scale = Vector2(0.3940965, 0.39409652)
+texture = ExtResource("43_33h7a")
+
+[node name="Table19" type="Sprite2D" parent="." unique_id=87560180]
+position = Vector2(613.5875, 1036.7234)
+scale = Vector2(0.5096475, 0.5528621)
+texture = ExtResource("5_770n0")
+centered = false
+region_enabled = true
+region_rect = Rect2(267, 92, 264, 204)
+
+[node name="Microscope" type="Sprite2D" parent="." unique_id=2000119881]
+position = Vector2(670.77325, 1046.763)
+scale = Vector2(0.2958567, 0.290528)
+texture = ExtResource("44_hcice")
+
+[node name="Table20" type="Sprite2D" parent="." unique_id=16716517]
+position = Vector2(45.113865, 928.34326)
+scale = Vector2(0.24532843, 0.2639313)
+texture = ExtResource("45_2s406")
+centered = false
+offset = Vector2(0, 100)
+
+[node name="Picture1" type="Sprite2D" parent="." unique_id=634297088]
+position = Vector2(72.208786, 915.5814)
+scale = Vector2(0.31899637, 0.2921724)
+texture = ExtResource("46_hkjl7")
+centered = false
+
+[node name="Picture2" type="Sprite2D" parent="." unique_id=1937184611]
+position = Vector2(718.39386, 985.4363)
+scale = Vector2(0.328696, 0.328696)
+texture = ExtResource("47_30p56")

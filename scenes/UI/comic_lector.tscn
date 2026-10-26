@@ -1,0 +1,177 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/UI/comic_lector.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego_negrita.tres" id="2_bold"]
+[ext_resource type="FontVariation" path="res://fonts/fuente_juego.tres" id="3_font"]
+
+[node name="ComicLector" type="CanvasLayer"]
+layer = 101
+script = ExtResource("1_script")
+
+[node name="Fondo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.045, 0.07, 1)
+
+[node name="Margen" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="Raiz" type="VBoxContainer" parent="Margen"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Cabecera" type="HBoxContainer" parent="Margen/Raiz"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Titulo" type="Label" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bold")
+theme_override_font_sizes/font_size = 22
+
+[node name="Separador" type="Control" parent="Margen/Raiz/Cabecera"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Indicador" type="Label" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+
+[node name="BotonTextoMenos" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "A-"
+
+[node name="BotonTextoMas" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "A+"
+
+[node name="BotonZoomMenos" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Zoom -"
+
+[node name="BotonZoomMas" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Zoom +"
+
+[node name="BotonSalir" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Volver al catálogo"
+
+[node name="Visor" type="Control" parent="Margen/Raiz"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Pagina" type="Control" parent="Margen/Raiz/Visor"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="PanelLectura" type="PanelContainer" parent="Margen/Raiz/Visor"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -190.0
+offset_right = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Contenido" type="VBoxContainer" parent="Margen/Raiz/Visor/PanelLectura"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CabeceraPanel" type="HBoxContainer" parent="Margen/Raiz/Visor/PanelLectura/Contenido"]
+layout_mode = 2
+
+[node name="TituloPanel" type="Label" parent="Margen/Raiz/Visor/PanelLectura/Contenido/CabeceraPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bold")
+theme_override_font_sizes/font_size = 16
+text = "Texto que no cabe en el globo"
+
+[node name="BotonPanel" type="Button" parent="Margen/Raiz/Visor/PanelLectura/Contenido/CabeceraPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+text = "Ocultar"
+
+[node name="Desplazable" type="ScrollContainer" parent="Margen/Raiz/Visor/PanelLectura/Contenido"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Lista" type="VBoxContainer" parent="Margen/Raiz/Visor/PanelLectura/Contenido/Desplazable"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Pie" type="HBoxContainer" parent="Margen/Raiz"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BotonAnterior" type="Button" parent="Margen/Raiz/Pie"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "< Anterior"
+
+[node name="Atribucion" type="Label" parent="Margen/Raiz/Pie"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.55)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="BotonSiguiente" type="Button" parent="Margen/Raiz/Pie"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Siguiente >"

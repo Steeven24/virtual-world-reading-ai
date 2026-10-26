@@ -4,8 +4,9 @@
 ## «rejilla» (todas las portadas más el panel de continuar). Arranca en el
 ## expositor; la vista elegida se recuerda con Ajustes.
 ##
-## Este script no abre el lector: emite episodio_elegido y quien lo instancia
-## decide qué hacer. Tampoco se libera solo al cerrar: emite cerrado.
+## Al elegir un episodio emite episodio_elegido y abre el lector como hijo suyo;
+## cuando el lector emite salir lo libera y repinta el progreso. El catálogo en sí
+## no se libera solo al cerrar: emite cerrado y quien lo instancia lo libera.
 extends CanvasLayer
 
 ## El alumno eligió un episodio; pagina_inicial es donde debe abrirse el lector.
@@ -13,6 +14,7 @@ signal episodio_elegido(episode_id: String, pagina_inicial: int)
 ## El alumno pulsó Cerrar (o Escape). Quien instancia el catálogo lo libera.
 signal cerrado
 
+const ESCENA_LECTOR := preload("res://scenes/UI/comic_lector.tscn")
 const VISTA_EXPOSITOR := "expositor"
 const VISTA_REJILLA := "rejilla"
 
@@ -51,6 +53,8 @@ var _tween: Tween
 var _continuar_id := ""
 ## Si el alumno ya movió el expositor, el progreso que llegue no lo recoloca.
 var _movido := false
+## Lector abierto encima del catálogo, o null.
+var _lector: Node
 
 
 func _ready() -> void:
@@ -63,6 +67,7 @@ func _ready() -> void:
 	_boton_anterior.pressed.connect(mover_expositor.bind(-1))
 	_boton_siguiente.pressed.connect(mover_expositor.bind(1))
 	_boton_continuar.pressed.connect(_continuar)
+	episodio_elegido.connect(_abrir_lector)
 	# Los botones que acompañan al expositor no toman foco: con un botón enfocado
 	# el GUI se queda las flechas y Intro y nunca llegan a _unhandled_input.
 	for b in [_boton_vista, _boton_cerrar, _boton_anterior, _boton_siguiente]:
@@ -140,6 +145,11 @@ func mover_expositor(n: int) -> void:
 	_pintar_pie_expositor()
 
 
+## Lector abierto ahora mismo, o null (para pruebas).
+func lector_abierto() -> Node:
+	return _lector
+
+
 func indice_expositor() -> int:
 	return _indice
 
@@ -152,7 +162,7 @@ func item_expositor(i: int) -> Control:
 ## Elige un episodio y emite episodio_elegido. Si estaba a medias se abre en la
 ## página donde se quedó; terminado o sin empezar, desde la portada.
 func elegir(episode_id: String) -> void:
-	if _episodios.is_empty():
+	if _episodios.is_empty() or _lector != null:
 		return
 	var p: Dictionary = ComicLibrary.progreso(episode_id)
 	var pagina: int = 0 if p["finished"] else p["last_page"]
@@ -317,7 +327,29 @@ func _pintar_continuar() -> void:
 
 # ─── Entradas ───────────────────────────────────────────────────────────────
 
+## Abre el lector encima del catálogo. Mientras está abierto el catálogo no
+## atiende teclas ni abre un segundo lector.
+func _abrir_lector(episode_id: String, pagina: int) -> void:
+	if _lector != null:
+		return
+	_lector = ESCENA_LECTOR.instantiate()
+	add_child(_lector)
+	_lector.salir.connect(_cerrar_lector)
+	_lector.abrir(episode_id, pagina)
+
+
+func _cerrar_lector() -> void:
+	if _lector == null:
+		return
+	_lector.queue_free()
+	_lector = null
+	# El alumno pudo avanzar o terminar el episodio: se repinta el progreso.
+	refrescar()
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	if _lector != null:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		cerrado.emit()
 		get_viewport().set_input_as_handled()
