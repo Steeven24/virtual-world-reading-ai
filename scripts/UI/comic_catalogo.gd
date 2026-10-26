@@ -49,6 +49,8 @@ var _indice := 0
 var _items: Array[Control] = []
 var _tween: Tween
 var _continuar_id := ""
+## Si el alumno ya movió el expositor, el progreso que llegue no lo recoloca.
+var _movido := false
 
 
 func _ready() -> void:
@@ -61,6 +63,10 @@ func _ready() -> void:
 	_boton_anterior.pressed.connect(mover_expositor.bind(-1))
 	_boton_siguiente.pressed.connect(mover_expositor.bind(1))
 	_boton_continuar.pressed.connect(_continuar)
+	# Los botones que acompañan al expositor no toman foco: con un botón enfocado
+	# el GUI se queda las flechas y Intro y nunca llegan a _unhandled_input.
+	for b in [_boton_vista, _boton_cerrar, _boton_anterior, _boton_siguiente]:
+		b.focus_mode = Control.FOCUS_NONE
 	_pista.resized.connect(_colocar.bind(false))
 
 	var guardada: String = str(Ajustes.obtener("comics_vista"))
@@ -68,13 +74,10 @@ func _ready() -> void:
 	_aplicar_vista()
 
 	# El progreso llega siempre (también sin red o sin sesión): se pinta al llegar.
-	ComicLibrary.progreso_cargado.connect(refrescar)
-	ComicLibrary.cargar_progreso()
+	ComicLibrary.progreso_cargado.connect(_al_cargar_progreso)
 	refrescar()
-	# Si hay un episodio a medias, el expositor se abre mirándolo.
-	if _continuar_id != "":
-		_indice = _posicion_de(_continuar_id)
-		_pintar_pie_expositor()
+	# Con sesión el progreso llega después (GET asíncrono); sin ella, enseguida.
+	ComicLibrary.cargar_progreso()
 	_colocar(false)
 
 
@@ -114,8 +117,21 @@ func episodio_a_continuar() -> String:
 	return _continuar_id
 
 
+## Al llegar el progreso se repinta y, si el alumno aún no ha tocado el
+## expositor, se coloca en el episodio a medias.
+func _al_cargar_progreso() -> void:
+	refrescar()
+	if not _movido and _continuar_id != "":
+		_indice = _posicion_de(_continuar_id)
+		_pintar_pie_expositor()
+		_colocar(false)
+
+
 ## Mueve el expositor n episodios (negativo = izquierda), sin salirse de los extremos.
 func mover_expositor(n: int) -> void:
+	if _episodios.is_empty():
+		return
+	_movido = true
 	var nuevo := clampi(_indice + n, 0, _episodios.size() - 1)
 	if nuevo == _indice:
 		return
@@ -136,6 +152,8 @@ func item_expositor(i: int) -> Control:
 ## Elige un episodio y emite episodio_elegido. Si estaba a medias se abre en la
 ## página donde se quedó; terminado o sin empezar, desde la portada.
 func elegir(episode_id: String) -> void:
+	if _episodios.is_empty():
+		return
 	var p: Dictionary = ComicLibrary.progreso(episode_id)
 	var pagina: int = 0 if p["finished"] else p["last_page"]
 	episodio_elegido.emit(episode_id, pagina)
@@ -181,7 +199,6 @@ func _construir_rejilla() -> void:
 		titulo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		titulo.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		titulo.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		titulo.clip_text = true
 		titulo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		titulo.add_theme_font_override("font", load("res://fonts/fuente_juego.tres"))
 		titulo.add_theme_font_size_override("font_size", 15)
@@ -311,7 +328,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("ui_left"):
 			mover_expositor(-1)
 			get_viewport().set_input_as_handled()
-		elif event.is_action_pressed("ui_accept"):
+		elif event.is_action_pressed("ui_accept") and not _episodios.is_empty():
 			elegir(_episodios[_indice]["id"])
 			get_viewport().set_input_as_handled()
 
