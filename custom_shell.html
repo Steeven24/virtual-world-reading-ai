@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<meta name="google" content="notranslate">
 		<title>$GODOT_PROJECT_NAME</title>
 		<style>
 html, body, #canvas {
@@ -94,11 +95,11 @@ body {
 	</head>
 	<body>
 		<canvas id="canvas">
-			Your browser does not support the canvas tag.
+			Tu navegador no admite el elemento canvas.
 		</canvas>
 
 		<noscript>
-			Your browser does not support JavaScript.
+			Tu navegador no admite JavaScript.
 		</noscript>
 
 		<div id="status">
@@ -154,7 +155,7 @@ const engine = new Engine(GODOT_CONFIG);
 		} else if (typeof err === 'string') {
 			setStatusNotice(err);
 		} else {
-			setStatusNotice('An unknown error occurred.');
+			setStatusNotice('Ocurrió un error desconocido.');
 		}
 		setStatusMode('notice');
 		initializing = false;
@@ -188,7 +189,7 @@ const engine = new Engine(GODOT_CONFIG);
 				console.error('Error while registering service worker:', err);
 			});
 		} else {
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
+			const missingMsg = 'Error\nFaltan las siguientes funciones necesarias para ejecutar el proyecto en la web:\n';
 			displayFailureNotice(missingMsg + missing.join('\n'));
 		}
 	} else {
