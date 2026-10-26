@@ -31,6 +31,7 @@ const VALORES_INICIALES := {
 	"efectos_activos": true,
 	"efectos_volumen": 70,
 	"comics_vista": "expositor",
+	"comics_texto": 0,
 }
 
 ## Archivo de preferencias. Las pruebas lo cambian para no tocar el real.

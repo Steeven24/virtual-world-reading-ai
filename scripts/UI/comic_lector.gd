@@ -83,6 +83,8 @@ func _ready() -> void:
 	_visor.gui_input.connect(_al_entrar_visor)
 	# Si cambia la familia tipográfica, cambia lo que cabe: se vuelve a medir.
 	Tipografia.familia_aplicada.connect(_al_cambiar_familia)
+	# El nivel de texto elegido se recuerda entre episodios y sesiones.
+	_nivel_texto = clampi(int(Ajustes.obtener("comics_texto")), 0, TAMANOS_TEXTO.size() - 1)
 
 	var atrib := ComicLibrary.atribucion()
 	_atribucion.text = "«%s», de %s · %s · %s" % [
@@ -183,6 +185,7 @@ func fijar_nivel_texto(nivel: int, relativo: bool = false) -> void:
 	if nuevo == _nivel_texto:
 		return
 	_nivel_texto = nuevo
+	Ajustes.fijar("comics_texto", nuevo)
 	_maquetar()
 
 
@@ -232,12 +235,13 @@ func cabe(texto: String, ancho: float, alto: float, tam_diseno: int) -> bool:
 	var util_alto := alto - 2.0 * MARGEN_GLOBO
 	if util_ancho <= 0.0 or util_alto <= 0.0:
 		return false
-	# Un texto con letras que la fuente no trae (nombres en cirílico o chino de los
-	# créditos) se dibuja con una fuente del sistema de otra altura de línea, y esa
-	# altura no se puede medir con fiabilidad: se lee en el panel.
+	# LIMITACIÓN CONOCIDA: un texto con letras que la fuente no trae (nombres en
+	# cirílico o chino de los créditos) se dibuja con una fuente del sistema de otra
+	# altura de línea, y esa altura NO se puede medir con fiabilidad desde aquí
+	# (TextParagraph y Label discrepan). No se mide: se manda al panel por norma.
+	# Esos casos no están verificados por medida, solo por esta regla.
 	for c in texto:
-		if c != " " and c != "
-" and not FUENTE.has_char(c.unicode_at(0)):
+		if c != " " and c != "\n" and not FUENTE.has_char(c.unicode_at(0)):
 			return false
 	var tam := Tipografia.tam(tam_diseno)
 	for palabra in texto.split(" ", false):

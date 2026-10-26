@@ -87,10 +87,11 @@ func _label_cabe(texto: String, caja: Vector2, tam_real: int) -> bool:
 	add_child(l)
 	var lineas := l.get_line_count()
 	var alto_linea := l.get_line_height()
-	# Letras que la fuente no trae: el lector las manda al panel por norma.
+	# AVISO: esta regla es la MISMA que usa Lector.cabe() para letras que la fuente
+	# no trae (cirílico/chino de los créditos). Para esos casos la prueba no es un
+	# contraste independiente: no hay medida fiable de su altura de línea.
 	for c in texto:
-		if c != " " and c != "
-" and not FUENTE.has_char(c.unicode_at(0)):
+		if c != " " and c != "\n" and not FUENTE.has_char(c.unicode_at(0)):
 			l.free()
 			return false
 	var cabe_alto := lineas * alto_linea <= caja.y - 6.0
@@ -192,6 +193,14 @@ func _probar() -> void:
 	_comprobar(revisados > 1000, "revisados todos los bocadillos en 3 familias x 3 tamaños (%d, %d al panel)" % [revisados, en_panel])
 	_comprobar(recortados == 0, "ningún Label dentro del globo queda recortado (%d recortados)" % recortados)
 	_comprobar(desacuerdos == 0, "la medida y el Label real deciden igual en todos los casos (%d desacuerdos)" % desacuerdos)
+
+	# ── El nivel de texto se recuerda entre aperturas ──
+	lector.fijar_nivel_texto(2)
+	_comprobar(Ajustes.obtener("comics_texto") == 2, "el nivel de texto queda en Ajustes")
+	var otro: Node = await _abrir_lector("ep01", 1)
+	_comprobar(otro.nivel_texto() == 2 and otro.tam_texto_diseno() == 28, "un lector nuevo abre con el nivel de texto guardado (%d)" % otro.nivel_texto())
+	otro.queue_free()
+	await get_tree().process_frame
 
 	# ── Globos diminutos (ep02, página 3): van al panel, ninguno se pierde ──
 	await _fijar_fuente("adventor")
