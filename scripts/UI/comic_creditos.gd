@@ -7,6 +7,9 @@ extends CanvasLayer
 ## El alumno pulsó Cerrar o Escape.
 signal cerrado
 
+## Se muestra en lugar de un dato de atribución que falte.
+const TEXTO_RESERVA := "[dato no disponible]"
+
 @onready var _obra: Label = %Obra
 @onready var _autor: Label = %Autor
 @onready var _licencia: Label = %Licencia
@@ -15,16 +18,31 @@ signal cerrado
 
 
 func _ready() -> void:
-	var atrib := ComicLibrary.atribucion()
-	_obra.text = "«%s» (Pepper&Carrot)" % atrib.get("titulo", "")
-	_autor.text = "Autor: %s" % atrib.get("autor", "")
-	_licencia.text = "Licencia: %s" % atrib.get("licencia", "")
-	_enlace.text = str(atrib.get("enlace", ""))
-	_enlace.uri = _enlace.text
+	mostrar(ComicLibrary.atribucion())
 	_boton_cerrar.pressed.connect(func(): cerrado.emit())
 	# Sin foco: así Escape sigue llegando a _unhandled_input.
 	_boton_cerrar.focus_mode = Control.FOCUS_NONE
 	_enlace.focus_mode = Control.FOCUS_NONE
+
+
+## Pinta la atribución. Si falta algún dato se muestra un texto de reserva visible
+## y se avisa: una atribución en blanco incumpliría la licencia en silencio.
+func mostrar(atrib: Dictionary) -> void:
+	var faltan: Array[String] = []
+	var datos := {}
+	for clave in ["autor", "titulo", "titulo_original", "licencia", "enlace"]:
+		var valor := str(atrib.get(clave, "")).strip_edges()
+		if valor.is_empty():
+			faltan.append(clave)
+			valor = TEXTO_RESERVA
+		datos[clave] = valor
+	if not faltan.is_empty():
+		push_warning("[ComicCreditos] Faltan datos de atribución: %s" % ", ".join(faltan))
+	_obra.text = "«%s» (%s)" % [datos["titulo"], datos["titulo_original"]]
+	_autor.text = "Autor: %s" % datos["autor"]
+	_licencia.text = "Licencia: %s" % datos["licencia"]
+	_enlace.text = datos["enlace"]
+	_enlace.uri = "" if faltan.has("enlace") else datos["enlace"]
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -80,6 +80,7 @@ def test_main_escribe_catalogo_con_rutas_prefijadas(tmp_path, origen_de_muestra)
     catalogo = json.loads((destino / "catalogo.json").read_text(encoding="utf-8"))
     assert catalogo["atribucion"]["autor"] == "David Revoy"
     assert catalogo["atribucion"]["titulo"] == "Pimienta y Zanahoria"
+    assert catalogo["atribucion"]["titulo_original"] == "Pepper&Carrot"
     assert catalogo["atribucion"]["licencia"] == "CC BY 4.0"
     assert catalogo["atribucion"]["enlace"] == "https://www.peppercarrot.com/es/"
     ep = catalogo["episodios"][0]

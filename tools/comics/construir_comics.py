@@ -33,6 +33,7 @@ NIVEL_DE_BLANCO = 245  # luminosidad (0-255) a partir de la cual un píxel cuent
 ATRIBUCION = {
     "autor": "David Revoy",
     "titulo": "Pimienta y Zanahoria",
+    "titulo_original": "Pepper&Carrot",
     "licencia": "CC BY 4.0",
     "enlace": "https://www.peppercarrot.com/es/",
 }

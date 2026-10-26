@@ -63,7 +63,7 @@ func _probar() -> void:
 	add_child(creditos)
 	await _esperar()
 	var texto := _texto_visible(creditos)
-	for clave in ["autor", "titulo", "licencia", "enlace"]:
+	for clave in ["autor", "titulo", "titulo_original", "licencia", "enlace"]:
 		_comprobar(texto.contains(str(atrib.get(clave, "#"))), "los créditos muestran «%s»: %s" % [clave, atrib.get(clave)])
 	_comprobar(texto.contains("CC BY 4.0"), "los créditos muestran «CC BY 4.0»")
 	_comprobar(texto.contains("https://"), "los créditos muestran un enlace")
@@ -73,6 +73,15 @@ func _probar() -> void:
 	_comprobar(b.focus_mode == Control.FOCUS_NONE, "el botón Cerrar no roba el foco")
 	b.pressed.emit()
 	_comprobar(cerrado[0], "Cerrar emite cerrado")
+	# Atribución incompleta: texto de reserva visible, nunca en blanco.
+	creditos.mostrar({"autor": "Alguien"})
+	texto = _texto_visible(creditos)
+	_comprobar(texto.contains("Alguien"), "con datos parciales se muestra lo que hay")
+	_comprobar(texto.contains("Licencia: [dato no disponible]"), "licencia ausente: texto de reserva")
+	_comprobar(texto.contains("[dato no disponible]"), "título y enlace ausentes: texto de reserva")
+	creditos.mostrar({})
+	_comprobar(not _texto_visible(creditos).contains("Autor: 
+"), "atribución vacía no deja «Autor:» en blanco")
 	creditos.queue_free()
 	await _esperar()
 
@@ -97,7 +106,7 @@ func _probar() -> void:
 	_comprobar(cat.creditos_abiertos() == abiertos, "no se abre un segundo panel")
 	var cat_cerrado := [false]
 	cat.cerrado.connect(func(): cat_cerrado[0] = true)
-	_pulsar("ui_cancel")
+	await _pulsar("ui_cancel")
 	await _esperar()
 	_comprobar(cat.creditos_abiertos() == null, "Escape cierra los créditos")
 	_comprobar(not cat_cerrado[0], "Escape con créditos abiertos no cierra el catálogo")
@@ -113,4 +122,9 @@ func _pulsar(accion: String) -> void:
 	var ev := InputEventAction.new()
 	ev.action = accion
 	ev.pressed = true
+	Input.parse_input_event(ev)
+	await get_tree().process_frame
+	ev = InputEventAction.new()
+	ev.action = accion
+	ev.pressed = false
 	Input.parse_input_event(ev)
