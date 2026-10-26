@@ -101,9 +101,11 @@ func _probar() -> void:
 	cat.episodio_elegido.connect(func(id, p): _elegidos.append([id, p]))
 	cat.get_node("%BotonContinuar").pressed.emit()
 	_comprobar(_elegidos == [[ep3["id"], pag]], "Continuar emite episodio_elegido con su página (%s)" % str(_elegidos))
+	await _cerrar_lector(cat)
 	_elegidos.clear()
 	cat.elegir("ep01")
 	_comprobar(_elegidos == [["ep01", 0]], "un episodio terminado se abre desde la página 0 (%s)" % str(_elegidos))
+	await _cerrar_lector(cat)
 
 	cat.queue_free()
 	await get_tree().process_frame
@@ -132,6 +134,7 @@ func _probar() -> void:
 	cat.episodio_elegido.connect(func(id, p): _elegidos.append([id, p]))
 	cat.item_expositor(1).gui_input.emit(clic)
 	_comprobar(_elegidos == [["ep02", 0]], "clic en la central abre el episodio (%s)" % str(_elegidos))
+	await _cerrar_lector(cat)
 
 	# Foco: ningún botón de la cabecera debe quedarse con el foco y robar flechas e Intro
 	for nombre in ["BotonVista", "BotonCerrar", "BotonAnterior", "BotonSiguiente"]:
@@ -144,6 +147,7 @@ func _probar() -> void:
 	_pulsar("ui_accept")
 	await get_tree().process_frame
 	_comprobar(_elegidos == [["ep02", 0]] and cat.vista_actual() == "expositor", "tras alternar la vista, Intro abre el episodio y no alterna (%s, %s)" % [str(_elegidos), cat.vista_actual()])
+	await _cerrar_lector(cat)
 	_pulsar("ui_left")
 	await get_tree().process_frame
 	_comprobar(cat.indice_expositor() == 0, "tras alternar la vista, la flecha sigue moviendo (%d)" % cat.indice_expositor())
@@ -185,6 +189,14 @@ func _probar() -> void:
 	await get_tree().process_frame
 	_comprobar(cat.get_node("%Contador").get_theme_font_size("font_size") == base_contador, "al volver a la fuente inicial recupera su tamaño")
 	cat.queue_free()
+
+
+## Elegir un episodio abre el lector (Task 8): se cierra para seguir probando el catálogo.
+func _cerrar_lector(cat: Node) -> void:
+	var lector: Node = cat.lector_abierto()
+	if lector != null:
+		lector.salir.emit()
+		await get_tree().process_frame
 
 
 ## Inyecta una acción de interfaz como si el alumno pulsara la tecla.

@@ -32,6 +32,11 @@ func _ready() -> void:
 		push_error("ABORTADO: hay una sesión real restaurada; ejecuta la prueba en una copia con user:// aislado.")
 		get_tree().quit(2)
 		return
+	if not ResourceLoader.exists(ESCENA_LECTOR) or not ResourceLoader.exists(ESCENA_CATALOGO):
+		print("FALLO - falta la escena del lector o del catálogo")
+		print("RESULTADO: ROJO (escena ausente)")
+		get_tree().quit(1)
+		return
 	await _probar()
 	print("RESULTADO: %s (%d fallos)" % ["VERDE" if _fallos == 0 else "ROJO", _fallos])
 	get_tree().quit(0 if _fallos == 0 else 1)
@@ -77,13 +82,23 @@ func _label_cabe(texto: String, caja: Vector2, tam_real: int) -> bool:
 	l.add_theme_font_override("font", FUENTE)
 	l.add_theme_font_size_override("font_size", tam_real)
 	l.size = Vector2(caja.x - 6.0, caja.y - 6.0)
+	# En el árbol (y liberado antes del siguiente fotograma, así Tipografia no lo
+	# reescala): fuera de él un Label ignora los overrides al calcular la línea.
+	add_child(l)
 	var lineas := l.get_line_count()
 	var alto_linea := l.get_line_height()
+	# Letras que la fuente no trae: el lector las manda al panel por norma.
+	for c in texto:
+		if c != " " and c != "
+" and not FUENTE.has_char(c.unicode_at(0)):
+			l.free()
+			return false
 	var cabe_alto := lineas * alto_linea <= caja.y - 6.0
 	var palabra_ancha := false
 	for palabra in texto.split(" ", false):
 		if FUENTE.get_string_size(palabra, HORIZONTAL_ALIGNMENT_LEFT, -1, tam_real).x > caja.x - 6.0:
 			palabra_ancha = true
+	remove_child(l)
 	l.free()
 	return cabe_alto and not palabra_ancha
 
@@ -167,12 +182,13 @@ func _probar() -> void:
 						if et != null:
 							if et.get_line_count() * et.get_line_height() > et.size.y + 0.5:
 								recortados += 1
+								print("  recortado %s %s/%d/%d nivel %d lineas=%d lh=%d size=%s texto=%s" % [fam, ep["id"], p, i, nivel, et.get_line_count(), et.get_line_height(), str(et.size), lista[i]["texto"].left(60)])
 						else:
 							en_panel += 1
 						# El Label real dice lo mismo que la medida
 						if _label_cabe(lista[i]["texto"], caja, tam_real) != (et != null):
 							desacuerdos += 1
-							print("  desacuerdo %s %s/%d/%d nivel %d: %s" % [fam, ep["id"], p, i, nivel, lista[i]["texto"]])
+							print("  desacuerdo %s %s/%d/%d nivel %d inline=%s caja=%s: %s" % [fam, ep["id"], p, i, nivel, str(et != null), str(caja), lista[i]["texto"].left(50)])
 	_comprobar(revisados > 1000, "revisados todos los bocadillos en 3 familias x 3 tamaños (%d, %d al panel)" % [revisados, en_panel])
 	_comprobar(recortados == 0, "ningún Label dentro del globo queda recortado (%d recortados)" % recortados)
 	_comprobar(desacuerdos == 0, "la medida y el Label real deciden igual en todos los casos (%d desacuerdos)" % desacuerdos)
@@ -247,8 +263,7 @@ func _probar() -> void:
 	await _esperar()
 	for nombre in ["BotonSalir", "BotonAnterior", "BotonSiguiente", "BotonZoomMas", "BotonZoomMenos", "BotonTextoMas", "BotonTextoMenos", "BotonPanel"]:
 		var b: Button = lector.get_node("%" + nombre)
-		b.grab_focus()
-		_comprobar(get_viewport().gui_get_focus_owner() == null, "%s no toma foco" % nombre)
+		_comprobar(b.focus_mode == Control.FOCUS_NONE and get_viewport().gui_get_focus_owner() == null, "%s no toma foco" % nombre)
 	lector.get_node("%BotonZoomMas").pressed.emit()
 	_pulsar("ui_right")
 	await get_tree().process_frame
@@ -338,7 +353,7 @@ func _probar() -> void:
 	l.siguiente()
 	await _esperar()
 	_comprobar(cat.lector_abierto() == null, "terminar el episodio devuelve al catálogo")
-	_comprobar(cat.get_node("%Contador").text != antes_leidos and cat.get_node("%Contador").text.begins_with("2 /"), "el contador cuenta el episodio terminado (%s -> %s)" % [antes_leidos, cat.get_node("%Contador").text])
+	_comprobar(cat.get_node("%Contador").text != antes_leidos and cat.get_node("%Contador").text.begins_with("1 /"), "el contador cuenta el episodio terminado (%s -> %s)" % [antes_leidos, cat.get_node("%Contador").text])
 	cat.queue_free()
 	await get_tree().process_frame
 

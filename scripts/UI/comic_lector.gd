@@ -232,13 +232,30 @@ func cabe(texto: String, ancho: float, alto: float, tam_diseno: int) -> bool:
 	var util_alto := alto - 2.0 * MARGEN_GLOBO
 	if util_ancho <= 0.0 or util_alto <= 0.0:
 		return false
+	# Un texto con letras que la fuente no trae (nombres en cirílico o chino de los
+	# créditos) se dibuja con una fuente del sistema de otra altura de línea, y esa
+	# altura no se puede medir con fiabilidad: se lee en el panel.
+	for c in texto:
+		if c != " " and c != "
+" and not FUENTE.has_char(c.unicode_at(0)):
+			return false
 	var tam := Tipografia.tam(tam_diseno)
 	for palabra in texto.split(" ", false):
 		if FUENTE.get_string_size(palabra, HORIZONTAL_ALIGNMENT_LEFT, -1, tam).x > util_ancho:
 			return false
 	var flags := TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
-	var medida := FUENTE.get_multiline_string_size(texto, HORIZONTAL_ALIGNMENT_LEFT, util_ancho, tam, -1, flags)
-	return medida.y <= util_alto
+	# Las líneas se cuentan con un TextParagraph (lo mismo que usa Label por dentro)
+	# y se multiplican por la altura de línea de la fuente COMPLETA, con sus
+	# fuentes de reserva: get_multiline_string_size sale unos píxeles más bajo
+	# que lo que luego ocupa el Label y dejaría pasar textos que se recortan.
+	var parrafo := TextParagraph.new()
+	parrafo.add_string(texto, FUENTE, tam)
+	parrafo.width = util_ancho
+	parrafo.break_flags = flags
+	# Si alguna línea lleva glifos de una fuente de reserva (cirílico, CJK) es más
+	# alta que la normal: manda la altura real del párrafo si es mayor.
+	var alto_texto := maxf(parrafo.get_line_count() * FUENTE.get_height(tam), parrafo.get_size().y)
+	return alto_texto <= util_alto
 
 
 # ─── Maquetación ────────────────────────────────────────────────────────────
