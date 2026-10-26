@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://cporv2mwpr1rx" path="res://assets/Scenery/Background/Lobby/exhibition.png" id="9_5hofe"]
 [ext_resource type="Texture2D" uid="uid://boh884dxsuuiq" path="res://assets/Scenery/Background/Lobby/desk.png" id="9_b7erw"]
 [ext_resource type="Texture2D" uid="uid://mg6oxswoh5e6" path="res://assets/Scenery/Background/Lobby/chair.png" id="10_ux4is"]
-[ext_resource type="Texture2D" uid="uid://wxnayw2w4w13" path="res://assets/Scenery/Background/Lobby/library.png" id="12_u7wr6"]
 [ext_resource type="Texture2D" uid="uid://jan7r0jheah5" path="res://assets/Scenery/Background/Lobby/panel.png" id="13_egttk"]
 [ext_resource type="Texture2D" uid="uid://cyih3dku3jndc" path="res://assets/Scenery/Background/Lobby/para la estrella.png" id="14_ti0at"]
 [ext_resource type="Texture2D" uid="uid://cnyomogr1s14y" path="res://assets/Scenery/Background/lobby.png" id="15_tj1g6"]
@@ -25,10 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bb25ngpbf30fu" path="res://assets/Scenery/Background/Lobby/table8.png" id="23_28otw"]
 [ext_resource type="Texture2D" uid="uid://cfkmmcouk7g36" path="res://assets/Scenery/Background/Lobby/table9.png" id="24_8enix"]
 [ext_resource type="Texture2D" uid="uid://cdjlpgf1l2o5j" path="res://assets/Scenery/Background/Lobby/table10.png" id="25_se8iq"]
-[ext_resource type="Texture2D" uid="uid://ds0ept47lsdm2" path="res://assets/Scenery/Background/Lobby/table11.png" id="26_d13sj"]
 [ext_resource type="Texture2D" uid="uid://iuvpgyi53w2m" path="res://assets/Scenery/Background/Lobby/telescope.png" id="27_on5rs"]
-[ext_resource type="Texture2D" uid="uid://caqhqh8gx8rol" path="res://assets/Scenery/Background/Lobby/printer.png" id="28_ye3i6"]
-[ext_resource type="Texture2D" uid="uid://cktphr06tmxli" path="res://assets/Scenery/Background/Lobby/world.png" id="29_jj841"]
 [ext_resource type="Texture2D" uid="uid://deuhoqkfgt05i" path="res://assets/Animations/Fireplace/fireplace1 spritesheet.png" id="30_0tao1"]
 [ext_resource type="Texture2D" uid="uid://fk25emowcls3" path="res://assets/Scenery/Background/Computer/computer.png" id="31_rn3cy"]
 [ext_resource type="Texture2D" uid="uid://cmvx8bglrsns2" path="res://assets/Scenery/Background/Lobby/plant.png" id="32_wsahc"]
@@ -47,27 +43,49 @@
 [ext_resource type="Texture2D" uid="uid://do2e8g4ouhy1b" path="res://assets/Scenery/Background/Lobby/table12.png" id="45_2s406"]
 [ext_resource type="Texture2D" uid="uid://8v8oea0wkksv" path="res://assets/Scenery/Background/Lobby/picture1.png" id="46_hkjl7"]
 [ext_resource type="Texture2D" uid="uid://dorx3ksl7gnhw" path="res://assets/Scenery/Background/Lobby/picture2.png" id="47_30p56"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/fondo_sala.png" id="cx_1"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/estanteria_1.png" id="cx_2"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/estanteria_2.png" id="cx_3"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/archivador_1.png" id="cx_4"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/archivador_2.png" id="cx_5"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/archivador_3.png" id="cx_6"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/archivador_4.png" id="cx_7"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/archivador_5.png" id="cx_8"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_1.png" id="cx_9"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_2.png" id="cx_10"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_3.png" id="cx_11"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_4.png" id="cx_12"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_5.png" id="cx_13"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_6.png" id="cx_14"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cuadro_7.png" id="cx_15"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_1.png" id="cx_16"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_5.png" id="cx_17"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_2.png" id="cx_18"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_6.png" id="cx_19"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_3.png" id="cx_20"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_7.png" id="cx_21"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_4.png" id="cx_22"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/figura_8.png" id="cx_23"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/expositor.png" id="cx_24"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/mesita.png" id="cx_25"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/mesa_baja.png" id="cx_26"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/taburete.png" id="cx_27"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/cojin.png" id="cx_28"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/arcade.png" id="cx_29"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/pinball.png" id="cx_30"]
+[ext_resource type="PackedScene" path="res://scenes/Interactuable/pressE_comics.tscn" id="cx_sillon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukcv"]
 size = Vector2(125.22839, 108.89346)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3axdl"]
-size = Vector2(192.3982, 171.50851)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7erw"]
 size = Vector2(280.47302, 38.14869)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_on5rs"]
-size = Vector2(582.1384, 277.67944)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ye3i6"]
 size = Vector2(284.46198, 106.860596)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj841"]
 size = Vector2(71.35698, 1.8330078)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tao1"]
-size = Vector2(308.8438, 87.89752)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rn3cy"]
 size = Vector2(122.95456, 824.45154)
@@ -139,6 +157,36 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx1"]
+size = Vector2(2090.764, 903.820)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx2"]
+size = Vector2(81.670, 892.930)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx3"]
+size = Vector2(196.009, 73.503)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx4"]
+size = Vector2(136.117, 68.059)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx5"]
+size = Vector2(435.576, 204.176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx6"]
+size = Vector2(359.350, 136.117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx7"]
+size = Vector2(141.562, 59.892)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx8"]
+size = Vector2(168.786, 54.447)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx9"]
+size = Vector2(258.623, 108.894)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx10"]
+size = Vector2(416.519, 231.400)
+
 [node name="Lobby" type="Node2D" unique_id=770369048]
 y_sort_enabled = true
 script = ExtResource("6_lobby_script")
@@ -161,10 +209,6 @@ polygon = PackedVector2Array(120.974365, -39.803955, -159.42773, -42.526367, -15
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room things" unique_id=309537647]
 position = Vector2(-412.6062, -339.26172)
 shape = SubResource("RectangleShape2D_6ukcv")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room things" unique_id=519020501]
-position = Vector2(2605.5618, -1157.328)
-shape = SubResource("RectangleShape2D_3axdl")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Room things" unique_id=1974272106]
 position = Vector2(-1560.1116, 44.571533)
@@ -200,11 +244,6 @@ polygon = PackedVector2Array(73.50345, -1140.1672, 212.34323, -1140.1672, 253.17
 [node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Room things" unique_id=1394395445]
 polygon = PackedVector2Array(-1286.4801, -1098.7976, -1428.0422, -1175.0234, -1428.0422, -1188.6351, -1359.9835, -1194.0798, -1289.2024, -1248.5267, -1289.2024, -1332.9196, -1501.5457, -1436.3689, -1637.6631, -1436.3689, -1637.6631, -1507.1499, -1506.9904, -1507.1499, -1354.5388, -1635.1003, -1264.7013, -1572.4863, -1177.586, -1534.3734, -1199.3649, -1420.0348, -1199.3649, -1175.0234)
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Room things" unique_id=1675776487]
-z_index = 1
-position = Vector2(3926.5955, -693.1677)
-shape = SubResource("RectangleShape2D_on5rs")
-
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Room things" unique_id=1029809035]
 position = Vector2(-1892.3134, 747.8716)
 shape = SubResource("RectangleShape2D_ye3i6")
@@ -215,16 +254,6 @@ shape = SubResource("RectangleShape2D_jj841")
 
 [node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Room things" unique_id=1128486188]
 polygon = PackedVector2Array(-987.0217, 1098.1377, -1142.1956, 1098.1377, -1142.1956, 937.5193, -2917.167, 937.5193, -2917.167, 1133.5283, -987.0217, 1133.5283)
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="Room things" unique_id=1614898251]
-position = Vector2(4188.829, -1039.4297)
-shape = SubResource("RectangleShape2D_0tao1")
-
-[node name="CollisionPolygon2D11" type="CollisionPolygon2D" parent="Room things" unique_id=566641680]
-polygon = PackedVector2Array(3935.243, -1403.9357, 4098.244, -1404.7758, 4135.71, -1633.7947, 4168.246, -1677.8772, 4168.249, -1849.9089, 3943.028, -1849.9089, 3943.8167, -1674.0585, 3992.2375, -1627.2871, 3948.1555, -1516.0313)
-
-[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Room things" unique_id=132503027]
-polygon = PackedVector2Array(4399.3154, -1088.9395, 4225.086, -1088.9395, 4225.086, -1960.0911, 2678.7913, -1960.0911, 2678.7913, -1894.7546, 2742.7058, -1857.748, 2742.5964, -1765.7731, 2647.1677, -1718.3242, 2526.3396, -1807.6394, 2526.3396, -1088.9395, 2308.552, -1088.9395, 2308.552, -2134.3213, 4399.3154, -2134.3213)
 
 [node name="CollisionPolygon2D13" type="CollisionPolygon2D" parent="Room things" unique_id=1758226885]
 polygon = PackedVector2Array(1611.6306, -1802.2207, 1526.2512, -1802.1729, 1524.5154, -1851.197, 1125.8582, -1851.197, 1125.8572, -1981.8698, 326.6819, -1981.8698, 326.6819, -1894.7546, 108.8938, -1894.7546, 108.8938, -1960.0911, -210.15869, -1960.0911, -210.15869, -2090.7637, 1611.6306, -2090.7637)
@@ -262,6 +291,46 @@ polygon = PackedVector2Array(2189.9895, 228.20776, 2468.0198, 227.91138, 2468.06
 position = Vector2(-614.49, -1048.3481)
 shape = SubResource("RectangleShape2D_bf3v3")
 
+[node name="Comics_Pared" type="CollisionShape2D" parent="Room things"]
+position = Vector2(3357.847, -2288.464)
+shape = SubResource("RectangleShape2D_cx1")
+
+[node name="Comics_ParedIzq" type="CollisionShape2D" parent="Room things"]
+position = Vector2(2347.856, -1390.089)
+shape = SubResource("RectangleShape2D_cx2")
+
+[node name="Comics_Expositor" type="CollisionShape2D" parent="Room things"]
+position = Vector2(2622.813, -1320.669)
+shape = SubResource("RectangleShape2D_cx3")
+
+[node name="Comics_Mesita" type="CollisionShape2D" parent="Room things"]
+position = Vector2(3317.012, -1331.559)
+shape = SubResource("RectangleShape2D_cx4")
+
+[node name="Comics_Sillon" type="CollisionShape2D" parent="Room things"]
+position = Vector2(3640.972, -1372.394)
+shape = SubResource("RectangleShape2D_cx5")
+
+[node name="Comics_Mesa" type="CollisionShape2D" parent="Room things"]
+position = Vector2(3758.032, -970.847)
+shape = SubResource("RectangleShape2D_cx6")
+
+[node name="Comics_Taburete" type="CollisionShape2D" parent="Room things"]
+position = Vector2(4016.656, -1000.793)
+shape = SubResource("RectangleShape2D_cx7")
+
+[node name="Comics_Cojin" type="CollisionShape2D" parent="Room things"]
+position = Vector2(2772.542, -1057.963)
+shape = SubResource("RectangleShape2D_cx8")
+
+[node name="Comics_Arcade" type="CollisionShape2D" parent="Room things"]
+position = Vector2(4233.082, -1025.294)
+shape = SubResource("RectangleShape2D_cx9")
+
+[node name="Comics_Pinball" type="CollisionShape2D" parent="Room things"]
+position = Vector2(4107.854, -719.030)
+shape = SubResource("RectangleShape2D_cx10")
+
 [node name="Table2" type="Sprite2D" parent="." unique_id=1250136528]
 y_sort_enabled = true
 texture_filter = 1
@@ -279,13 +348,6 @@ scale = Vector2(0.4029424, 0.3501891)
 texture = ExtResource("6_usxdn")
 region_enabled = true
 region_rect = Rect2(24.829086, 32.445015, 158.27199, 270.7557)
-
-[node name="Box" type="Sprite2D" parent="." unique_id=1641004952]
-position = Vector2(2112, 607.00006)
-scale = Vector2(0.23487873, 0.23487873)
-texture = ExtResource("7_6ukcv")
-region_enabled = true
-region_rect = Rect2(0, 0, 496, 457.00076)
 
 [node name="Door" type="Sprite2D" parent="." unique_id=1759529116]
 y_sort_enabled = true
@@ -344,11 +406,6 @@ is_tutorial_trigger = true
 position = Vector2(2373.5002, 1355.8098)
 scale = Vector2(0.13831949, 0.1383195)
 texture = ExtResource("10_ux4is")
-
-[node name="Library2" type="Sprite2D" parent="." unique_id=2054055771]
-position = Vector2(2379.7131, 472.61877)
-scale = Vector2(0.7060116, 0.7060116)
-texture = ExtResource("12_u7wr6")
 
 [node name="Panel" type="Sprite2D" parent="." unique_id=1679457539]
 position = Vector2(207.98729, 1367.2148)
@@ -604,11 +661,6 @@ offset = Vector2(41.513916, 85.00476)
 region_enabled = true
 region_rect = Rect2(0, 327, 427, 171)
 
-[node name="Table18" type="Sprite2D" parent="." unique_id=1592232070]
-position = Vector2(2595.907, 752.82837)
-scale = Vector2(0.4267203, 0.42672032)
-texture = ExtResource("26_d13sj")
-
 [node name="Telescope" type="Sprite2D" parent="." unique_id=636377207]
 position = Vector2(447.3186, 1259.6139)
 scale = Vector2(0.8324869, 0.8324869)
@@ -634,27 +686,12 @@ flip_h = true
 region_enabled = true
 region_rect = Rect2(879, 1190, 31, 153)
 
-[node name="Printer" type="Sprite2D" parent="." unique_id=1105099340]
-position = Vector2(2674.3577, 589.25287)
-scale = Vector2(0.3708192, 0.37081924)
-texture = ExtResource("28_ye3i6")
-
-[node name="World" type="Sprite2D" parent="." unique_id=850206038]
-position = Vector2(2635.1597, 354.45676)
-scale = Vector2(0.43075818, 0.4307582)
-texture = ExtResource("29_jj841")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2134625404]
 position = Vector2(2132.7021, 1021.0762)
 scale = Vector2(0.19289371, 0.19289371)
 sprite_frames = SubResource("SpriteFrames_3tcf7")
 autoplay = "default"
 frame_progress = 0.6172105
-
-[node name="Library" type="Sprite2D" parent="." unique_id=778598826]
-position = Vector2(2373.076, 479.70096)
-scale = Vector2(0.7108051, 0.7108051)
-texture = ExtResource("12_u7wr6")
 
 [node name="Computer" type="Sprite2D" parent="." unique_id=1942706030]
 texture_filter = 1
@@ -766,3 +803,223 @@ centered = false
 position = Vector2(718.39386, 985.4363)
 scale = Vector2(0.328696, 0.328696)
 texture = ExtResource("47_30p56")
+
+[node name="Comics_Fondo" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2017, 75)
+texture = ExtResource("cx_1")
+centered = false
+
+[node name="Comics_Estanteria1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2109, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_2")
+offset = Vector2(0, -150.0)
+
+[node name="Comics_Estanteria2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2655, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_3")
+offset = Vector2(0, -150.0)
+
+[node name="Comics_Archivador1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2240, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_4")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Archivador2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2311, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_5")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Archivador3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2382, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_6")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Archivador4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2453, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_7")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Archivador5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2524, 372)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_8")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Cuadro1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2109, 168)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_9")
+offset = Vector2(0, -58.0)
+
+[node name="Comics_Cuadro2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2490, 182)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_10")
+offset = Vector2(0, -68.0)
+
+[node name="Comics_Cuadro3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2300, 270)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_11")
+offset = Vector2(0, -50.0)
+
+[node name="Comics_Cuadro4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2270, 199)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_12")
+offset = Vector2(0, -80.0)
+
+[node name="Comics_Cuadro5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2655, 160)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_13")
+offset = Vector2(0, -42.0)
+
+[node name="Comics_Cuadro6" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2455, 270)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_14")
+offset = Vector2(0, -44.0)
+
+[node name="Comics_Cuadro7" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2383, 185)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_15")
+offset = Vector2(0, -70.0)
+
+[node name="Comics_Figura1" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2049, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_16")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura5" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2595, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_17")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura2" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2089, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_18")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura6" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2635, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_19")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura3" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2129, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_20")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura7" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2675, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_21")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura4" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2169, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_22")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Figura8" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2715, 178)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_23")
+offset = Vector2(0, -36.0)
+
+[node name="Comics_Expositor" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2105, 575)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_24")
+offset = Vector2(0, -136.0)
+
+[node name="Comics_Mesita" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2360, 570)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_25")
+offset = Vector2(0, -48.0)
+
+[node name="Comics_Mesa" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2522, 715)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_26")
+offset = Vector2(0, -60.0)
+
+[node name="Comics_Taburete" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2618, 690)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_27")
+offset = Vector2(0, -44.0)
+
+[node name="Comics_Cojin" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2160, 668)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_28")
+offset = Vector2(0, -42.0)
+
+[node name="Comics_Arcade" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2695, 690)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_29")
+offset = Vector2(0, -120.0)
+
+[node name="Comics_Pinball" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2650, 825)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("cx_30")
+offset = Vector2(0, -90.0)
+
+[node name="SillonComics" parent="." instance=ExtResource("cx_sillon")]
+position = Vector2(2480, 580)

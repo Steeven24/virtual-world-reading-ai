@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://diu6ialtnwbxq" path="res://assets/Buttons/Press Button E/pressE.png" id="3_0esm7"]
 [ext_resource type="Texture2D" uid="uid://c62p85chm1l47" path="res://assets/Interaction/Interacción globo.png" id="3_n1o1d"]
 [ext_resource type="Texture2D" uid="uid://bie7o6hgf8j7f" path="res://assets/Scenery/Padlock/padlock.png" id="6_padlock"]
+[ext_resource type="Texture2D" path="res://assets/Scenery/Comics/sillon.png" id="7_sillon"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_32c1v"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(1456, 940)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqvbj"]
 size = Vector2(44.87207, 23.380325)
@@ -86,12 +88,18 @@ animations = [{
 [node name="SillonComics" type="Node2D" unique_id=278619741]
 script = ExtResource("2_cls42")
 
+[node name="Sillon" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("7_sillon")
+offset = Vector2(0, -72)
+
 [node name="Area2D" type="Area2D" parent="." unique_id=127112387]
 scale = Vector2(0.17578125, 0.17578125)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=577816882]
-scale = Vector2(45.373333, 45.373333)
-shape = SubResource("CircleShape2D_32c1v")
+position = Vector2(0, -130)
+shape = SubResource("RectangleShape2D_area")
 
 [node name="message" type="Label" parent="Area2D" unique_id=1805099042]
 visible = false
@@ -115,7 +123,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Speech bubble" type="Sprite2D" parent="." unique_id=2141102064]
 visible = false
 texture_filter = 1
-position = Vector2(0, -100)
+position = Vector2(0, -150)
 scale = Vector2(0.9, 1)
 texture = ExtResource("3_n1o1d")
 
@@ -128,7 +136,7 @@ autoplay = "default"
 
 [node name="Padlock" type="Sprite2D" parent="." unique_id=900100001]
 texture_filter = 1
-position = Vector2(0, -17.999998)
+position = Vector2(0, -60)
 scale = Vector2(0.23000015, 0.23000015)
 texture = ExtResource("6_padlock")
 
@@ -142,8 +150,3 @@ theme = ExtResource("2_n1o1d")
 ok_button_text = "Entendido"
 dialog_text = "La zona de cómics está cerrada."
 dialog_autowrap = true
-
-[node name="Sillon" type="Polygon2D" parent="." unique_id=900100010]
-z_index = -1
-color = Color(0.45, 0.2, 0.2, 1)
-polygon = PackedVector2Array(-14, -12, 14, -12, 14, 10, -14, 10)
