@@ -10,22 +10,13 @@
       "id": "ep01",
       "titulo": "Poción de vuelo",
       "paginas": [
-        "ep01/00.webp",
+        "ep01/00_portada.webp",
         "ep01/01.webp",
         "ep01/02.webp",
-        "ep01/03.webp",
-        "ep01/04.webp"
+        "ep01/03.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.04199,
-            "y": 0.78855,
-            "ancho": 0.91397,
-            "alto": 0.13856,
-            "texto": "Episodio 1: Poción de vuelo"
-          }
-        ],
+        [],
         [
           {
             "x": 0.44383,
@@ -108,15 +99,14 @@
             "alto": 0.07649,
             "texto": "WWW.PEPPERCARROT.COM\n05/2014"
           }
-        ],
-        []
+        ]
       ]
     },
     {
       "id": "ep02",
       "titulo": "Las pociones arco iris",
       "paginas": [
-        "ep02/00.webp",
+        "ep02/00_portada.webp",
         "ep02/01.webp",
         "ep02/02.webp",
         "ep02/03.webp",
@@ -125,15 +115,7 @@
         "ep02/06.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.06387,
-            "y": 0.80857,
-            "ancho": 0.85292,
-            "alto": 0.12858,
-            "texto": "Episodio 2: Las pociones arco iris"
-          }
-        ],
+        [],
         [
           {
             "x": 0.21826,
@@ -579,7 +561,7 @@
       "id": "ep03",
       "titulo": "Los ingredientes secretos",
       "paginas": [
-        "ep03/00.webp",
+        "ep03/00_portada.webp",
         "ep03/01.webp",
         "ep03/02.webp",
         "ep03/03.webp",
@@ -590,15 +572,7 @@
         "ep03/08.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78747,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 3: Los ingredientes secretos"
-          }
-        ],
+        [],
         [
           {
             "x": 0.07141,
@@ -922,7 +896,7 @@
       "id": "ep04",
       "titulo": "Golpe de genialidad",
       "paginas": [
-        "ep04/00.webp",
+        "ep04/00_portada.webp",
         "ep04/01.webp",
         "ep04/02.webp",
         "ep04/03.webp",
@@ -933,15 +907,7 @@
         "ep04/08.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.00488,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 4: Golpe de genialidad"
-          }
-        ],
+        [],
         [
           {
             "x": 0.06977,
@@ -1424,7 +1390,7 @@
       "id": "ep05",
       "titulo": "Episodio especial de Navidad",
       "paginas": [
-        "ep05/00.webp",
+        "ep05/00_portada.webp",
         "ep05/01.webp",
         "ep05/02.webp",
         "ep05/03.webp",
@@ -1432,15 +1398,7 @@
         "ep05/05.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 5: Episodio especial de Navidad"
-          }
-        ],
+        [],
         [],
         [],
         [],
@@ -1517,7 +1475,7 @@
       "id": "ep06",
       "titulo": "El concurso de pociones",
       "paginas": [
-        "ep06/00.webp",
+        "ep06/00_portada.webp",
         "ep06/01.webp",
         "ep06/02.webp",
         "ep06/03.webp",
@@ -1530,15 +1488,7 @@
         "ep06/10.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 6: El concurso de pociones"
-          }
-        ],
+        [],
         [
           {
             "x": 0.03167,
@@ -2671,7 +2621,7 @@
       "id": "ep07",
       "titulo": "El deseo",
       "paginas": [
-        "ep07/00.webp",
+        "ep07/00_portada.webp",
         "ep07/01.webp",
         "ep07/02.webp",
         "ep07/03.webp",
@@ -2680,15 +2630,7 @@
         "ep07/06.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 7: El deseo"
-          }
-        ],
+        [],
         [
           {
             "x": 0.66555,
@@ -2923,7 +2865,7 @@
       "id": "ep08",
       "titulo": "El cumpleaños de Pimienta",
       "paginas": [
-        "ep08/00.webp",
+        "ep08/00_portada.webp",
         "ep08/01.webp",
         "ep08/02.webp",
         "ep08/03.webp",
@@ -2933,15 +2875,7 @@
         "ep08/07.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 8: El cumpleaños de Pimienta"
-          }
-        ],
+        [],
         [
           {
             "x": 0.67366,
@@ -3151,7 +3085,7 @@
       "id": "ep09",
       "titulo": "El antídoto",
       "paginas": [
-        "ep09/00.webp",
+        "ep09/00_portada.webp",
         "ep09/01.webp",
         "ep09/02.webp",
         "ep09/03.webp",
@@ -3162,15 +3096,7 @@
         "ep09/08.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.0,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 9: El antídoto"
-          }
-        ],
+        [],
         [
           {
             "x": 0.04616,
@@ -3520,7 +3446,7 @@
       "id": "ep10",
       "titulo": "Especial de verano",
       "paginas": [
-        "ep10/00.webp",
+        "ep10/00_portada.webp",
         "ep10/01.webp",
         "ep10/02.webp",
         "ep10/03.webp",
@@ -3529,15 +3455,7 @@
         "ep10/06.webp"
       ],
       "bocadillos": [
-        [
-          {
-            "x": 0.01531,
-            "y": 0.78962,
-            "ancho": 0.96969,
-            "alto": 0.16223,
-            "texto": "Episodio 10: Especial de verano"
-          }
-        ],
+        [],
         [],
         [],
         [],

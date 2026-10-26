@@ -144,3 +144,55 @@ def test_ignora_capas_ocultas_y_flowroot_vacio(tmp_path):
       <text x="10" y="50"><tspan x="10" y="50">visible</tspan></text>
     </svg>""")
     assert [g["texto"] for g in globos] == ["visible"]
+
+
+def _origen_con(tmp_path, imagenes, svgs=()):
+    origen = tmp_path / "o" / "ep01"
+    origen.mkdir(parents=True)
+    for nombre, imagen in imagenes.items():
+        imagen.save(origen / nombre)
+    for nombre in svgs:
+        (origen / nombre).write_text(SVG_DE_MUESTRA, encoding="utf-8")
+    return origen
+
+
+def test_descarta_tiras_en_blanco_aunque_tengan_texto(tmp_path):
+    # Cabecera con el título: 992x265, blanca; el SVG trae el texto del título.
+    origen = _origen_con(tmp_path, {
+        "00.png": Image.new("RGB", (992, 265), "white"),
+        "01.png": Image.new("RGB", (992, 1401), (200, 120, 40)),
+        "02.png": Image.new("RGB", (992, 20), "white"),  # pie
+    }, svgs=("00.svg",))
+    manifiesto = construir_episodio(origen, tmp_path / "s", ancho_px=500)
+    assert manifiesto["paginas"] == ["01.webp"]
+    assert not (tmp_path / "s" / "00.webp").exists()
+    assert len(manifiesto["bocadillos"]) == 1
+
+
+def test_conserva_una_tira_con_ilustracion(tmp_path):
+    # Viñeta apaisada (alto < 0,3 x ancho) pero con dibujo: no es cabecera.
+    origen = _origen_con(tmp_path, {"01.png": Image.new("RGB", (992, 259), (30, 30, 60))})
+    assert construir_episodio(origen, tmp_path / "s", ancho_px=500)["paginas"] == ["01.webp"]
+
+
+def test_pagina_en_blanco_solo_se_conserva_si_trae_texto(tmp_path):
+    # Créditos: la imagen es casi blanca y los nombres van como texto en el SVG.
+    origen = _origen_con(tmp_path, {
+        "01.png": Image.new("RGB", (992, 991), "white"),
+        "02.png": Image.new("RGB", (992, 1401), "white"),  # vacía y sin texto
+    }, svgs=("01.svg",))
+    assert construir_episodio(origen, tmp_path / "s", ancho_px=500)["paginas"] == ["01.webp"]
+
+
+def test_transparencia_se_compone_sobre_blanco(tmp_path):
+    origen = _origen_con(tmp_path, {
+        "01.png": Image.new("RGBA", (992, 1401), (0, 0, 0, 0)),  # transparente = blanca
+        "02.png": Image.new("RGB", (992, 1401), (200, 120, 40)),
+    })
+    assert construir_episodio(origen, tmp_path / "s", ancho_px=500)["paginas"] == ["02.webp"]
+
+
+def test_error_si_todo_se_descarta(tmp_path):
+    origen = _origen_con(tmp_path, {"00.png": Image.new("RGB", (992, 265), "white")})
+    with pytest.raises(FileNotFoundError):
+        construir_episodio(origen, tmp_path / "s", ancho_px=500)

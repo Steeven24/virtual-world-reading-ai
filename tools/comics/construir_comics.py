@@ -19,6 +19,17 @@ ANCHO_POR_DEFECTO = 1100
 CALIDAD_WEBP = 90
 EXTENSIONES_PAGINA = {".png", ".jpg", ".jpeg"}
 
+# Piezas que no son página: la web de Pepper&Carrot publica también la
+# cabecera con el título (~265 px de alto, casi en blanco) y un pie de unos
+# pocos píxeles. Se descartan las tiras (alto < 0,3 x ancho) casi vacías; una
+# tira con ilustración es una viñeta de verdad y se conserva. Una imagen casi
+# en blanco solo se conserva si trae texto en su SVG (la página de créditos
+# lleva los nombres como texto, no en la imagen).
+RAZON_MAXIMA_TIRA = 0.3
+BLANCO_MINIMO_TIRA = 0.7
+BLANCO_MINIMO_VACIA = 0.97
+NIVEL_DE_BLANCO = 245  # luminosidad (0-255) a partir de la cual un píxel cuenta como blanco
+
 ATRIBUCION = {
     "autor": "David Revoy",
     "titulo": "Pimienta y Zanahoria",
@@ -231,6 +242,28 @@ def extraer_bocadillos(svg: Path) -> list[dict]:
     return globos
 
 
+def _sobre_blanco(imagen: Image.Image) -> Image.Image:
+    """RGB de la imagen con la transparencia compuesta sobre blanco."""
+    rgba = imagen.convert("RGBA")
+    fondo = Image.new("RGBA", rgba.size, (255, 255, 255, 255))
+    fondo.alpha_composite(rgba)
+    return fondo.convert("RGB")
+
+
+def _proporcion_de_blanco(imagen: Image.Image) -> float:
+    pequena = imagen.convert("L").resize((100, max(1, round(100 * imagen.height / imagen.width))))
+    histograma = pequena.histogram()
+    return sum(histograma[NIVEL_DE_BLANCO:]) / sum(histograma)
+
+
+def es_pieza_descartable(imagen: Image.Image, tiene_bocadillos: bool) -> bool:
+    """True si la imagen no es una página de cómic (cabecera, pie o página vacía)."""
+    blanco = _proporcion_de_blanco(imagen)
+    if imagen.height < RAZON_MAXIMA_TIRA * imagen.width and blanco >= BLANCO_MINIMO_TIRA:
+        return True
+    return blanco >= BLANCO_MINIMO_VACIA and not tiene_bocadillos
+
+
 def construir_episodio(origen: Path, destino: Path, ancho_px: int) -> dict:
     """Reescala las páginas de `origen` a `destino` y devuelve su manifiesto.
 
@@ -246,14 +279,20 @@ def construir_episodio(origen: Path, destino: Path, ancho_px: int) -> dict:
     destino.mkdir(parents=True, exist_ok=True)
     paginas, bocadillos = [], []
     for pagina in paginas_origen:
-        with Image.open(pagina) as imagen:
-            alto_px = round(imagen.height * ancho_px / imagen.width)
-            reescalada = imagen.convert("RGB").resize((ancho_px, alto_px), Image.LANCZOS)
-        nombre = pagina.stem + ".webp"
-        reescalada.save(destino / nombre, "WEBP", quality=CALIDAD_WEBP)
-        paginas.append(nombre)
         svg = pagina.with_suffix(".svg")
-        bocadillos.append(extraer_bocadillos(svg) if svg.exists() else [])
+        globos = extraer_bocadillos(svg) if svg.exists() else []
+        with Image.open(pagina) as imagen:
+            completa = _sobre_blanco(imagen)
+        if es_pieza_descartable(completa, bool(globos)):
+            print(f"  descartada {origen.name}/{pagina.name}: no es una página")
+            continue
+        alto_px = round(completa.height * ancho_px / completa.width)
+        completa.resize((ancho_px, alto_px), Image.LANCZOS).save(
+            destino / (pagina.stem + ".webp"), "WEBP", quality=CALIDAD_WEBP)
+        paginas.append(pagina.stem + ".webp")
+        bocadillos.append(globos)
+    if not paginas:
+        raise FileNotFoundError(f"Todas las piezas de {origen} se descartaron: no hay páginas")
     archivo_titulo = origen / "titulo.txt"
     titulo = (
         archivo_titulo.read_text(encoding="utf-8").strip()
