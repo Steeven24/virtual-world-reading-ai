@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/Testing/test_comic_creditos.gd" id="1"]
+
+[node name="TestComicCreditos" type="Node"]
+script = ExtResource("1")

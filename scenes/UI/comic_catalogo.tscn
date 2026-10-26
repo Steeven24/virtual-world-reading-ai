@@ -59,6 +59,13 @@ theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 18
 text = "Ver en rejilla"
 
+[node name="BotonCreditos" type="Button" parent="Margen/Raiz/Cabecera"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 18
+text = "Créditos"
+
 [node name="BotonCerrar" type="Button" parent="Margen/Raiz/Cabecera"]
 unique_name_in_owner = true
 layout_mode = 2

@@ -15,6 +15,7 @@ signal episodio_elegido(episode_id: String, pagina_inicial: int)
 signal cerrado
 
 const ESCENA_LECTOR := preload("res://scenes/UI/comic_lector.tscn")
+const ESCENA_CREDITOS := preload("res://scenes/UI/comic_creditos.tscn")
 const VISTA_EXPOSITOR := "expositor"
 const VISTA_REJILLA := "rejilla"
 
@@ -30,6 +31,7 @@ const COLOR_LEIDO := Color(0.35, 0.8, 0.45)
 
 @onready var _contador: Label = %Contador
 @onready var _boton_vista: Button = %BotonVista
+@onready var _boton_creditos: Button = %BotonCreditos
 @onready var _boton_cerrar: Button = %BotonCerrar
 @onready var _expositor: Control = %Expositor
 @onready var _pista: Control = %Pista
@@ -55,6 +57,8 @@ var _continuar_id := ""
 var _movido := false
 ## Lector abierto encima del catálogo, o null.
 var _lector: Node
+## Pantalla de créditos abierta encima del catálogo, o null.
+var _creditos: Node
 
 
 func _ready() -> void:
@@ -63,6 +67,7 @@ func _ready() -> void:
 	_construir_rejilla()
 
 	_boton_vista.pressed.connect(cambiar_vista)
+	_boton_creditos.pressed.connect(_abrir_creditos)
 	_boton_cerrar.pressed.connect(func(): cerrado.emit())
 	_boton_anterior.pressed.connect(mover_expositor.bind(-1))
 	_boton_siguiente.pressed.connect(mover_expositor.bind(1))
@@ -70,7 +75,7 @@ func _ready() -> void:
 	episodio_elegido.connect(_abrir_lector)
 	# Los botones que acompañan al expositor no toman foco: con un botón enfocado
 	# el GUI se queda las flechas y Intro y nunca llegan a _unhandled_input.
-	for b in [_boton_vista, _boton_cerrar, _boton_anterior, _boton_siguiente]:
+	for b in [_boton_vista, _boton_creditos, _boton_cerrar, _boton_anterior, _boton_siguiente]:
 		b.focus_mode = Control.FOCUS_NONE
 	_pista.resized.connect(_colocar.bind(false))
 
@@ -148,6 +153,11 @@ func mover_expositor(n: int) -> void:
 ## Lector abierto ahora mismo, o null (para pruebas).
 func lector_abierto() -> Node:
 	return _lector
+
+
+## Pantalla de créditos abierta ahora mismo, o null (para pruebas).
+func creditos_abiertos() -> Node:
+	return _creditos
 
 
 func indice_expositor() -> int:
@@ -347,8 +357,24 @@ func _cerrar_lector() -> void:
 	refrescar()
 
 
+## Abre los créditos CC BY encima del catálogo (uno solo a la vez).
+func _abrir_creditos() -> void:
+	if _creditos != null or _lector != null:
+		return
+	_creditos = ESCENA_CREDITOS.instantiate()
+	add_child(_creditos)
+	_creditos.cerrado.connect(_cerrar_creditos)
+
+
+func _cerrar_creditos() -> void:
+	if _creditos == null:
+		return
+	_creditos.queue_free()
+	_creditos = null
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if _lector != null:
+	if _lector != null or _creditos != null:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		cerrado.emit()
