@@ -7,7 +7,7 @@ import pytest
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).parent))
-from construir_comics import construir_episodio, extraer_bocadillos, main  # noqa: E402
+from construir_comics import construir_episodio, extraer_bocadillos, main, rasterizar_globos  # noqa: E402
 
 SVG_DE_MUESTRA = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400">
   <text x="100" y="200" style="font-size:40px"><tspan x="100" y="200">¡Pimienta!</tspan></text>
@@ -147,13 +147,13 @@ def test_ignora_capas_ocultas_y_flowroot_vacio(tmp_path):
     assert [g["texto"] for g in globos] == ["visible"]
 
 
-def _origen_con(tmp_path, imagenes, svgs=()):
+def _origen_con(tmp_path, imagenes, svgs=(), svg=SVG_DE_MUESTRA):
     origen = tmp_path / "o" / "ep01"
     origen.mkdir(parents=True)
     for nombre, imagen in imagenes.items():
         imagen.save(origen / nombre)
     for nombre in svgs:
-        (origen / nombre).write_text(SVG_DE_MUESTRA, encoding="utf-8")
+        (origen / nombre).write_text(svg, encoding="utf-8")
     return origen
 
 
@@ -181,7 +181,7 @@ def test_pagina_en_blanco_solo_se_conserva_si_trae_texto(tmp_path):
     origen = _origen_con(tmp_path, {
         "01.png": Image.new("RGB", (992, 991), "white"),
         "02.png": Image.new("RGB", (992, 1401), "white"),  # vacía y sin texto
-    }, svgs=("01.svg",))
+    }, svgs=("01.svg",), svg=SVG_DE_MUESTRA.replace("1000 1400", "992 991"))
     assert construir_episodio(origen, tmp_path / "s", ancho_px=500)["paginas"] == ["01.webp"]
 
 
@@ -197,3 +197,44 @@ def test_error_si_todo_se_descarta(tmp_path):
     origen = _origen_con(tmp_path, {"00.png": Image.new("RGB", (992, 265), "white")})
     with pytest.raises(FileNotFoundError):
         construir_episodio(origen, tmp_path / "s", ancho_px=500)
+
+
+# Globo blanco en (10,10)-(50,50) y un rectángulo negro dentro de un flowRoot
+# (su "texto"), más una imagen que no debe rasterizarse.
+SVG_CON_GLOBO = """<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="140">
+  <image x="0" y="0" width="100" height="140" xlink:href="no_existe.png"/>
+  <rect x="10" y="10" width="40" height="40" fill="#ffffff"/>
+  <flowRoot><flowRegion><rect x="60" y="60" width="30" height="30" fill="#000000"/></flowRegion>
+    <flowPara>hola</flowPara></flowRoot>
+  <text x="60" y="120" style="font-size:20px;fill:#000000">hola</text>
+</svg>"""
+
+
+def test_rasterizar_globos_dibuja_formas_sin_texto_ni_ilustracion(tmp_path):
+    svg = tmp_path / "g.svg"
+    svg.write_text(SVG_CON_GLOBO, encoding="utf-8")
+    imagen = rasterizar_globos(svg, 200, 280)
+    assert imagen.size == (200, 280) and imagen.mode == "RGBA"
+    assert imagen.getpixel((60, 60)) == (255, 255, 255, 255)  # dentro del globo
+    assert imagen.getpixel((150, 150))[3] == 0  # el rectángulo del flowRoot no se dibuja
+    assert imagen.getpixel((150, 240))[3] == 0  # ni el texto
+    assert imagen.getpixel((190, 10))[3] == 0  # el resto es transparente
+
+
+def test_rasterizar_globos_rechaza_proporcion_distinta(tmp_path):
+    svg = tmp_path / "g.svg"
+    svg.write_text(SVG_CON_GLOBO, encoding="utf-8")
+    with pytest.raises(ValueError):
+        rasterizar_globos(svg, 200, 200)
+
+
+def test_construir_episodio_compone_los_globos_sobre_la_ilustracion(tmp_path):
+    origen = _origen_con(
+        tmp_path, {"01.png": Image.new("RGB", (1000, 1400), (200, 120, 40))},
+        svgs=("01.svg",), svg=SVG_CON_GLOBO)
+    construir_episodio(origen, tmp_path / "s", ancho_px=500)
+    pagina = Image.open(tmp_path / "s" / "01.webp").convert("RGB")
+    assert pagina.size == (500, 700)
+    assert min(pagina.getpixel((150, 150))) > 245  # globo blanco encima
+    r, g, b = pagina.getpixel((400, 600))
+    assert (abs(r - 200), abs(g - 120), abs(b - 40)) < (12, 12, 12)  # ilustración intacta

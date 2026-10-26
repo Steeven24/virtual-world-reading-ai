@@ -5,12 +5,14 @@ repositorio y escribe en assets/Comics/ las páginas reescaladas (.webp) y el
 catálogo con la posición y el texto de cada bocadillo. Ver README.md.
 """
 import argparse
+import io
 import json
 import math
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import resvg_py
 from PIL import Image
 
 RAIZ_JUEGO = Path(__file__).resolve().parents[2]
@@ -29,6 +31,11 @@ RAZON_MAXIMA_TIRA = 0.3
 BLANCO_MINIMO_TIRA = 0.7
 BLANCO_MINIMO_VACIA = 0.97
 NIVEL_DE_BLANCO = 245  # luminosidad (0-255) a partir de la cual un píxel cuenta como blanco
+
+# Elementos que se quitan del SVG antes de rasterizar: el texto lo pinta el
+# juego con Label (accesible) y la ilustración ya está en la imagen de página.
+ETIQUETAS_QUE_NO_SE_RASTERIZAN = {"text", "tspan", "flowRoot", "flowRegion", "flowPara", "flowSpan", "image"}
+TOLERANCIA_PROPORCION = 0.01  # diferencia máxima de proporción entre SVG e ilustración
 
 ATRIBUCION = {
     "autor": "David Revoy",
@@ -243,6 +250,36 @@ def extraer_bocadillos(svg: Path) -> list[dict]:
     return globos
 
 
+def rasterizar_globos(svg: Path, ancho_px: int, alto_px: int) -> Image.Image:
+    """Dibuja solo las formas de los globos del SVG (sin texto ni ilustración).
+
+    Devuelve una imagen RGBA transparente de ancho_px x alto_px, lista para
+    componer encima de la página. El SVG se escala a ese tamaño completo, así
+    que encaja con la ilustración si comparten proporción (si no, ValueError).
+    """
+    arbol = ET.parse(svg)
+    raiz = arbol.getroot()
+    ancho_lienzo, alto_lienzo = _lienzo(raiz)
+    if abs(ancho_lienzo / alto_lienzo - ancho_px / alto_px) > TOLERANCIA_PROPORCION * ancho_px / alto_px:
+        raise ValueError(
+            f"{svg.name}: el lienzo {ancho_lienzo:g}x{alto_lienzo:g} no tiene la proporción de la página {ancho_px}x{alto_px}"
+        )
+    for padre in list(raiz.iter()):
+        for hijo in list(padre):
+            if _sin_espacio_de_nombres(hijo.tag) in ETIQUETAS_QUE_NO_SE_RASTERIZAN:
+                padre.remove(hijo)
+    # Se fija el tamaño del lienzo en el propio SVG para que resvg lo escale entero.
+    if raiz.get("viewBox") is None:
+        raiz.set("viewBox", f"0 0 {ancho_lienzo:g} {alto_lienzo:g}")
+    for atributo in ("width", "height"):
+        raiz.attrib.pop(atributo, None)
+    contenido = ET.tostring(raiz, encoding="unicode")
+    png = resvg_py.svg_to_bytes(svg_string=contenido, width=ancho_px, height=alto_px,
+                                skip_system_fonts=True)
+    with Image.open(io.BytesIO(bytes(png))) as globos:
+        return globos.convert("RGBA")
+
+
 def _sobre_blanco(imagen: Image.Image) -> Image.Image:
     """RGB de la imagen con la transparencia compuesta sobre blanco."""
     rgba = imagen.convert("RGBA")
@@ -288,8 +325,12 @@ def construir_episodio(origen: Path, destino: Path, ancho_px: int) -> dict:
             print(f"  descartada {origen.name}/{pagina.name}: no es una página")
             continue
         alto_px = round(completa.height * ancho_px / completa.width)
-        completa.resize((ancho_px, alto_px), Image.LANCZOS).save(
-            destino / (pagina.stem + ".webp"), "WEBP", quality=CALIDAD_WEBP)
+        resultado = completa.resize((ancho_px, alto_px), Image.LANCZOS)
+        if svg.exists():
+            resultado = resultado.convert("RGBA")
+            resultado.alpha_composite(rasterizar_globos(svg, ancho_px, alto_px))
+            resultado = resultado.convert("RGB")
+        resultado.save(destino / (pagina.stem + ".webp"), "WEBP", quality=CALIDAD_WEBP)
         paginas.append(pagina.stem + ".webp")
         bocadillos.append(globos)
     if not paginas:

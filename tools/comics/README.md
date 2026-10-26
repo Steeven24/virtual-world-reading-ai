@@ -56,7 +56,7 @@ Las páginas se ordenan por nombre. Una página sin SVG queda sin bocadillos.
 ## Uso
 
 ```
-pip install pillow
+pip install pillow resvg-py
 python tools/comics/construir_comics.py --trabajo "D:/trabajo_comics" [--ancho 1100] [--destino assets/Comics]
 python -m pytest tools/comics/test_construir_comics.py -v
 ```
@@ -70,6 +70,17 @@ viñeta de `ep04`) y las páginas de créditos (casi blancas, pero con los
 nombres como texto en el SVG) se conservan. Las piezas no tienen por qué ser
 verticales: hay páginas de 1401 px, créditos de 816-991 px y viñetas sueltas.
 Cada descarte se imprime al ejecutar.
+
+## Globos sin texto
+
+La ilustración `gfx_*.png` no trae globos: viven en el SVG, junto al texto. El
+script rasteriza el SVG con `resvg-py` (pip, sin DLL) **después de quitarle
+`<text>`, `<tspan>`, `<flowRoot>`, `<flowPara>` e `<image>`**, al tamaño final
+de la página, y lo compone con transparencia sobre la ilustración. Así quedan
+los globos dibujados por Revoy y el texto lo sigue pintando el juego con
+`Label`. Las capas conservan su opacidad (los globos de Pepper&Carrot son
+algo translúcidos). Si la proporción del SVG no coincide con la de la
+ilustración (más de 1 %), el script se detiene.
 
 ## Qué se genera
 
