@@ -23,6 +23,12 @@ func _comprobar(condicion: bool, descripcion: String) -> void:
 
 
 func _ready() -> void:
+	for ruta in [ESCENA_SILLON, ESCENA_ESTACION, ESCENA_JUGADOR]:
+		if load(ruta) == null:
+			print("FALLO - no carga %s" % ruta)
+			print("RESULTADO: ROJO (no carga)")
+			get_tree().quit(1)
+			return
 	print("USERDIR: %s" % OS.get_user_data_dir())
 	if not OS.get_user_data_dir().contains("vw_prueba_t10"):
 		push_error("ABORTADO: el user:// no es el aislado de la prueba.")
@@ -179,3 +185,12 @@ func _probar() -> void:
 	jugador.queue_free()
 	await _frames()
 	_comprobar(not SceneManager.is_ui_open, "descargar el sillón con el catálogo abierto libera al jugador")
+
+	# 7. Descargar el sillón con el aviso de bloqueo abierto también libera
+	_reiniciar()
+	sillon = _nuevo_sillon()
+	sillon.interactuar()
+	await _frames()
+	_comprobar(sillon.get_node("LockedDialog").visible and SceneManager.is_ui_open, "preparado: aviso abierto y jugador inmovilizado")
+	sillon.free()
+	_comprobar(not SceneManager.is_ui_open, "descargar el sillón con el aviso abierto libera al jugador")

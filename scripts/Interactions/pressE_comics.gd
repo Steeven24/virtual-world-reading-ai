@@ -22,6 +22,8 @@ var registrar_visita: Callable = Callable()
 var _padlock: Sprite2D
 var _locked_dialog: AcceptDialog
 var _catalogo: Node
+## True mientras el aviso de bloqueo tiene tomada la interfaz (lo puso este sillón).
+var _aviso_tomado := false
 
 
 func _ready() -> void:
@@ -43,7 +45,7 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	# Si el lobby se descarga con el catálogo abierto, no se deja al jugador congelado.
-	if _catalogo != null:
+	if is_instance_valid(_catalogo) or _aviso_tomado:
 		SceneManager.is_ui_open = false
 
 
@@ -77,7 +79,7 @@ func interactuar() -> void:
 
 
 func abrir_catalogo() -> void:
-	if _catalogo != null:
+	if is_instance_valid(_catalogo):
 		return
 	SceneManager.is_ui_open = true
 	registrar_visita.call()
@@ -87,7 +89,7 @@ func abrir_catalogo() -> void:
 
 
 func _cerrar_catalogo() -> void:
-	if _catalogo == null:
+	if not is_instance_valid(_catalogo):
 		return
 	_catalogo.queue_free()
 	_catalogo = null
@@ -95,7 +97,7 @@ func _cerrar_catalogo() -> void:
 
 
 func catalogo_abierto() -> bool:
-	return _catalogo != null
+	return is_instance_valid(_catalogo)
 
 
 func candado_visible() -> bool:
@@ -121,6 +123,7 @@ func _mostrar_bloqueo() -> void:
 	if _locked_dialog == null:
 		return
 	SceneManager.is_ui_open = true
+	_aviso_tomado = true
 	_locked_dialog.title = "Zona de cómics"
 	_locked_dialog.dialog_text = texto_bloqueo()
 	Sonido.efecto("no")
@@ -155,5 +158,7 @@ func _mostrar_bloqueo() -> void:
 
 
 func _on_aviso_visibility_changed() -> void:
-	if not _locked_dialog.visible and _catalogo == null:
-		SceneManager.is_ui_open = false
+	if not _locked_dialog.visible and _aviso_tomado:
+		_aviso_tomado = false
+		if not is_instance_valid(_catalogo):
+			SceneManager.is_ui_open = false
